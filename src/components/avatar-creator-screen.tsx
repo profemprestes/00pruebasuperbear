@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from '@/lib/utils';
@@ -173,22 +173,22 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
                 </TabsList>
                 <TabsContent value="fur">
                     <div className='grid grid-cols-3 gap-2 sm:gap-4 p-2 sm:p-4'>
-                        {furOptions.map(opt => renderOptionButton(opt, furColor, setFurColor))}
+                        {furOptions.map(opt => React.cloneElement(renderOptionButton(opt, furColor, setFurColor), { key: opt.name }))}
                     </div>
                 </TabsContent>
                 <TabsContent value="head">
                     <div className='grid grid-cols-3 gap-2 sm:gap-4 p-2 sm:p-4'>
-                       {headOptions.map(opt => renderOptionButton(opt, headItem, setHeadItem))}
+                       {headOptions.map(opt => React.cloneElement(renderOptionButton(opt, headItem, setHeadItem), { key: opt.name }))}
                     </div>
                 </TabsContent>
                 <TabsContent value="torso">
                      <div className='grid grid-cols-3 gap-2 sm:gap-4 p-2 sm:p-4'>
-                        {torsoOptions.map(opt => renderOptionButton(opt, torsoItem, setTorsoItem))}
+                        {torsoOptions.map(opt => React.cloneElement(renderOptionButton(opt, torsoItem, setTorsoItem), { key: opt.name }))}
                     </div>
                 </TabsContent>
                  <TabsContent value="back">
                      <div className='grid grid-cols-3 gap-2 sm:gap-4 p-2 sm:p-4'>
-                        {backpackerOptions.map(opt => renderOptionButton(opt, backpacker, setBackpacker))}
+                        {backpackerOptions.map(opt => React.cloneElement(renderOptionButton(opt, backpacker, setBackpacker), { key: opt.name }))}
                     </div>
                 </TabsContent>
             </Tabs>
