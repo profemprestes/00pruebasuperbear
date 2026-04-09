@@ -2,16 +2,23 @@
 
 import { useState } from "react";
 import { LoadingScreen } from "@/components/loading-screen";
-import { MainWorld } from "@/components/main-world";
 import { PresentationScreen } from "@/components/presentation-screen";
 import { IntroVideoScreen } from "@/components/intro-video-screen";
-import { InventoryScreen } from "@/components/inventory-screen";
-import { BioScreen } from "@/components/bio-screen";
+import { RegisterScreen } from "@/components/register-screen";
+import { MinigameScreen } from "@/components/minigame-screen";
+import { MissionDetailsScreen } from "@/components/mission-details-screen";
+import { BioBookScreen } from "@/components/bio-book-screen";
 
-type Screen = 'loading' | 'introVideo' | 'presentation' | 'mission' | 'likes' | 'bio';
+type Screen = 'loading' | 'introVideo' | 'presentation' | 'register' | 'minigame' | 'missionDetails' | 'bioBook';
 
 export default function Home() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('loading');
+  const [playerName, setPlayerName] = useState('');
+
+  const handleRegister = (name: string) => {
+    setPlayerName(name);
+    setCurrentScreen('minigame');
+  };
 
   const renderScreen = () => {
     switch (currentScreen) {
@@ -20,13 +27,15 @@ export default function Home() {
       case 'introVideo':
         return <IntroVideoScreen onVideoEnd={() => setCurrentScreen('presentation')} />;
       case 'presentation':
-        return <PresentationScreen onNext={() => setCurrentScreen('mission')} />;
-      case 'mission':
-        return <MainWorld onMissionAccept={() => setCurrentScreen('likes')} />;
-      case 'likes':
-        return <InventoryScreen onNext={() => setCurrentScreen('bio')} />;
-      case 'bio':
-        return <BioScreen onRestart={() => setCurrentScreen('presentation')} />;
+        return <PresentationScreen onNext={() => setCurrentScreen('register')} />;
+      case 'register':
+        return <RegisterScreen onRegister={handleRegister} />;
+      case 'minigame':
+        return <MinigameScreen onGameEnd={() => setCurrentScreen('missionDetails')} />;
+      case 'missionDetails':
+        return <MissionDetailsScreen playerName={playerName} onNext={() => setCurrentScreen('bioBook')} />;
+      case 'bioBook':
+        return <BioBookScreen onRestart={() => setCurrentScreen('presentation')} />;
       default:
         return <LoadingScreen onStart={() => setCurrentScreen('introVideo')} />;
     }
