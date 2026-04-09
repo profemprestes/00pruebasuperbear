@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { PasswordScreen } from "@/components/password-screen";
 import { LoadingScreen } from "@/components/loading-screen";
 import { PresentationScreen } from "@/components/presentation-screen";
 import { IntroVideoScreen } from "@/components/intro-video-screen";
@@ -9,10 +10,10 @@ import { MinigameScreen } from "@/components/minigame-screen";
 import { MissionDetailsScreen } from "@/components/mission-details-screen";
 import { BioBookScreen } from "@/components/bio-book-screen";
 
-type Screen = 'loading' | 'introVideo' | 'presentation' | 'register' | 'minigame' | 'missionDetails' | 'bioBook';
+type Screen = 'password' | 'loading' | 'introVideo' | 'presentation' | 'register' | 'minigame' | 'missionDetails' | 'bioBook';
 
 export default function Home() {
-  const [currentScreen, setCurrentScreen] = useState<Screen>('loading');
+  const [currentScreen, setCurrentScreen] = useState<Screen>('password');
   const [playerName, setPlayerName] = useState('');
 
   const handleRegister = (name: string) => {
@@ -22,6 +23,8 @@ export default function Home() {
 
   const renderScreen = () => {
     switch (currentScreen) {
+      case 'password':
+        return <PasswordScreen onCorrectPassword={() => setCurrentScreen('loading')} />;
       case 'loading':
         return <LoadingScreen onStart={() => setCurrentScreen('introVideo')} />;
       case 'introVideo':
@@ -37,7 +40,7 @@ export default function Home() {
       case 'bioBook':
         return <BioBookScreen onRestart={() => setCurrentScreen('presentation')} />;
       default:
-        return <LoadingScreen onStart={() => setCurrentScreen('introVideo')} />;
+        return <PasswordScreen onCorrectPassword={() => setCurrentScreen('loading')} />;
     }
   };
 
