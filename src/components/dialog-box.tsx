@@ -10,7 +10,7 @@ type DialogBoxProps = {
 
 export function DialogBox({ icon, title, children, className }: DialogBoxProps) {
   return (
-    <Card className={cn("bg-card border-4 border-foreground shadow-3d w-full max-w-sm", className)}>
+    <Card className={cn("bg-card/80 backdrop-blur-sm border-4 border-foreground shadow-3d w-full max-w-sm", className)}>
       <CardHeader>
         <div className="flex items-center gap-4">
           <div className="text-foreground animate-bounce [animation-duration:2s]">{icon}</div>

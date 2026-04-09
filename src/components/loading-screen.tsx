@@ -33,7 +33,7 @@ export function LoadingScreen({ onLoadComplete, onStart }: LoadingScreenProps) {
   }, [onLoadComplete, loadingComplete]);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background transition-opacity duration-500">
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background/80 backdrop-blur-sm transition-opacity duration-500">
       <div className="relative flex flex-col items-center justify-center">
         <CircleDollarSign className="absolute -top-16 -left-24 h-16 w-16 text-accent animate-spin-and-bounce" />
         <CircleDollarSign className="absolute -bottom-20 -right-20 h-20 w-20 text-accent animate-spin-and-bounce [animation-delay:-1s]" />

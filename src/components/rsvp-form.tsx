@@ -54,7 +54,7 @@ export function RsvpForm({ onRsvpSubmit }: RsvpFormProps) {
 
   return (
     <div className="fixed inset-0 z-30 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in-0">
-      <Card className="bg-card border-4 border-foreground shadow-3d w-full max-w-md m-4 animate-in zoom-in-95">
+      <Card className="bg-card/80 backdrop-blur-sm border-4 border-foreground shadow-3d w-full max-w-md m-4 animate-in zoom-in-95">
         <CardHeader>
           <CardTitle className="font-headline text-4xl text-foreground text-center">¡Portal de Confirmación!</CardTitle>
         </CardHeader>

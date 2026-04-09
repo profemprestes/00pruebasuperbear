@@ -33,7 +33,7 @@ export function MainWorld({ onAllKeysCollected }: MainWorldProps) {
   ];
 
   return (
-    <main className="min-h-screen w-full bg-background pt-24 pb-48 px-4 md:px-8 relative">
+    <main className="min-h-screen w-full bg-transparent pt-24 pb-48 px-4 md:px-8 relative">
       <div className="text-center mb-12 space-y-4">
         <h2 className="font-headline text-6xl text-white" style={{ WebkitTextStroke: '3px hsl(var(--foreground))', textShadow: '4px 4px 0px hsl(var(--foreground))' }}>
           Mapa de la Aldea
@@ -81,7 +81,7 @@ export function MainWorld({ onAllKeysCollected }: MainWorldProps) {
         ))}
       </div>
 
-      <div className="fixed bottom-4 right-4 bg-card border-4 border-foreground shadow-3d p-4 rounded-lg z-20">
+      <div className="fixed bottom-4 right-4 bg-card/80 backdrop-blur-sm border-4 border-foreground shadow-3d p-4 rounded-lg z-20">
         <h3 className="font-headline text-xl text-foreground">Misión Principal</h3>
         <p className="font-body text-foreground">¡Recolecta las 3 llaves!</p>
         <div className="flex items-center gap-2 mt-2">

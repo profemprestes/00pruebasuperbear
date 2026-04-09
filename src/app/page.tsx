@@ -19,6 +19,14 @@ export default function Home() {
 
   return (
     <div className="min-h-screen overflow-hidden relative">
+      <video 
+        autoPlay 
+        loop 
+        muted 
+        playsInline
+        src="/fondo_web.mp4" 
+        className="fixed top-0 left-0 w-screen h-screen object-cover z-[-1]"
+      />
       <div className={cn(
           "absolute inset-0 z-20 transition-opacity duration-500",
           isStarted ? "opacity-0 pointer-events-none" : "opacity-100"
