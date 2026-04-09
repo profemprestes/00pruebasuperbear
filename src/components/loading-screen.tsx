@@ -29,14 +29,14 @@ export function LoadingScreen({ onStart }: LoadingScreenProps) {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-cloud-white transition-opacity duration-500">
-      <div className="relative flex flex-col items-center justify-center">
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-cloud-white transition-opacity duration-500 p-4">
+      <div className="relative flex flex-col items-center justify-center w-full">
         <Image 
           src="/titulo_super_facu_1.png"
           alt="Super Facu Aventura"
-          width={600}
-          height={300}
-          className="animate-float"
+          width={500}
+          height={250}
+          className="animate-float w-full max-w-sm sm:max-w-md md:max-w-lg"
           priority
         />
       </div>
@@ -50,11 +50,11 @@ export function LoadingScreen({ onStart }: LoadingScreenProps) {
         )}
       </div>
       
-      <div className="h-28 mt-4">
+      <div className="h-28 mt-4 flex items-center justify-center">
         {loadingComplete && (
           <Button
             onClick={onStart}
-            className="font-milky bg-grass-green text-white text-4xl h-auto px-12 py-4 border-4 border-foreground shadow-3d hover:shadow-[6px_6px_0px_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all animate-in fade-in zoom-in-95"
+            className="font-milky bg-grass-green text-white text-3xl sm:text-4xl h-auto px-12 py-4 border-4 border-foreground shadow-3d hover:shadow-[6px_6px_0px_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all animate-in fade-in zoom-in-95"
             size="lg"
           >
             ¡PULSA START!

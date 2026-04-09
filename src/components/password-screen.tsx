@@ -34,8 +34,8 @@ export function PasswordScreen({ onCorrectPassword }: PasswordScreenProps) {
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gray-900 text-white p-4">
       <div className="w-full max-w-sm text-center">
         <Shield className="mx-auto h-16 w-16 text-golden-coin mb-6" />
-        <h1 className="font-milky text-4xl mb-4 text-white">Acceso Privado</h1>
-        <p className="font-body text-lg mb-8 text-gray-300">
+        <h1 className="font-milky text-3xl sm:text-4xl mb-4 text-white">Acceso Privado</h1>
+        <p className="font-body text-md sm:text-lg mb-8 text-gray-300">
           Esta es una invitación privada. Por favor, ingresa la contraseña.
         </p>
         <div className="flex flex-col gap-4">
@@ -48,13 +48,13 @@ export function PasswordScreen({ onCorrectPassword }: PasswordScreenProps) {
               if (error) setError(false);
             }}
             onKeyPress={handleKeyPress}
-            className={`border-4 h-14 text-lg text-center font-milky rounded-lg bg-gray-800 text-white placeholder-gray-500 ${
+            className={`border-4 h-14 text-base sm:text-lg text-center font-milky rounded-lg bg-gray-800 text-white placeholder-gray-500 ${
               error ? 'border-red-500' : 'border-teddy-brown'
             }`}
           />
           <Button
             onClick={handleSubmit}
-            className="bg-golden-coin text-teddy-brown font-milky text-2xl h-14 px-6 border-2 border-amber-600 shadow-[0_5px_0_#b8860b] hover:bg-amber-400 active:translate-y-1 active:shadow-none transition-all"
+            className="bg-golden-coin text-teddy-brown font-milky text-xl sm:text-2xl h-14 px-6 border-2 border-amber-600 shadow-[0_5px_0_#b8860b] hover:bg-amber-400 active:translate-y-1 active:shadow-none transition-all"
           >
             Entrar
           </Button>
