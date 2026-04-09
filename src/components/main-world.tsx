@@ -1,9 +1,10 @@
 "use client";
 import { useState } from 'react';
 import { DialogBox } from './dialog-box';
-import { Calendar, Clock, KeyRound, MapPin } from 'lucide-react';
+import { Calendar, Clock, KeyRound, MapPin, ClipboardCheck, Mail } from 'lucide-react';
 import { Button } from './ui/button';
 import { cn } from '@/lib/utils';
+import { missionData } from '@/lib/eventData';
 
 type MainWorldProps = {
   onAllKeysCollected: () => void;
@@ -37,19 +38,26 @@ export function MainWorld({ onAllKeysCollected }: MainWorldProps) {
         <h2 className="font-headline text-6xl text-white" style={{ WebkitTextStroke: '3px hsl(var(--foreground))', textShadow: '4px 4px 0px hsl(var(--foreground))' }}>
           Mapa de la Aldea
         </h2>
-        <p className="font-headline text-2xl text-foreground">¡Bienvenido, aventurero!</p>
+        <p className="font-headline text-2xl text-foreground">¡Misión Cumpleaños de {missionData.festejado}!</p>
       </div>
 
       <div className="flex flex-wrap justify-center items-start gap-8 z-10 relative">
         <DialogBox icon={<Calendar size={48} />} title="Fecha">
-          <p>Misión programada para el <strong>Sábado, 24 de Agosto</strong>.</p>
+          <p>Misión programada para el <strong>{missionData.fecha}</strong>.</p>
         </DialogBox>
         <DialogBox icon={<Clock size={48} />} title="Hora">
-          <p>El portal se abrirá a las <strong>13:00 hs</strong>.</p>
+          <p>El portal se abrirá de <strong>{missionData.horario}</strong>.</p>
         </DialogBox>
         <DialogBox icon={<MapPin size={48} />} title="Ubicación">
-          <p>El encuentro será en <strong>Salón "La Aventura"</strong>.</p>
-          <p>Calle Falsa 123, Springfield</p>
+          <p>El encuentro será en <strong>{missionData.lugar}</strong>.</p>
+          <p>{missionData.direccion}</p>
+        </DialogBox>
+        <DialogBox icon={<ClipboardCheck size={48} />} title="Nota de Misión">
+            <p>{missionData.nota}</p>
+        </DialogBox>
+        <DialogBox icon={<Mail size={48} />} title="Contacto">
+            <p>Email: {missionData.contacto.email}</p>
+            <p>IG: {missionData.contacto.instagram}</p>
         </DialogBox>
       </div>
       
