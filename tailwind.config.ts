@@ -66,6 +66,11 @@ export default {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))',
         },
+        'sky-blue': 'var(--sky-blue)',
+        'grass-green': 'var(--grass-green)',
+        'teddy-brown': 'var(--teddy-brown)',
+        'golden-coin': 'var(--golden-coin)',
+        'cloud-white': 'var(--cloud-white)',
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -97,12 +102,17 @@ export default {
           '25%': { transform: 'translateY(-10px) rotate(90deg)' },
           '50%': { transform: 'translateY(0) rotate(180deg)' },
           '75%': { transform: 'translateY(-10px) rotate(270deg)' },
+        },
+        'float': {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-15px)' },
         }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'spin-and-bounce': 'spin-and-bounce 2s linear infinite'
+        'spin-and-bounce': 'spin-and-bounce 2s linear infinite',
+        'float': 'float 3s ease-in-out infinite',
       },
     },
   },
