@@ -19,10 +19,6 @@ export function LoadingScreen({ onLoadComplete, onStart }: LoadingScreenProps) {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(timer);
-          if (!loadingComplete) {
-            setLoadingComplete(true);
-            onLoadComplete();
-          }
           return 100;
         }
         return prev + 1;
@@ -30,7 +26,14 @@ export function LoadingScreen({ onLoadComplete, onStart }: LoadingScreenProps) {
     }, 40);
 
     return () => clearInterval(timer);
-  }, [onLoadComplete, loadingComplete]);
+  }, []);
+
+  useEffect(() => {
+    if (progress >= 100 && !loadingComplete) {
+      setLoadingComplete(true);
+      onLoadComplete();
+    }
+  }, [progress, loadingComplete, onLoadComplete]);
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background/80 backdrop-blur-sm transition-opacity duration-500">
