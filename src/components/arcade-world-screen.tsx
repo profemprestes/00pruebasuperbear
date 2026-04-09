@@ -5,7 +5,7 @@ import { Button } from './ui/button';
 import { cn } from '@/lib/utils';
 
 type ArcadeWorldScreenProps = {
-  onArcadeEnd: () => void;
+  onArcadeEnd: (coins: number) => void;
 };
 
 export function ArcadeWorldScreen({ onArcadeEnd }: ArcadeWorldScreenProps) {
@@ -21,8 +21,8 @@ export function ArcadeWorldScreen({ onArcadeEnd }: ArcadeWorldScreenProps) {
         setShowSuccess(false);
         setLevelComplete(false);
       } else {
-        // End of arcade
-        onArcadeEnd();
+        // End of arcade, award coins
+        onArcadeEnd(150);
       }
     }, 2000);
   };

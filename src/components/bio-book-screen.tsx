@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { Button } from './ui/button';
 
 type BioBookScreenProps = {
   onRestart: () => void;
@@ -47,12 +48,12 @@ export function BioBookScreen({ onRestart }: BioBookScreenProps) {
           ¡Gracias por llegar hasta aquí! Nos vemos en la partida.
         </p>
 
-        <button
+        <Button
           onClick={onRestart}
           className="mt-8 font-milky text-white text-xl sm:text-2xl px-8 py-4 rounded-lg bg-grass-green border-0 shadow-[0_6px_0_#2E8B57] transition-all duration-150 active:translate-y-[6px] active:shadow-none"
         >
           Volver al Inicio
-        </button>
+        </Button>
       </div>
     </div>
   );

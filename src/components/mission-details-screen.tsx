@@ -3,20 +3,40 @@
 import { useState } from 'react';
 import { missionData } from '@/lib/eventData';
 import { Button } from './ui/button';
+import type { AvatarConfig } from './avatar-creator-screen';
 
 type MissionDetailsScreenProps = {
   playerName: string;
   onNext: () => void;
   playedMinigames: boolean;
+  avatarConfig: AvatarConfig | null;
 };
 
-export function MissionDetailsScreen({ playerName, onNext, playedMinigames }: MissionDetailsScreenProps) {
+export function MissionDetailsScreen({ playerName, onNext, playedMinigames, avatarConfig }: MissionDetailsScreenProps) {
   const [isConfirmed, setIsConfirmed] = useState(false);
   
   const guestName = "Jugador";
   const title = playedMinigames 
     ? `¡Felicidades, ${playerName || guestName}!`
     : `Misión Estándar: Coordenadas de ${playerName || guestName}`;
+
+  const getAvatarEmoji = (config: AvatarConfig | null) => {
+    if (!config) return "";
+    const head = {
+        'Ninguno': '',
+        'Gorra': '🧢',
+        'Gafas': '🕶️',
+        'Pastel': '🎂',
+        'VR': '🥽'
+    }[config.headItem];
+    const fur = {
+        'Marrón': '🐻',
+        'Polar': '🐻‍❄️',
+        'Cósmico': '🌌',
+        'Arcoíris': '🌈'
+    }[config.furColor]
+    return `${head}${fur}`;
+  }
 
   if (playedMinigames) {
     return ( // VIP Version
@@ -48,6 +68,12 @@ export function MissionDetailsScreen({ playerName, onNext, playedMinigames }: Mi
               </div>
 
               <div className='pt-4 flex flex-col items-center gap-4'>
+                {avatarConfig && (
+                  <div className="text-center font-body bg-sky-blue/20 p-2 rounded-md border border-sky-blue">
+                    <p className="font-bold text-teddy-brown">Tu Avatar Guardado: <span className='text-2xl'>{getAvatarEmoji(avatarConfig)}</span></p>
+                    <p className="text-xs">{avatarConfig.furColor}, {avatarConfig.headItem}, {avatarConfig.torsoItem}, {avatarConfig.backpacker}</p>
+                  </div>
+                )}
                   <Button
                       onClick={() => setIsConfirmed(true)}
                       disabled={isConfirmed}
