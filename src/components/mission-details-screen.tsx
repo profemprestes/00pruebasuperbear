@@ -27,7 +27,7 @@ export function MissionDetailsScreen({ playerName, onNext, playedMinigames }: Mi
           <div className="absolute inset-0 bg-black/50 backdrop-blur-lg" />
           <div className="absolute inset-0 pointer-events-none">
             {Array.from({ length: 50 }).map((_, i) => (
-              <div key={i} className={`confetti confetti-${i}`}></div>
+              <div key={i} className="confetti"></div>
             ))}
           </div>
           <div className="relative z-10 bg-gradient-to-br from-yellow-50 to-amber-100 border-[8px] border-golden-coin rounded-2xl shadow-[0_10px_30px_rgba(255,215,0,0.5),_8px_8px_0px_#b8860b] w-full max-w-2xl p-6 sm:p-8 space-y-4 text-center animate-in fade-in-0 zoom-in-95 duration-500">
