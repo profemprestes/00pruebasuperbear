@@ -1,7 +1,9 @@
-# Prompts para Imágenes en /public
+# Archivos en /public
 
-Este archivo contiene las rutas a las imágenes ubicadas en el directorio `/public`. Para cada imagen, hay un área de texto designada para que puedas escribir un "prompt". Este prompt servirá como instrucción para una IA con el fin de generar una imagen similar o una réplica de la original.
+Este archivo contiene las rutas a todos los archivos ubicados en el directorio `/public`. Para cada imagen, hay un área de texto designada para que puedas escribir un "prompt". Este prompt servirá como instrucción para una IA con el fin de generar una imagen similar o una réplica de la original. Para otros tipos de archivo como videos, fuentes y documentos, solo se listará la ruta.
 
+---
+# Imágenes
 ---
 
 ### /public/Baaren_brother_transparent.webp
@@ -240,6 +242,21 @@ The sky is a bright blue with scattered, fluffy white clouds. The overall lighti
 
 ---
 
+### /public/KIT_CUMPLE_.png
+```
+A colorful, digitally rendered image featuring a 3D blocky, cartoon style, reminiscent of video games like Minecraft. The scene is set outdoors with rolling green hills, a bright blue sky, and white, puffy clouds.
+
+In the background, the landscape consists of vibrant green grass and stylized, simplified trees with round green foliage and brown trunks. To the right, there is a small, blocky house with light brown walls and a reddish-brown tiled roof. Further back, a small sign post with the word "ARCADE" on it is visible, and another simple, blocky structure is behind it. A light brown wooden fence is in the bottom right corner.
+
+Dominating the upper center of the image is the title text in large, blocky, stylized letters. The text reads: "¡GRAN! FACU AVENTURA". The letters are bright orange with a light blue outline, giving them a pop-out, 3D effect. The word "¡GRAN!" is slightly smaller and above "FACU AVENTURA".
+
+To the right of the title text, replacing the dot over the 'i' or as part of the overall design, is a simple, cube-shaped, 3D character head of a bear. The bear is brown, with a slightly darker brown muzzle, and two black, square eyes and a black, square nose.
+
+Two large rectangular banners cover the lower half of the image, placed over the landscape. The top banner is orange-red and contains the white, capitalized text: "KIT DE CUMPLE". Below this, a slightly shorter, bright yellow-orange banner contains the white, capitalized text: "PARTE 9".
+```
+
+---
+
 ### /public/KIT_CUMPLE_2.png
 ```
 A brightly colored, stylized video game title screen or thumbnail is shown with a 3D, low-poly aesthetic. The background is a vibrant, sunny landscape featuring a rolling green field under a light blue sky dotted with fluffy white clouds. Scattered across the field are simple, dark green conical trees. In the middle ground, there is a small, brown wooden fence on the right and a tiny house with a red roof on the left.
@@ -258,21 +275,6 @@ A digitally created image featuring a cartoon landscape and a title logo, with t
 The main logo, centered in the upper third, reads "FACU AVENTURA." The word "FACU" is on top, rendered in large, three-dimensional blue letters with a yellow outline. To the right of "FACU" is a brown, blocky, stylized bear face, suggesting a character or mascot. The word "AVENTURA" is directly below "FACU" in smaller, three-dimensional yellow letters with a blue outline.
 
 The lower half of the image is dominated by two horizontal color bars and text. The top bar is a solid orange color, spanning the width of the image. Centered on this orange bar is white text that reads "KIT DE CUMPLE." Below the orange bar is a solid bright yellow bar, also spanning the width. Centered on the yellow bar is large white text with a thick black outline that reads "PARTE 9."
-```
-
----
-
-### /public/KIT_CUMPLE_.png
-```
-A colorful, digitally rendered image featuring a 3D blocky, cartoon style, reminiscent of video games like Minecraft. The scene is set outdoors with rolling green hills, a bright blue sky, and white, puffy clouds.
-
-In the background, the landscape consists of vibrant green grass and stylized, simplified trees with round green foliage and brown trunks. To the right, there is a small, blocky house with light brown walls and a reddish-brown tiled roof. Further back, a small sign post with the word "ARCADE" on it is visible, and another simple, blocky structure is behind it. A light brown wooden fence is in the bottom right corner.
-
-Dominating the upper center of the image is the title text in large, blocky, stylized letters. The text reads: "¡GRAN! FACU AVENTURA". The letters are bright orange with a light blue outline, giving them a pop-out, 3D effect. The word "¡GRAN!" is slightly smaller and above "FACU AVENTURA".
-
-To the right of the title text, replacing the dot over the 'i' or as part of the overall design, is a simple, cube-shaped, 3D character head of a bear. The bear is brown, with a slightly darker brown muzzle, and two black, square eyes and a black, square nose.
-
-Two large rectangular banners cover the lower half of the image, placed over the landscape. The top banner is orange-red and contains the white, capitalized text: "KIT DE CUMPLE". Below this, a slightly shorter, bright yellow-orange banner contains the white, capitalized text: "PARTE 9".
 ```
 
 ---
@@ -363,3 +365,27 @@ The entire logo ensemble—text and character—appears to have soft shadows und
 ```
 A 3D rendering of the words "SUPER FACU AVENTURA" in a stacked, three-line format, next to a blocky, stylized bear character, all set against a pure white background. The text is rendered in a bright, glossy light blue with a prominent orange-yellow outline and a dark blue or black drop shadow/extrusion, giving it a playful, chiseled, and volumetric appearance. "SUPER" is on the top line, "FACU" is on the second line, and "AVENTURA" is on the bottom line. The blocky bear character, positioned to the right of the text, is rendered in various shades of brown, resembling wood or low-poly game graphics. It has a square head, small black eyes, a small triangular nose, and a simple smiling mouth indicated by a black line. Its body, arms, and legs are also geometric and blocky. The bear has its right paw raised slightly in a waving or gesturing manner. The entire scene is brightly lit, emphasizing the glossy texture of the letters and the clean geometric shape of the bear, suggesting a logo or title screen for a video game or animated series.
 ```
+
+---
+# Videos
+---
+
+### /public/background_video.mp4
+
+### /public/fondo_web.mp4
+
+---
+# Fuentes
+---
+
+### /public/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBA.woff2
+
+### /public/MilkyNice_Clean.ttf
+
+---
+# Otros Archivos
+---
+
+### /public/La aventura del Súper Oso.html
+
+### /public/La aventura del Súper Oso.mhtml
