@@ -1,94 +1,84 @@
 "use client";
 import { useState } from 'react';
-import { DialogBox } from './dialog-box';
-import { Calendar, Clock, KeyRound, MapPin, ClipboardCheck, Mail } from 'lucide-react';
-import { Button } from './ui/button';
-import { cn } from '@/lib/utils';
+import Image from 'next/image';
 import { missionData } from '@/lib/eventData';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
 
-type MainWorldProps = {
-  onAllKeysCollected: () => void;
+type MissionScreenProps = {
+  onMissionAccept: () => void;
 };
 
-export function MainWorld({ onAllKeysCollected }: MainWorldProps) {
-  const [collectedKeys, setCollectedKeys] = useState<boolean[]>([false, false, false]);
-  const keysCount = collectedKeys.filter(Boolean).length;
+export function MainWorld({ onMissionAccept }: MissionScreenProps) {
+  const [playerName, setPlayerName] = useState('');
+  const [isRegistered, setIsRegistered] = useState(false);
 
-  const handleKeyCollect = (index: number) => {
-    if (collectedKeys[index]) return;
-
-    const newKeys = [...collectedKeys];
-    newKeys[index] = true;
-    setCollectedKeys(newKeys);
-
-    if (newKeys.filter(Boolean).length === 3) {
-      onAllKeysCollected();
+  const handleAcceptMission = () => {
+    if (playerName.trim()) {
+      setIsRegistered(true);
+    } else {
+      alert('¡Por favor, ingresa tu nombre de jugador!');
     }
   };
-  
-  const keyPositions = [
-    'sm:top-1/4 sm:left-1/4 top-20 left-10',
-    'sm:bottom-1/4 sm:right-1/3 bottom-32 right-12',
-    'sm:top-1/3 sm:right-1/4 top-48 right-20',
-  ];
 
   return (
-    <main className="min-h-screen w-full bg-transparent pt-24 pb-48 px-4 md:px-8 relative">
-      <div className="text-center mb-12 space-y-4">
-        <h2 className="font-headline text-6xl text-white" style={{ WebkitTextStroke: '3px hsl(var(--foreground))', textShadow: '4px 4px 0px hsl(var(--foreground))' }}>
-          Mapa de la Aldea
-        </h2>
-        <p className="font-headline text-2xl text-foreground">¡Misión Cumpleaños de {missionData.festejado}!</p>
-      </div>
+    <div 
+        className="h-screen w-full bg-cover bg-bottom flex items-center justify-center p-4"
+        style={{ backgroundImage: "url('/desierto.webp')" }}
+    >
+        <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
+        <div className="relative z-10 bg-cloud-white border-[6px] border-teddy-brown rounded-xl shadow-[8px_8px_0px_#63340b] w-full max-w-4xl p-6 flex flex-col md:flex-row items-center gap-6">
+            <div className="flex-shrink-0">
+                <Image 
+                    src="/Shicka_the_backpacker.webp" 
+                    alt="Shicka" 
+                    width={150} 
+                    height={150}
+                    className="drop-shadow-[5px_5px_0px_rgba(0,0,0,0.4)] animate-sway w-[130px]"
+                />
+            </div>
+            <div className="flex-grow text-teddy-brown text-center md:text-left">
+                <h2 className="font-milky text-4xl text-teddy-brown mb-4">
+                    ¡Nueva Misión de la Reina!
+                </h2>
+                <div className='space-y-2 font-body text-lg'>
+                    <p>🗺️ <strong>Punto de encuentro:</strong> {missionData.lugar} ({missionData.direccion})</p>
+                    <p>🗓️ <strong>Fecha:</strong> {missionData.fecha}</p>
+                    <p>⏰ <strong>Tiempo:</strong> {missionData.horario}</p>
+                    <p>🎒 <strong>Equipamiento:</strong> {missionData.nota}</p>
+                </div>
 
-      <div className="flex flex-wrap justify-center items-start gap-8 z-10 relative">
-        <DialogBox icon={<Calendar size={48} />} title="Fecha">
-          <p>Misión programada para el <strong>{missionData.fecha}</strong>.</p>
-        </DialogBox>
-        <DialogBox icon={<Clock size={48} />} title="Hora">
-          <p>El portal se abrirá de <strong>{missionData.horario}</strong>.</p>
-        </DialogBox>
-        <DialogBox icon={<MapPin size={48} />} title="Ubicación">
-          <p>El encuentro será en <strong>{missionData.lugar}</strong>.</p>
-          <p>{missionData.direccion}</p>
-        </DialogBox>
-        <DialogBox icon={<ClipboardCheck size={48} />} title="Nota de Misión">
-            <p>{missionData.nota}</p>
-        </DialogBox>
-        <DialogBox icon={<Mail size={48} />} title="Contacto">
-            <p>Email: {missionData.contacto.email}</p>
-            <p>IG: {missionData.contacto.instagram}</p>
-        </DialogBox>
-      </div>
-      
-      <div className="absolute inset-0 z-0">
-        {collectedKeys.map((isCollected, index) => (
-          <Button
-            key={index}
-            variant="ghost"
-            size="icon"
-            onClick={() => handleKeyCollect(index)}
-            disabled={isCollected}
-            aria-label={`Recolectar llave ${index + 1}`}
-            className={cn(
-              'absolute h-16 w-16 transform transition-all duration-300',
-              keyPositions[index],
-              isCollected ? 'opacity-25 scale-75' : 'hover:scale-110'
-            )}
-          >
-            <KeyRound className="h-full w-full text-accent fill-accent/50" />
-          </Button>
-        ))}
-      </div>
-
-      <div className="fixed bottom-4 right-4 bg-card/80 backdrop-blur-sm border-4 border-foreground shadow-3d p-4 rounded-lg z-20">
-        <h3 className="font-headline text-xl text-foreground">Misión Principal</h3>
-        <p className="font-body text-foreground">¡Recolecta las 3 llaves!</p>
-        <div className="flex items-center gap-2 mt-2">
-            <KeyRound className="h-6 w-6 text-accent" />
-            <span className="font-headline text-2xl text-foreground">{keysCount} / 3</span>
+                {!isRegistered ? (
+                    <div className="mt-6 flex flex-col sm:flex-row gap-4">
+                        <Input 
+                            type="text" 
+                            placeholder="Ingresa tu nombre de jugador" 
+                            value={playerName}
+                            onChange={(e) => setPlayerName(e.target.value)}
+                            className="border-4 border-teddy-brown h-14 text-lg flex-grow"
+                        />
+                        <Button
+                            onClick={handleAcceptMission}
+                            className="bg-golden-coin text-white font-milky text-2xl h-14 px-6 border-2 border-teddy-brown shadow-[0_5px_0_#b8860b] hover:bg-amber-400 active:translate-y-1 active:shadow-none transition-all"
+                        >
+                            ¡ACEPTAR MISIÓN!
+                        </Button>
+                    </div>
+                ) : (
+                    <div className="mt-6 text-center">
+                        <p className="text-3xl font-milky text-grass-green drop-shadow-md mb-4">
+                            ¡Misión Aceptada!
+                        </p>
+                        <Button
+                            onClick={onMissionAccept}
+                            className="bg-sky-blue text-white font-milky text-2xl h-auto py-3 px-6 border-2 border-blue-800 shadow-[0_5px_0_#00008b] hover:bg-sky-400 active:translate-y-1 active:shadow-none transition-all"
+                        >
+                            Ver Inventario ➔
+                        </Button>
+                    </div>
+                )}
+            </div>
         </div>
-      </div>
-    </main>
+    </div>
   );
 }

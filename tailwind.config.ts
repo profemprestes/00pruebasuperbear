@@ -79,6 +79,7 @@ export default {
       },
       boxShadow: {
         '3d': '4px 4px 0px 0px hsl(var(--foreground))',
+        'inner-strong': 'inset 0 4px 6px rgba(0,0,0,0.1)',
       },
       keyframes: {
         'accordion-down': {
@@ -106,6 +107,10 @@ export default {
         'float': {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-15px)' },
+        },
+        'sway': {
+          '0%, 100%': { transform: 'rotate(-3deg) translateX(-5px)' },
+          '50%': { transform: 'rotate(3deg) translateX(5px)' },
         }
       },
       animation: {
@@ -113,6 +118,7 @@ export default {
         'accordion-up': 'accordion-up 0.2s ease-out',
         'spin-and-bounce': 'spin-and-bounce 2s linear infinite',
         'float': 'float 3s ease-in-out infinite',
+        'sway': 'sway 4s ease-in-out infinite',
       },
     },
   },
