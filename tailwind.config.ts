@@ -98,12 +98,6 @@ export default {
             height: '0',
           },
         },
-        'spin-and-bounce': {
-          '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
-          '25%': { transform: 'translateY(-10px) rotate(90deg)' },
-          '50%': { transform: 'translateY(0) rotate(180deg)' },
-          '75%': { transform: 'translateY(-10px) rotate(270deg)' },
-        },
         'float': {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-15px)' },
@@ -115,15 +109,24 @@ export default {
         'roulette': {
           '0%': { transform: 'rotate(0deg)' },
           '100%': { transform: 'rotate(1080deg)' },
+        },
+        'subtle-float': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-4px)' },
+        },
+        'blink': {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.2' },
         }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'spin-and-bounce': 'spin-and-bounce 2s linear infinite',
         'float': 'float 3s ease-in-out infinite',
         'sway': 'sway 4s ease-in-out infinite',
         'roulette': 'roulette 2s ease-out forwards',
+        'subtle-float': 'subtle-float 2s ease-in-out infinite',
+        'blink': 'blink 1.5s ease-in-out infinite',
       },
     },
   },

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from '@/lib/utils';
-import { Lock } from 'lucide-react';
+import { Lock, ArrowDown } from 'lucide-react';
 
 // Define types for customization
 type FurColor = 'Marrón' | 'Polar' | 'Cósmico' | 'Arcoíris';
@@ -114,6 +114,7 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
     return (
         <div className='relative'>
             <Button
+                key={item.name}
                 variant="outline"
                 className={cn("w-20 h-20 flex flex-col items-center justify-center gap-1 border-4 shadow-md", currentSelection === item.name && "border-golden-coin ring-4 ring-golden-coin")}
                 disabled={!isUnlocked}
@@ -124,7 +125,7 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
             </Button>
             {!isUnlocked && (
                 <div className="absolute inset-0 bg-black/60 rounded-lg flex flex-col items-center justify-center">
-                    <Button size="sm" className="h-auto p-1" disabled={!canAfford} onClick={() => handlePurchase({...item, setter})}>
+                    <Button size="sm" className="h-auto p-1 disabled:cursor-not-allowed" disabled={!canAfford} onClick={() => handlePurchase({...item, setter})}>
                         <Lock size={16} className="mr-1"/> {item.cost} 🪙
                     </Button>
                 </div>
@@ -135,7 +136,7 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
 
   return (
     <div
-      className="h-screen w-full bg-cover bg-center flex flex-col items-center justify-center p-4 relative"
+      className="h-screen w-full bg-cover bg-center flex flex-col items-center justify-center p-2 sm:p-4 relative"
       style={{ backgroundImage: "url('/ciudad.webp')" }}
     >
       <div className="absolute inset-0 bg-black/40 backdrop-blur-md z-0" />
@@ -147,19 +148,24 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
         {coins} 🪙
       </div>
 
-      <div className="relative z-10 w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8 items-center mt-24 md:mt-0">
+      <div className="relative z-10 w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8 items-center mt-28 md:mt-0">
         {/* Left Section: Avatar Preview */}
         <div className='flex flex-col items-center gap-4'>
-            <div className='w-72 h-80 flex items-center justify-center'>
+            <div className='w-64 sm:w-72 h-80 flex items-center justify-center'>
                  {renderAvatar()}
             </div>
-            <div className="w-80 h-4 bg-gray-600 rounded-full border-2 border-gray-800 shadow-inner opacity-70 blur-sm" />
-             <Button
-                onClick={() => onAvatarCreate({ furColor, headItem, torsoItem, backpacker })}
-                className="font-milky bg-grass-green text-white text-xl h-auto px-8 py-3 border-2 border-foreground shadow-[4px_4px_0_hsl(var(--foreground))] hover:shadow-[6px_6px_0px_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
-            >
-                ¡Guardar Avatar y Confirmar! ➔
-            </Button>
+            <div className="w-64 sm:w-80 h-4 bg-gray-600 rounded-full border-2 border-gray-800 shadow-inner opacity-70 blur-sm" />
+             <div className="relative mt-4">
+                <Button
+                    onClick={() => onAvatarCreate({ furColor, headItem, torsoItem, backpacker })}
+                    className="font-milky bg-grass-green text-white text-lg sm:text-xl h-auto px-6 sm:px-8 py-3 border-2 border-foreground shadow-[4px_4px_0_hsl(var(--foreground))] hover:shadow-[6px_6px_0px_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 active:shadow-none active:translate-x-0 active:translate-y-0 transition-all"
+                >
+                    ¡Guardar Avatar y Confirmar! ➔
+                </Button>
+                <div className="absolute -top-10 left-1/2 -translate-x-1/2 text-grass-green animate-subtle-float">
+                    <ArrowDown className="w-8 h-8" />
+                </div>
+              </div>
         </div>
         
         {/* Right Section: Customization Menu */}
@@ -173,22 +179,22 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
                 </TabsList>
                 <TabsContent value="fur">
                     <div className='grid grid-cols-3 gap-2 sm:gap-4 p-2 sm:p-4'>
-                        {furOptions.map(opt => React.cloneElement(renderOptionButton(opt, furColor, setFurColor), { key: opt.name }))}
+                        {furOptions.map(opt => renderOptionButton(opt, furColor, setFurColor))}
                     </div>
                 </TabsContent>
                 <TabsContent value="head">
                     <div className='grid grid-cols-3 gap-2 sm:gap-4 p-2 sm:p-4'>
-                       {headOptions.map(opt => React.cloneElement(renderOptionButton(opt, headItem, setHeadItem), { key: opt.name }))}
+                       {headOptions.map(opt => renderOptionButton(opt, headItem, setHeadItem))}
                     </div>
                 </TabsContent>
                 <TabsContent value="torso">
                      <div className='grid grid-cols-3 gap-2 sm:gap-4 p-2 sm:p-4'>
-                        {torsoOptions.map(opt => React.cloneElement(renderOptionButton(opt, torsoItem, setTorsoItem), { key: opt.name }))}
+                        {torsoOptions.map(opt => renderOptionButton(opt, torsoItem, setTorsoItem))}
                     </div>
                 </TabsContent>
                  <TabsContent value="back">
                      <div className='grid grid-cols-3 gap-2 sm:gap-4 p-2 sm:p-4'>
-                        {backpackerOptions.map(opt => React.cloneElement(renderOptionButton(opt, backpacker, setBackpacker), { key: opt.name }))}
+                        {backpackerOptions.map(opt => renderOptionButton(opt, backpacker, setBackpacker))}
                     </div>
                 </TabsContent>
             </Tabs>

@@ -11,6 +11,7 @@ import { MissionDetailsScreen } from "@/components/mission-details-screen";
 import { BioBookScreen } from "@/components/bio-book-screen";
 import { AvatarCreatorScreen } from "@/components/avatar-creator-screen";
 import type { AvatarConfig } from "@/components/avatar-creator-screen";
+import { cn } from "@/lib/utils";
 
 type Screen = 'password' | 'loading' | 'introVideo' | 'presentation' | 'register' | 'arcadeWorld' | 'avatarCreator' | 'missionDetails' | 'bioBook';
 
@@ -80,7 +81,14 @@ export default function Home() {
         className="fixed top-0 left-0 w-screen h-screen object-cover z-[-1] animate-in fade-in-0 duration-1000 brightness-[.85] saturate-[1.2]"
       />
       
-      <div className="absolute inset-0 z-10">
+      <div 
+        key={currentScreen} 
+        className={cn(
+          "absolute inset-0 z-10",
+          // Don't animate the first few screens as they have their own transitions
+          !['password', 'loading', 'introVideo'].includes(currentScreen) && "animate-in fade-in-0 duration-500"
+        )}
+      >
         {renderScreen()}
       </div>
     </div>
