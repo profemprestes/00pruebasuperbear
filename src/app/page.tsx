@@ -25,7 +25,7 @@ export default function Home() {
         muted 
         playsInline
         src="/fondo_web.mp4" 
-        className="fixed top-0 left-0 w-screen h-screen object-cover z-[-1]"
+        className="fixed top-0 left-0 w-screen h-screen object-cover z-[-1] animate-in fade-in-0 duration-1000 brightness-[.85] saturate-[1.2]"
       />
       <div className={cn(
           "absolute inset-0 z-20 transition-opacity duration-500",
