@@ -111,6 +111,10 @@ export default {
         'sway': {
           '0%, 100%': { transform: 'rotate(-3deg) translateX(-5px)' },
           '50%': { transform: 'rotate(3deg) translateX(5px)' },
+        },
+        'roulette': {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(1080deg)' },
         }
       },
       animation: {
@@ -119,6 +123,7 @@ export default {
         'spin-and-bounce': 'spin-and-bounce 2s linear infinite',
         'float': 'float 3s ease-in-out infinite',
         'sway': 'sway 4s ease-in-out infinite',
+        'roulette': 'roulette 2s ease-out forwards',
       },
     },
   },

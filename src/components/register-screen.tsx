@@ -6,20 +6,19 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
 type RegisterScreenProps = {
-  onRegister: (name: string) => void;
+  onPlayArcade: (name: string) => void;
+  onSkipArcade: (name: string) => void;
 };
 
-export function RegisterScreen({ onRegister }: RegisterScreenProps) {
+export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenProps) {
   const [playerName, setPlayerName] = useState('');
 
-  const handleRegister = () => {
-    if (playerName.trim()) {
-      onRegister(playerName);
-    }
+  const handlePlay = () => {
+    onPlayArcade(playerName.trim());
   };
 
-  const handleGuest = () => {
-    onRegister(''); // Empty string for guest
+  const handleSkip = () => {
+    onSkipArcade(playerName.trim());
   };
 
   return (
@@ -52,18 +51,17 @@ export function RegisterScreen({ onRegister }: RegisterScreenProps) {
                         className="border-4 border-teddy-brown h-14 text-lg text-center font-milky rounded-lg"
                     />
                     <Button
-                        onClick={handleRegister}
+                        onClick={handlePlay}
                         disabled={!playerName.trim()}
-                        className="bg-grass-green text-white font-milky text-2xl h-14 px-6 border-2 border-green-800 shadow-[0_5px_0_#2E8B57] hover:bg-green-500 active:translate-y-1 active:shadow-none transition-all disabled:bg-gray-400 disabled:shadow-none disabled:cursor-not-allowed"
+                        className="bg-golden-coin text-white font-milky text-2xl h-14 px-6 border-2 border-amber-600 shadow-[0_5px_0_#b8860b] hover:bg-amber-400 active:translate-y-1 active:shadow-none transition-all disabled:bg-gray-400 disabled:shadow-none disabled:cursor-not-allowed"
                     >
-                        Siguiente ➔
+                        ¡Entrar al Arcade World! (Jugar para obtener VIP)
                     </Button>
                     <Button
-                        onClick={handleGuest}
-                        variant="link"
-                        className="text-teddy-brown/80 font-milky text-md"
+                        onClick={handleSkip}
+                        className="bg-sky-blue text-white font-milky text-lg h-12 px-6 border-2 border-blue-800 shadow-[0_5px_0_#00008B] hover:bg-blue-400 active:translate-y-1 active:shadow-none transition-all"
                     >
-                        Entrar como invitado (Sin nombre)
+                        Ver Coordenadas Directamente (Saltar Juego)
                     </Button>
                 </div>
             </div>

@@ -6,19 +6,27 @@ import { LoadingScreen } from "@/components/loading-screen";
 import { PresentationScreen } from "@/components/presentation-screen";
 import { IntroVideoScreen } from "@/components/intro-video-screen";
 import { RegisterScreen } from "@/components/register-screen";
-import { MinigameScreen } from "@/components/minigame-screen";
+import { ArcadeWorldScreen } from "@/components/arcade-world-screen";
 import { MissionDetailsScreen } from "@/components/mission-details-screen";
 import { BioBookScreen } from "@/components/bio-book-screen";
 
-type Screen = 'password' | 'loading' | 'introVideo' | 'presentation' | 'register' | 'minigame' | 'missionDetails' | 'bioBook';
+type Screen = 'password' | 'loading' | 'introVideo' | 'presentation' | 'register' | 'arcadeWorld' | 'missionDetails' | 'bioBook';
 
 export default function Home() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('password');
   const [playerName, setPlayerName] = useState('');
+  const [playedMinigames, setPlayedMinigames] = useState(false);
 
-  const handleRegister = (name: string) => {
+  const handleRegisterAndPlay = (name: string) => {
     setPlayerName(name);
-    setCurrentScreen('minigame');
+    setPlayedMinigames(true);
+    setCurrentScreen('arcadeWorld');
+  };
+  
+  const handleRegisterAndSkip = (name: string) => {
+    setPlayerName(name);
+    setPlayedMinigames(false);
+    setCurrentScreen('missionDetails');
   };
 
   const renderScreen = () => {
@@ -32,11 +40,11 @@ export default function Home() {
       case 'presentation':
         return <PresentationScreen onNext={() => setCurrentScreen('register')} />;
       case 'register':
-        return <RegisterScreen onRegister={handleRegister} />;
-      case 'minigame':
-        return <MinigameScreen onGameEnd={() => setCurrentScreen('missionDetails')} />;
+        return <RegisterScreen onPlayArcade={handleRegisterAndPlay} onSkipArcade={handleRegisterAndSkip} />;
+      case 'arcadeWorld':
+        return <ArcadeWorldScreen onArcadeEnd={() => setCurrentScreen('missionDetails')} />;
       case 'missionDetails':
-        return <MissionDetailsScreen playerName={playerName} onNext={() => setCurrentScreen('bioBook')} />;
+        return <MissionDetailsScreen playerName={playerName} onNext={() => setCurrentScreen('bioBook')} playedMinigames={playedMinigames} />;
       case 'bioBook':
         return <BioBookScreen onRestart={() => setCurrentScreen('presentation')} />;
       default:
