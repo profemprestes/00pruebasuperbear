@@ -10,8 +10,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Inter', 'sans-serif'],
-        headline: ['Inter', 'sans-serif'],
+        body: ['Quicksand', 'sans-serif'],
+        headline: ['"Fredoka One"', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
@@ -71,6 +71,9 @@ export default {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
+      boxShadow: {
+        '3d': '4px 4px 0px 0px hsl(var(--foreground))',
+      },
       keyframes: {
         'accordion-down': {
           from: {
@@ -88,10 +91,17 @@ export default {
             height: '0',
           },
         },
+        'spin-and-bounce': {
+          '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
+          '25%': { transform: 'translateY(-10px) rotate(90deg)' },
+          '50%': { transform: 'translateY(0) rotate(180deg)' },
+          '75%': { transform: 'translateY(-10px) rotate(270deg)' },
+        }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'spin-and-bounce': 'spin-and-bounce 2s linear infinite'
       },
     },
   },
