@@ -6,10 +6,12 @@ import { MainWorld } from "@/components/main-world";
 import { RsvpForm } from "@/components/rsvp-form";
 import { CompletionScreen } from "@/components/completion-screen";
 import { cn } from "@/lib/utils";
+import { PresentationScreen } from "@/components/presentation-screen";
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
+  const [currentScreen, setCurrentScreen] = useState<'presentation' | 'mission'>('presentation');
   const [showRsvp, setShowRsvp] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   
@@ -44,7 +46,8 @@ export default function Home() {
         isStarted ? 'translate-y-0' : 'translate-y-full'
       )}>
         <div className="h-full w-full overflow-y-auto">
-          <MainWorld onAllKeysCollected={handleAllKeysCollected} />
+          {currentScreen === 'presentation' && <PresentationScreen onNext={() => setCurrentScreen('mission')} />}
+          {currentScreen === 'mission' && <MainWorld onAllKeysCollected={handleAllKeysCollected} />}
         </div>
       </div>
       

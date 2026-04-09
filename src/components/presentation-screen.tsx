@@ -1,0 +1,45 @@
+'use client';
+
+import Image from 'next/image';
+
+type PresentationScreenProps = {
+  onNext: () => void;
+};
+
+export function PresentationScreen({ onNext }: PresentationScreenProps) {
+  return (
+    <div
+      className="h-screen w-full bg-cover bg-center flex items-center justify-center p-4 relative"
+      style={{ backgroundImage: "url('/ciudad.webp')" }}
+    >
+      <div className="absolute inset-0 bg-black/40 z-0" />
+      <div className="relative bg-white border-8 border-[hsl(var(--foreground))] rounded-2xl p-8 pt-12 shadow-[8px_8px_0px_hsl(var(--foreground))] max-w-2xl w-full m-4">
+        <div className="absolute -top-16 -left-8 md:-top-20 md:-left-12 z-10">
+          <Image
+            src="/facu_bear_sin_fondo.png"
+            alt="Facu Bear Avatar"
+            width={150}
+            height={150}
+            className="drop-shadow-[4px_4px_0px_rgba(0,0,0,0.3)] w-[120px] md:w-[150px]"
+          />
+        </div>
+        
+        <div className="text-center md:text-left md:ml-32 relative">
+            <h2 className="font-milky text-4xl md:text-5xl text-[hsl(var(--foreground))]">
+                ¡Nivel 9 Desbloqueado!
+            </h2>
+            <p className="font-body text-xl md:text-2xl text-[#333] mt-4">
+                ¡Hola! Soy Facu. He llegado al Nivel 9 con la barra de energía al máximo y te invito a celebrarlo conmigo en esta nueva aventura multijugador.
+            </p>
+        </div>
+
+        <button
+          onClick={onNext}
+          className="absolute -bottom-5 right-4 font-milky text-white text-xl px-6 py-3 rounded-lg bg-[#7CFC00] border-0 shadow-[0_6px_0_#2E8B57] transition-all duration-150 active:translate-y-[6px] active:shadow-none"
+        >
+          Ver Misión ➔
+        </button>
+      </div>
+    </div>
+  );
+}

@@ -13,6 +13,7 @@ export default {
         body: ['Quicksand', 'sans-serif'],
         headline: ['"Fredoka One"', 'sans-serif'],
         code: ['monospace'],
+        milky: ['"Milky Nice"', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
