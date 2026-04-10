@@ -4,6 +4,7 @@ export interface MissionDetails {
   direccion: string;
   fecha: string;
   horario: string;
+  targetDate: string;
   contacto: {
     email: string;
     instagram: string;
@@ -17,6 +18,7 @@ export const missionData: MissionDetails = {
   direccion: "Av. Italia 3421",
   fecha: "Domingo 24 de mayo",
   horario: "18:30 a 21:00 hs",
+  targetDate: "2026-05-24T18:30:00",
   contacto: {
     email: "eventos@kboom.uy",
     instagram: "@kboom.uy",

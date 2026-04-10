@@ -10,7 +10,7 @@ import { ArcadeWorldScreen } from "@/components/arcade-world-screen";
 import { MissionDetailsScreen } from "@/components/mission-details-screen";
 import { BioBookScreen } from "@/components/bio-book-screen";
 import { AvatarCreatorScreen } from "@/components/avatar-creator-screen";
-import type { AvatarConfig } from "@/components/avatar-creator-screen";
+import type { AvatarConfig } from "@/lib/avatarOptions";
 import { cn } from "@/lib/utils";
 
 type Screen = 'password' | 'loading' | 'introVideo' | 'presentation' | 'register' | 'arcadeWorld' | 'avatarCreator' | 'missionDetails' | 'bioBook';
@@ -85,7 +85,6 @@ export default function Home() {
         key={currentScreen} 
         className={cn(
           "absolute inset-0 z-10",
-          // Don't animate the first few screens as they have their own transitions
           !['password', 'loading', 'introVideo'].includes(currentScreen) && "animate-in fade-in-0 slide-in-from-bottom-4 duration-500"
         )}
       >

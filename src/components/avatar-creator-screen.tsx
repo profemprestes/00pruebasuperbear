@@ -5,55 +5,13 @@ import { Button } from './ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from '@/lib/utils';
 import { Lock, ArrowDown } from 'lucide-react';
-
-// Define types for customization
-type FurColor = 'Marrón' | 'Polar' | 'Cósmico' | 'Arcoíris';
-type HeadItem = 'Ninguno' | 'Gorra' | 'Gafas' | 'Pastel' | 'VR';
-type TorsoItem = 'Ninguno' | 'Baloncesto' | 'Héroe' | 'Negocios';
-type Backpacker = 'Ninguno' | 'Shicka' | 'Larry' | 'Pingüino';
-
-export type AvatarConfig = {
-  furColor: FurColor;
-  headItem: HeadItem;
-  torsoItem: TorsoItem;
-  backpacker: Backpacker;
-};
+import { AvatarDisplay } from './avatar-display';
+import { furOptions, headOptions, torsoOptions, backpackerOptions, type AvatarConfig, type FurColor, type HeadItem, type TorsoItem, type Backpacker } from '@/lib/avatarOptions';
 
 type AvatarCreatorScreenProps = {
   initialCoins: number;
   onAvatarCreate: (config: AvatarConfig) => void;
 };
-
-// Item definitions
-const furOptions: { name: FurColor; color: string; locked: boolean; cost: number }[] = [
-  { name: 'Marrón', color: 'bg-[#8B4513]', locked: false, cost: 0 },
-  { name: 'Polar', color: 'bg-slate-200', locked: false, cost: 0 },
-  { name: 'Cósmico', color: 'bg-purple-800', locked: true, cost: 50 },
-  { name: 'Arcoíris', color: 'bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500', locked: true, cost: 100 },
-];
-
-const headOptions: { name: HeadItem; icon: string; locked: boolean; cost: number }[] = [
-  { name: 'Ninguno', icon: '🚫', locked: false, cost: 0 },
-  { name: 'Gorra', icon: '🧢', locked: false, cost: 0 },
-  { name: 'Gafas', icon: '🕶️', locked: false, cost: 0 },
-  { name: 'Pastel', icon: '🎂', locked: true, cost: 75 },
-  { name: 'VR', icon: '🥽', locked: true, cost: 100 },
-];
-
-const torsoOptions: { name: TorsoItem; icon: string; locked: boolean; cost: number }[] = [
-    { name: 'Ninguno', icon: '👕', locked: false, cost: 0 },
-    { name: 'Baloncesto', icon: '🏀', locked: false, cost: 0 },
-    { name: 'Héroe', icon: '🦸', locked: true, cost: 50 },
-    { name: 'Negocios', icon: '👔', locked: true, cost: 50 },
-];
-
-const backpackerOptions: { name: Backpacker; icon: string; locked: boolean; cost: number }[] = [
-    { name: 'Ninguno', icon: '🚫', locked: false, cost: 0 },
-    { name: 'Shicka', icon: '🐤', locked: false, cost: 0 },
-    { name: 'Larry', icon: '🐸', locked: true, cost: 40 },
-    { name: 'Pingüino', icon: '🐧', locked: true, cost: 40 },
-];
-
 
 export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCreatorScreenProps) {
   const [coins, setCoins] = useState(initialCoins);
@@ -71,48 +29,13 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
       item.setter(item.name);
     }
   };
-
-  const renderAvatar = () => {
-    const selectedFur = furOptions.find(f => f.name === furColor);
-    const selectedHead = headOptions.find(h => h.name === headItem);
-    const selectedTorso = torsoOptions.find(t => t.name === torsoItem);
-    const selectedBackpacker = backpackerOptions.find(b => b.name === backpacker);
-
-    return (
-      <div className="relative w-48 h-64">
-        {/* Backpacker */}
-        {selectedBackpacker && selectedBackpacker.name !== 'Ninguno' && (
-          <div className="absolute text-5xl -right-8 top-1/3 z-0 animate-float">{selectedBackpacker.icon}</div>
-        )}
-        {/* Body */}
-        <div className={cn("absolute w-32 h-40 left-1/2 -translate-x-1/2 top-16 rounded-t-3xl rounded-b-lg", selectedFur?.color)}>
-             {selectedFur?.name === 'Cósmico' && <div className="absolute inset-0 stars opacity-50"/>}
-        </div>
-        {/* Head */}
-        <div className={cn("absolute w-36 h-36 left-1/2 -translate-x-1/2 top-0 rounded-full", selectedFur?.color)}>
-          {selectedFur?.name === 'Cósmico' && <div className="absolute inset-0 rounded-full stars opacity-50"/>}
-          <div className="absolute top-1/3 left-1/4 w-6 h-8 bg-white rounded-full border-2 border-black"></div>
-          <div className="absolute top-1/3 right-1/4 w-6 h-8 bg-white rounded-full border-2 border-black"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-8 h-6 bg-amber-200 rounded-lg border-2 border-black"></div>
-        </div>
-        {/* Head Item */}
-        {selectedHead && selectedHead.name !== 'Ninguno' && (
-          <div className="absolute text-6xl left-1/2 -translate-x-1/2 -top-4 z-20">{selectedHead.icon}</div>
-        )}
-        {/* Torso Item */}
-         {selectedTorso && selectedTorso.name !== 'Ninguno' && (
-          <div className="absolute text-6xl left-1/2 -translate-x-1/2 top-20 z-20">{selectedTorso.icon}</div>
-        )}
-      </div>
-    );
-  };
   
   const renderOptionButton = (item: any, currentSelection: string, setter: (name: any) => void) => {
     const isUnlocked = !item.locked || unlockedItems.has(item.name);
     const canAfford = coins >= item.cost;
 
     return (
-        <div className='relative'>
+        <div key={item.name} className='relative'>
             <Button
                 variant="outline"
                 className={cn("w-20 h-20 flex flex-col items-center justify-center gap-1 border-4 shadow-md", currentSelection === item.name && "border-golden-coin ring-4 ring-golden-coin")}
@@ -133,6 +56,8 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
     )
   }
 
+  const avatarConfig = { furColor, headItem, torsoItem, backpacker };
+
   return (
     <div
       className="h-screen w-full bg-cover bg-center flex flex-col items-center justify-center p-2 sm:p-4 relative"
@@ -151,12 +76,12 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
         {/* Left Section: Avatar Preview */}
         <div className='flex flex-col items-center gap-4'>
             <div className='w-64 sm:w-72 h-80 flex items-center justify-center'>
-                 {renderAvatar()}
+                 <AvatarDisplay config={avatarConfig} />
             </div>
             <div className="w-64 sm:w-80 h-4 bg-gray-600 rounded-full border-2 border-gray-800 shadow-inner opacity-70 blur-sm" />
              <div className="relative mt-4">
                 <Button
-                    onClick={() => onAvatarCreate({ furColor, headItem, torsoItem, backpacker })}
+                    onClick={() => onAvatarCreate(avatarConfig)}
                     className="font-milky bg-grass-green text-white text-lg sm:text-xl h-auto px-6 sm:px-8 py-3 border-2 border-foreground shadow-[4px_4px_0_hsl(var(--foreground))] hover:shadow-[6px_6px_0px_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 active:shadow-none active:translate-x-0 active:translate-y-0 transition-all"
                 >
                     ¡Guardar Avatar y Confirmar! ➔

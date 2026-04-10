@@ -3,8 +3,10 @@
 import { useState } from 'react';
 import { missionData } from '@/lib/eventData';
 import { Button } from './ui/button';
-import type { AvatarConfig } from './avatar-creator-screen';
+import type { AvatarConfig } from '@/lib/avatarOptions';
 import { ArrowDown } from 'lucide-react';
+import { CountdownTimer } from './countdown-timer';
+import { AvatarDisplay } from './avatar-display';
 
 type MissionDetailsScreenProps = {
   playerName: string;
@@ -21,23 +23,6 @@ export function MissionDetailsScreen({ playerName, onNext, playedMinigames, avat
     ? `¡Felicidades, ${playerName || guestName}!`
     : `Misión Estándar: Coordenadas de ${playerName || guestName}`;
 
-  const getAvatarEmoji = (config: AvatarConfig | null) => {
-    if (!config) return "";
-    const head = {
-        'Ninguno': '',
-        'Gorra': '🧢',
-        'Gafas': '🕶️',
-        'Pastel': '🎂',
-        'VR': '🥽'
-    }[config.headItem];
-    const fur = {
-        'Marrón': '🐻',
-        'Polar': '🐻‍❄️',
-        'Cósmico': '🌌',
-        'Arcoíris': '🌈'
-    }[config.furColor]
-    return `${head}${fur}`;
-  }
 
   if (playedMinigames) {
     return ( // VIP Version
@@ -70,11 +55,12 @@ export function MissionDetailsScreen({ playerName, onNext, playedMinigames, avat
 
               <div className='pt-4 flex flex-col items-center gap-4'>
                 {avatarConfig && (
-                  <div className="text-center font-body bg-sky-blue/20 p-2 rounded-md border border-sky-blue">
-                    <p className="font-bold text-teddy-brown">Tu Avatar Guardado: <span className='text-2xl'>{getAvatarEmoji(avatarConfig)}</span></p>
-                    <p className="text-xs">{avatarConfig.furColor}, {avatarConfig.headItem}, {avatarConfig.torsoItem}, {avatarConfig.backpacker}</p>
+                  <div className="text-center font-body bg-sky-blue/20 p-2 rounded-md border border-sky-blue flex flex-col items-center">
+                    <p className="font-bold text-teddy-brown">Tu Avatar Guardado:</p>
+                    <AvatarDisplay config={avatarConfig} className="scale-75" />
                   </div>
                 )}
+                <CountdownTimer targetDate={missionData.targetDate} />
                 <div className="relative w-full md:w-auto">
                     <Button
                         onClick={() => setIsConfirmed(true)}
@@ -126,6 +112,7 @@ export function MissionDetailsScreen({ playerName, onNext, playedMinigames, avat
             </div>
 
             <div className='pt-4 flex flex-col items-center gap-4'>
+                <CountdownTimer targetDate={missionData.targetDate} />
                 <div className="relative w-full md:w-auto">
                     <Button
                         onClick={() => setIsConfirmed(true)}
