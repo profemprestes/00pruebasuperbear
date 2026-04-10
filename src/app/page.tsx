@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { ConfigScreen, type ConfigData } from "@/components/config-screen";
+import { useState, useEffect } from "react";
 import { PasswordScreen } from "@/components/password-screen";
 import { LoadingScreen } from "@/components/loading-screen";
 import { PresentationScreen } from "@/components/presentation-screen";
@@ -14,10 +13,10 @@ import { AvatarCreatorScreen } from "@/components/avatar-creator-screen";
 import type { AvatarConfig } from "@/lib/avatarOptions";
 import { cn } from "@/lib/utils";
 
-type Screen = 'config' | 'password' | 'loading' | 'introVideo' | 'presentation' | 'register' | 'arcadeWorld' | 'avatarCreator' | 'missionDetails' | 'bioBook';
+type Screen = 'password' | 'loading' | 'introVideo' | 'presentation' | 'register' | 'arcadeWorld' | 'avatarCreator' | 'missionDetails' | 'bioBook';
 
 export default function Home() {
-  const [currentScreen, setCurrentScreen] = useState<Screen>('config');
+  const [currentScreen, setCurrentScreen] = useState<Screen>('password'); // Changed initial screen
   const [playerName, setPlayerName] = useState('');
   const [playedMinigames, setPlayedMinigames] = useState(false);
   const [coins, setCoins] = useState(0);
@@ -29,13 +28,22 @@ export default function Home() {
   const [photo1, setPhoto1] = useState<string | null>(null);
   const [photo2, setPhoto2] = useState<string | null>(null);
 
-  const handleConfigure = (data: ConfigData) => {
-    setFacuBio(data.bio);
-    setFacuLikes(data.likes);
-    setPhoto1(data.photo1);
-    setPhoto2(data.photo2);
-    setCurrentScreen('password');
-  };
+  useEffect(() => {
+    // This effect runs on the client to load configuration from localStorage
+    try {
+      const savedConfig = localStorage.getItem('facuConfig');
+      if (savedConfig) {
+        const { bio, likes, photo1, photo2 } = JSON.parse(savedConfig);
+        if (bio) setFacuBio(bio);
+        if (likes) setFacuLikes(likes);
+        if (photo1) setPhoto1(photo1);
+        if (photo2) setPhoto2(photo2);
+      }
+    } catch (error) {
+      console.error("Failed to load config from localStorage", error);
+    }
+  }, []);
+
 
   const handleRegisterAndPlay = (name: string) => {
     setPlayerName(name);
@@ -60,23 +68,17 @@ export default function Home() {
   };
   
   const handleRestart = () => {
-    // Reset all state to start over, including config
-    setCurrentScreen('config');
+    // Reset game state, but not config data
+    setCurrentScreen('password');
     setPlayerName('');
     setPlayedMinigames(false);
     setCoins(0);
     setAvatarConfig(null);
-    setFacuBio('');
-    setFacuLikes([]);
-    setPhoto1(null);
-    setPhoto2(null);
   };
 
 
   const renderScreen = () => {
     switch (currentScreen) {
-      case 'config':
-        return <ConfigScreen onConfigure={handleConfigure} />;
       case 'password':
         return <PasswordScreen onCorrectPassword={() => setCurrentScreen('loading')} />;
       case 'loading':
@@ -96,7 +98,7 @@ export default function Home() {
       case 'bioBook':
         return <BioBookScreen onRestart={handleRestart} facuLikes={facuLikes} photo1={photo1} photo2={photo2} />;
       default:
-        return <ConfigScreen onConfigure={handleConfigure} />;
+        return <PasswordScreen onCorrectPassword={() => setCurrentScreen('loading')} />;
     }
   };
 
@@ -115,7 +117,7 @@ export default function Home() {
         key={currentScreen} 
         className={cn(
           "absolute inset-0 z-10",
-          !['config', 'password', 'loading', 'introVideo'].includes(currentScreen) && "motion-safe:animate-in fade-in-0 slide-in-from-bottom-4 duration-500"
+          !['password', 'loading', 'introVideo'].includes(currentScreen) && "motion-safe:animate-in fade-in-0 slide-in-from-bottom-4 duration-500"
         )}
       >
         {renderScreen()}
