@@ -38,7 +38,7 @@ export function MissionDetailsScreen({ playerName, onNext, playedMinigames, avat
           </div>
           <div className="relative z-10 bg-gradient-to-br from-yellow-50 to-amber-100 border-[8px] border-golden-coin rounded-2xl shadow-[0_10px_30px_rgba(255,215,0,0.5),_8px_8px_0px_#b8860b] w-[95%] max-w-2xl p-6 sm:p-8 space-y-4 text-center">
               <div className="bg-amber-400/80 rounded-lg p-3 mb-4 border-2 border-amber-500 shadow-inner">
-                  <h3 className="font-milky text-xl sm:text-2xl text-white animate-pulse">💎 ESTATUS VIP DESBLOQUEADO 💎</h3>
+                  <h3 className="font-milky text-xl sm:text-2xl text-white motion-safe:animate-pulse">💎 ESTATUS VIP DESBLOQUEADO 💎</h3>
                   <p className="font-body font-bold text-white text-md sm:text-lg">Recompensa: ¡Sombrero de Pastel de Cumpleaños!</p>
               </div>
 
@@ -74,7 +74,7 @@ export function MissionDetailsScreen({ playerName, onNext, playedMinigames, avat
                         {isConfirmed ? "¡Asistencia Confirmada!" : "¡Confirmo mi asistencia!"}
                     </Button>
                     {!isConfirmed && (
-                      <div className="absolute -top-4 sm:-top-8 left-1/2 -translate-x-1/2 text-golden-coin animate-bounce flex flex-col items-center z-10 pointer-events-none">
+                      <div className="absolute -top-4 sm:-top-8 left-1/2 -translate-x-1/2 text-golden-coin motion-safe:animate-bounce flex flex-col items-center z-10 pointer-events-none">
                           <span className='font-milky text-xs bg-white/80 px-2 rounded-full border-2 border-golden-coin'>¡CONFIRMA!</span>
                           <ArrowDown className="w-4 h-4 mx-auto" />
                       </div>
@@ -126,7 +126,7 @@ export function MissionDetailsScreen({ playerName, onNext, playedMinigames, avat
                         {isConfirmed ? "¡Asistencia Confirmada!" : "¡Confirmo mi asistencia!"}
                     </Button>
                     {!isConfirmed && (
-                      <div className="absolute -top-4 sm:-top-8 left-1/2 -translate-x-1/2 text-golden-coin animate-bounce flex flex-col items-center z-10 pointer-events-none">
+                      <div className="absolute -top-4 sm:-top-8 left-1/2 -translate-x-1/2 text-golden-coin motion-safe:animate-bounce flex flex-col items-center z-10 pointer-events-none">
                           <span className='font-milky text-xs bg-white/80 px-2 rounded-full border-2 border-golden-coin'>¡CONFIRMA!</span>
                           <ArrowDown className="w-4 h-4 mx-auto" />
                       </div>

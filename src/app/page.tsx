@@ -78,14 +78,14 @@ export default function Home() {
         muted 
         playsInline
         src="/fondo_web.mp4" 
-        className="fixed top-0 left-0 w-screen h-screen object-cover z-[-1] animate-in fade-in-0 duration-1000 brightness-[.85] saturate-[1.2]"
+        className="fixed top-0 left-0 w-screen h-screen object-cover z-[-1] motion-safe:animate-in fade-in-0 duration-1000 brightness-[.85] saturate-[1.2]"
       />
       
       <div 
         key={currentScreen} 
         className={cn(
           "absolute inset-0 z-10",
-          !['password', 'loading', 'introVideo'].includes(currentScreen) && "animate-in fade-in-0 slide-in-from-bottom-4 duration-500"
+          !['password', 'loading', 'introVideo'].includes(currentScreen) && "motion-safe:animate-in fade-in-0 slide-in-from-bottom-4 duration-500"
         )}
       >
         {renderScreen()}

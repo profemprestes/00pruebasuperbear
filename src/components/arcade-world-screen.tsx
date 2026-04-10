@@ -87,7 +87,7 @@ const CoinCollectGame = ({ onComplete }: { onComplete: () => void }) => {
       <p className="font-body font-bold text-lg mb-2">¡Recoge 5 monedas del Arcade!</p>
       <div className="relative w-full h-full">
         {coins.map(coin => !coin.collected && (
-          <button key={coin.id} onClick={() => handleCollect(coin.id)} className="absolute text-4xl animate-float" style={{ top: coin.top, left: coin.left }}>
+          <button key={coin.id} onClick={() => handleCollect(coin.id)} className="absolute text-4xl motion-safe:animate-float" style={{ top: coin.top, left: coin.left }}>
             🪙
           </button>
         ))}
@@ -119,7 +119,7 @@ const LavaFloorGame = ({ onComplete }: { onComplete: () => void }) => {
     return (
         <div className="p-4 h-full flex flex-col items-center">
             <p className="font-body font-bold text-md sm:text-lg mb-2 text-center">¡Misión de Tristopio! El suelo es lava. Pisa solo las plataformas seguras.</p>
-            {warning && <p className="text-red-500 font-bold animate-pulse">¡Cuidado!</p>}
+            {warning && <p className="text-red-500 font-bold motion-safe:animate-pulse">¡Cuidado!</p>}
             <div className="grid grid-cols-3 gap-2 w-full max-w-[12rem] aspect-square mx-auto mt-4">
                 {Array.from({ length: 9 }).map((_, i) => (
                     <div key={i} onClick={() => handleClick(i)} className={cn("w-full h-full rounded-md cursor-pointer flex items-center justify-center",
@@ -140,9 +140,9 @@ const HoneyDodgeGame = ({ onComplete }: { onComplete: () => void }) => {
     <div className="p-4 h-full flex flex-col items-center justify-center">
       <p className="font-body font-bold text-md sm:text-lg mb-4 text-center">¡La fábrica de The Hive! Atrapa la llave, pero NO toques la miel morada.</p>
       <div className="relative w-full h-4/5">
-        <div onClick={onComplete} className="absolute text-5xl cursor-pointer animate-float" style={{ top: '40%', left: '20%' }}>🔑</div>
-        <div className="absolute text-5xl animate-sway" style={{ top: '20%', left: '60%' }}>🟣</div>
-        <div className="absolute text-5xl animate-sway" style={{ top: '60%', left: '80%', animationDelay: '-2s' }}>🟣</div>
+        <div onClick={onComplete} className="absolute text-5xl cursor-pointer motion-safe:animate-float" style={{ top: '40%', left: '20%' }}>🔑</div>
+        <div className="absolute text-5xl motion-safe:animate-sway" style={{ top: '20%', left: '60%' }}>🟣</div>
+        <div className="absolute text-5xl motion-safe:animate-sway" style={{ top: '60%', left: '80%', animationDelay: '-2s' }}>🟣</div>
       </div>
     </div>
   );
@@ -175,7 +175,7 @@ const MoleWhackGame = ({ onComplete }: { onComplete: () => void }) => {
             <div className="flex justify-around w-full mt-8">
                 {moles.map(mole => (
                     <div key={mole.id} className="w-20 h-20 sm:w-24 sm:h-24 bg-stone-700 rounded-full flex items-center justify-center">
-                        {mole.active && <div onClick={handleWhack} className="text-5xl cursor-pointer animate-in fade-in-0 zoom-in-75">️‍🔥</div>}
+                        {mole.active && <div onClick={handleWhack} className="text-5xl cursor-pointer motion-safe:animate-in fade-in-0 zoom-in-75">️‍🔥</div>}
                     </div>
                 ))}
             </div>
@@ -196,11 +196,11 @@ const RouletteGame = ({ onComplete }: { onComplete: () => void }) => {
         <div className="p-4 h-full flex flex-col items-center justify-center">
              <p className="font-body font-bold text-lg mb-4 text-center">¡Gira la ruleta de Capitalos para tu recompensa final!</p>
             {!spinning ? (
-                <button onClick={handleSpin} className="w-48 h-48 rounded-full bg-gradient-to-tr from-red-500 via-yellow-500 to-blue-500 flex items-center justify-center font-milky text-white text-2xl shadow-lg transition-transform hover:scale-105 active:scale-95 animate-float">
+                <button onClick={handleSpin} className="w-48 h-48 rounded-full bg-gradient-to-tr from-red-500 via-yellow-500 to-blue-500 flex items-center justify-center font-milky text-white text-2xl shadow-lg transition-transform hover:scale-105 active:scale-95 motion-safe:animate-float">
                     GIRAR
                 </button>
             ) : (
-                <div className="w-48 h-48 rounded-full bg-gradient-to-tr from-red-500 via-yellow-500 to-blue-500 animate-roulette flex items-center justify-center">
+                <div className="w-48 h-48 rounded-full bg-gradient-to-tr from-red-500 via-yellow-500 to-blue-500 motion-safe:animate-roulette flex items-center justify-center">
                      <div className="w-44 h-44 rounded-full bg-white flex items-center justify-center font-milky text-teddy-brown text-lg text-center p-2">
                         ¡Premio Legendario!
                     </div>

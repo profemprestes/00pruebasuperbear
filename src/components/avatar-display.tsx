@@ -16,7 +16,7 @@ export function AvatarDisplay({ config, className }: AvatarDisplayProps) {
         <div className={cn("relative w-48 h-64", className)}>
             {/* Backpacker */}
             {selectedBackpacker && selectedBackpacker.name !== 'Ninguno' && (
-                <div className="absolute text-5xl -right-8 top-1/3 z-0 animate-float">{selectedBackpacker.icon}</div>
+                <div className="absolute text-5xl -right-8 top-1/3 z-0 motion-safe:animate-float">{selectedBackpacker.icon}</div>
             )}
             {/* Body */}
             <div className={cn("absolute w-32 h-40 left-1/2 -translate-x-1/2 top-16 rounded-t-3xl rounded-b-lg", selectedFur?.color)}>

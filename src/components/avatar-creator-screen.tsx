@@ -86,7 +86,7 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
                 >
                     ¡Guardar Avatar y Confirmar! ➔
                 </Button>
-                <div className="absolute -top-12 left-1/2 -translate-x-1/2 text-grass-green animate-bounce flex flex-col items-center">
+                <div className="absolute -top-12 left-1/2 -translate-x-1/2 text-grass-green motion-safe:animate-bounce flex flex-col items-center">
                     <span className="font-milky text-sm bg-white/80 px-2 rounded-full border-2 border-grass-green">¡HAZ CLIC!</span>
                     <ArrowDown className="w-8 h-8" />
                 </div>
@@ -104,22 +104,22 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
                 </TabsList>
                 <TabsContent value="fur">
                     <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 p-2 sm:p-4'>
-                        {furOptions.map(opt => <React.Fragment key={opt.name}>{renderOptionButton(opt, furColor, setFurColor)}</React.Fragment>)}
+                        {furOptions.map(opt => renderOptionButton(opt, furColor, setFurColor))}
                     </div>
                 </TabsContent>
                 <TabsContent value="head">
                     <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 p-2 sm:p-4'>
-                       {headOptions.map(opt => <React.Fragment key={opt.name}>{renderOptionButton(opt, headItem, setHeadItem)}</React.Fragment>)}
+                       {headOptions.map(opt => renderOptionButton(opt, headItem, setHeadItem))}
                     </div>
                 </TabsContent>
                 <TabsContent value="torso">
                      <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 p-2 sm:p-4'>
-                        {torsoOptions.map(opt => <React.Fragment key={opt.name}>{renderOptionButton(opt, torsoItem, setTorsoItem)}</React.Fragment>)}
+                        {torsoOptions.map(opt => renderOptionButton(opt, torsoItem, setTorsoItem))}
                     </div>
                 </TabsContent>
                  <TabsContent value="back">
                      <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 p-2 sm:p-4'>
-                        {backpackerOptions.map(opt => <React.Fragment key={opt.name}>{renderOptionButton(opt, backpacker, setBackpacker)}</React.Fragment>)}
+                        {backpackerOptions.map(opt => renderOptionButton(opt, backpacker, setBackpacker))}
                     </div>
                 </TabsContent>
             </Tabs>

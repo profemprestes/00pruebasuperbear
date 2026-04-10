@@ -59,7 +59,7 @@ export function PasswordScreen({ onCorrectPassword }: PasswordScreenProps) {
             Entrar
           </Button>
           {error && (
-            <p className="text-red-500 font-bold mt-2 animate-in fade-in-0">Contraseña incorrecta. Intenta de nuevo.</p>
+            <p className="text-red-500 font-bold mt-2 motion-safe:animate-in fade-in-0">Contraseña incorrecta. Intenta de nuevo.</p>
           )}
         </div>
       </div>

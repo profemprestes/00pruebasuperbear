@@ -35,7 +35,7 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
                     alt="Shicka" 
                     width={150} 
                     height={150}
-                    className="drop-shadow-[5px_5px_0px_rgba(0,0,0,0.4)] animate-float w-[150px]"
+                    className="drop-shadow-[5px_5px_0px_rgba(0,0,0,0.4)] motion-safe:animate-float w-[150px]"
                 />
             </div>
             <div className="flex-grow text-teddy-brown text-center sm:text-left">
@@ -53,7 +53,7 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
                     />
                     <div className="relative mt-12 sm:mt-10">
                         {playerName.trim() && (
-                            <div className="absolute -top-10 left-1/2 -translate-x-1/2 text-golden-coin animate-bounce flex flex-col items-center z-20 pointer-events-none">
+                            <div className="absolute -top-10 left-1/2 -translate-x-1/2 text-golden-coin motion-safe:animate-bounce flex flex-col items-center z-20 pointer-events-none">
                                 <span className="font-milky text-xs bg-white px-2 rounded-full border-2 border-golden-coin shadow-md">¡A JUGAR!</span>
                                 <ArrowDown className="w-4 h-4" />
                             </div>
