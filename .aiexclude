@@ -4,6 +4,9 @@ node_modules/
 public/
 out/
 build/
+docs/listas/lista_audio.txt
+docs/listas/lista_imagen.txt
+docs/listas/lista_video.txt
 
 # Lockfiles and logs
 pnpm-lock.yaml
@@ -11,3 +14,4 @@ pnpm-lock.yaml
 
 # OS-specific files
 .DS_Store
+
