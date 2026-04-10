@@ -41,7 +41,7 @@ export function PasswordScreen({ onCorrectPassword }: PasswordScreenProps) {
         <div className="flex flex-col gap-4">
           <Input
             type="password"
-            placeholder="Contraseña"
+            placeholder="Contraseña" aria-label="Contraseña"
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);

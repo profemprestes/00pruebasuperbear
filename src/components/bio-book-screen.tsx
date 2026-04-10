@@ -23,11 +23,11 @@ export function BioBookScreen({ onRestart }: BioBookScreenProps) {
     >
       <div className="absolute inset-0 bg-black/70 backdrop-blur-lg z-0" />
       
-      <div className="relative z-10 text-center w-full max-w-4xl mx-auto">
+      <div className="relative z-10 text-center w-[95%] max-w-4xl mx-auto">
         <h2 className="font-milky text-4xl sm:text-5xl md:text-6xl text-white mb-8" style={{ textShadow: '4px 4px 0px hsl(var(--teddy-brown))' }}>
           Inventario de Facu
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 md:gap-6 mb-12 max-w-xl mx-auto">
+        <div className="grid grid-cols-1 min-[400px]:grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 md:gap-6 mb-12 max-w-xl mx-auto">
           {inventoryItems.map((item, index) => (
             <div key={index} className="bg-white/10 border-2 border-golden-coin rounded-lg shadow-lg flex flex-col items-center justify-center p-3 sm:p-4 aspect-square transition-transform hover:scale-105">
               <span className="text-3xl sm:text-5xl">{item.icon}</span>

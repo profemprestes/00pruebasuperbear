@@ -52,7 +52,7 @@ export function ArcadeWorldScreen({ onArcadeEnd }: ArcadeWorldScreenProps) {
 
   return (
     <div className="h-screen w-full stars flex flex-col items-center justify-center p-4">
-      <div className="relative bg-white border-8 border-teddy-brown rounded-2xl p-4 sm:p-6 shadow-3d w-full max-w-3xl text-center">
+      <div className="relative bg-white border-8 border-teddy-brown rounded-2xl p-4 sm:p-6 shadow-3d w-[95%] max-w-3xl text-center">
         <h2 className="font-milky text-3xl sm:text-4xl text-teddy-brown mb-4">
           {showSuccess ? "¡NIVEL COMPLETADO!" : `Misión ${minigameLevel} / 5`}
         </h2>
@@ -120,9 +120,9 @@ const LavaFloorGame = ({ onComplete }: { onComplete: () => void }) => {
         <div className="p-4 h-full flex flex-col items-center">
             <p className="font-body font-bold text-md sm:text-lg mb-2 text-center">¡Misión de Tristopio! El suelo es lava. Pisa solo las plataformas seguras.</p>
             {warning && <p className="text-red-500 font-bold animate-pulse">¡Cuidado!</p>}
-            <div className="grid grid-cols-3 gap-2 w-48 h-48 mx-auto mt-4">
+            <div className="grid grid-cols-3 gap-2 w-full max-w-[12rem] aspect-square mx-auto mt-4">
                 {Array.from({ length: 9 }).map((_, i) => (
-                    <div key={i} onClick={() => handleClick(i)} className={cn("w-14 h-14 rounded-md cursor-pointer flex items-center justify-center", 
+                    <div key={i} onClick={() => handleClick(i)} className={cn("w-full h-full rounded-md cursor-pointer flex items-center justify-center",
                         safePlatforms.has(i) ? 'bg-green-500' : 'bg-red-600',
                         clickedSafe.has(i) && 'opacity-50'
                     )}>
@@ -196,7 +196,7 @@ const RouletteGame = ({ onComplete }: { onComplete: () => void }) => {
         <div className="p-4 h-full flex flex-col items-center justify-center">
              <p className="font-body font-bold text-lg mb-4 text-center">¡Gira la ruleta de Capitalos para tu recompensa final!</p>
             {!spinning ? (
-                <button onClick={handleSpin} className="w-48 h-48 rounded-full bg-gradient-to-tr from-red-500 via-yellow-500 to-blue-500 flex items-center justify-center font-milky text-white text-2xl shadow-lg transition-transform hover:scale-105 active:scale-95">
+                <button onClick={handleSpin} className="w-48 h-48 rounded-full bg-gradient-to-tr from-red-500 via-yellow-500 to-blue-500 flex items-center justify-center font-milky text-white text-2xl shadow-lg transition-transform hover:scale-105 active:scale-95 animate-float">
                     GIRAR
                 </button>
             ) : (
