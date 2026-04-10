@@ -20,7 +20,7 @@ export function PresentationScreen({ onNext }: PresentationScreenProps) {
             alt="Facu Bear Avatar"
             width={150}
             height={150}
-            className="drop-shadow-[4px_4px_0px_rgba(0,0,0,0.3)] w-[120px] sm:w-[150px]"
+            className="drop-shadow-[4px_4px_0px_rgba(0,0,0,0.3)] w-[120px] sm:w-[150px] transition-transform duration-300 hover:scale-110"
           />
         </div>
         

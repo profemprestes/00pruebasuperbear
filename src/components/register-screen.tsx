@@ -35,7 +35,7 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
                     alt="Shicka" 
                     width={150} 
                     height={150}
-                    className="drop-shadow-[5px_5px_0px_rgba(0,0,0,0.4)] motion-safe:animate-float w-[150px]"
+                    className="drop-shadow-[5px_5px_0px_rgba(0,0,0,0.4)] motion-safe:animate-float w-[150px] transition-transform duration-300 hover:scale-110"
                 />
             </div>
             <div className="flex-grow text-teddy-brown text-center sm:text-left">

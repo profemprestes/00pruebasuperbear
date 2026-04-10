@@ -34,7 +34,7 @@ export function LoadingScreen({ onStart }: LoadingScreenProps) {
           alt="Super Facu Aventura"
           width={500}
           height={250}
-          className="motion-safe:animate-float w-full max-w-sm sm:max-w-md md:max-w-lg transition-transform duration-300 ease-in-out hover:scale-105"
+          className="motion-safe:animate-float w-full max-w-sm sm:max-w-md md:max-w-lg drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 ease-in-out hover:scale-105"
           priority
         />
       </div>
