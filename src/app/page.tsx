@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ConfigScreen, type ConfigData } from "@/components/config-screen";
 import { PasswordScreen } from "@/components/password-screen";
 import { LoadingScreen } from "@/components/loading-screen";
 import { PresentationScreen } from "@/components/presentation-screen";
@@ -13,15 +14,28 @@ import { AvatarCreatorScreen } from "@/components/avatar-creator-screen";
 import type { AvatarConfig } from "@/lib/avatarOptions";
 import { cn } from "@/lib/utils";
 
-type Screen = 'password' | 'loading' | 'introVideo' | 'presentation' | 'register' | 'arcadeWorld' | 'avatarCreator' | 'missionDetails' | 'bioBook';
+type Screen = 'config' | 'password' | 'loading' | 'introVideo' | 'presentation' | 'register' | 'arcadeWorld' | 'avatarCreator' | 'missionDetails' | 'bioBook';
 
 export default function Home() {
-  const [currentScreen, setCurrentScreen] = useState<Screen>('password');
+  const [currentScreen, setCurrentScreen] = useState<Screen>('config');
   const [playerName, setPlayerName] = useState('');
   const [playedMinigames, setPlayedMinigames] = useState(false);
   const [coins, setCoins] = useState(0);
   const [avatarConfig, setAvatarConfig] = useState<AvatarConfig | null>(null);
 
+  // State for configured data
+  const [facuBio, setFacuBio] = useState('');
+  const [facuLikes, setFacuLikes] = useState<string[]>([]);
+  const [photo1, setPhoto1] = useState<string | null>(null);
+  const [photo2, setPhoto2] = useState<string | null>(null);
+
+  const handleConfigure = (data: ConfigData) => {
+    setFacuBio(data.bio);
+    setFacuLikes(data.likes);
+    setPhoto1(data.photo1);
+    setPhoto2(data.photo2);
+    setCurrentScreen('password');
+  };
 
   const handleRegisterAndPlay = (name: string) => {
     setPlayerName(name);
@@ -44,9 +58,25 @@ export default function Home() {
     setAvatarConfig(config);
     setCurrentScreen('missionDetails');
   };
+  
+  const handleRestart = () => {
+    // Reset all state to start over, including config
+    setCurrentScreen('config');
+    setPlayerName('');
+    setPlayedMinigames(false);
+    setCoins(0);
+    setAvatarConfig(null);
+    setFacuBio('');
+    setFacuLikes([]);
+    setPhoto1(null);
+    setPhoto2(null);
+  };
+
 
   const renderScreen = () => {
     switch (currentScreen) {
+      case 'config':
+        return <ConfigScreen onConfigure={handleConfigure} />;
       case 'password':
         return <PasswordScreen onCorrectPassword={() => setCurrentScreen('loading')} />;
       case 'loading':
@@ -54,7 +84,7 @@ export default function Home() {
       case 'introVideo':
         return <IntroVideoScreen onVideoEnd={() => setCurrentScreen('presentation')} />;
       case 'presentation':
-        return <PresentationScreen onNext={() => setCurrentScreen('register')} />;
+        return <PresentationScreen onNext={() => setCurrentScreen('register')} facuBio={facuBio} />;
       case 'register':
         return <RegisterScreen onPlayArcade={handleRegisterAndPlay} onSkipArcade={handleRegisterAndSkip} />;
       case 'arcadeWorld':
@@ -64,9 +94,9 @@ export default function Home() {
       case 'missionDetails':
         return <MissionDetailsScreen playerName={playerName} onNext={() => setCurrentScreen('bioBook')} playedMinigames={playedMinigames} avatarConfig={avatarConfig} />;
       case 'bioBook':
-        return <BioBookScreen onRestart={() => setCurrentScreen('password')} />;
+        return <BioBookScreen onRestart={handleRestart} facuLikes={facuLikes} photo1={photo1} photo2={photo2} />;
       default:
-        return <PasswordScreen onCorrectPassword={() => setCurrentScreen('loading')} />;
+        return <ConfigScreen onConfigure={handleConfigure} />;
     }
   };
 
@@ -85,7 +115,7 @@ export default function Home() {
         key={currentScreen} 
         className={cn(
           "absolute inset-0 z-10",
-          !['password', 'loading', 'introVideo'].includes(currentScreen) && "motion-safe:animate-in fade-in-0 slide-in-from-bottom-4 duration-500"
+          !['config', 'password', 'loading', 'introVideo'].includes(currentScreen) && "motion-safe:animate-in fade-in-0 slide-in-from-bottom-4 duration-500"
         )}
       >
         {renderScreen()}
