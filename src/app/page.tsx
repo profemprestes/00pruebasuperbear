@@ -117,7 +117,7 @@ export default function Home() {
         key={currentScreen} 
         className={cn(
           "absolute inset-0 z-10",
-          !['password', 'loading', 'introVideo'].includes(currentScreen) && "motion-safe:animate-in fade-in-0 slide-in-from-bottom-4 duration-500"
+          !['password', 'loading', 'introVideo'].includes(currentScreen) && "motion-safe:animate-in fade-in-0 slide-in-from-bottom-4 duration-500 ease-out"
         )}
       >
         {renderScreen()}

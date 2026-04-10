@@ -52,7 +52,7 @@ export function ArcadeWorldScreen({ onArcadeEnd }: ArcadeWorldScreenProps) {
 
   return (
     <div className="h-screen w-full stars flex flex-col items-center justify-center p-4">
-      <div className="relative bg-white border-8 border-teddy-brown rounded-2xl p-4 sm:p-6 shadow-3d w-[95%] max-w-3xl text-center">
+      <div className="relative bg-white border-8 border-teddy-brown rounded-2xl p-4 sm:p-6 shadow-3d w-[95%] max-w-3xl text-center motion-safe:animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-8 duration-500">
         <h2 className="font-milky text-3xl sm:text-4xl text-teddy-brown mb-4">
           {showSuccess ? "¡NIVEL COMPLETADO!" : `Misión ${minigameLevel} / 5`}
         </h2>

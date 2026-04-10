@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { Button } from './ui/button';
+import { ArrowDown } from 'lucide-react';
 
 type BioBookScreenProps = {
   onRestart: () => void;
@@ -58,9 +59,13 @@ export function BioBookScreen({ onRestart, facuLikes, photo1, photo2 }: BioBookS
         </p>
         
         <div className="relative inline-block mt-8">
+            <div className="absolute -top-12 left-1/2 -translate-x-1/2 text-grass-green motion-safe:animate-bounce flex flex-col items-center pointer-events-none">
+                <span className="font-milky text-sm bg-white/90 px-2 rounded-full border-2 border-grass-green text-black">¡REINICIAR!</span>
+                <ArrowDown className="w-5 h-5" />
+            </div>
             <Button
               onClick={onRestart}
-              className="font-milky text-white text-xl sm:text-2xl px-8 py-4 rounded-lg bg-grass-green border-0 shadow-[0_6px_0_#2E8B57] transition-all duration-150 hover:bg-green-500 hover:shadow-[0_4px_0_#2E8B57] active:translate-y-[2px] active:shadow-none"
+              className="font-milky text-white text-xl sm:text-2xl px-8 py-4 rounded-lg bg-grass-green border-0 shadow-[0_6px_0_#2E8B57] transition-all duration-200 hover:bg-green-500 hover:shadow-[0_8px_0_#2E8B57] hover:-translate-y-0.5 active:translate-y-1 active:shadow-none"
             >
               Volver al Inicio
             </Button>

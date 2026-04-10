@@ -72,7 +72,7 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
         {coins} 🪙
       </div>
 
-      <div className="relative z-10 w-[95%] sm:w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8 items-center mt-28 md:mt-0">
+      <div className="relative z-10 w-[95%] sm:w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8 items-center mt-28 md:mt-0 motion-safe:animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-8 duration-500">
         {/* Left Section: Avatar Preview */}
         <div className='flex flex-col items-center gap-4'>
             <div className='w-64 sm:w-72 h-80 flex items-center justify-center'>
@@ -82,7 +82,7 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
              <div className="relative mt-4">
                 <Button
                     onClick={() => onAvatarCreate(avatarConfig)}
-                    className="font-milky bg-grass-green text-white text-lg sm:text-xl h-auto px-6 sm:px-8 py-3 border-2 border-foreground shadow-[4px_4px_0_hsl(var(--foreground))] hover:shadow-[6px_6px_0px_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 active:shadow-none active:translate-x-0 active:translate-y-0 transition-all"
+                    className="font-milky bg-grass-green text-white text-lg sm:text-xl h-auto px-6 sm:px-8 py-3 rounded-lg border-0 shadow-[0_6px_0_#2E8B57] transition-all duration-200 hover:bg-green-500 hover:shadow-[0_8px_0_#2E8B57] hover:-translate-y-0.5 active:translate-y-1 active:shadow-none"
                 >
                     ¡Guardar Avatar y Confirmar! ➔
                 </Button>

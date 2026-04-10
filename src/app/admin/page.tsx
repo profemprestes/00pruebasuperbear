@@ -167,7 +167,7 @@ export default function AdminConfigPage() {
           </div>
 
           <div className="p-4 border-t-2 border-gray-300">
-              <Button onClick={handleCompile} className="w-full font-milky text-white text-xl h-14 bg-grass-green border-0 shadow-[0_6px_0_#2E8B57] transition-all duration-150 hover:bg-green-500 hover:shadow-[0_4px_0_#2E8B57] active:translate-y-[6px] active:shadow-none">
+              <Button onClick={handleCompile} className="w-full font-milky text-white text-xl h-14 bg-grass-green border-0 shadow-[0_6px_0_#2E8B57] transition-all duration-200 hover:bg-green-500 hover:shadow-[0_8px_0_#2E8B57] hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-none">
                 ¡Compilar Nivel y Generar Invitación!
               </Button>
           </div>
