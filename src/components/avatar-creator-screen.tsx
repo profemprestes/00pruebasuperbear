@@ -147,7 +147,7 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
         {coins} 🪙
       </div>
 
-      <div className="relative z-10 w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8 items-center mt-28 md:mt-0">
+      <div className="relative z-10 w-[95%] sm:w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8 items-center mt-28 md:mt-0">
         {/* Left Section: Avatar Preview */}
         <div className='flex flex-col items-center gap-4'>
             <div className='w-64 sm:w-72 h-80 flex items-center justify-center'>
@@ -161,7 +161,8 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
                 >
                     ¡Guardar Avatar y Confirmar! ➔
                 </Button>
-                <div className="absolute -top-10 left-1/2 -translate-x-1/2 text-grass-green animate-subtle-float">
+                <div className="absolute -top-12 left-1/2 -translate-x-1/2 text-grass-green animate-bounce flex flex-col items-center">
+                    <span className="font-milky text-sm bg-white/80 px-2 rounded-full border-2 border-grass-green">¡HAZ CLIC!</span>
                     <ArrowDown className="w-8 h-8" />
                 </div>
               </div>
@@ -177,22 +178,22 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
                     <TabsTrigger value="back">Compañero</TabsTrigger>
                 </TabsList>
                 <TabsContent value="fur">
-                    <div className='grid grid-cols-3 sm:grid-cols-4 gap-2 sm:gap-4 p-2 sm:p-4'>
+                    <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 p-2 sm:p-4'>
                         {furOptions.map(opt => <React.Fragment key={opt.name}>{renderOptionButton(opt, furColor, setFurColor)}</React.Fragment>)}
                     </div>
                 </TabsContent>
                 <TabsContent value="head">
-                    <div className='grid grid-cols-3 sm:grid-cols-4 gap-2 sm:gap-4 p-2 sm:p-4'>
+                    <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 p-2 sm:p-4'>
                        {headOptions.map(opt => <React.Fragment key={opt.name}>{renderOptionButton(opt, headItem, setHeadItem)}</React.Fragment>)}
                     </div>
                 </TabsContent>
                 <TabsContent value="torso">
-                     <div className='grid grid-cols-3 sm:grid-cols-4 gap-2 sm:gap-4 p-2 sm:p-4'>
+                     <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 p-2 sm:p-4'>
                         {torsoOptions.map(opt => <React.Fragment key={opt.name}>{renderOptionButton(opt, torsoItem, setTorsoItem)}</React.Fragment>)}
                     </div>
                 </TabsContent>
                  <TabsContent value="back">
-                     <div className='grid grid-cols-3 sm:grid-cols-4 gap-2 sm:gap-4 p-2 sm:p-4'>
+                     <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 p-2 sm:p-4'>
                         {backpackerOptions.map(opt => <React.Fragment key={opt.name}>{renderOptionButton(opt, backpacker, setBackpacker)}</React.Fragment>)}
                     </div>
                 </TabsContent>

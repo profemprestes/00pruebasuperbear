@@ -86,7 +86,7 @@ export default function Home() {
         className={cn(
           "absolute inset-0 z-10",
           // Don't animate the first few screens as they have their own transitions
-          !['password', 'loading', 'introVideo'].includes(currentScreen) && "animate-in fade-in-0 duration-500"
+          !['password', 'loading', 'introVideo'].includes(currentScreen) && "animate-in fade-in-0 slide-in-from-bottom-4 duration-500"
         )}
       >
         {renderScreen()}
