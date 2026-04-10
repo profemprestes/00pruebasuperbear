@@ -1,0 +1,13 @@
+# Directories to exclude from the AI's context
+node_modules/
+.next/
+public/
+out/
+build/
+
+# Lockfiles and logs
+pnpm-lock.yaml
+*.log
+
+# OS-specific files
+.DS_Store
