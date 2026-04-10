@@ -1,21 +1,22 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { X, Upload, Minus, Square } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import Image from 'next/image';
 
 export default function AdminConfigPage() {
-  const [bio, setBio] = useState('');
-  const [likes, setLikes] = useState<string[]>([]);
+  const [bio, setBio] = useState('¡Hola! Soy Facu. He llegado al Nivel 9 con la barra de energía al máximo y te invito a celebrarlo conmigo en esta nueva aventura multijugador.');
+  const [likes, setLikes] = useState<string[]>(['Taekwondo', 'Videojuegos', 'Super Bear Adventure']);
   const [currentLike, setCurrentLike] = useState('');
   const [photo1File, setPhoto1File] = useState<File | null>(null);
   const [photo2File, setPhoto2File] = useState<File | null>(null);
-  const [photo1Preview, setPhoto1Preview] = useState<string | null>(null);
-  const [photo2Preview, setPhoto2Preview] = useState<string | null>(null);
+  const [photo1Preview, setPhoto1Preview] = useState<string | null>('/facu.jpg');
+  const [photo2Preview, setPhoto2Preview] = useState<string | null>('/facu2.jpeg');
 
   const fileInputRef1 = useRef<HTMLInputElement>(null);
   const fileInputRef2 = useRef<HTMLInputElement>(null);
@@ -31,19 +32,24 @@ export default function AdminConfigPage() {
     });
   };
 
-  useEffect(() => {
-    if (!photo1File) return;
-    const objectUrl = URL.createObjectURL(photo1File);
-    setPhoto1Preview(objectUrl);
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [photo1File]);
-
-  useEffect(() => {
-    if (!photo2File) return;
-    const objectUrl = URL.createObjectURL(photo2File);
-    setPhoto2Preview(objectUrl);
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [photo2File]);
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, photoNumber: 1 | 2) => {
+    const file = e.target.files?.[0] || null;
+    if (photoNumber === 1) {
+      setPhoto1File(file);
+      if (file) {
+        setPhoto1Preview(URL.createObjectURL(file));
+      } else {
+        setPhoto1Preview('/facu.jpg');
+      }
+    } else {
+      setPhoto2File(file);
+      if (file) {
+        setPhoto2Preview(URL.createObjectURL(file));
+      } else {
+        setPhoto2Preview('/facu2.jpeg');
+      }
+    }
+  };
 
   const handleAddLike = () => {
     if (currentLike.trim() && !likes.includes(currentLike.trim())) {
@@ -57,8 +63,8 @@ export default function AdminConfigPage() {
   };
 
   const handleCompile = async () => {
-    let photo1DataUrl = null;
-    let photo2DataUrl = null;
+    let photo1DataUrl = photo1Preview;
+    let photo2DataUrl = photo2Preview;
 
     if (photo1File) {
       photo1DataUrl = await fileToDataUrl(photo1File);
@@ -86,86 +92,141 @@ export default function AdminConfigPage() {
     }, 1500);
   };
 
+  const defaultInventory = [
+    { icon: '🥋', text: 'Taekwondo' },
+    { icon: '🎮', text: 'Videojuegos' },
+    { icon: '🐻', text: 'Super Bear Adventure' },
+    { icon: '🏀', text: 'Baloncesto' },
+  ];
+
+  const inventoryItems = likes.length > 0
+    ? likes.map(like => ({ text: like, icon: '⭐' }))
+    : defaultInventory;
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-blue-500 p-4">
-      <div className="absolute left-4 bottom-4 text-center">
-          <span className="text-8xl motion-safe:animate-subtle-float">🐻‍❄️</span>
-          <div className="bg-white p-2 rounded-lg border-2 border-black shadow-lg relative mt-2 max-w-xs text-left">
-              <p className="font-mono text-sm">¡Saludos, creador Facu! Soy el Científico. Ingresa los datos en la terminal Beendows XP para compilar tu mundo virtual.</p>
-               <div className="absolute -top-3 left-4 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[15px] border-b-white"></div>
+    <div className="fixed inset-0 z-50 flex flex-col md:flex-row items-start justify-center bg-blue-500 p-4 gap-8 overflow-y-auto">
+      {/* Left Column: Config Panel */}
+      <div className="flex-shrink-0 w-full md:w-1/2 max-w-2xl">
+        <div className="bg-gray-200 border-2 border-t-white border-l-white border-r-gray-500 border-b-gray-500 shadow-xl w-full flex flex-col">
+          <div className="bg-blue-700 p-1 flex justify-between items-center text-white cursor-move">
+            <h2 className="font-mono font-bold">Beendows XP - Configuración de Nivel</h2>
+            <div className="flex items-center gap-1">
+              <button className="w-5 h-5 bg-gray-200 border-2 border-t-white border-l-white border-r-gray-500 border-b-gray-500 flex items-center justify-center text-black font-bold"><Minus size={12}/></button>
+              <button className="w-5 h-5 bg-gray-200 border-2 border-t-white border-l-white border-r-gray-500 border-b-gray-500 flex items-center justify-center text-black font-bold"><Square size={8}/></button>
+              <button className="w-5 h-5 bg-red-500 border-2 border-t-red-300 border-l-red-300 border-r-red-700 border-b-red-700 flex items-center justify-center text-white font-bold"><X size={12}/></button>
+            </div>
           </div>
-      </div>
-      <div className="bg-gray-200 border-2 border-t-white border-l-white border-r-gray-500 border-b-gray-500 shadow-xl w-full max-w-2xl h-[90vh] flex flex-col">
-        {/* Title Bar */}
-        <div className="bg-blue-700 p-1 flex justify-between items-center text-white">
-          <h2 className="font-mono font-bold">Beendows XP - Configuración de Nivel</h2>
-          <div className="flex items-center gap-1">
-            <button className="w-5 h-5 bg-gray-200 border-2 border-t-white border-l-white border-r-gray-500 border-b-gray-500 flex items-center justify-center text-black font-bold"><Minus size={12}/></button>
-            <button className="w-5 h-5 bg-gray-200 border-2 border-t-white border-l-white border-r-gray-500 border-b-gray-500 flex items-center justify-center text-black font-bold"><Square size={8}/></button>
-            <button className="w-5 h-5 bg-red-500 border-2 border-t-red-300 border-l-red-300 border-r-red-700 border-b-red-700 flex items-center justify-center text-white font-bold"><X size={12}/></button>
-          </div>
-        </div>
 
-        {/* Content */}
-        <div className="bg-white p-4 flex-grow overflow-y-auto">
-          <fieldset className="border-2 border-gray-300 p-3 mb-4">
-            <legend className="px-2 font-mono font-bold">Sección de Presentación</legend>
-            <Textarea 
-              placeholder="Escribe tu mensaje de bienvenida o lore personal aquí..." 
-              className="font-mono bg-gray-100 border-gray-400"
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-            />
-          </fieldset>
-
-          <fieldset className="border-2 border-gray-300 p-3 mb-4">
-            <legend className="px-2 font-mono font-bold">Inventario de Gustos</legend>
-            <div className="flex gap-2">
-              <Input 
-                placeholder="Añadir gusto (ej. Taekwondo)" 
+          <div className="bg-white p-4 flex-grow overflow-y-auto max-h-[calc(100vh-200px)]">
+            <fieldset className="border-2 border-gray-300 p-3 mb-4">
+              <legend className="px-2 font-mono font-bold">Sección de Presentación</legend>
+              <Textarea 
+                placeholder="Escribe tu mensaje de bienvenida..." 
                 className="font-mono bg-gray-100 border-gray-400"
-                value={currentLike}
-                onChange={(e) => setCurrentLike(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleAddLike()}
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
               />
-              <Button onClick={handleAddLike} className="font-mono bg-gray-200 text-black border-2 border-t-white border-l-white border-r-gray-500 border-b-gray-500 hover:bg-gray-300 active:bg-gray-400 active:border-t-gray-500 active:border-l-gray-500 active:border-r-white active:border-b-white">Añadir</Button>
-            </div>
-            <div className="flex flex-wrap gap-2 mt-3">
-              {likes.map(like => (
-                <div key={like} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full flex items-center gap-2 font-mono">
-                  {like}
-                  <button onClick={() => handleRemoveLike(like)} className="bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">x</button>
-                </div>
-              ))}
-            </div>
-          </fieldset>
+            </fieldset>
 
-          <fieldset className="border-2 border-gray-300 p-3">
-            <legend className="px-2 font-mono font-bold">Cofre de Recuerdos (Fotos)</legend>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {[1, 2].map(i => (
-                <div key={i}>
-                  <Button onClick={() => (i === 1 ? fileInputRef1 : fileInputRef2).current?.click()} className="w-full font-mono bg-gray-200 text-black border-2 border-t-white border-l-white border-r-gray-500 border-b-gray-500 hover:bg-gray-300 active:bg-gray-400 active:border-t-gray-500 active:border-l-gray-500 active:border-r-white active:border-b-white">
-                    <Upload size={16} className="mr-2"/>
-                    Subir Foto {i}
-                  </Button>
-                  <Input type="file" accept="image/*" className="hidden" ref={i === 1 ? fileInputRef1 : fileInputRef2} onChange={(e) => (i === 1 ? setPhoto1File : setPhoto2File)(e.target.files?.[0] || null)} />
-                  {(i === 1 ? photo1Preview : photo2Preview) && (
-                    <div className="mt-2 relative w-24 h-24">
-                        <img src={i === 1 ? photo1Preview : photo2Preview} alt={`Vista previa ${i}`} className="w-full h-full object-cover rounded-md border-2 border-gray-400" />
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </fieldset>
+            <fieldset className="border-2 border-gray-300 p-3 mb-4">
+              <legend className="px-2 font-mono font-bold">Inventario de Gustos</legend>
+              <div className="flex gap-2">
+                <Input 
+                  placeholder="Añadir gusto (ej. Taekwondo)" 
+                  className="font-mono bg-gray-100 border-gray-400"
+                  value={currentLike}
+                  onChange={(e) => setCurrentLike(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleAddLike()}
+                />
+                <Button onClick={handleAddLike} className="font-mono bg-gray-200 text-black border-2 border-t-white border-l-white border-r-gray-500 border-b-gray-500 hover:bg-gray-300 active:bg-gray-400 active:border-t-gray-500 active:border-l-gray-500 active:border-r-white active:border-b-white">Añadir</Button>
+              </div>
+              <div className="flex flex-wrap gap-2 mt-3">
+                {likes.map(like => (
+                  <div key={like} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full flex items-center gap-2 font-mono">
+                    {like}
+                    <button onClick={() => handleRemoveLike(like)} className="bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">x</button>
+                  </div>
+                ))}
+              </div>
+            </fieldset>
+
+            <fieldset className="border-2 border-gray-300 p-3">
+              <legend className="px-2 font-mono font-bold">Cofre de Recuerdos (Fotos)</legend>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[1, 2].map(i => (
+                  <div key={i}>
+                    <Button onClick={() => (i === 1 ? fileInputRef1 : fileInputRef2).current?.click()} className="w-full font-mono bg-gray-200 text-black border-2 border-t-white border-l-white border-r-gray-500 border-b-gray-500 hover:bg-gray-300 active:bg-gray-400 active:border-t-gray-500 active:border-l-gray-500 active:border-r-white active:border-b-white">
+                      <Upload size={16} className="mr-2"/>
+                      Subir Foto {i}
+                    </Button>
+                    <Input type="file" accept="image/*" className="hidden" ref={i === 1 ? fileInputRef1 : fileInputRef2} onChange={(e) => handleFileChange(e, i as 1 | 2)} />
+                  </div>
+                ))}
+              </div>
+            </fieldset>
+          </div>
+
+          <div className="p-4 border-t-2 border-gray-300">
+              <Button onClick={handleCompile} className="w-full font-milky text-white text-xl h-14 bg-grass-green border-0 shadow-[0_6px_0_#2E8B57] transition-all duration-150 hover:bg-green-500 hover:shadow-[0_4px_0_#2E8B57] active:translate-y-[6px] active:shadow-none">
+                ¡Compilar Nivel y Generar Invitación!
+              </Button>
+          </div>
         </div>
+      </div>
 
-        {/* Compile Button */}
-        <div className="p-4 border-t-2 border-gray-300">
-            <Button onClick={handleCompile} className="w-full font-milky text-white text-xl h-14 bg-grass-green border-0 shadow-[0_6px_0_#2E8B57] transition-all duration-150 hover:bg-green-500 hover:shadow-[0_4px_0_#2E8B57] active:translate-y-[6px] active:shadow-none">
-              ¡Compilar Nivel y Generar Invitación!
-            </Button>
+      {/* Right Column: Preview */}
+      <div className="flex-1 w-full md:w-1/2 max-w-md">
+        <div className="flex items-center gap-4 mb-4">
+            <span className="text-6xl motion-safe:animate-subtle-float">🐻‍❄️</span>
+            <div className="bg-white p-2 rounded-lg border-2 border-black shadow-lg relative max-w-xs text-left">
+                <p className="font-mono text-sm">¡Saludos, creador Facu! Los cambios que hagas se reflejarán aquí en vivo.</p>
+                <div className="absolute -top-3 left-4 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[15px] border-b-white"></div>
+            </div>
+        </div>
+        <h3 className="font-milky text-white text-2xl text-center mb-2" style={{textShadow: '2px 2px #000'}}>Vista Previa en Vivo</h3>
+        <div className="bg-gray-800 p-2 rounded-lg border-4 border-black aspect-[9/16] max-h-[75vh] w-full mx-auto overflow-y-auto">
+            {/* Simplified PresentationScreen */}
+            <div className="relative w-full h-[50vh] scale-[0.85] origin-top bg-cover bg-center" style={{ backgroundImage: "url('/ciudad.webp')" }}>
+                <div className="absolute inset-0 bg-black/40" />
+                <div className="absolute inset-0 flex items-center justify-center p-4">
+                    <div className="relative bg-white border-8 border-[hsl(var(--foreground))] rounded-2xl p-6 pt-16 shadow-[8px_8px_0px_hsl(var(--foreground))] w-full">
+                        <div className="absolute -top-16 left-1/2 -translate-x-1/2 z-10">
+                            <Image src="/facu_bear_sin_fondo.png" alt="Facu Bear" width={120} height={120} className="drop-shadow-lg" />
+                        </div>
+                        <h2 className="font-milky text-xl text-center text-[hsl(var(--foreground))]">¡Nivel 9 Desbloqueado!</h2>
+                        <p className="font-body text-xs text-[#333] mt-2 text-center h-20 overflow-y-auto">{bio}</p>
+                    </div>
+                </div>
+            </div>
+             {/* Simplified BioBookScreen */}
+            <div className="relative w-full min-h-[60vh] scale-[0.85] origin-top bg-cover bg-center mt-4 p-4" style={{ backgroundImage: "url('/casa.webp')" }}>
+                <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+                <div className="relative z-10 text-center w-full mx-auto">
+                    <h2 className="font-milky text-2xl text-white mb-4" style={{ textShadow: '2px 2px hsl(var(--teddy-brown))' }}>Inventario de Facu</h2>
+                    <div className="grid grid-cols-2 gap-2 mb-6 max-w-sm mx-auto">
+                        {inventoryItems.map((item, index) => (
+                            <div key={index} className="bg-white/10 border-2 border-golden-coin rounded-lg flex flex-col items-center justify-center p-2 aspect-square">
+                                <span className="text-2xl">{item.icon}</span>
+                                <p className="font-body text-white font-bold text-xs mt-1 text-center">{item.text}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="flex flex-col items-center gap-4">
+                        {photo1Preview && (
+                            <div className="bg-white p-2 pb-6 shadow-lg border-4 border-gray-300 relative w-full max-w-[150px]">
+                                <img src={photo1Preview} alt="Preview 1" className="w-full object-cover aspect-square" />
+                                <p className="absolute bottom-1 left-1/2 -translate-x-1/2 font-milky text-sm text-teddy-brown">RECUERDO 1</p>
+                            </div>
+                        )}
+                        {photo2Preview && (
+                             <div className="bg-white p-2 pb-6 shadow-lg border-4 border-gray-300 relative w-full max-w-[150px]">
+                                <img src={photo2Preview} alt="Preview 2" className="w-full object-cover aspect-square" />
+                                <p className="absolute bottom-1 left-1/2 -translate-x-1/2 font-milky text-sm text-teddy-brown">RECUERDO 2</p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </div>
         </div>
       </div>
     </div>
