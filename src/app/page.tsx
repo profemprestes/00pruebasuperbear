@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { RewardsProvider } from "@/hooks/use-rewards";
 import { PasswordScreen } from "@/components/password-screen";
 import { LoadingScreen } from "@/components/loading-screen";
 import { PresentationScreen } from "@/components/presentation-screen";
@@ -10,10 +11,11 @@ import { ArcadeWorldScreen } from "@/components/arcade-world-screen";
 import { MissionDetailsScreen } from "@/components/mission-details-screen";
 import { BioBookScreen } from "@/components/bio-book-screen";
 import { AvatarCreatorScreen } from "@/components/avatar-creator-screen";
+import { GameFlow } from "@/components/game-flow";
 import type { AvatarConfig } from "@/lib/avatarOptions";
 import { cn } from "@/lib/utils";
 
-type Screen = 'password' | 'loading' | 'introVideo' | 'presentation' | 'register' | 'arcadeWorld' | 'avatarCreator' | 'missionDetails' | 'bioBook';
+type Screen = 'password' | 'loading' | 'introVideo' | 'presentation' | 'register' | 'arcadeWorld' | 'avatarCreator' | 'missionDetails' | 'bioBook' | 'gameFlow';
 
 export default function Home() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('password'); // Changed initial screen
@@ -64,9 +66,9 @@ export default function Home() {
 
   const handleAvatarCreate = (config: AvatarConfig) => {
     setAvatarConfig(config);
-    setCurrentScreen('missionDetails');
+    setCurrentScreen('gameFlow');
   };
-  
+
   const handleRestart = () => {
     // Reset game state, but not config data
     setCurrentScreen('password');
@@ -93,6 +95,12 @@ export default function Home() {
         return <ArcadeWorldScreen onArcadeEnd={handleArcadeEnd} />;
       case 'avatarCreator':
         return <AvatarCreatorScreen initialCoins={coins} onAvatarCreate={handleAvatarCreate} />;
+      case 'gameFlow':
+        return (
+          <RewardsProvider>
+            <GameFlow photo1={photo1} photo2={photo2} />
+          </RewardsProvider>
+        );
       case 'missionDetails':
         return <MissionDetailsScreen playerName={playerName} onNext={() => setCurrentScreen('bioBook')} playedMinigames={playedMinigames} avatarConfig={avatarConfig} />;
       case 'bioBook':
