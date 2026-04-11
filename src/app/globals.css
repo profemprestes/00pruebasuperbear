@@ -2,13 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* MilkyNice — main SBA game font */
 @font-face {
   font-family: 'Milky Nice';
   src: url('/MilkyNice_Clean.ttf') format('truetype');
 }
 
+/* Body default: Amble (SBA UI font) */
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Amble', 'Quicksand', sans-serif;
 }
 
 @layer base {
@@ -46,14 +48,24 @@ body {
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
-    
-    /* Custom colors */
+
+    /* ── Honey-Box Arcade Design Tokens ── */
     --sky-blue: #87CEEB;
     --grass-green: #7CFC00;
     --teddy-brown: #8B4513;
     --golden-coin: #FFD700;
     --cloud-white: #FFFFFF;
+
+    /* New Stitch tokens */
+    --honey-box-primary: #FFD700;
+    --honey-box-secondary: #8B4513;
+    --honey-box-tertiary: #7CFC00;
+    --honey-box-sky: #ECF8FF;
+    --honey-box-sky-variant: #AAE5FF;
+    --honey-box-text: #003342;
+    --honey-box-brown-shadow: #63340b;
   }
+
   .dark {
     --background: 220 40% 10%;
     --foreground: 35 60% 80%;
@@ -99,13 +111,61 @@ body {
   }
   .stars {
     background-color: black;
-    background-image: 
+    background-image:
       radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
       radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
       radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
       radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
-    background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px; 
+    background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
     background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+  }
+
+  /* ── Pixel grass strip (voxel decoration) ── */
+  .pixel-grass {
+    background: linear-gradient(
+      to bottom,
+      #7CFC00 0%,
+      #5DBB00 40%,
+      #3E8B00 100%
+    );
+    clip-path: polygon(
+      0% 30%, 3% 0%, 6% 30%, 9% 5%, 12% 30%, 15% 0%, 18% 30%,
+      21% 8%, 24% 30%, 27% 2%, 30% 30%, 33% 10%, 36% 30%,
+      39% 0%, 42% 30%, 45% 6%, 48% 30%, 51% 0%, 54% 30%,
+      57% 4%, 60% 30%, 63% 0%, 66% 30%, 69% 8%, 72% 30%,
+      75% 2%, 78% 30%, 81% 10%, 84% 30%, 87% 0%, 90% 30%,
+      93% 6%, 96% 30%, 100% 0%, 100% 100%, 0% 100%
+    );
+  }
+
+  /* ── Voxel border effect ── */
+  .voxel-card {
+    border: 4px solid var(--teddy-brown);
+    box-shadow: 0 6px 0 var(--honey-box-brown-shadow), 4px 4px 0 rgba(0,0,0,0.2);
+    border-radius: 1rem;
+  }
+
+  .voxel-card-gold {
+    border: 6px solid var(--golden-coin);
+    box-shadow: 0 10px 30px rgba(255,215,0,0.5), 8px 8px 0 #b8860b;
+    border-radius: 1rem;
+  }
+
+  /* ── 3D Button base ── */
+  .btn-3d-gold {
+    background: var(--golden-coin);
+    border: 3px solid var(--honey-box-secondary);
+    box-shadow: 0 6px 0 var(--honey-box-brown-shadow);
+    border-radius: 1.5rem;
+    transition: all 0.1s ease;
+  }
+  .btn-3d-gold:hover {
+    box-shadow: 0 8px 0 var(--honey-box-brown-shadow);
+    transform: translateY(-2px);
+  }
+  .btn-3d-gold:active {
+    transform: translateY(3px);
+    box-shadow: 0 3px 0 var(--honey-box-brown-shadow);
   }
 }
 
@@ -129,6 +189,11 @@ body {
   .confetti:nth-child(8) { background-color: #95c3de; left: 80%; animation-delay: -2s; }
   .confetti:nth-child(9) { background-color: #ff9a91; left: 90%; animation-delay: -3.5s; }
   .confetti:nth-child(10) { background-color: #f2d74e; left: 100%; animation-delay: -2.5s; }
+  .confetti:nth-child(11) { background-color: #FFD700; left: 15%; animation-delay: -1s; width: 10px; height: 10px; }
+  .confetti:nth-child(12) { background-color: #7CFC00; left: 35%; animation-delay: -3.8s; width: 12px; height: 12px; }
+  .confetti:nth-child(13) { background-color: #FFD700; left: 55%; animation-delay: -0.5s; width: 8px; height: 8px; }
+  .confetti:nth-child(14) { background-color: #95c3de; left: 75%; animation-delay: -4.5s; }
+  .confetti:nth-child(15) { background-color: #ff9a91; left: 85%; animation-delay: -2.2s; }
 
   @keyframes confetti {
     0% { transform: rotateZ(15deg) rotateY(0deg) translate(0,0); }

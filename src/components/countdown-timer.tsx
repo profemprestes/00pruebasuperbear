@@ -1,12 +1,12 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { useIsDesktop } from '@/hooks/use-media-query';
 
 type CountdownTimerProps = {
   targetDate: string;
 };
 
-// Define a specific type for the time left, or null if time is up.
 type TimeLeft = {
   días: number;
   horas: number;
@@ -14,73 +14,121 @@ type TimeLeft = {
   segundos: number;
 } | null;
 
+const UNIT_LABELS: Record<string, string> = {
+  días: 'DÍAS',
+  horas: 'HRS',
+  minutos: 'MIN',
+  segundos: 'SEG',
+};
+
 export function CountdownTimer({ targetDate }: CountdownTimerProps) {
+  const isDesktop = useIsDesktop();
+
   const calculateTimeLeft = useCallback((): TimeLeft => {
     const difference = +new Date(targetDate) - +new Date();
-
     if (difference > 0) {
       return {
-        días: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        horas: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutos: Math.floor((difference / 1000 / 60) % 60),
+        días:     Math.floor(difference / (1000 * 60 * 60 * 24)),
+        horas:    Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutos:  Math.floor((difference / 1000 / 60) % 60),
         segundos: Math.floor((difference / 1000) % 60),
       };
     }
-    // Return null when the countdown is over.
     return null;
   }, [targetDate]);
 
-  // Initialize state as `undefined` to detect the initial server/client render.
   const [timeLeft, setTimeLeft] = useState<TimeLeft | undefined>(undefined);
 
   useEffect(() => {
-    // This effect runs only on the client, after hydration.
-    // Set the initial time, and then update it every second.
     setTimeLeft(calculateTimeLeft());
-
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-
-    // Clean up the interval on component unmount.
+    const timer = setInterval(() => setTimeLeft(calculateTimeLeft()), 1000);
     return () => clearInterval(timer);
   }, [calculateTimeLeft]);
 
-  // On the server and during initial client render, show a placeholder.
+  // SSR placeholder
   if (typeof timeLeft === 'undefined') {
     return (
-      <div className="bg-black/50 border-2 border-golden-coin rounded-xl p-4 sm:p-6 shadow-lg min-h-[126px] flex items-center justify-center">
-        <span className="font-headline text-xl text-white/50 animate-pulse">Calculando tiempo...</span>
+      <div className="flex items-center justify-center gap-2 py-4">
+        {['DÍAS', 'HRS', 'MIN', 'SEG'].map((label) => (
+          <div key={label} className="flex flex-col items-center">
+            <div
+              className="bg-black/70 border-2 border-golden-coin rounded-lg flex items-center justify-center"
+              style={{ width: isDesktop ? 96 : 64, height: isDesktop ? 80 : 60 }}
+            >
+              <span className="font-impact text-golden-coin/40 text-3xl">--</span>
+            </div>
+            <span className="font-arcade text-cloud-white/60 text-xs mt-1 tracking-widest">{label}</span>
+          </div>
+        ))}
       </div>
     );
   }
 
-  // After hydration, if time is up (timeLeft is null), show the "party started" message.
+  // Party started!
   if (timeLeft === null) {
     return (
-      <div className="bg-black/50 border-2 border-golden-coin rounded-xl p-4 sm:p-6 shadow-lg min-h-[126px] flex items-center justify-center">
-        <div className="flex justify-around gap-4 w-full">
-          <span className="font-headline text-3xl text-grass-green">¡La fiesta ha comenzado!</span>
-        </div>
+      <div
+        className="flex items-center justify-center rounded-xl border-4 border-grass-green px-6 py-4"
+        style={{ boxShadow: '0 6px 0 #2E8B57, 0 0 20px rgba(124,252,0,0.4)' }}
+      >
+        <span className="font-milky text-2xl text-grass-green motion-safe:animate-pulse">
+          🎉 ¡La fiesta ha comenzado! 🎉
+        </span>
       </div>
     );
   }
-  
-  // If time is left, render the countdown.
-  const timerComponents = Object.entries(timeLeft).map(([interval, value]) => (
-    <div key={interval} className="flex flex-col items-center">
-      <span className="font-headline text-4xl sm:text-6xl text-golden-coin" style={{ textShadow: '2px 2px 0px hsl(var(--teddy-brown))' }}>
-        {String(value).padStart(2, '0')}
-      </span>
-      <span className="font-body text-sm sm:text-lg uppercase text-cloud-white">{interval}</span>
-    </div>
-  ));
+
+  const entries = Object.entries(timeLeft) as [string, number][];
+  const boxSize = isDesktop
+    ? { width: 96, height: 80, numSize: 'text-5xl', lblSize: 'text-xs' }
+    : { width: 64, height: 56, numSize: 'text-3xl', lblSize: 'text-[10px]' };
 
   return (
-    <div className="bg-black/50 border-2 border-golden-coin rounded-xl p-4 sm:p-6 shadow-lg min-h-[126px] flex items-center justify-center">
-      <div className="flex justify-around gap-4 w-full">
-        {timerComponents}
-      </div>
+    <div className="flex items-end justify-center gap-1">
+      {entries.map(([unit, value], index) => (
+        <div key={unit} className="flex items-end gap-1">
+          {/* Time box */}
+          <div className="flex flex-col items-center">
+            <div
+              className="flex items-center justify-center rounded-lg relative overflow-hidden"
+              style={{
+                width: boxSize.width,
+                height: boxSize.height,
+                background: 'rgba(0,0,0,0.75)',
+                border: '2px solid #FFD700',
+                boxShadow: '0 4px 0 #63340b, inset 0 1px 0 rgba(255,255,255,0.1)',
+              }}
+            >
+              {/* Inner shine */}
+              <div
+                className="absolute top-0 left-0 right-0 h-1/3 rounded-t-md"
+                style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 100%)' }}
+                aria-hidden="true"
+              />
+              <span
+                className={`font-impact text-golden-coin relative z-10 ${boxSize.numSize}`}
+                style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}
+              >
+                {String(value).padStart(2, '0')}
+              </span>
+            </div>
+            <span className={`font-arcade text-cloud-white tracking-widest mt-1 ${boxSize.lblSize}`}>
+              {UNIT_LABELS[unit] ?? unit.toUpperCase()}
+            </span>
+          </div>
+
+          {/* Blinking separator (not after last) */}
+          {index < entries.length - 1 && (
+            <span
+              className="font-impact text-golden-coin mb-5 motion-safe:animate-blink"
+              style={{ fontSize: isDesktop ? '2.5rem' : '1.8rem', textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}
+              aria-hidden="true"
+            >
+              :
+            </span>
+          )}
+        </div>
+      ))}
     </div>
   );
 }

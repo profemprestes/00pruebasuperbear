@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
+import { useIsDesktop } from '@/hooks/use-media-query';
 
 type RegisterScreenProps = {
   onPlayArcade: (name: string) => void;
@@ -13,68 +14,308 @@ type RegisterScreenProps = {
 
 export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenProps) {
   const [playerName, setPlayerName] = useState('');
+  const isDesktop = useIsDesktop();
 
-  const handlePlay = () => {
-    onPlayArcade(playerName.trim());
-  };
+  const handlePlay = () => onPlayArcade(playerName.trim());
+  const handleSkip = () => onSkipArcade(playerName.trim() || 'Invitado');
 
-  const handleSkip = () => {
-    onSkipArcade(playerName.trim() || "Invitado");
-  };
-
-  return (
-    <div 
-        className="h-screen w-full bg-cover bg-bottom flex items-center justify-center p-4"
+  /* ── MOBILE: JRPG Dialog Box ──────────────────────── */
+  if (!isDesktop) {
+    return (
+      <div
+        className="h-screen w-full bg-cover bg-bottom flex flex-col items-center justify-end pb-10 p-4 relative overflow-hidden"
         style={{ backgroundImage: "url('/desierto.webp')" }}
-    >
-        <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
-        <div className="relative z-10 bg-cloud-white border-[6px] border-teddy-brown rounded-xl shadow-[8px_8px_0px_#63340b] w-[90%] sm:w-full max-w-lg p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6 motion-safe:animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-8 duration-500">
-            <div className="flex-shrink-0 hidden sm:block">
-                <Image 
-                    src="/Shicka_the_backpacker.webp" 
-                    alt="Shicka" 
-                    width={150} 
-                    height={150}
-                    className="drop-shadow-[5px_5px_0px_rgba(0,0,0,0.4)] motion-safe:animate-float w-[150px] max-w-full h-auto transition-transform duration-300 hover:scale-110"
-                />
-            </div>
-            <div className="flex-grow text-teddy-brown text-center sm:text-left">
-                <p className='font-body text-base sm:text-xl font-bold mb-4 sm:mb-6'>
-                    ¡Alto ahí, viajero! Antes de darte los detalles, necesito registrarte.
-                </p>
+      >
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/35 backdrop-blur-sm" />
 
-                <div className="flex flex-col gap-4 mt-4 sm:mt-0">
-                    <Input 
-                        type="text" 
-                        placeholder="Ingresa tu Nombre"
-                        value={playerName}
-                        onChange={(e) => setPlayerName(e.target.value)}
-                        className="border-4 border-teddy-brown h-12 sm:h-14 text-base sm:text-lg text-center font-milky rounded-lg"
-                    />
-                    <div className="relative mt-12 sm:mt-10">
-                        {playerName.trim() && (
-                            <div className="absolute -top-10 left-1/2 -translate-x-1/2 text-golden-coin motion-safe:animate-bounce flex flex-col items-center z-20 pointer-events-none">
-                                <span className="font-milky text-xs bg-white px-2 rounded-full border-2 border-golden-coin shadow-md">¡A JUGAR!</span>
-                                <ArrowDown className="w-4 h-4" />
-                            </div>
-                        )}
-                        <Button
-                            onClick={handlePlay}
-                            disabled={!playerName.trim()}
-                            className="w-full bg-golden-coin text-white font-milky text-sm sm:text-2xl h-auto py-3 sm:h-14 px-4 sm:px-6 border-2 border-amber-600 shadow-[0_6px_0_#b8860b] hover:shadow-[0_8px_0_#b8860b] hover:-translate-y-0.5 hover:bg-amber-400 active:translate-y-1 active:shadow-none transition-all whitespace-normal leading-tight"
-                        >
-                            ¡Entrar al Arcade World! (VIP)
-                        </Button>
-                    </div>
-                    <Button
-                        onClick={handleSkip}
-                        className="bg-sky-blue text-white font-milky text-sm sm:text-lg h-auto py-3 sm:h-12 px-4 sm:px-6 border-2 border-blue-800 shadow-[0_6px_0_#00008B] hover:shadow-[0_8px_0_#00008B] hover:-translate-y-0.5 hover:bg-blue-400 active:translate-y-1 active:shadow-none transition-all whitespace-normal"
-                    >
-                        Ver Coordenadas Directamente
-                    </Button>
-                </div>
-            </div>
+        {/* Pixel tree strip */}
+        <div className="absolute bottom-0 left-0 right-0 flex justify-around items-end px-4 pb-0 z-10 pointer-events-none" aria-hidden="true">
+          {['🌵', '🌴', '🌵', '🌴', '🌵'].map((t, i) => (
+            <span key={i} className="text-4xl leading-none" style={{ marginBottom: -4 }}>{t}</span>
+          ))}
         </div>
+
+        {/* Dialog card — JRPG style */}
+        <div className="relative z-20 w-full max-w-sm motion-safe:animate-in fade-in-0 slide-in-from-bottom-6 duration-500">
+          {/* Shicka avatar floating above the dialog box */}
+          <div className="flex justify-start pl-4 mb-[-1.5rem] z-30 relative">
+            <div className="motion-safe:animate-float">
+              <Image
+                src="/Shicka_the_backpacker.webp"
+                alt="Shicka"
+                width={120}
+                height={120}
+                className="drop-shadow-[4px_4px_0px_rgba(0,0,0,0.5)]"
+              />
+            </div>
+          </div>
+
+          {/* Dialog bubble with CSS pointer */}
+          <div
+            className="relative bg-sky-light text-voxel-text rounded-xl p-5"
+            style={{
+              border: '4px solid #8B4513',
+              boxShadow: '0 6px 0 #63340b, 4px 4px 0 rgba(0,0,0,0.2)',
+            }}
+          >
+            {/* JRPG bubble pointer (triangle pointing up-left toward Shicka) */}
+            <div
+              className="absolute -top-4 left-10 w-0 h-0"
+              style={{
+                borderLeft: '14px solid transparent',
+                borderRight: '14px solid transparent',
+                borderBottom: '16px solid #8B4513',
+              }}
+              aria-hidden="true"
+            />
+            <div
+              className="absolute -top-[11px] left-[42px] w-0 h-0"
+              style={{
+                borderLeft: '12px solid transparent',
+                borderRight: '12px solid transparent',
+                borderBottom: '14px solid #ECF8FF',
+              }}
+              aria-hidden="true"
+            />
+
+            <p className="font-amble text-base font-bold mb-4 leading-snug">
+              ¡Alto ahí, viajero! Antes de darte los detalles, <em>necesito registrarte</em>.
+            </p>
+
+            {/* Input */}
+            <Input
+              id="player-name-input"
+              type="text"
+              placeholder="Ingresa tu Nombre de Aventurero"
+              value={playerName}
+              onChange={(e) => setPlayerName(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && playerName.trim() && handlePlay()}
+              className="border-4 border-teddy-brown h-12 text-base text-center font-milky rounded-lg bg-white/90 focus:ring-2 focus:ring-golden-coin focus:border-golden-coin outline-none mb-4"
+              style={{ boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.1)' }}
+            />
+
+            {/* Play button */}
+            <div className="relative mb-3">
+              {playerName.trim() && (
+                <div className="absolute -top-8 left-1/2 -translate-x-1/2 flex flex-col items-center z-20 pointer-events-none">
+                  <span className="font-milky text-xs bg-amber-400 text-white px-2 py-0.5 rounded-full border-2 border-teddy-brown shadow-md whitespace-nowrap">
+                    🪙 +¡Gana monedas jugando!
+                  </span>
+                  <ArrowDown className="w-4 h-4 text-golden-coin motion-safe:animate-bounce" />
+                </div>
+              )}
+              <Button
+                id="btn-play-arcade"
+                onClick={handlePlay}
+                disabled={!playerName.trim()}
+                className="w-full font-milky text-lg h-12 border-3 border-teddy-brown transition-all whitespace-normal leading-tight disabled:opacity-50"
+                style={{
+                  background: playerName.trim() ? '#FFD700' : '#ccc',
+                  boxShadow: playerName.trim() ? '0 6px 0 #63340b' : 'none',
+                  border: '3px solid #8B4513',
+                  color: 'white',
+                }}
+              >
+                ¡Entrar al Arcade World! (VIP) 🎮
+              </Button>
+            </div>
+
+            {/* Skip button */}
+            <Button
+              id="btn-skip-arcade"
+              onClick={handleSkip}
+              className="w-full font-amble text-sm h-10 transition-all"
+              style={{
+                background: '#87CEEB',
+                border: '3px solid #00008B',
+                boxShadow: '0 5px 0 #00008B',
+                color: 'white',
+              }}
+            >
+              Ver Coordenadas Directamente
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  /* ── DESKTOP: Character Select Screen ─────────────── */
+  return (
+    <div
+      className="h-screen w-full bg-cover bg-center flex items-center justify-center relative overflow-hidden"
+      style={{ backgroundImage: "url('/desierto.webp')" }}
+    >
+      {/* Gradient overlay — stronger on left, lighter on right */}
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.55) 100%)' }} />
+
+      {/* Floating dust particles */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        {[...Array(8)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full bg-amber-200/20 motion-safe:animate-subtle-float"
+            style={{
+              width: `${Math.random() * 40 + 10}px`,
+              height: `${Math.random() * 40 + 10}px`,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${i * 0.4}s`,
+              animationDuration: `${3 + i * 0.5}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Main content: 2 columns */}
+      <div className="relative z-10 flex flex-row items-center justify-center gap-20 w-full max-w-5xl px-12 motion-safe:animate-in fade-in-0 slide-in-from-bottom-8 duration-500">
+
+        {/* LEFT: Shicka character showcase */}
+        <div className="flex flex-col items-center gap-4 flex-shrink-0">
+          {/* Glow ring behind Shicka */}
+          <div className="relative">
+            <div
+              className="absolute inset-0 rounded-full"
+              style={{
+                background: 'radial-gradient(circle, rgba(255,215,0,0.3) 0%, transparent 70%)',
+                transform: 'scale(1.5)',
+              }}
+              aria-hidden="true"
+            />
+            <div className="motion-safe:animate-float relative">
+              <Image
+                src="/Shicka_the_backpacker.webp"
+                alt="Shicka te da la bienvenida"
+                width={280}
+                height={280}
+                className="drop-shadow-[0_12px_24px_rgba(255,215,0,0.5)] transition-transform duration-300 hover:scale-105"
+              />
+            </div>
+          </div>
+          {/* Character name badge */}
+          <div
+            className="px-4 py-2 rounded-full"
+            style={{ background: '#8B4513', border: '3px solid #FFD700', boxShadow: '0 4px 0 #63340b' }}
+          >
+            <span className="font-arcade text-golden-coin text-lg tracking-widest">SHICKA</span>
+          </div>
+          <p className="font-amble text-cloud-white/80 text-sm text-center max-w-[200px] italic">
+            Guía de aventureros del reino
+          </p>
+        </div>
+
+        {/* RIGHT: Registration panel */}
+        <div
+          className="flex-1 max-w-md rounded-2xl p-8 flex flex-col gap-5"
+          style={{
+            background: 'rgba(236,248,255,0.97)',
+            border: '5px solid #8B4513',
+            boxShadow: '0 8px 0 #63340b, 0 20px 40px rgba(0,0,0,0.5)',
+          }}
+        >
+          {/* Header */}
+          <div className="text-center">
+            <div
+              className="inline-block px-4 py-1 rounded-full mb-3"
+              style={{ background: '#FFD700', border: '3px solid #8B4513', boxShadow: '0 3px 0 #63340b' }}
+            >
+              <span className="font-arcade text-teddy-brown text-sm tracking-[0.2em]">REGISTRO DE AVENTURERO</span>
+            </div>
+            <h2 className="font-milky text-3xl text-teddy-brown leading-tight">
+              ¡Alto ahí, viajero!
+            </h2>
+            <p className="font-amble text-voxel-text/80 text-base mt-1">
+              Antes de darte los detalles, necesito registrarte.
+            </p>
+          </div>
+
+          {/* VIP Reward badge */}
+          <div
+            className="flex items-center gap-3 p-3 rounded-xl"
+            style={{ background: 'rgba(255,215,0,0.15)', border: '2px solid #FFD700' }}
+          >
+            <span className="text-3xl motion-safe:animate-pulse-badge">🪙</span>
+            <div>
+              <p className="font-impact text-teddy-brown text-sm tracking-wide">MODO VIP — ARCADE WORLD</p>
+              <p className="font-amble text-voxel-text text-xs">¡Juega y gana monedas para desbloquear recompensas!</p>
+            </div>
+          </div>
+
+          {/* Input */}
+          <div>
+            <label htmlFor="player-name-desktop" className="font-amble text-teddy-brown font-bold text-sm block mb-1">
+              Tu nombre de aventurero:
+            </label>
+            <Input
+              id="player-name-desktop"
+              type="text"
+              placeholder="Escribe tu nombre..."
+              value={playerName}
+              onChange={(e) => setPlayerName(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && playerName.trim() && handlePlay()}
+              className="border-4 border-teddy-brown h-14 text-xl text-center font-milky rounded-lg bg-white focus:ring-2 focus:ring-golden-coin focus:border-golden-coin outline-none"
+              style={{ boxShadow: 'inset 0 3px 6px rgba(0,0,0,0.1)', color: '#003342' }}
+            />
+          </div>
+
+          {/* Buttons */}
+          <div className="flex flex-col gap-3">
+            <div className="relative">
+              {playerName.trim() && (
+                <div className="absolute -top-8 left-1/2 -translate-x-1/2 flex items-center gap-1 z-20 pointer-events-none whitespace-nowrap">
+                  <span className="font-arcade text-xs text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full border border-amber-400">
+                    ¡Listo para la aventura!
+                  </span>
+                  <ArrowDown className="w-3 h-3 text-golden-coin motion-safe:animate-bounce" />
+                </div>
+              )}
+              <button
+                id="btn-play-arcade-desktop"
+                onClick={handlePlay}
+                disabled={!playerName.trim()}
+                className="w-full font-milky text-2xl py-4 rounded-2xl transition-all duration-100 disabled:opacity-40 disabled:cursor-not-allowed"
+                style={{
+                  background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 100%)',
+                  border: '4px solid #8B4513',
+                  boxShadow: '0 7px 0 #63340b',
+                  color: 'white',
+                  textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+                }}
+                onMouseDown={(e) => (e.currentTarget.style.transform = 'translateY(4px)')}
+                onMouseUp={(e) => (e.currentTarget.style.transform = '')}
+                onMouseLeave={(e) => (e.currentTarget.style.transform = '')}
+              >
+                🎮 ¡Entrar al Arcade World!
+              </button>
+            </div>
+
+            <button
+              id="btn-skip-arcade-desktop"
+              onClick={handleSkip}
+              className="w-full font-amble text-base py-3 rounded-xl transition-all duration-100"
+              style={{
+                background: '#87CEEB',
+                border: '3px solid #00008B',
+                boxShadow: '0 5px 0 #00008B',
+                color: 'white',
+              }}
+              onMouseDown={(e) => (e.currentTarget.style.transform = 'translateY(3px)')}
+              onMouseUp={(e) => (e.currentTarget.style.transform = '')}
+              onMouseLeave={(e) => (e.currentTarget.style.transform = '')}
+            >
+              Ver las coordenadas directamente →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Pixel tree strip bottom */}
+      <div className="absolute bottom-0 left-0 right-0 flex justify-around items-end px-8 pb-0 z-20 pointer-events-none" aria-hidden="true">
+        {['🌵', '🌴', '🌵', '🌴', '🌵', '🌴', '🌵'].map((t, i) => (
+          <span key={i} className="text-5xl leading-none" style={{ marginBottom: -4 }}>{t}</span>
+        ))}
+      </div>
     </div>
   );
 }
