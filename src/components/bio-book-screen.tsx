@@ -25,50 +25,89 @@ export function BioBookScreen({ onRestart, facuLikes, photo1, photo2 }: BioBookS
 
   return (
     <div
-      className="h-screen w-full bg-cover bg-center flex flex-col items-center justify-center p-4 relative overflow-y-auto"
+      className="min-h-screen w-full bg-cover bg-center flex flex-col items-center justify-center p-3 sm:p-4 lg:p-8 relative overflow-y-auto"
       style={{ backgroundImage: "url('/casa.webp')" }}
     >
       <div className="absolute inset-0 bg-black/70 backdrop-blur-lg z-0" />
-      
-      <div className="relative z-10 text-center w-[95%] max-w-4xl mx-auto">
-        <h2 className="font-milky text-4xl sm:text-5xl md:text-6xl text-white mb-8" style={{ textShadow: '4px 4px 0px hsl(var(--teddy-brown))' }}>
-          Inventario de Facu
+
+      <div className="relative z-10 w-full max-w-4xl mx-auto px-2 sm:px-4 text-center">
+        {/* ── Title ── */}
+        <h2
+          className="font-milky text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mb-6 sm:mb-8"
+          style={{ textShadow: '3px 3px 0px hsl(var(--teddy-brown))' }}
+        >
+          📦 Inventario de Facu
         </h2>
-        <div className="grid grid-cols-2 min-[400px]:grid-cols-4 gap-2 sm:gap-4 md:gap-6 mb-12 max-w-xl mx-auto">
+
+        {/* ── Inventory Grid: 2-col mobile → 4-col desktop ── */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 mb-8 sm:mb-12 max-w-xs sm:max-w-md lg:max-w-xl mx-auto">
           {inventoryItems.map((item, index) => (
-            <div key={index} className="bg-white/10 border-2 border-golden-coin rounded-lg shadow-lg flex flex-col items-center justify-center p-3 sm:p-4 aspect-square transition-transform hover:scale-105">
-              <span className="text-3xl sm:text-5xl">{item.icon}</span>
-              <p className="font-body text-white font-bold text-sm sm:text-md mt-2 text-center">{item.text}</p>
+            <div
+              key={index}
+              className="bg-white/10 border-2 border-golden-coin rounded-lg sm:rounded-xl shadow-lg flex flex-col items-center justify-center p-2 sm:p-3 lg:p-4 aspect-square transition-transform hover:scale-105 active:scale-95"
+            >
+              <span className="text-2xl sm:text-3xl lg:text-5xl">{item.icon}</span>
+              <p className="font-body text-white font-bold text-[10px] sm:text-xs lg:text-sm mt-1 sm:mt-2 text-center leading-tight">
+                {item.text}
+              </p>
             </div>
           ))}
         </div>
 
-        <div className="flex flex-col md:flex-row justify-center items-center gap-8 sm:gap-12 p-4">
-            <div className="group bg-white p-4 pb-12 shadow-lg border-4 border-gray-300 relative transform md:-rotate-6 transition-all duration-300 ease-in-out hover:scale-105 md:hover:rotate-0 hover:z-10 w-full max-w-[250px] sm:max-w-[300px]">
-                <Image src={photo1 || "/facu.jpg"} alt="Foto 1 de Facu" width={300} height={300} className="w-full object-cover aspect-square" />
-                 <p className="absolute bottom-2 left-1/2 -translate-x-1/2 font-milky text-lg text-teddy-brown">RECUERDO 1</p>
-            </div>
-            <div className="group bg-white p-4 pb-12 shadow-lg border-4 border-gray-300 relative transform md:rotate-6 transition-all duration-300 ease-in-out hover:scale-105 md:hover:rotate-0 hover:z-10 w-full max-w-[250px] sm:max-w-[300px]">
-                <Image src={photo2 || "/facu2.jpeg"} alt="Foto 2 de Facu" width={300} height={300} className="w-full object-cover aspect-square" />
-                 <p className="absolute bottom-2 left-1/2 -translate-x-1/2 font-milky text-lg text-teddy-brown">RECUERDO 2</p>
-            </div>
+        {/* ── Photos: stacked mobile → side-by-side desktop ── */}
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-8 lg:gap-12 mb-8 sm:mb-12">
+          {/* Photo 1 */}
+          <div
+            className="group bg-white p-3 sm:p-4 pb-8 sm:pb-10 shadow-lg border-4 border-gray-300 relative sm:-rotate-3 transition-all duration-300 ease-in-out hover:scale-105 sm:hover:rotate-0 hover:z-10 w-full max-w-[220px] sm:max-w-[260px] lg:max-w-[300px]"
+          >
+            <Image
+              src={photo1 || "/facu.jpg"}
+              alt="Foto 1 de Facu"
+              width={300}
+              height={300}
+              className="w-full object-cover aspect-square rounded-sm"
+            />
+            <p className="absolute bottom-1 sm:bottom-2 left-1/2 -translate-x-1/2 font-milky text-sm sm:text-lg text-teddy-brown whitespace-nowrap">
+              RECUERDO 1
+            </p>
+          </div>
+
+          {/* Photo 2 */}
+          <div
+            className="group bg-white p-3 sm:p-4 pb-8 sm:pb-10 shadow-lg border-4 border-gray-300 relative sm:rotate-3 transition-all duration-300 ease-in-out hover:scale-105 sm:hover:rotate-0 hover:z-10 w-full max-w-[220px] sm:max-w-[260px] lg:max-w-[300px]"
+          >
+            <Image
+              src={photo2 || "/facu2.jpeg"}
+              alt="Foto 2 de Facu"
+              width={300}
+              height={300}
+              className="w-full object-cover aspect-square rounded-sm"
+            />
+            <p className="absolute bottom-1 sm:bottom-2 left-1/2 -translate-x-1/2 font-milky text-sm sm:text-lg text-teddy-brown whitespace-nowrap">
+              RECUERDO 2
+            </p>
+          </div>
         </div>
-        
-        <p className="font-body text-lg sm:text-xl text-white/90 mt-12">
-          ¡Gracias por llegar hasta aquí! Nos vemos en la partida.
+
+        {/* ── Thank you message ── */}
+        <p className="font-body text-base sm:text-lg lg:text-xl text-white/90 mt-4 sm:mt-8 mb-6 sm:mb-8">
+          ¡Gracias por llegar hasta aquí! Nos vemos en la partida. 🐻
         </p>
-        
-        <div className="relative inline-block mt-8">
-            <div className="absolute -top-12 left-1/2 -translate-x-1/2 text-grass-green motion-safe:animate-bounce flex flex-col items-center pointer-events-none">
-                <span className="font-milky text-sm bg-white/90 px-2 rounded-full border-2 border-grass-green text-black">¡REINICIAR!</span>
-                <ArrowDown className="w-5 h-5" />
-            </div>
-            <Button
-              onClick={onRestart}
-              className="font-milky text-white text-xl sm:text-2xl px-8 py-4 rounded-lg bg-grass-green border-0 shadow-[0_6px_0_#2E8B57] transition-all duration-200 hover:bg-green-500 hover:shadow-[0_8px_0_#2E8B57] hover:-translate-y-0.5 active:translate-y-1 active:shadow-none"
-            >
-              Volver al Inicio
-            </Button>
+
+        {/* ── Restart button ── */}
+        <div className="relative inline-block">
+          <div className="absolute -top-10 sm:-top-12 left-1/2 -translate-x-1/2 text-grass-green motion-safe:animate-bounce flex flex-col items-center pointer-events-none">
+            <span className="font-milky text-xs sm:text-sm bg-white/90 px-2 sm:px-3 rounded-full border-2 border-grass-green text-black">
+              ¡REINICIAR!
+            </span>
+            <ArrowDown className="w-4 h-4 sm:w-5 sm:h-5" />
+          </div>
+          <Button
+            onClick={onRestart}
+            className="font-milky text-white text-lg sm:text-xl lg:text-2xl px-6 py-3 sm:px-8 sm:py-4 rounded-lg bg-grass-green border-0 shadow-[0_6px_0_#2E8B57] transition-all duration-200 hover:bg-green-500 hover:shadow-[0_8px_0_#2E8B57] hover:-translate-y-0.5 active:translate-y-1 active:shadow-none"
+          >
+            Volver al Inicio
+          </Button>
         </div>
       </div>
     </div>
