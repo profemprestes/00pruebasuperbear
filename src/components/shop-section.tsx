@@ -32,7 +32,7 @@ export function ShopSection({ onNext }: ShopSectionProps) {
   return (
     <MissionSection stepId="shop" bgImage="/ciudad.webp">
       <div
-        className={`rounded-2xl p-6 sm:p-8 text-center ${
+        className={`rounded-2xl p-4 sm:p-6 lg:p-8 text-center ${
           isDesktop ? "max-w-4xl mx-auto" : "w-full"
         }`}
         style={{
@@ -41,16 +41,16 @@ export function ShopSection({ onNext }: ShopSectionProps) {
           boxShadow: "0 10px 30px rgba(255,215,0,0.3), 6px 6px 0 #b8860b",
         }}
       >
-        <h2 className="font-milky text-2xl sm:text-3xl text-teddy-brown mb-2">
+        <h2 className="font-milky text-xl sm:text-2xl lg:text-3xl text-teddy-brown mb-1 sm:mb-2">
           🛍️ Outfit Shop
         </h2>
-        <p className="font-amble text-sm text-voxel-text mb-6">
+        <p className="font-amble text-xs sm:text-sm text-voxel-text mb-4 sm:mb-6">
           ¡Personaliza tu look con artículos del juego!
         </p>
 
         {/* Shop grid */}
         <div
-          className={`grid gap-4 ${
+          className={`grid gap-2 sm:gap-3 lg:gap-4 ${
             isDesktop ? "grid-cols-3" : "grid-cols-2"
           }`}
         >
@@ -62,7 +62,8 @@ export function ShopSection({ onNext }: ShopSectionProps) {
               <button
                 key={item.id}
                 onClick={() => setSelectedItem(item.id)}
-                className={`p-4 rounded-xl transition-all ${
+                aria-label={`Ver detalle de ${item.name}, precio ${item.price} monedas, rareza ${item.rarity}`}
+                className={`p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl transition-all ${
                   isSelected ? "scale-105" : "hover:scale-102"
                 }`}
                 style={{

@@ -18,7 +18,7 @@ export function MapSection({ onNext }: MapSectionProps) {
   return (
     <MissionSection stepId="map" bgImage="/ciudad.webp">
       <div
-        className={`rounded-2xl p-6 sm:p-8 text-center ${
+        className={`rounded-2xl p-4 sm:p-6 lg:p-8 text-center ${
           isDesktop ? "max-w-3xl mx-auto" : "w-full"
         }`}
         style={{
@@ -27,7 +27,7 @@ export function MapSection({ onNext }: MapSectionProps) {
           boxShadow: "0 10px 30px rgba(255,215,0,0.3), 6px 6px 0 #b8860b",
         }}
       >
-        <h2 className="font-milky text-2xl sm:text-3xl text-teddy-brown mb-6">
+        <h2 className="font-milky text-xl sm:text-2xl lg:text-3xl text-teddy-brown mb-4 sm:mb-6">
           🗺️ Coordenadas de la Misión
         </h2>
 

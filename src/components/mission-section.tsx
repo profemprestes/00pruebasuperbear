@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { type ReactNode, useEffect } from "react";
 import { useRewards } from "@/hooks/use-rewards";
-import { useIsDesktop } from "@/hooks/use-media-query";
 
 interface MissionSectionProps {
   stepId: string;
@@ -49,7 +48,6 @@ export function MissionSection({
   showBgOverlay = true,
 }: MissionSectionProps) {
   const { steps, completeStep, addCoins, currentStepIndex } = useRewards();
-  const isDesktop = useIsDesktop();
 
   const stepIndex = steps.findIndex((s) => s.id === stepId);
   const step = steps[stepIndex];
@@ -62,8 +60,6 @@ export function MissionSection({
       onSectionComplete?.();
     }
   }, [stepId]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const showRewardNotification = step && !step.completed;
 
   return (
     <motion.div
@@ -93,8 +89,8 @@ export function MissionSection({
         />
       )}
 
-      {/* Content container */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-20">
+      {/* Content container — extra top padding on mobile to clear HUD */}
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-3 sm:px-4 pt-28 sm:pt-24 md:pt-20 pb-16 sm:pb-20">
         {/* Section header with coin reward */}
         {step && (
           <motion.div

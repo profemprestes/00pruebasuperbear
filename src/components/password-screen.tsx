@@ -35,7 +35,7 @@ export function PasswordScreen({ onCorrectPassword }: PasswordScreenProps) {
       <div className="w-full max-w-sm text-center motion-safe:animate-in fade-in-0 zoom-in-95">
         <Shield className="mx-auto h-16 w-16 text-golden-coin mb-6" />
         <h1 className="font-milky text-3xl sm:text-4xl mb-4 text-white">Acceso Privado</h1>
-        <p className="font-body text-md sm:text-lg mb-8 text-gray-300">
+        <p className="font-body text-sm sm:text-base mb-8 text-gray-300">
           Esta es una invitación privada. Por favor, ingresa la contraseña.
         </p>
         <div className="flex flex-col gap-4">

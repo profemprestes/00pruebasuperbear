@@ -104,16 +104,16 @@ export default function AdminConfigPage() {
     : defaultInventory;
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col md:flex-row items-start justify-center bg-blue-500 p-4 gap-8 overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex flex-col md:flex-row items-start justify-center bg-blue-500 p-3 sm:p-4 gap-4 sm:gap-6 md:gap-8 overflow-y-auto">
       {/* Left Column: Config Panel */}
       <div className="flex-shrink-0 w-full md:w-1/2 max-w-2xl">
         <div className="bg-gray-200 border-2 border-t-white border-l-white border-r-gray-500 border-b-gray-500 shadow-xl w-full flex flex-col">
           <div className="bg-blue-700 p-1 flex justify-between items-center text-white cursor-move">
-            <h2 className="font-mono font-bold">Beendows XP - Configuración de Nivel</h2>
+            <h2 className="font-mono font-bold text-sm sm:text-base">Beendows XP - Configuración de Nivel</h2>
             <div className="flex items-center gap-1">
-              <button className="w-5 h-5 bg-gray-200 border-2 border-t-white border-l-white border-r-gray-500 border-b-gray-500 flex items-center justify-center text-black font-bold"><Minus size={12}/></button>
-              <button className="w-5 h-5 bg-gray-200 border-2 border-t-white border-l-white border-r-gray-500 border-b-gray-500 flex items-center justify-center text-black font-bold"><Square size={8}/></button>
-              <button className="w-5 h-5 bg-red-500 border-2 border-t-red-300 border-l-red-300 border-r-red-700 border-b-red-700 flex items-center justify-center text-white font-bold"><X size={12}/></button>
+              <button aria-label="Minimizar ventana" className="w-5 h-5 bg-gray-200 border-2 border-t-white border-l-white border-r-gray-500 border-b-gray-500 flex items-center justify-center text-black font-bold"><Minus size={12}/></button>
+              <button aria-label="Maximizar ventana" className="w-5 h-5 bg-gray-200 border-2 border-t-white border-l-white border-r-gray-500 border-b-gray-500 flex items-center justify-center text-black font-bold"><Square size={8}/></button>
+              <button aria-label="Cerrar ventana de configuración" className="w-5 h-5 bg-red-500 border-2 border-t-red-300 border-l-red-300 border-r-red-700 border-b-red-700 flex items-center justify-center text-white font-bold"><X size={12}/></button>
             </div>
           </div>
 
@@ -138,7 +138,7 @@ export default function AdminConfigPage() {
                   onChange={(e) => setCurrentLike(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleAddLike()}
                 />
-                <Button onClick={handleAddLike} className="font-mono bg-gray-200 text-black border-2 border-t-white border-l-white border-r-gray-500 border-b-gray-500 hover:bg-gray-300 active:bg-gray-400 active:border-t-gray-500 active:border-l-gray-500 active:border-r-white active:border-b-white">Añadir</Button>
+                <Button onClick={handleAddLike} aria-label="Agregar gusto a la lista de Facu" className="font-mono bg-gray-200 text-black border-2 border-t-white border-l-white border-r-gray-500 border-b-gray-500 hover:bg-gray-300 active:bg-gray-400 active:border-t-gray-500 active:border-l-gray-500 active:border-r-white active:border-b-white">Añadir</Button>
               </div>
               <div className="flex flex-wrap gap-2 mt-3">
                 {likes.map(like => (
@@ -167,7 +167,7 @@ export default function AdminConfigPage() {
           </div>
 
           <div className="p-4 border-t-2 border-gray-300">
-              <Button onClick={handleCompile} className="w-full font-milky text-white text-xl h-14 bg-grass-green border-0 shadow-[0_6px_0_#2E8B57] transition-all duration-200 hover:bg-green-500 hover:shadow-[0_8px_0_#2E8B57] hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-none">
+              <Button onClick={handleCompile} aria-label="Compilar nivel y generar invitación de cumpleaños" className="w-full font-milky text-white text-lg sm:text-xl h-auto sm:h-14 py-3 sm:py-4 bg-grass-green border-0 shadow-[0_6px_0_#2E8B57] transition-all duration-200 hover:bg-green-500 hover:shadow-[0_8px_0_#2E8B57] hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-none">
                 ¡Compilar Nivel y Generar Invitación!
               </Button>
           </div>
@@ -176,15 +176,15 @@ export default function AdminConfigPage() {
 
       {/* Right Column: Preview */}
       <div className="flex-1 w-full md:w-1/2 max-w-md">
-        <div className="flex items-center gap-4 mb-4">
-            <span className="text-6xl motion-safe:animate-subtle-float">🐻‍❄️</span>
+        <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mb-4">
+            <span className="text-4xl sm:text-6xl motion-safe:animate-subtle-float" role="img" aria-label="Oso científico de Super Bear Adventure">🐻‍❄️</span>
             <div className="bg-white p-2 rounded-lg border-2 border-black shadow-lg relative max-w-xs text-left">
-                <p className="font-mono text-sm">¡Saludos, creador Facu! Los cambios que hagas se reflejarán aquí en vivo.</p>
+                <p className="font-mono text-xs sm:text-sm">¡Saludos, creador Facu! Los cambios se reflejarán aquí en vivo.</p>
                 <div className="absolute -top-3 left-4 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[15px] border-b-white"></div>
             </div>
         </div>
-        <h3 className="font-milky text-white text-2xl text-center mb-2" style={{textShadow: '2px 2px #000'}}>Vista Previa en Vivo</h3>
-        <div className="bg-gray-800 p-2 rounded-lg border-4 border-black aspect-[9/16] max-h-[75vh] w-full mx-auto overflow-y-auto">
+        <h3 className="font-milky text-white text-xl sm:text-2xl text-center mb-2" style={{textShadow: '2px 2px #000'}}>Vista Previa en Vivo</h3>
+        <div className="bg-gray-800 p-2 rounded-lg border-4 border-black aspect-[9/16] max-h-[60vh] sm:max-h-[75vh] w-full mx-auto overflow-y-auto">
             {/* Simplified PresentationScreen */}
             <div className="relative w-full h-[50vh] scale-[0.85] origin-top bg-cover bg-center" style={{ backgroundImage: "url('/ciudad.webp')" }}>
                 <div className="absolute inset-0 bg-black/40" />
@@ -214,13 +214,13 @@ export default function AdminConfigPage() {
                     <div className="flex flex-col items-center gap-4">
                         {photo1Preview && (
                             <div className="bg-white p-2 pb-6 shadow-lg border-4 border-gray-300 relative w-full max-w-[150px]">
-                                <img src={photo1Preview} alt="Preview 1" className="w-full object-cover aspect-square" />
+                                <Image src={photo1Preview} alt="Vista previa del recuerdo 1 de Facu" width={150} height={150} className="w-full object-cover aspect-square" />
                                 <p className="absolute bottom-1 left-1/2 -translate-x-1/2 font-milky text-sm text-teddy-brown">RECUERDO 1</p>
                             </div>
                         )}
                         {photo2Preview && (
                              <div className="bg-white p-2 pb-6 shadow-lg border-4 border-gray-300 relative w-full max-w-[150px]">
-                                <img src={photo2Preview} alt="Preview 2" className="w-full object-cover aspect-square" />
+                                <Image src={photo2Preview} alt="Vista previa del recuerdo 2 de Facu" width={150} height={150} className="w-full object-cover aspect-square" />
                                 <p className="absolute bottom-1 left-1/2 -translate-x-1/2 font-milky text-sm text-teddy-brown">RECUERDO 2</p>
                             </div>
                         )}

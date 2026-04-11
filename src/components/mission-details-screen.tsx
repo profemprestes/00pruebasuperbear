@@ -153,6 +153,7 @@ export function MissionDetailsScreen({ playerName, onNext, playedMinigames, avat
                   id="btn-confirm-attendance-vip"
                   onClick={() => setIsConfirmed(true)}
                   disabled={isConfirmed}
+                  aria-label={isConfirmed ? "Asistencia ya confirmada" : "Confirmar asistencia al evento de Facu"}
                   className="w-full font-milky text-lg sm:text-xl lg:text-2xl py-3 sm:py-4 rounded-2xl transition-all duration-100 disabled:cursor-not-allowed"
                   style={isConfirmed ? {
                     background: '#7CFC00',
@@ -178,6 +179,7 @@ export function MissionDetailsScreen({ playerName, onNext, playedMinigames, avat
               <button
                 id="btn-see-bio"
                 onClick={onNext}
+                aria-label="Ver los gustos y biografía de Facu"
                 className="font-amble text-sky-blue text-sm sm:text-base hover:underline"
               >
                 ¿Quieres conocer mis gustos y mi lore? ➔
@@ -253,6 +255,7 @@ export function MissionDetailsScreen({ playerName, onNext, playedMinigames, avat
                 <button
                   id="btn-see-bio-std-mobile"
                   onClick={onNext}
+                  aria-label="Ver los gustos y biografía de Facu"
                   className="font-amble text-sky-blue text-sm hover:underline"
                 >
                   ¿Quieres conocer mis gustos y mi lore? ➔
@@ -290,6 +293,7 @@ export function MissionDetailsScreen({ playerName, onNext, playedMinigames, avat
                 id="btn-confirm-attendance-std"
                 onClick={() => setIsConfirmed(true)}
                 disabled={isConfirmed}
+                aria-label={isConfirmed ? "Asistencia ya confirmada" : "Confirmar asistencia al evento de Facu"}
                 className="w-full font-milky text-lg sm:text-xl lg:text-2xl py-3 sm:py-4 rounded-2xl transition-all duration-100 disabled:cursor-not-allowed"
                 style={isConfirmed ? {
                   background: '#7CFC00',
@@ -316,6 +320,7 @@ export function MissionDetailsScreen({ playerName, onNext, playedMinigames, avat
               <button
                 id="btn-see-bio-std-desktop"
                 onClick={onNext}
+                aria-label="Ver los gustos y biografía de Facu"
                 className="font-amble text-sky-blue text-sm hover:underline"
               >
                 ¿Quieres conocer mis gustos y mi lore? ➔

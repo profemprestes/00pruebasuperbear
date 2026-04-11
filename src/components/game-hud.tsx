@@ -35,6 +35,7 @@ export function GameHUD({ onStepClick, className }: GameHUDProps) {
           {/* Coin Counter */}
           <button
             onClick={handleCoinClick}
+            aria-label={`Monedas acumuladas: ${coins}`}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all active:scale-95 relative"
             style={{
               background: "linear-gradient(135deg, #FFD700, #FFA500)",
@@ -150,6 +151,7 @@ export function GameHUD({ onStepClick, className }: GameHUDProps) {
                 key={step.id}
                 onClick={() => handleStepClick(index)}
                 disabled={!isReachable}
+                aria-label={`Ir a la sección ${step.label}${isCompleted ? ", completada" : ""}${isActive ? ", actual" : ""}`}
                 className={cn(
                   "flex items-center gap-1.5 px-3 py-1.5 rounded-full font-amble text-xs transition-all",
                   isReachable && "hover:scale-105 active:scale-95",

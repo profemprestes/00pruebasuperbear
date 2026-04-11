@@ -3,8 +3,48 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'Misión Facu 9',
-  description: 'Invitación de cumpleaños interactiva',
+  metadataBase: new URL('https://facu9adventure.vercel.app'),
+  title: {
+    default: '🐻 Facu\'s 9th Adventure — ¡Estás Invitado!',
+    template: '%s | Facu\'s 9th Adventure',
+  },
+  description: '¡Facu te invita a su cumpleaños Nivel 9! Una invitación digital interactiva inspirada en Super Bear Adventure. Domingo 24 de mayo en KBOOM (Av. Italia 3421). Confirmá tu asistencia y viví la misión.',
+  keywords: [
+    'cumpleaños Facu',
+    'invitación cumpleaños',
+    'Facu 9 años',
+    'Super Bear Adventure',
+    'KBOOM',
+    'fienda infantil',
+    'invitación interactiva',
+    'nivel 9 desbloqueado',
+  ],
+  authors: [{ name: 'Facu\'s Adventure Team' }],
+  creator: 'Facu\'s Adventure Team',
+  openGraph: {
+    type: 'website',
+    locale: 'es_UY',
+    title: '🐻 Facu\'s 9th Adventure — ¡Estás Invitado!',
+    description: '¡Facu te invita a su cumpleaños Nivel 9! Una misión interactiva en KBOOM. Domingo 24 de mayo desde las 18:30hs.',
+    siteName: 'Facu\'s 9th Adventure',
+    images: [
+      {
+        url: '/titulo_super_facu_1.png',
+        width: 800,
+        height: 400,
+        alt: 'Facu\'s 9th Adventure - Super Facu Aventura',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: '🐻 Facu\'s 9th Adventure — ¡Estás Invitado!',
+    description: '¡Facu te invita a su cumpleaños Nivel 9! Una misión interactiva en KBOOM.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
