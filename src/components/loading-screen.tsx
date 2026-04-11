@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { useIsDesktop } from "@/hooks/use-media-query";
 
 type LoadingScreenProps = {
   onStart: () => void;
@@ -10,7 +9,6 @@ type LoadingScreenProps = {
 
 export function LoadingScreen({ onStart }: LoadingScreenProps) {
   const [progress, setProgress] = useState(0);
-  const isDesktop = useIsDesktop();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -27,63 +25,75 @@ export function LoadingScreen({ onStart }: LoadingScreenProps) {
     return () => clearInterval(timer);
   }, [onStart]);
 
-  /* ── MOBILE LAYOUT ─────────────────────────────────── */
-  if (!isDesktop) {
-    return (
+  return (
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden">
+      {/* Background: gradient on mobile, video on md+ */}
       <div
-        className="fixed inset-0 z-50 flex flex-col items-center justify-between overflow-hidden"
+        className="absolute inset-0 z-0 md:hidden"
         style={{ background: "linear-gradient(180deg, #AAE5FF 0%, #ECF8FF 60%, #D4F0FF 100%)" }}
-      >
-        {/* Floating stars */}
-        <div className="absolute inset-0 pointer-events-none">
-          {["top-8 left-6", "top-12 right-8", "top-20 left-1/4", "top-6 right-1/3"].map((pos, i) => (
-            <span
-              key={i}
-              className="absolute text-2xl motion-safe:animate-subtle-float"
-              style={{ animationDelay: `${i * 0.5}s` }}
-              aria-hidden="true"
-            >
-              {["⭐", "🌟", "✨", "⭐"][i]}
-            </span>
-          ))}
-          <span className="absolute top-24 right-6 text-3xl motion-safe:animate-subtle-float" style={{ animationDelay: "1.2s" }}>🍯</span>
-        </div>
+        aria-hidden="true"
+      />
+      <video
+        autoPlay loop muted playsInline
+        src="/intro_inicio_pc.mp4"
+        className="absolute inset-0 w-full h-full object-cover z-0 hidden md:block"
+        aria-hidden="true"
+      />
+      {/* Overlay for desktop video */}
+      <div className="absolute inset-0 z-0 hidden md:block" style={{ background: "linear-gradient(180deg, rgba(170,229,255,0.6) 0%, rgba(236,248,255,0.55) 50%, rgba(0,51,66,0.55) 100%)" }} aria-hidden="true" />
 
-        {/* Bear + Title */}
-        <div className="flex flex-col items-center flex-1 justify-center gap-4 px-4 z-10">
-          {/* Floating bear */}
-          <div className="motion-safe:animate-float">
-            <Image
-              src="/Baaren_brother_transparent.webp"
-              alt="Baaren el oso"
-              width={140}
-              height={140}
-              className="drop-shadow-[0_8px_12px_rgba(0,0,0,0.3)]"
-              priority
-            />
-          </div>
+      {/* Floating stars — mobile only */}
+      <div className="absolute inset-0 pointer-events-none md:hidden" aria-hidden="true">
+        {["top-6 left-4", "top-10 right-6", "top-16 left-1/4", "top-4 right-1/4"].map((pos, i) => (
+          <span
+            key={i}
+            className={`absolute text-xl sm:text-2xl motion-safe:animate-subtle-float ${pos}`}
+            style={{ animationDelay: `${i * 0.5}s` }}
+          >
+            {["⭐", "🌟", "✨", "⭐"][i]}
+          </span>
+        ))}
+        <span className="absolute top-20 right-4 sm:right-6 text-2xl sm:text-3xl motion-safe:animate-subtle-float" style={{ animationDelay: "1.2s" }}>🍯</span>
+      </div>
 
-          {/* Game title */}
+      {/* Main content */}
+      <div className="relative z-10 flex flex-col md:flex-row items-center justify-center gap-6 sm:gap-10 md:gap-16 w-full max-w-5xl px-4 sm:px-8 md:px-12">
+        {/* Bear */}
+        <div className="motion-safe:animate-float flex-shrink-0">
           <Image
-            src="/titulo_super_facu_1.png"
-            alt="Super Facu Aventura"
-            width={400}
-            height={200}
-            className="w-full max-w-xs drop-shadow-lg hover:scale-105 transition-transform duration-300"
+            src="/Baaren_brother_transparent.webp"
+            alt="Baaren el oso"
+            width={140}
+            height={140}
+            className="w-28 h-28 sm:w-36 sm:h-36 md:w-52 md:h-52 lg:w-64 lg:h-64 drop-shadow-[0_8px_12px_rgba(0,0,0,0.3)] md:drop-shadow-[0_16px_24px_rgba(0,0,0,0.5)]"
             priority
           />
         </div>
 
-        {/* Progress bar */}
-        <div className="z-10 w-full px-8 pb-6 flex flex-col items-center gap-2">
-          <div className="w-full max-w-xs">
+        {/* Title + progress */}
+        <div className="flex flex-col items-center gap-3 sm:gap-4 md:gap-6 w-full max-w-xs sm:max-w-sm md:max-w-lg">
+          <Image
+            src="/titulo_super_facu_1.png"
+            alt="Super Facu Aventura"
+            width={620}
+            height={310}
+            className="w-48 sm:w-64 md:w-80 lg:w-[32rem] drop-shadow-lg md:drop-shadow-[0_8px_20px_rgba(255,215,0,0.6)] hover:scale-105 transition-transform duration-300"
+            priority
+          />
+
+          {/* Progress bar */}
+          <div className="w-full">
             <div
-              className="h-7 rounded-full border-[5px] border-teddy-brown bg-white/60 overflow-hidden relative"
-              style={{ boxShadow: "0 4px 0 #63340b" }}
+              className="h-6 sm:h-8 md:h-10 rounded-full border-4 sm:border-[5px] md:border-[6px] border-teddy-brown overflow-hidden relative"
+              style={{
+                boxShadow: "0 4px 0 #63340b",
+                background: "rgba(255,255,255,0.6)",
+              }}
               role="progressbar"
               aria-valuenow={progress}
               aria-valuemin={0}
               aria-valuemax={100}
+              aria-label={`Cargando: ${progress}%`}
             >
               <div
                 className="h-full rounded-full transition-all duration-75"
@@ -95,85 +105,13 @@ export function LoadingScreen({ onStart }: LoadingScreenProps) {
                 }}
               />
             </div>
-          </div>
-          <p className="font-impact text-teddy-brown tracking-widest text-sm">
-            CARGANDO... {progress}%
-          </p>
-        </div>
-
-        {/* Pixel grass strip */}
-        <div className="w-full h-16 pixel-grass" aria-hidden="true" />
-      </div>
-    );
-  }
-
-  /* ── DESKTOP LAYOUT ────────────────────────────────── */
-  return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden">
-      {/* Background video */}
-      <video
-        autoPlay loop muted playsInline
-        src="/intro_inicio_pc.mp4"
-        className="absolute inset-0 w-full h-full object-cover z-0"
-        aria-hidden="true"
-      />
-      {/* Overlay */}
-      <div className="absolute inset-0 z-0" style={{ background: "linear-gradient(180deg, rgba(170,229,255,0.6) 0%, rgba(236,248,255,0.55) 50%, rgba(0,51,66,0.55) 100%)" }} />
-
-      {/* Content */}
-      <div className="relative z-10 flex flex-row items-center justify-center gap-16 w-full max-w-5xl px-12">
-        {/* Bear — left side */}
-        <div className="flex-shrink-0 motion-safe:animate-float">
-          <Image
-            src="/Baaren_brother_transparent.webp"
-            alt="Baaren el oso"
-            width={260}
-            height={260}
-            className="drop-shadow-[0_16px_24px_rgba(0,0,0,0.5)]"
-            priority
-          />
-        </div>
-
-        {/* Title + progress — right side */}
-        <div className="flex flex-col items-center gap-6">
-          <Image
-            src="/titulo_super_facu_1.png"
-            alt="Super Facu Aventura"
-            width={620}
-            height={310}
-            className="drop-shadow-[0_8px_20px_rgba(255,215,0,0.6)] hover:scale-105 transition-transform duration-300"
-            priority
-          />
-
-          {/* Wide progress bar */}
-          <div className="w-full">
-            <div
-              className="h-10 rounded-full border-[6px] border-teddy-brown bg-black/40 overflow-hidden relative"
-              style={{ boxShadow: "0 6px 0 #63340b, inset 0 2px 4px rgba(0,0,0,0.4)" }}
-              role="progressbar"
-              aria-valuenow={progress}
-              aria-valuemin={0}
-              aria-valuemax={100}
-            >
-              <div
-                className="h-full rounded-full transition-all duration-75"
-                style={{
-                  width: `${progress}%`,
-                  background: "linear-gradient(90deg, #b8860b, #FFD700, #FFF8A0, #FFD700, #b8860b)",
-                  backgroundSize: "200% auto",
-                  animation: "shimmer 1.5s linear infinite",
-                }}
-              />
-              {/* Shine overlay */}
-              <div className="absolute inset-0 rounded-full" style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 60%)" }} />
-            </div>
-            <p className="font-arcade text-golden-coin tracking-[0.3em] text-xl text-center mt-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-              CARGANDO MUNDO... {progress}%
+            <p className="font-impact sm:font-arcade text-teddy-brown sm:text-golden-coin tracking-widest text-xs sm:text-sm md:text-xl text-center mt-1 sm:mt-2 drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)] sm:drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+              CARGANDO{progress > 0 ? `... ${progress}%` : "..."}
             </p>
           </div>
 
-          {/* Decorative stars */}
-          <div className="flex gap-4 text-3xl" aria-hidden="true">
+          {/* Decorative stars — desktop only */}
+          <div className="hidden md:flex gap-4 text-2xl lg:text-3xl" aria-hidden="true">
             {["⭐", "🍯", "🌟", "🍯", "⭐"].map((e, i) => (
               <span key={i} className="motion-safe:animate-bounce-light" style={{ animationDelay: `${i * 0.2}s` }}>{e}</span>
             ))}
@@ -182,7 +120,7 @@ export function LoadingScreen({ onStart }: LoadingScreenProps) {
       </div>
 
       {/* Pixel grass — bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-20 pixel-grass z-10" aria-hidden="true" />
+      <div className="absolute bottom-0 left-0 right-0 h-12 sm:h-16 md:h-20 pixel-grass z-10" aria-hidden="true" />
     </div>
   );
 }

@@ -274,6 +274,7 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
                 id="btn-play-arcade-desktop"
                 onClick={handlePlay}
                 disabled={!playerName.trim()}
+                aria-label="Jugar minijuegos del Arcade para ganar monedas"
                 className="w-full font-milky text-2xl py-4 rounded-2xl transition-all duration-100 disabled:opacity-40 disabled:cursor-not-allowed"
                 style={{
                   background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 100%)',
@@ -293,6 +294,7 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
             <button
               id="btn-skip-arcade-desktop"
               onClick={handleSkip}
+              aria-label="Saltar los minijuegos e ir directo a la misión"
               className="w-full font-amble text-base py-3 rounded-xl transition-all duration-100"
               style={{
                 background: '#87CEEB',

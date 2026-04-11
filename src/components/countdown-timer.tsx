@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { useIsDesktop } from '@/hooks/use-media-query';
 
 type CountdownTimerProps = {
   targetDate: string;
@@ -22,8 +21,6 @@ const UNIT_LABELS: Record<string, string> = {
 };
 
 export function CountdownTimer({ targetDate }: CountdownTimerProps) {
-  const isDesktop = useIsDesktop();
-
   const calculateTimeLeft = useCallback((): TimeLeft => {
     const difference = +new Date(targetDate) - +new Date();
     if (difference > 0) {
@@ -48,16 +45,15 @@ export function CountdownTimer({ targetDate }: CountdownTimerProps) {
   // SSR placeholder
   if (typeof timeLeft === 'undefined') {
     return (
-      <div className="flex items-center justify-center gap-2 py-4">
+      <div className="flex items-center justify-center gap-1 sm:gap-2 py-4" aria-label="Cuenta regresiva cargando...">
         {['DÍAS', 'HRS', 'MIN', 'SEG'].map((label) => (
           <div key={label} className="flex flex-col items-center">
             <div
-              className="bg-black/70 border-2 border-golden-coin rounded-lg flex items-center justify-center"
-              style={{ width: isDesktop ? 96 : 64, height: isDesktop ? 80 : 60 }}
+              className="bg-black/70 border-2 border-golden-coin rounded-lg flex items-center justify-center w-12 h-10 sm:w-16 sm:h-12 md:w-20 md:h-14 lg:w-24 lg:h-16"
             >
-              <span className="font-impact text-golden-coin/40 text-3xl">--</span>
+              <span className="font-impact text-golden-coin/40 text-xl sm:text-2xl md:text-3xl">--</span>
             </div>
-            <span className="font-arcade text-cloud-white/60 text-xs mt-1 tracking-widest">{label}</span>
+            <span className="font-arcade text-cloud-white/60 text-[8px] sm:text-[10px] md:text-xs mt-1 tracking-widest">{label}</span>
           </div>
         ))}
       </div>
@@ -68,10 +64,10 @@ export function CountdownTimer({ targetDate }: CountdownTimerProps) {
   if (timeLeft === null) {
     return (
       <div
-        className="flex items-center justify-center rounded-xl border-4 border-grass-green px-6 py-4"
+        className="flex items-center justify-center rounded-xl border-4 border-grass-green px-4 py-3 sm:px-6 sm:py-4"
         style={{ boxShadow: '0 6px 0 #2E8B57, 0 0 20px rgba(124,252,0,0.4)' }}
       >
-        <span className="font-milky text-2xl text-grass-green motion-safe:animate-pulse">
+        <span className="font-milky text-lg sm:text-xl md:text-2xl text-grass-green motion-safe:animate-pulse">
           🎉 ¡La fiesta ha comenzado! 🎉
         </span>
       </div>
@@ -79,21 +75,17 @@ export function CountdownTimer({ targetDate }: CountdownTimerProps) {
   }
 
   const entries = Object.entries(timeLeft) as [string, number][];
-  const boxSize = isDesktop
-    ? { width: 96, height: 80, numSize: 'text-5xl', lblSize: 'text-xs' }
-    : { width: 64, height: 56, numSize: 'text-3xl', lblSize: 'text-[10px]' };
 
   return (
-    <div className="flex items-end justify-center gap-1">
+    <div className="flex items-end justify-center gap-0.5 sm:gap-1">
       {entries.map(([unit, value], index) => (
-        <div key={unit} className="flex items-end gap-1">
+        <div key={unit} className="flex items-end gap-0.5 sm:gap-1">
           {/* Time box */}
           <div className="flex flex-col items-center">
             <div
-              className="flex items-center justify-center rounded-lg relative overflow-hidden"
+              className="flex items-center justify-center rounded-lg relative overflow-hidden
+                w-12 h-10 sm:w-16 sm:h-12 md:w-20 md:h-14 lg:w-24 lg:h-16"
               style={{
-                width: boxSize.width,
-                height: boxSize.height,
                 background: 'rgba(0,0,0,0.75)',
                 border: '2px solid #FFD700',
                 boxShadow: '0 4px 0 #63340b, inset 0 1px 0 rgba(255,255,255,0.1)',
@@ -106,13 +98,15 @@ export function CountdownTimer({ targetDate }: CountdownTimerProps) {
                 aria-hidden="true"
               />
               <span
-                className={`font-impact text-golden-coin relative z-10 ${boxSize.numSize}`}
+                className="font-impact text-golden-coin relative z-10
+                  text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
                 style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}
               >
                 {String(value).padStart(2, '0')}
               </span>
             </div>
-            <span className={`font-arcade text-cloud-white tracking-widest mt-1 ${boxSize.lblSize}`}>
+            <span className="font-arcade text-cloud-white tracking-widest mt-0.5 sm:mt-1
+              text-[7px] sm:text-[9px] md:text-xs">
               {UNIT_LABELS[unit] ?? unit.toUpperCase()}
             </span>
           </div>
@@ -120,8 +114,9 @@ export function CountdownTimer({ targetDate }: CountdownTimerProps) {
           {/* Blinking separator (not after last) */}
           {index < entries.length - 1 && (
             <span
-              className="font-impact text-golden-coin mb-5 motion-safe:animate-blink"
-              style={{ fontSize: isDesktop ? '2.5rem' : '1.8rem', textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}
+              className="font-impact text-golden-coin mb-3 sm:mb-4 md:mb-5 motion-safe:animate-blink
+                text-lg sm:text-2xl md:text-3xl lg:text-4xl"
+              style={{ textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}
               aria-hidden="true"
             >
               :

@@ -72,6 +72,7 @@ export function RSVPSection({ onNext, onComplete }: RSVPSectionProps) {
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setGuestCount(Math.max(1, guestCount - 1))}
+                  aria-label="Reducir cantidad de invitados"
                   className="w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold text-white active:scale-95"
                   style={{
                     background: "#FFD700",
@@ -92,6 +93,7 @@ export function RSVPSection({ onNext, onComplete }: RSVPSectionProps) {
                 </span>
                 <button
                   onClick={() => setGuestCount(Math.min(10, guestCount + 1))}
+                  aria-label="Aumentar cantidad de invitados"
                   className="w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold text-white active:scale-95"
                   style={{
                     background: "#FFD700",
@@ -135,6 +137,7 @@ export function RSVPSection({ onNext, onComplete }: RSVPSectionProps) {
             {/* Confirm button */}
             <button
               onClick={handleConfirm}
+              aria-label="Confirmar asistencia al evento"
               className="w-full font-milky text-lg sm:text-xl h-auto py-3 px-6 text-white transition-all duration-150 active:scale-95"
               style={{
                 background: "linear-gradient(180deg, #7CFC00 0%, #5DBB00 100%)",

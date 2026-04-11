@@ -19,7 +19,7 @@ export function ChestSection({ onNext, photo1, photo2 }: ChestSectionProps) {
   return (
     <MissionSection stepId="chest" bgImage="/ciudad.webp">
       <div
-        className={`rounded-2xl p-6 sm:p-8 text-center ${
+        className={`rounded-2xl p-4 sm:p-6 lg:p-8 text-center ${
           isDesktop ? "max-w-3xl mx-auto" : "w-full"
         }`}
         style={{
@@ -28,10 +28,10 @@ export function ChestSection({ onNext, photo1, photo2 }: ChestSectionProps) {
           boxShadow: "0 10px 30px rgba(255,215,0,0.3), 6px 6px 0 #b8860b",
         }}
       >
-        <h2 className="font-milky text-2xl sm:text-3xl text-teddy-brown mb-4">
+        <h2 className="font-milky text-xl sm:text-2xl lg:text-3xl text-teddy-brown mb-3 sm:mb-4">
           📦 Cofre de Recuerdos
         </h2>
-        <p className="font-amble text-sm text-voxel-text mb-6">
+        <p className="font-amble text-xs sm:text-sm text-voxel-text mb-4 sm:mb-6">
           ¡Abre el cofre para descubrir los recuerdos de Facu!
         </p>
 
@@ -39,6 +39,7 @@ export function ChestSection({ onNext, photo1, photo2 }: ChestSectionProps) {
         {!isOpen ? (
           <button
             onClick={() => setIsOpen(true)}
+            aria-label="Abrir el cofre de recuerdos"
             className="mx-auto flex flex-col items-center gap-4 transition-transform active:scale-95 hover:scale-105"
             style={{ background: "none", border: "none", cursor: "pointer" }}
           >
@@ -59,10 +60,10 @@ export function ChestSection({ onNext, photo1, photo2 }: ChestSectionProps) {
         ) : (
           <div className="space-y-4">
             {/* Memory carousel */}
-            <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4">
+            <div className="flex gap-3 sm:gap-4 overflow-x-auto snap-x snap-mandatory pb-4">
               {photo1 && (
                 <div
-                  className="flex-shrink-0 w-64 h-64 rounded-xl overflow-hidden snap-center"
+                  className="flex-shrink-0 w-[calc(100vw-4rem)] sm:w-64 h-56 sm:h-64 rounded-xl overflow-hidden snap-center"
                   style={{ border: "4px solid #8B4513" }}
                 >
                   <Image
@@ -76,7 +77,7 @@ export function ChestSection({ onNext, photo1, photo2 }: ChestSectionProps) {
               )}
               {photo2 && (
                 <div
-                  className="flex-shrink-0 w-64 h-64 rounded-xl overflow-hidden snap-center"
+                  className="flex-shrink-0 w-[calc(100vw-4rem)] sm:w-64 h-56 sm:h-64 rounded-xl overflow-hidden snap-center"
                   style={{ border: "4px solid #8B4513" }}
                 >
                   <Image

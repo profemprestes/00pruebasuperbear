@@ -29,7 +29,7 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
       item.setter(item.name);
     }
   };
-  
+
   const renderOptionButton = (item: any, currentSelection: string, setter: (name: any) => void) => {
     const isUnlocked = !item.locked || unlockedItems.has(item.name);
     const canAfford = coins >= item.cost;
@@ -38,17 +38,20 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
         <div key={item.name} className='relative'>
             <Button
                 variant="outline"
-                className={cn("w-20 h-20 flex flex-col items-center justify-center gap-1 border-4 shadow-md", currentSelection === item.name && "border-golden-coin ring-4 ring-golden-coin")}
+                className={cn(
+                  "w-full aspect-square flex flex-col items-center justify-center gap-0.5 border-3 sm:border-4 shadow-md text-xs",
+                  currentSelection === item.name && "border-golden-coin ring-2 sm:ring-4 ring-golden-coin"
+                )}
                 disabled={!isUnlocked}
                 onClick={() => isUnlocked && setter(item.name)}
             >
-                {item.icon ? <span className='text-3xl'>{item.icon}</span> : <div className={cn('w-10 h-10 rounded-full', item.color)}/>}
-                <span className="text-xs">{item.name}</span>
+                {item.icon ? <span className='text-2xl sm:text-3xl'>{item.icon}</span> : <div className={cn('w-8 h-8 sm:w-10 sm:h-10 rounded-full', item.color)}/>}
+                <span className="text-[10px] sm:text-xs leading-tight truncate max-w-full px-1">{item.name}</span>
             </Button>
             {!isUnlocked && (
-                <div className="absolute inset-0 bg-black/60 rounded-lg flex flex-col items-center justify-center">
-                    <Button size="sm" className="h-auto p-1 disabled:cursor-not-allowed" disabled={!canAfford} onClick={() => handlePurchase({...item, setter})}>
-                        <Lock size={16} className="mr-1"/> {item.cost} 🪙
+                <div className="absolute inset-0 bg-black/60 rounded-md sm:rounded-lg flex flex-col items-center justify-center">
+                    <Button size="sm" aria-label={`Comprar ${item.name} por ${item.cost} monedas`} className="h-auto p-1 sm:p-1.5 disabled:cursor-not-allowed" disabled={!canAfford} onClick={() => handlePurchase({...item, setter})}>
+                        <Lock size={12} className="sm:w-4 sm:h-4 mr-0.5 sm:mr-1"/> <span className="text-[10px] sm:text-xs">{item.cost} 🪙</span>
                     </Button>
                 </div>
             )}
@@ -60,69 +63,84 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
 
   return (
     <div
-      className="h-screen w-full bg-cover bg-center flex flex-col items-center justify-center p-2 sm:p-4 relative"
+      className="min-h-screen w-full bg-cover bg-center flex flex-col p-2 sm:p-4 relative overflow-y-auto"
       style={{ backgroundImage: "url('/ciudad.webp')" }}
     >
       <div className="absolute inset-0 bg-black/40 backdrop-blur-md z-0" />
 
-      <div className="absolute top-4 left-4 bg-black/50 p-2 rounded-lg text-white font-body text-base z-20 max-w-xs sm:max-w-sm">
-        <p><span className='font-milky text-lg'>🐻‍❄️ Capitalus:</span> ¡Hoola! ¡Soy Capitalus! Súbete a la plataforma de piedra y usa tus monedas para crear tu propio avatar antes de la fiesta.</p>
-      </div>
-      <div className="absolute top-4 right-4 bg-golden-coin text-teddy-brown font-milky text-2xl p-3 rounded-full shadow-lg z-20">
-        {coins} 🪙
-      </div>
+      {/* Content wrapper — avoids HUD overlap and dialog overlap */}
+      <div className="relative z-10 w-full max-w-5xl mx-auto pt-14 sm:pt-16 lg:pt-4">
 
-      <div className="relative z-10 w-[95%] sm:w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8 items-center mt-28 md:mt-0 motion-safe:animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-8 duration-500">
-        {/* Left Section: Avatar Preview */}
-        <div className='flex flex-col items-center gap-4'>
-            <div className='w-64 sm:w-72 h-80 flex items-center justify-center'>
-                 <AvatarDisplay config={avatarConfig} />
-            </div>
-            <div className="w-64 sm:w-80 h-4 bg-gray-600 rounded-full border-2 border-gray-800 shadow-inner opacity-70 blur-sm" />
-             <div className="relative mt-4">
-                <Button
-                    onClick={() => onAvatarCreate(avatarConfig)}
-                    className="font-milky bg-grass-green text-white text-lg sm:text-xl h-auto px-6 sm:px-8 py-3 rounded-lg border-0 shadow-[0_6px_0_#2E8B57] transition-all duration-200 hover:bg-green-500 hover:shadow-[0_8px_0_#2E8B57] hover:-translate-y-0.5 active:translate-y-1 active:shadow-none"
-                >
-                    ¡Guardar Avatar y Confirmar! ➔
-                </Button>
-                <div className="absolute -top-12 left-1/2 -translate-x-1/2 text-grass-green motion-safe:animate-bounce flex flex-col items-center">
-                    <span className="font-milky text-sm bg-white/80 px-2 rounded-full border-2 border-grass-green">¡HAZ CLIC!</span>
-                    <ArrowDown className="w-8 h-8" />
-                </div>
-              </div>
+        {/* Capitalus dialog — responsive: compact on mobile, full on desktop */}
+        <div className="mb-2 sm:mb-4">
+          <div className="bg-black/50 p-2 sm:p-3 rounded-lg text-white font-body text-xs sm:text-base z-20 max-w-full sm:max-w-md">
+            <p><span className='font-milky text-sm sm:text-lg'>🐻‍❄️ Capitalus:</span> <span className="hidden sm:inline">¡Hoola! ¡Soy Capitalus! Súbete a la plataforma de piedra y usa tus monedas para crear tu propio avatar antes de la fiesta.</span><span className="sm:hidden">¡Usa tus monedas para personalizar tu avatar!</span></p>
+          </div>
         </div>
-        
-        {/* Right Section: Customization Menu */}
-        <div className='bg-white/90 p-2 sm:p-4 rounded-xl border-4 border-teddy-brown shadow-lg'>
+
+        {/* Coin counter — stays top-right */}
+        <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-golden-coin text-teddy-brown font-milky text-lg sm:text-2xl p-2 sm:p-3 rounded-full shadow-lg z-20">
+          {coins} 🪙
+        </div>
+
+        {/* Main layout: stacked mobile → side-by-side desktop */}
+        <div className="flex flex-col md:flex-row md:items-start md:gap-6 gap-4">
+
+          {/* Avatar preview section */}
+          <div className='flex flex-col items-center gap-3 sm:gap-4 md:w-72 md:flex-shrink-0 order-1'>
+            <div className='w-48 sm:w-56 md:w-64 h-56 sm:h-64 md:h-72 flex items-center justify-center'>
+                 <AvatarDisplay config={avatarConfig} className="scale-90 sm:scale-100" />
+            </div>
+            {/* Platform shadow */}
+            <div className="w-40 sm:w-48 md:w-56 h-3 sm:h-4 bg-gray-600 rounded-full border-2 border-gray-800 shadow-inner opacity-70 blur-sm" />
+
+            {/* CTA button */}
+            <div className="relative mt-1">
+              <Button
+                onClick={() => onAvatarCreate(avatarConfig)}
+                aria-label="Guardar avatar creado y confirmar asistencia"
+                className="font-milky bg-grass-green text-white text-base sm:text-lg md:text-xl h-auto px-5 sm:px-8 py-2.5 sm:py-3 rounded-lg border-0 shadow-[0_6px_0_#2E8B57] transition-all duration-200 hover:bg-green-500 hover:shadow-[0_8px_0_#2E8B57] hover:-translate-y-0.5 active:translate-y-1 active:shadow-none"
+              >
+                ¡Guardar Avatar y Confirmar! ➔
+              </Button>
+              <div className="absolute -top-10 left-1/2 -translate-x-1/2 text-grass-green motion-safe:animate-bounce flex flex-col items-center pointer-events-none">
+                <span className="font-milky text-[10px] sm:text-sm bg-white/80 px-2 rounded-full border-2 border-grass-green">¡HAZ CLIC!</span>
+                <ArrowDown className="w-5 h-5 sm:w-8 sm:h-8" />
+              </div>
+            </div>
+          </div>
+
+          {/* Customization menu */}
+          <div className='bg-white/90 p-2 sm:p-3 md:p-4 rounded-xl border-3 sm:border-4 border-teddy-brown shadow-lg flex-1 order-2 min-w-0'>
              <Tabs defaultValue="fur" className="w-full">
                 <TabsList className="grid w-full grid-cols-4">
-                    <TabsTrigger value="fur">Piel</TabsTrigger>
-                    <TabsTrigger value="head">Cabeza</TabsTrigger>
-                    <TabsTrigger value="torso">Cuerpo</TabsTrigger>
-                    <TabsTrigger value="back">Compañero</TabsTrigger>
+                    <TabsTrigger value="fur" className="text-xs sm:text-sm px-1 sm:px-2">Piel</TabsTrigger>
+                    <TabsTrigger value="head" className="text-xs sm:text-sm px-1 sm:px-2">Cabeza</TabsTrigger>
+                    <TabsTrigger value="torso" className="text-xs sm:text-sm px-1 sm:px-2">Cuerpo</TabsTrigger>
+                    <TabsTrigger value="back" className="text-[10px] sm:text-xs px-0.5 sm:px-1">Compañero</TabsTrigger>
                 </TabsList>
                 <TabsContent value="fur">
-                    <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 p-2 sm:p-4'>
+                    <div className='grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-1.5 sm:gap-2 md:gap-3 p-1.5 sm:p-2 md:p-3'>
                         {furOptions.map(opt => renderOptionButton(opt, furColor, setFurColor))}
                     </div>
                 </TabsContent>
                 <TabsContent value="head">
-                    <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 p-2 sm:p-4'>
+                    <div className='grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-1.5 sm:gap-2 md:gap-3 p-1.5 sm:p-2 md:p-3'>
                        {headOptions.map(opt => renderOptionButton(opt, headItem, setHeadItem))}
                     </div>
                 </TabsContent>
                 <TabsContent value="torso">
-                     <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 p-2 sm:p-4'>
+                     <div className='grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-1.5 sm:gap-2 md:gap-3 p-1.5 sm:p-2 md:p-3'>
                         {torsoOptions.map(opt => renderOptionButton(opt, torsoItem, setTorsoItem))}
                     </div>
                 </TabsContent>
                  <TabsContent value="back">
-                     <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 p-2 sm:p-4'>
+                     <div className='grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-1.5 sm:gap-2 md:gap-3 p-1.5 sm:p-2 md:p-3'>
                         {backpackerOptions.map(opt => renderOptionButton(opt, backpacker, setBackpacker))}
                     </div>
                 </TabsContent>
             </Tabs>
+        </div>
         </div>
       </div>
     </div>

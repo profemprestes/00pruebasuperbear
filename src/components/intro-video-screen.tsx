@@ -29,8 +29,9 @@ export function IntroVideoScreen({ onVideoEnd }: IntroVideoScreenProps) {
             )}
             <Button
                 onClick={onVideoEnd}
+                aria-label="Saltar la cinemática de introducción"
                 variant="ghost"
-                className="absolute bottom-8 right-8 text-white bg-black/30 hover:bg-black/50 z-10 font-body"
+                className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 text-white bg-black/30 hover:bg-black/50 z-10 font-body text-sm sm:text-base"
             >
                 Saltar Cinemática ➔
             </Button>

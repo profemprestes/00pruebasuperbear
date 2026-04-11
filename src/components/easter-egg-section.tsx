@@ -31,7 +31,7 @@ export function EasterEggSection({ onRestart }: EasterEggSectionProps) {
     return (
       <MissionSection stepId="easter-egg" bgImage="/ciudad.webp">
         <div
-          className={`rounded-2xl p-6 sm:p-8 text-center ${
+          className={`rounded-2xl p-4 sm:p-6 lg:p-8 text-center ${
             isDesktop ? "max-w-3xl mx-auto" : "w-full"
           }`}
           style={{
@@ -40,17 +40,18 @@ export function EasterEggSection({ onRestart }: EasterEggSectionProps) {
             boxShadow: "0 10px 30px rgba(255,215,0,0.3), 6px 6px 0 #b8860b",
           }}
         >
-          <h2 className="font-milky text-2xl sm:text-3xl text-teddy-brown mb-4">
+          <h2 className="font-milky text-xl sm:text-2xl lg:text-3xl text-teddy-brown mb-3 sm:mb-4">
             🥚 ¿Hay algo aquí?
           </h2>
-          <p className="font-amble text-sm text-voxel-text mb-6">
+          <p className="font-amble text-xs sm:text-sm text-voxel-text mb-4 sm:mb-6">
             Dicen que si tocas esta zona secreta 3 veces... puedes caer en un lugar extraño...
           </p>
 
           {/* Secret trigger area */}
           <button
             onClick={handleNoclip}
-            className="mx-auto w-48 h-48 sm:w-56 sm:h-56 rounded-2xl flex items-center justify-center transition-all hover:scale-105 active:scale-95"
+            aria-label="Zona secreta: toca 3 veces para acceder al Easter Egg"
+            className="mx-auto w-40 h-40 sm:w-48 sm:h-48 lg:w-56 lg:h-56 rounded-2xl flex items-center justify-center transition-all hover:scale-105 active:scale-95"
             style={{
               background: "rgba(255,215,0,0.1)",
               border: "3px dashed #FFD700",
@@ -58,7 +59,7 @@ export function EasterEggSection({ onRestart }: EasterEggSectionProps) {
             }}
           >
             <div className="text-center">
-              <span className="text-5xl sm:text-6xl block mb-2">❓</span>
+              <span className="text-4xl sm:text-5xl lg:text-6xl block mb-2">❓</span>
               <span className="font-milky text-xs text-teddy-brown">
                 {noclipCount > 0 ? `${noclipCount}/3...` : "Toca aquí"}
               </span>
