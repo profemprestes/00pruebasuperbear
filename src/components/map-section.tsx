@@ -16,7 +16,7 @@ export function MapSection({ onNext }: MapSectionProps) {
   const isDesktop = useIsDesktop();
 
   return (
-    <MissionSection stepId="map" bgImage="/ciudad.webp">
+    <MissionSection stepId="map" bgImage="/mundos/bear_village/Spawnpoint.webp">
       <div
         className={`rounded-2xl p-4 sm:p-6 lg:p-8 text-center ${
           isDesktop ? "max-w-3xl mx-auto" : "w-full"

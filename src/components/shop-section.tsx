@@ -30,7 +30,7 @@ export function ShopSection({ onNext }: ShopSectionProps) {
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
 
   return (
-    <MissionSection stepId="shop" bgImage="/ciudad.webp">
+    <MissionSection stepId="shop" bgImage="/mundos/bear_village/Outfitshopplatform.webp">
       <div
         className={`rounded-2xl p-4 sm:p-6 lg:p-8 text-center ${
           isDesktop ? "max-w-4xl mx-auto" : "w-full"

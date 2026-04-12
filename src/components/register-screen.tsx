@@ -23,37 +23,37 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
   if (!isDesktop) {
     return (
       <div
-        className="h-screen w-full bg-cover bg-bottom flex flex-col items-center justify-end pb-10 p-4 relative overflow-hidden"
-        style={{ backgroundImage: "url('/desierto.webp')" }}
+        className="min-h-screen w-full bg-cover bg-bottom flex flex-col items-center justify-end pb-8 sm:pb-10 p-3 sm:p-4 relative overflow-auto"
+        style={{ backgroundImage: "url('/mundos/bear_village/Beemothepdesertentrancearea.webp')" }}
       >
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/35 backdrop-blur-sm" />
 
         {/* Pixel tree strip */}
-        <div className="absolute bottom-0 left-0 right-0 flex justify-around items-end px-4 pb-0 z-10 pointer-events-none" aria-hidden="true">
+        <div className="absolute bottom-0 left-0 right-0 flex justify-around items-end px-2 sm:px-4 pb-0 z-10 pointer-events-none" aria-hidden="true">
           {['🌵', '🌴', '🌵', '🌴', '🌵'].map((t, i) => (
-            <span key={i} className="text-4xl leading-none" style={{ marginBottom: -4 }}>{t}</span>
+            <span key={i} className="text-3xl sm:text-4xl leading-none" style={{ marginBottom: -4 }}>{t}</span>
           ))}
         </div>
 
         {/* Dialog card — JRPG style */}
-        <div className="relative z-20 w-full max-w-sm motion-safe:animate-in fade-in-0 slide-in-from-bottom-6 duration-500">
+        <div className="relative z-20 w-full max-w-sm mx-auto motion-safe:animate-in fade-in-0 slide-in-from-bottom-6 duration-500">
           {/* Shicka avatar floating above the dialog box */}
-          <div className="flex justify-start pl-4 mb-[-1.5rem] z-30 relative">
+          <div className="flex justify-start pl-2 sm:pl-4 mb-[-1.5rem] z-30 relative">
             <div className="motion-safe:animate-float">
               <Image
-                src="/Shicka_the_backpacker.webp"
-                alt="Shicka"
-                width={120}
-                height={120}
-                className="drop-shadow-[4px_4px_0px_rgba(0,0,0,0.5)]"
+                src="/personajes/Shicka_render_.png"
+                alt="Shicka la guía del reino"
+                width={100}
+                height={100}
+                className="w-20 sm:w-[120px] h-20 sm:h-[120px] drop-shadow-[4px_4px_0px_rgba(0,0,0,0.5)]"
               />
             </div>
           </div>
 
           {/* Dialog bubble with CSS pointer */}
           <div
-            className="relative bg-sky-light text-voxel-text rounded-xl p-5"
+            className="relative bg-sky-light text-voxel-text rounded-xl p-4 sm:p-5"
             style={{
               border: '4px solid #8B4513',
               boxShadow: '0 6px 0 #63340b, 4px 4px 0 rgba(0,0,0,0.2)',
@@ -61,25 +61,25 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
           >
             {/* JRPG bubble pointer (triangle pointing up-left toward Shicka) */}
             <div
-              className="absolute -top-4 left-10 w-0 h-0"
+              className="absolute -top-4 left-8 sm:left-10 w-0 h-0"
               style={{
-                borderLeft: '14px solid transparent',
-                borderRight: '14px solid transparent',
-                borderBottom: '16px solid #8B4513',
+                borderLeft: '12px solid transparent',
+                borderRight: '12px solid transparent',
+                borderBottom: '14px solid #8B4513',
               }}
               aria-hidden="true"
             />
             <div
-              className="absolute -top-[11px] left-[42px] w-0 h-0"
+              className="absolute -top-[9px] left-[34px] sm:left-[42px] w-0 h-0"
               style={{
-                borderLeft: '12px solid transparent',
-                borderRight: '12px solid transparent',
-                borderBottom: '14px solid #ECF8FF',
+                borderLeft: '10px solid transparent',
+                borderRight: '10px solid transparent',
+                borderBottom: '12px solid #ECF8FF',
               }}
               aria-hidden="true"
             />
 
-            <p className="font-amble text-base font-bold mb-4 leading-snug">
+            <p className="font-amble text-sm sm:text-base font-bold mb-3 sm:mb-4 leading-snug">
               ¡Alto ahí, viajero! Antes de darte los detalles, <em>necesito registrarte</em>.
             </p>
 
@@ -87,29 +87,31 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
             <Input
               id="player-name-input"
               type="text"
-              placeholder="Ingresa tu Nombre de Aventurero"
+              placeholder="Nombre de Aventurero"
               value={playerName}
               onChange={(e) => setPlayerName(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && playerName.trim() && handlePlay()}
-              className="border-4 border-teddy-brown h-12 text-base text-center font-milky rounded-lg bg-white/90 focus:ring-2 focus:ring-golden-coin focus:border-golden-coin outline-none mb-4"
+              aria-label="Nombre del aventurero"
+              className="border-4 border-teddy-brown h-11 sm:h-12 text-sm sm:text-base text-center font-milky rounded-lg bg-white/90 focus:ring-2 focus:ring-golden-coin focus:border-golden-coin outline-none mb-3 sm:mb-4"
               style={{ boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.1)' }}
             />
 
             {/* Play button */}
-            <div className="relative mb-3">
+            <div className="relative mb-2 sm:mb-3">
               {playerName.trim() && (
-                <div className="absolute -top-8 left-1/2 -translate-x-1/2 flex flex-col items-center z-20 pointer-events-none">
-                  <span className="font-milky text-xs bg-amber-400 text-white px-2 py-0.5 rounded-full border-2 border-teddy-brown shadow-md whitespace-nowrap">
-                    🪙 +¡Gana monedas jugando!
+                <div className="absolute -top-7 left-1/2 -translate-x-1/2 flex flex-col items-center z-20 pointer-events-none">
+                  <span className="font-milky text-[10px] sm:text-xs bg-amber-400 text-white px-2 py-0.5 rounded-full border-2 border-teddy-brown shadow-md whitespace-nowrap">
+                    🪙 ¡Gana monedas jugando!
                   </span>
-                  <ArrowDown className="w-4 h-4 text-golden-coin motion-safe:animate-bounce" />
+                  <ArrowDown className="w-3 h-3 sm:w-4 sm:h-4 text-golden-coin motion-safe:animate-bounce" />
                 </div>
               )}
               <Button
                 id="btn-play-arcade"
                 onClick={handlePlay}
                 disabled={!playerName.trim()}
-                className="w-full font-milky text-lg h-12 border-3 border-teddy-brown transition-all whitespace-normal leading-tight disabled:opacity-50"
+                aria-label="Entrar al Arcade World para jugar y ganar monedas VIP"
+                className="w-full font-milky text-base sm:text-lg h-11 sm:h-12 border-3 border-teddy-brown transition-all whitespace-normal leading-tight disabled:opacity-50"
                 style={{
                   background: playerName.trim() ? '#FFD700' : '#ccc',
                   boxShadow: playerName.trim() ? '0 6px 0 #63340b' : 'none',
@@ -125,7 +127,8 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
             <Button
               id="btn-skip-arcade"
               onClick={handleSkip}
-              className="w-full font-amble text-sm h-10 transition-all"
+              aria-label="Saltar los minijuegos e ir directo a las coordenadas"
+              className="w-full font-amble text-xs sm:text-sm h-9 sm:h-10 transition-all"
               style={{
                 background: '#87CEEB',
                 border: '3px solid #00008B',
@@ -144,8 +147,8 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
   /* ── DESKTOP: Character Select Screen ─────────────── */
   return (
     <div
-      className="h-screen w-full bg-cover bg-center flex items-center justify-center relative overflow-hidden"
-      style={{ backgroundImage: "url('/desierto.webp')" }}
+      className="min-h-screen w-full bg-cover bg-center flex items-center justify-center relative overflow-auto"
+      style={{ backgroundImage: "url('/mundos/bear_village/Beemothepdesertentrancearea.webp')" }}
     >
       {/* Gradient overlay — stronger on left, lighter on right */}
       <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.55) 100%)' }} />
@@ -185,7 +188,7 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
             />
             <div className="motion-safe:animate-float relative">
               <Image
-                src="/Shicka_the_backpacker.webp"
+                src="/personajes/Shicka_render_.png"
                 alt="Shicka te da la bienvenida"
                 width={280}
                 height={280}

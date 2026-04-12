@@ -24,7 +24,7 @@ export function RSVPSection({ onNext, onComplete }: RSVPSectionProps) {
   };
 
   return (
-    <MissionSection stepId="rsvp" bgImage="/ciudad.webp">
+    <MissionSection stepId="rsvp" bgImage="/mundos/bear_village/Spawnpoint.webp">
       <div
         className={`rounded-2xl p-6 sm:p-8 text-center ${
           isDesktop ? "max-w-3xl mx-auto" : "w-full"

@@ -11,11 +11,11 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
   return (
     <div
       className="min-h-screen w-full bg-cover bg-center flex items-center justify-center p-3 sm:p-4 relative overflow-auto"
-      style={{ backgroundImage: "url('/ciudad.webp')" }}
+      style={{ backgroundImage: "url('/mundos/bear_village/Hubbearvillage.webp')" }}
     >
       <div className="absolute inset-0 bg-black/40 z-0" />
-      <div className="relative bg-white border-6 sm:border-8 border-[hsl(var(--foreground))] rounded-2xl p-4 sm:p-8 pt-16 sm:pt-20 shadow-[8px_8px_0px_hsl(var(--foreground))] max-w-2xl w-full m-4 motion-safe:animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-8 duration-500">
-        <div className="absolute -top-12 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:-top-16 sm:-left-12 z-10">
+      <div className="relative bg-white border-6 sm:border-8 border-[hsl(var(--foreground))] rounded-2xl p-4 sm:p-8 pt-20 sm:pt-24 md:pt-20 shadow-[8px_8px_0px_hsl(var(--foreground))] max-w-2xl w-full m-4 motion-safe:animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-8 duration-500">
+        <div className="absolute -top-10 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:-top-14 sm:-left-12 md:-top-16 z-10">
           <Image
             src="/facu_bear_sin_fondo.png"
             alt="Facu Bear Avatar"

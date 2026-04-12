@@ -28,7 +28,7 @@ export function MissionDetailsScreen({ playerName, onNext, playedMinigames, avat
     return (
       <div
         className="min-h-screen w-full bg-cover bg-center flex items-center justify-center p-3 sm:p-4 lg:p-8 overflow-auto relative"
-        style={{ backgroundImage: "url('/ciudad.webp')" }}
+        style={{ backgroundImage: "url('/mundos/bear_village/Hubbearvillage.webp')" }}
       >
         <div className="absolute inset-0 bg-black/50 backdrop-blur-lg" />
 
@@ -199,7 +199,7 @@ export function MissionDetailsScreen({ playerName, onNext, playedMinigames, avat
   return (
     <div
       className="min-h-screen w-full bg-cover bg-center flex items-center justify-center p-3 sm:p-4 lg:p-8 overflow-auto relative"
-      style={{ backgroundImage: "url('/ciudad.webp')" }}
+      style={{ backgroundImage: "url('/mundos/bear_village/Hubbearvillage.webp')" }}
     >
       <div className="absolute inset-0 bg-black/45 backdrop-blur-md" />
 

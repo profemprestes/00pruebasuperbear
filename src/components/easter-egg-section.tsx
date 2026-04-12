@@ -29,7 +29,7 @@ export function EasterEggSection({ onRestart }: EasterEggSectionProps) {
 
   if (!isInBackrooms) {
     return (
-      <MissionSection stepId="easter-egg" bgImage="/ciudad.webp">
+      <MissionSection stepId="easter-egg" bgImage="/mundos/bear_village/Tutorialzone.webp">
         <div
           className={`rounded-2xl p-4 sm:p-6 lg:p-8 text-center ${
             isDesktop ? "max-w-3xl mx-auto" : "w-full"
@@ -133,9 +133,9 @@ export function EasterEggSection({ onRestart }: EasterEggSectionProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5 }}
-            className="font-milky text-2xl sm:text-3xl text-black tracking-wider"
+            className="font-milky text-2xl sm:text-3xl text-white tracking-wider"
             style={{
-              textShadow: "0 0 10px rgba(255,0,0,0.8), 0 0 20px rgba(255,0,0,0.5)",
+              textShadow: "0 0 10px rgba(255,0,0,0.8), 0 0 20px rgba(255,0,0,0.5), 0 2px 4px rgba(0,0,0,1)",
             }}
           >
             SHADOW BEAR
@@ -145,7 +145,8 @@ export function EasterEggSection({ onRestart }: EasterEggSectionProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 2 }}
-            className="font-amble text-sm text-black/80 text-center max-w-xs"
+            className="font-amble text-sm text-white/90 text-center max-w-xs"
+            style={{ textShadow: "0 1px 3px rgba(0,0,0,0.8)" }}
           >
             Has descubierto el secreto más oscuro de Super Bear Adventure...
           </motion.p>
