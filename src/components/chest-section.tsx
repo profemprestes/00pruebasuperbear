@@ -17,7 +17,7 @@ export function ChestSection({ onNext, photo1, photo2 }: ChestSectionProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <MissionSection stepId="chest" bgImage="/ciudad.webp">
+    <MissionSection stepId="chest" bgImage="/mundos/bear_village/Hubbearvillage.webp">
       <div
         className={`rounded-2xl p-4 sm:p-6 lg:p-8 text-center ${
           isDesktop ? "max-w-3xl mx-auto" : "w-full"

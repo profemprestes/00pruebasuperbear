@@ -186,7 +186,7 @@ export default function AdminConfigPage() {
         <h3 className="font-milky text-white text-xl sm:text-2xl text-center mb-2" style={{textShadow: '2px 2px #000'}}>Vista Previa en Vivo</h3>
         <div className="bg-gray-800 p-2 rounded-lg border-4 border-black aspect-[9/16] max-h-[60vh] sm:max-h-[75vh] w-full mx-auto overflow-y-auto">
             {/* Simplified PresentationScreen */}
-            <div className="relative w-full h-[50vh] scale-[0.85] origin-top bg-cover bg-center" style={{ backgroundImage: "url('/ciudad.webp')" }}>
+            <div className="relative w-full h-[50vh] scale-[0.85] origin-top bg-cover bg-center" style={{ backgroundImage: "url('/mundos/bear_village/Hubbearvillage.webp')" }}>
                 <div className="absolute inset-0 bg-black/40" />
                 <div className="absolute inset-0 flex items-center justify-center p-4">
                     <div className="relative bg-white border-8 border-[hsl(var(--foreground))] rounded-2xl p-6 pt-16 shadow-[8px_8px_0px_hsl(var(--foreground))] w-full">
@@ -199,7 +199,7 @@ export default function AdminConfigPage() {
                 </div>
             </div>
              {/* Simplified BioBookScreen */}
-            <div className="relative w-full min-h-[60vh] scale-[0.85] origin-top bg-cover bg-center mt-4 p-4" style={{ backgroundImage: "url('/casa.webp')" }}>
+            <div className="relative w-full min-h-[60vh] scale-[0.85] origin-top bg-cover bg-center mt-4 p-4" style={{ backgroundImage: "url('/mundos/bear_village/Gianthouseentrancearea.webp')" }}>
                 <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
                 <div className="relative z-10 text-center w-full mx-auto">
                     <h2 className="font-milky text-2xl text-white mb-4" style={{ textShadow: '2px 2px hsl(var(--teddy-brown))' }}>Inventario de Facu</h2>

@@ -61,8 +61,8 @@ export function LoadingScreen({ onStart }: LoadingScreenProps) {
         {/* Bear */}
         <div className="motion-safe:animate-float flex-shrink-0">
           <Image
-            src="/Baaren_brother_transparent.webp"
-            alt="Baaren el oso"
+            src="/personajes/Baaren.render.png"
+            alt="Baaren el oso héroe"
             width={140}
             height={140}
             className="w-28 h-28 sm:w-36 sm:h-36 md:w-52 md:h-52 lg:w-64 lg:h-64 drop-shadow-[0_8px_12px_rgba(0,0,0,0.3)] md:drop-shadow-[0_16px_24px_rgba(0,0,0,0.5)]"

@@ -26,7 +26,7 @@ export function BioBookScreen({ onRestart, facuLikes, photo1, photo2 }: BioBookS
   return (
     <div
       className="min-h-screen w-full bg-cover bg-center flex flex-col items-center justify-center p-3 sm:p-4 lg:p-8 relative overflow-y-auto"
-      style={{ backgroundImage: "url('/casa.webp')" }}
+      style={{ backgroundImage: "url('/mundos/bear_village/Gianthouseentrancearea.webp')" }}
     >
       <div className="absolute inset-0 bg-black/70 backdrop-blur-lg z-0" />
 

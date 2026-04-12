@@ -24,7 +24,7 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
     return (
       <div
         className="min-h-screen w-full bg-cover bg-bottom flex flex-col items-center justify-end pb-8 sm:pb-10 p-3 sm:p-4 relative overflow-auto"
-        style={{ backgroundImage: "url('/desierto.webp')" }}
+        style={{ backgroundImage: "url('/mundos/bear_village/Beemothepdesertentrancearea.webp')" }}
       >
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/35 backdrop-blur-sm" />
@@ -42,7 +42,7 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
           <div className="flex justify-start pl-2 sm:pl-4 mb-[-1.5rem] z-30 relative">
             <div className="motion-safe:animate-float">
               <Image
-                src="/Shicka_the_backpacker.webp"
+                src="/personajes/Shicka_render_.png"
                 alt="Shicka la guía del reino"
                 width={100}
                 height={100}
@@ -148,7 +148,7 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
   return (
     <div
       className="min-h-screen w-full bg-cover bg-center flex items-center justify-center relative overflow-auto"
-      style={{ backgroundImage: "url('/desierto.webp')" }}
+      style={{ backgroundImage: "url('/mundos/bear_village/Beemothepdesertentrancearea.webp')" }}
     >
       {/* Gradient overlay — stronger on left, lighter on right */}
       <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.55) 100%)' }} />
@@ -188,7 +188,7 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
             />
             <div className="motion-safe:animate-float relative">
               <Image
-                src="/Shicka_the_backpacker.webp"
+                src="/personajes/Shicka_render_.png"
                 alt="Shicka te da la bienvenida"
                 width={280}
                 height={280}

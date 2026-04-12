@@ -64,7 +64,7 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
   return (
     <div
       className="min-h-screen w-full bg-cover bg-center flex flex-col p-2 sm:p-4 relative overflow-y-auto"
-      style={{ backgroundImage: "url('/ciudad.webp')" }}
+      style={{ backgroundImage: "url('/mundos/bear_village/Outfitshopplatform.webp')" }}
     >
       <div className="absolute inset-0 bg-black/40 backdrop-blur-md z-0" />
 
