@@ -135,7 +135,7 @@ Un sistema de diseño que combina la estética voxel/pixel-art de videojuegos re
 - Cada card: Icono 48px, nombre, badge dorado, estrellas, botón Play
 - Botón inferior azul: "Ver Coordenadas →" para saltar minijuegos
 
-### 10. Treasure Chest Reward Screen - Mobile ✅ NEW
+### 10. Treasure Chest Reward Screen - Mobile
 **Screen ID:** `c6ebfcd75ace41c39ed1beab83261cf6`
 **Dispositivo:** Mobile (375x812px)
 **Estilo:** Premium Game Loot/Reward Screen
@@ -148,8 +148,49 @@ Un sistema de diseño que combina la estética voxel/pixel-art de videojuegos re
 - Confetti cayendo, estrellas brillando, emojis de celebración 🎉🎊
 - Fondo con resplandor dorado y rayos de luz
 
+### 11. Intro Video Screen - Mobile ✅ NEW
+**Screen ID:** `c1dba5509a2f4e54aaeeb6b29f240999`
+**Dispositivo:** Mobile (375x812px)
+**Estilo:** Cinematic Movie Intro
+- Efecto letterbox (barras negras arriba/abajo)
+- Frame de video central (300x400px) con borde dorado
+- Botón Play grande circular dorado (80px) con triángulo blanco
+  * Efecto de brillo pulsante y sombra 3D
+  * Texto "TAP TO PLAY" debajo
+- Título overlay: "🐻 FACU'S 9TH ADVENTURE" (24px dorado)
+- Subtítulo: "Una historia épica por comenzar..."
+- Botón Skip (top-right): "Saltar video ▶" en pill semi-transparente
+- Barra de progreso delgada dorada (3px) con tiempo "0:00 / 0:30"
+- Decoración: Film reel strips en bordes, spotlight effects, sparkles
+- Badge "Coming Soon" en esquina
+- Texto inferior: "Dirigido especialmente para ti, aventurero"
+
+### 12. Easter Egg / Secret Discovery Screen - Mobile ✅ NEW
+**Screen ID:** `a8035081a8254e9fbad4e690e5299f66`
+**Dispositivo:** Mobile (375x812px)
+**Estilo:** Magical Achievement/Reward Screen
+- Fondo mágico con gradiente arcoíris y sparkles flotantes
+- Banner superior: "🥚 ¡SECRETO ENCONTRADO!" en texto arcoíris (28px)
+  * Animación de rebote y explosión de confetti
+- Card central de contenido secreto:
+  * Borde brillante animado con colores arcoíris
+  * Fondo púrpura/índigo con estrellas brillantes
+  * Caja de misterio abriéndose 🎁
+  * Mensaje: "¡Has descubierto el mensaje secreto de Facu!"
+  * Área de pergamino con mensaje manuscrito:
+    "Si estás leyendo esto, eres un verdadero aventurero. 
+    ¡Gracias por buscar los secretos! - Facu ❤️"
+- Sección de recompensa:
+  * Badge dorado: "🏆 Logro Desbloqueado"
+  * Título: "Explorador Experto"
+  * Premio grande: "+100 🪙" en fuente masiva
+  * Icono de trofeo con efecto de brillo
+- Botón "Compartir Hallazgo 📤" con gradiente arcoíris
+- Botón "Continuar Aventura ➔" con gradiente dorado
+- Decoración: Estrellas flotantes ⭐, arcos iris 🌈, sello "TOP SECRET"
+
 ## Resumen de Pantallas Generadas
-**Total: 10 pantallas** (7 Mobile, 3 Desktop)
+**Total: 12 pantallas** (9 Mobile, 3 Desktop)
 
 ### Mobile Screens (375x812px):
 1. ✅ Password Screen - Secure Vault
@@ -159,6 +200,8 @@ Un sistema de diseño que combina la estética voxel/pixel-art de videojuegos re
 5. ✅ Bio Book Screen - RPG Lore Book
 6. ✅ Arcade World Screen - Space Game Hub
 7. ✅ Treasure Chest Reward - Premium Loot
+8. ✅ Intro Video Screen - Cinematic Movie Intro
+9. ✅ Easter Egg Screen - Magical Achievement
 
 ### Desktop Screens (1440x900px):
 1. ✅ Register Screen - Character Select
@@ -166,13 +209,12 @@ Un sistema de diseño que combina la estética voxel/pixel-art de videojuegos re
 3. ✅ Loading Screen - AAA Game Intro
 
 ## Pantallas Pendientes de Generar
-- [ ] Intro Video Screen (Mobile/Desktop)
-- [ ] Chest/Reward Screen (Desktop)
-- [ ] Easter Egg Screen (Mobile/Desktop)
+- [ ] Chest/Reward Screen (Desktop version)
 - [ ] Game Flow/HUD Components
 - [ ] Success/Confirmation States
 - [ ] Error States (password incorrecto, etc.)
 - [ ] Tablet Versions (768-1023px)
+- [ ] Social Share Preview Card
 
 ## Cómo Usar Esta Referencia
 
