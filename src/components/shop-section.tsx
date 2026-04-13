@@ -121,20 +121,22 @@ export function ShopSection({ onNext }: ShopSectionProps) {
         )}
 
         {/* CTA Button */}
-        <Button
-          onClick={onNext}
-          className="w-full mt-6 font-milky text-lg sm:text-xl h-auto py-3 px-6 text-white transition-all duration-150"
-          style={{
-            background: "linear-gradient(180deg, #FFD700 0%, #FFA500 100%)",
-            border: "3px solid #8B4513",
-            boxShadow: "0 6px 0 #63340b",
-          }}
-          onMouseDown={(e) => (e.currentTarget.style.transform = "translateY(3px)")}
-          onMouseUp={(e) => (e.currentTarget.style.transform = "")}
-          onMouseLeave={(e) => (e.currentTarget.style.transform = "")}
-        >
-          Continuar al Secreto 🥚 →
-        </Button>
+        <div className="mt-6 sm:mt-8 pb-[max(2rem,var(--safe-bottom))]">
+          <Button
+            onClick={onNext}
+            className="w-full font-milky text-base sm:text-lg lg:text-xl h-auto py-3 sm:py-4 px-4 sm:px-6 text-white transition-all duration-150 whitespace-normal leading-tight"
+            style={{
+              background: "linear-gradient(180deg, #FFD700 0%, #FFA500 100%)",
+              border: "3px solid #8B4513",
+              boxShadow: "0 6px 0 #63340b",
+            }}
+            onMouseDown={(e) => (e.currentTarget.style.transform = "translateY(3px)")}
+            onMouseUp={(e) => (e.currentTarget.style.transform = "")}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = "")}
+          >
+            <span className="text-sm sm:text-base">Continuar al Secreto 🥚 →</span>
+          </Button>
+        </div>
       </div>
     </MissionSection>
   );
