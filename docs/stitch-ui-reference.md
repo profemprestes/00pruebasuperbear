@@ -34,50 +34,99 @@ Un sistema de diseño que combina la estética voxel/pixel-art de videojuegos re
 
 ## Pantallas Generadas
 
-### 1. Register Screen - Mobile
-**Screen ID:** `98ae7883ece4495da4e4c3989e097dd7`  
-**Dispositivo:** Mobile (375x812px)  
+### 1. Password Screen - Mobile ✅ NEW
+**Screen ID:** `0ea0a4125c3441549dc264026ba40963`
+**Dispositivo:** Mobile (375x812px)
+**Estilo:** Secure Vault/Lock Screen
+- Fondo oscuro misterioso con partículas doradas flotantes
+- Card central crema con candado dorado grande (80px)
+- 4 input boxes para dígitos (60x60px cada uno)
+- Keypad numérico 3x4 con botones circulares dorados (70px)
+- Efecto 3D en botones al presionar
+- Paw prints de oso en esquinas decorativas
+- Animación de brillo dorado en candado
+
+### 2. Register Screen - Mobile
+**Screen ID:** `98ae7883ece4495da4e4c3989e097dd7`
+**Dispositivo:** Mobile (375x812px)
 **Estilo:** JRPG Dialog Box
 - Dialog box estilo RPG en parte inferior
 - Personaje Shicka flotando arriba
 - Botones 3D con sombras marrones
 - Cactus/palmeras decorativas
 
-### 2. Register Screen - Desktop  
-**Screen ID:** `14b78e8fece8457c921d4080939a5830`  
-**Dispositivo:** Desktop (1440x900px)  
+### 3. Register Screen - Desktop
+**Screen ID:** `14b78e8fece8457c921d4080939a5830`
+**Dispositivo:** Desktop (1440x900px)
 **Estilo:** Character Select Screen
 - Layout de 2 columnas (40/60)
 - Character showcase con glow dorado
 - Registration card con VIP badge
 - Partículas flotantes decorativas
 
-### 3. Avatar Creator - Mobile
-**Screen ID:** _(generado)_  
-**Dispositivo:** Mobile (375x812px)  
+### 4. Avatar Creator - Mobile
+**Screen ID:** _(ver proyecto)_
+**Dispositivo:** Mobile (375x812px)
 **Estilo:** Game Inventory Screen
 - Avatar preview centrado
 - Grid de personalización 2 columnas
 - Items bloqueados con overlay
 - Coin counter top-right
 
-### 4. Mission Details - Mobile
-**Screen ID:** `dc562f625c1a496ba1efc6f0f471a100`  
-**Dispositivo:** Mobile (375x812px)  
+### 5. Mission Details - Mobile
+**Screen ID:** `dc562f625c1a496ba1efc6f0f471a100`
+**Dispositivo:** Mobile (375x812px)
 **Estilo:** Mission Briefing
 - Cards informativas apiladas
 - Iconos grandes y coloridos
 - Botón CTA dorado full-width
 - Safe area padding bottom
 
-### 5. RSVP Confirmation - Desktop
-**Screen ID:** `128e8cc71f3c43f3a4b34c180c49e61d`  
-**Dispositivo:** Desktop (1440x900px)  
+### 6. RSVP Confirmation - Desktop
+**Screen ID:** `128e8cc71f3c43f3a4b34c180c49e61d`
+**Dispositivo:** Desktop (1440x900px)
 **Estilo:** Quest Confirmation Form
 - Layout 2 columnas (form + contact)
 - Guest counter con botones +/-
 - Contact info cards
 - Green confirm button 3D
+
+### 7. Loading Screen - Desktop ✅ NEW
+**Screen ID:** `ca03b8f42eba42b8b3d12ab5694f3a13`
+**Dispositivo:** Desktop (1440x900px)
+**Estilo:** AAA Game Loading Screen
+- Título masivo "FACU'S 9TH ADVENTURE" con gradiente dorado (64px)
+- Barra de progreso 3D (67%) con estilo arcade
+- Botón "¡COMENZAR MISIÓN!" con glow pulsante
+- Frascos de miel, coronas y monedas flotantes
+- Partículas doradas ascendentes
+- Footer con versión y mensaje de cumpleaños
+
+### 8. Bio Book Screen - Mobile ✅ NEW
+**Screen ID:** `5b0277566e504c7db0f182792b563da7`
+**Dispositivo:** Mobile (375x812px)
+**Estilo:** RPG Lore Book
+- Libro abierto con textura de papel crema y encuadernación cuero
+- Foto de Facu en marco circular dorado
+- Bio: "¡Cumple 9 años!" con texto descriptivo
+- Grid de badges de intereses (2 columnas):
+  * 🎮 Videojuegos (Pastel Blue)
+  * 🍕 Pizza (Pastel Orange)
+  * 🦸 Superhéroes (Pastel Red)
+  * ⚽ Fútbol (Pastel Green)
+  * 🎬 Películas (Pastel Purple)
+  * 🐻 Osos (Pastel Brown)
+- Navegación "Página 1 de 2" con flechas
+- Botón "Continuar" con gradiente verde/dorado
+
+## Pantallas Pendientes de Generar
+- [ ] Intro Video Screen (Mobile/Desktop)
+- [ ] Arcade World Screen (Mobile/Desktop)
+- [ ] Chest/Reward Screen (Mobile/Desktop)
+- [ ] Easter Egg Screen (Mobile/Desktop)
+- [ ] Game Flow/HUD Components
+- [ ] Success/Confirmation States
+- [ ] Error States (password incorrecto, etc.)
 
 ## Cómo Usar Esta Referencia
 
