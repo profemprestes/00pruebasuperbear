@@ -1,6 +1,6 @@
-# 🐻 Facu's 9th Adventure & Super Bear Adventure - Documentación del Proyecto
+# 🐻 GRAN FACU AVENTURA - Documentación del Proyecto
 
-Bienvenido a la documentación oficial del proyecto **Facu's 9th Adventure**, una invitación digital interactiva, y a la enciclopedia de contexto del juego en el que se basa: **Super Bear Adventure (SBA)**.
+Bienvenido a la documentación oficial del proyecto **GRAN FACU AVENTURA**, una invitación digital interactiva, y a la enciclopedia de contexto del juego en el que se basa: **Super Bear Adventure (SBA)**.
 
 ---
 
