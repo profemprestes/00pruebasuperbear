@@ -9,6 +9,10 @@ export default {
   ],
   theme: {
     extend: {
+      // ── Custom Breakpoints ──
+      screens: {
+        'xs': '480px',  // Extra small devices
+      },
       fontFamily: {
         // SBA-authentic fonts
         body:     ['Amble', 'Quicksand', 'sans-serif'],              // UI body (SBA pre-2021)

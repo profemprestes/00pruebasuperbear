@@ -25,7 +25,7 @@ export function BioBookScreen({ onRestart, facuLikes, photo1, photo2 }: BioBookS
 
   return (
     <div
-      className="min-h-screen w-full bg-cover bg-center flex flex-col items-center justify-center p-3 sm:p-4 lg:p-8 relative overflow-y-auto"
+      className="min-h-screen w-full bg-cover bg-center flex flex-col items-center justify-center p-[max(0.75rem,var(--safe-left))] sm:p-[max(1rem,var(--safe-left))] lg:p-8 pt-[max(2rem,var(--safe-top))] pb-[max(2rem,var(--safe-bottom))] relative overflow-y-auto"
       style={{ backgroundImage: "url('/mundos/bear_village/Gianthouseentrancearea.webp')" }}
     >
       <div className="absolute inset-0 bg-black/70 backdrop-blur-lg z-0" />

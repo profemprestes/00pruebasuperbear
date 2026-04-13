@@ -27,7 +27,7 @@ export function MissionDetailsScreen({ playerName, onNext, playedMinigames, avat
   if (playedMinigames) {
     return (
       <div
-        className="min-h-screen w-full bg-cover bg-center flex items-center justify-center p-3 sm:p-4 lg:p-8 overflow-auto relative"
+        className="min-h-screen w-full bg-cover bg-center flex items-center justify-center p-[max(0.75rem,var(--safe-left))] sm:p-[max(1rem,var(--safe-left))] lg:p-8 pt-[max(2rem,var(--safe-top))] pb-[max(2rem,var(--safe-bottom))] overflow-auto relative"
         style={{ backgroundImage: "url('/mundos/bear_village/Hubbearvillage.webp')" }}
       >
         <div className="absolute inset-0 bg-black/50 backdrop-blur-lg" />
@@ -198,7 +198,7 @@ export function MissionDetailsScreen({ playerName, onNext, playedMinigames, avat
 
   return (
     <div
-      className="min-h-screen w-full bg-cover bg-center flex items-center justify-center p-3 sm:p-4 lg:p-8 overflow-auto relative"
+      className="min-h-screen w-full bg-cover bg-center flex items-center justify-center p-[max(0.75rem,var(--safe-left))] sm:p-[max(1rem,var(--safe-left))] lg:p-8 pt-[max(2rem,var(--safe-top))] pb-[max(2rem,var(--safe-bottom))] overflow-auto relative"
       style={{ backgroundImage: "url('/mundos/bear_village/Hubbearvillage.webp')" }}
     >
       <div className="absolute inset-0 bg-black/45 backdrop-blur-md" />

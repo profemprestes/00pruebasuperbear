@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
-import { useIsDesktop } from '@/hooks/use-media-query';
+import { useBreakpoint } from '@/hooks/use-mobile';
 
 type RegisterScreenProps = {
   onPlayArcade: (name: string) => void;
@@ -14,16 +14,21 @@ type RegisterScreenProps = {
 
 export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenProps) {
   const [playerName, setPlayerName] = useState('');
-  const isDesktop = useIsDesktop();
+  const breakpoint = useBreakpoint();
+  
+  // Smooth transitions between breakpoints
+  const isMobile = breakpoint === 'mobile';
+  const isTablet = breakpoint === 'tablet';
+  const isDesktop = breakpoint === 'desktop';
 
   const handlePlay = () => onPlayArcade(playerName.trim());
   const handleSkip = () => onSkipArcade(playerName.trim() || 'Invitado');
 
   /* ── MOBILE: JRPG Dialog Box ──────────────────────── */
-  if (!isDesktop) {
+  if (isMobile) {
     return (
       <div
-        className="min-h-screen w-full bg-cover bg-bottom flex flex-col items-center justify-end pb-8 sm:pb-10 p-3 sm:p-4 relative overflow-auto"
+        className="min-h-screen w-full bg-cover bg-bottom flex flex-col items-center justify-end pb-8 sm:pb-10 p-3 sm:p-4 relative overflow-auto transition-all duration-300 ease-in-out"
         style={{ backgroundImage: "url('/mundos/bear_village/Beemothepdesertentrancearea.webp')" }}
       >
         {/* Overlay */}
@@ -144,10 +149,102 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
     );
   }
 
+  /* ── TABLET: Hybrid Layout ────────────────────────── */
+  if (isTablet) {
+    return (
+      <div
+        className="min-h-screen w-full bg-cover bg-center flex items-center justify-center relative overflow-auto transition-all duration-300 ease-in-out"
+        style={{ backgroundImage: "url('/mundos/bear_village/Beemothepdesertentrancearea.webp')" }}
+      >
+        {/* Gradient overlay */}
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 100%)' }} />
+
+        {/* Main content: centered card with character beside */}
+        <div className="relative z-10 flex flex-col items-center gap-6 w-full max-w-2xl px-6 motion-safe:animate-in fade-in-0 slide-in-from-bottom-8 duration-500">
+          
+          {/* Shicka character */}
+          <div className="motion-safe:animate-float relative">
+            <Image
+              src="/personajes/Shicka_render_.png"
+              alt="Shicka te da la bienvenida"
+              width={180}
+              height={180}
+              className="drop-shadow-[0_8px_16px_rgba(255,215,0,0.4)]"
+            />
+          </div>
+
+          {/* Registration panel */}
+          <div
+            className="w-full max-w-md rounded-2xl p-6 flex flex-col gap-4"
+            style={{
+              background: 'rgba(236,248,255,0.97)',
+              border: '5px solid #8B4513',
+              boxShadow: '0 8px 0 #63340b, 0 20px 40px rgba(0,0,0,0.5)',
+            }}
+          >
+            {/* Header */}
+            <div className="text-center">
+              <h2 className="font-milky text-2xl text-teddy-brown leading-tight">
+                ¡Alto ahí, viajero!
+              </h2>
+              <p className="font-amble text-voxel-text/80 text-sm mt-1">
+                Antes de darte los detalles, necesito registrarte.
+              </p>
+            </div>
+
+            {/* Input */}
+            <Input
+              id="player-name-tablet"
+              type="text"
+              placeholder="Nombre de Aventurero"
+              value={playerName}
+              onChange={(e) => setPlayerName(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && playerName.trim() && handlePlay()}
+              className="border-4 border-teddy-brown h-12 text-lg text-center font-milky rounded-lg bg-white/90 focus:ring-2 focus:ring-golden-coin focus:border-golden-coin outline-none"
+              style={{ boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.1)' }}
+            />
+
+            {/* Buttons */}
+            <div className="flex flex-col gap-3">
+              <Button
+                id="btn-play-arcade-tablet"
+                onClick={handlePlay}
+                disabled={!playerName.trim()}
+                className="w-full font-milky text-lg h-12 border-3 border-teddy-brown transition-all disabled:opacity-50"
+                style={{
+                  background: playerName.trim() ? '#FFD700' : '#ccc',
+                  boxShadow: playerName.trim() ? '0 6px 0 #63340b' : 'none',
+                  border: '3px solid #8B4513',
+                  color: 'white',
+                }}
+              >
+                ¡Entrar al Arcade World! (VIP) 🎮
+              </Button>
+
+              <Button
+                id="btn-skip-arcade-tablet"
+                onClick={handleSkip}
+                className="w-full font-amble text-sm h-10 transition-all"
+                style={{
+                  background: '#87CEEB',
+                  border: '3px solid #00008B',
+                  boxShadow: '0 5px 0 #00008B',
+                  color: 'white',
+                }}
+              >
+                Ver Coordenadas Directamente
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   /* ── DESKTOP: Character Select Screen ─────────────── */
   return (
     <div
-      className="min-h-screen w-full bg-cover bg-center flex items-center justify-center relative overflow-auto"
+      className="min-h-screen w-full bg-cover bg-center flex items-center justify-center relative overflow-auto transition-all duration-300 ease-in-out"
       style={{ backgroundImage: "url('/mundos/bear_village/Beemothepdesertentrancearea.webp')" }}
     >
       {/* Gradient overlay — stronger on left, lighter on right */}

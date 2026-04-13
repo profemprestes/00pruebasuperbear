@@ -89,8 +89,8 @@ export function MissionSection({
         />
       )}
 
-      {/* Content container — extra top padding on mobile to clear HUD */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-3 sm:px-4 pt-28 sm:pt-24 md:pt-20 pb-16 sm:pb-20">
+      {/* Content container — consistent spacing with safe area support */}
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-[max(0.75rem,var(--safe-left))] sm:px-[max(1rem,var(--safe-left))] md:px-[max(1.5rem,var(--safe-left))] pt-[max(4rem,var(--safe-top))] sm:pt-[max(5rem,var(--safe-top))] md:pt-[max(4rem,var(--safe-top))] pb-16 sm:pb-20 md:pb-24">
         {/* Section header with coin reward */}
         {step && (
           <motion.div

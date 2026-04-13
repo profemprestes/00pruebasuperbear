@@ -10,7 +10,7 @@ type PresentationScreenProps = {
 export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps) {
   return (
     <div
-      className="min-h-screen w-full bg-cover bg-center flex items-center justify-center p-3 sm:p-4 relative overflow-auto"
+      className="min-h-screen w-full bg-cover bg-center flex items-center justify-center p-[max(0.75rem,var(--safe-left))] sm:p-[max(1rem,var(--safe-left))] pt-[max(2rem,var(--safe-top))] pb-[max(2rem,var(--safe-bottom))] relative overflow-auto"
       style={{ backgroundImage: "url('/mundos/bear_village/Hubbearvillage.webp')" }}
     >
       <div className="absolute inset-0 bg-black/40 z-0" />
