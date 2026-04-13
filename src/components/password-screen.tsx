@@ -9,7 +9,7 @@ type PasswordScreenProps = {
   onCorrectPassword: () => void;
 };
 
-const CORRECT_PASSWORD = "Nacional2026";
+const CORRECT_PASSWORD = "2026";
 
 export function PasswordScreen({ onCorrectPassword }: PasswordScreenProps) {
   const [password, setPassword] = useState('');
@@ -23,7 +23,7 @@ export function PasswordScreen({ onCorrectPassword }: PasswordScreenProps) {
       setError(true);
     }
   };
-  
+
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       handleSubmit();
@@ -48,9 +48,8 @@ export function PasswordScreen({ onCorrectPassword }: PasswordScreenProps) {
               if (error) setError(false);
             }}
             onKeyPress={handleKeyPress}
-            className={`border-4 h-14 text-base sm:text-lg text-center font-milky rounded-lg bg-gray-800 text-white placeholder-gray-500 ${
-              error ? 'border-red-500' : 'border-teddy-brown'
-            }`}
+            className={`border-4 h-14 text-base sm:text-lg text-center font-milky rounded-lg bg-gray-800 text-white placeholder-gray-500 ${error ? 'border-red-500' : 'border-teddy-brown'
+              }`}
           />
           <Button
             onClick={handleSubmit}
