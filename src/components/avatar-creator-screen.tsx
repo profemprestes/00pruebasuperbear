@@ -69,7 +69,7 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
       <div className="absolute inset-0 bg-black/40 backdrop-blur-md z-0" />
 
       {/* Content wrapper — avoids HUD overlap and dialog overlap */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto pt-14 sm:pt-16 lg:pt-4">
+      <div className="relative z-10 w-full max-w-5xl mx-auto pt-14 sm:pt-16 lg:pt-4 px-[max(0.5rem,var(--safe-left))] sm:px-[max(1rem,var(--safe-left))]">
 
         {/* Capitalus dialog — responsive: compact on mobile, full on desktop */}
         <div className="mb-2 sm:mb-4">
@@ -88,24 +88,24 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
 
           {/* Avatar preview section */}
           <div className='flex flex-col items-center gap-3 sm:gap-4 md:w-72 md:flex-shrink-0 order-1'>
-            <div className='w-48 sm:w-56 md:w-64 h-56 sm:h-64 md:h-72 flex items-center justify-center'>
-                 <AvatarDisplay config={avatarConfig} className="scale-90 sm:scale-100" />
+            <div className='w-40 sm:w-48 md:w-64 h-48 sm:h-56 md:h-64 flex items-center justify-center'>
+                 <AvatarDisplay config={avatarConfig} className="scale-75 sm:scale-90 md:scale-100" />
             </div>
             {/* Platform shadow */}
-            <div className="w-40 sm:w-48 md:w-56 h-3 sm:h-4 bg-gray-600 rounded-full border-2 border-gray-800 shadow-inner opacity-70 blur-sm" />
+            <div className="w-32 sm:w-40 md:w-48 h-2 sm:h-3 bg-gray-600 rounded-full border-2 border-gray-800 shadow-inner opacity-70 blur-sm" />
 
             {/* CTA button */}
             <div className="relative mt-1">
               <Button
                 onClick={() => onAvatarCreate(avatarConfig)}
                 aria-label="Guardar avatar creado y confirmar asistencia"
-                className="font-milky bg-grass-green text-white text-base sm:text-lg md:text-xl h-auto px-5 sm:px-8 py-2.5 sm:py-3 rounded-lg border-0 shadow-[0_6px_0_#2E8B57] transition-all duration-200 hover:bg-green-500 hover:shadow-[0_8px_0_#2E8B57] hover:-translate-y-0.5 active:translate-y-1 active:shadow-none"
+                className="font-milky bg-grass-green text-white text-sm sm:text-base md:text-lg h-auto px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg border-0 shadow-[0_6px_0_#2E8B57] transition-all duration-200 hover:bg-green-500 hover:shadow-[0_8px_0_#2E8B57] hover:-translate-y-0.5 active:translate-y-1 active:shadow-none"
               >
                 ¡Guardar Avatar y Confirmar! ➔
               </Button>
-              <div className="absolute -top-10 left-1/2 -translate-x-1/2 text-grass-green motion-safe:animate-bounce flex flex-col items-center pointer-events-none">
-                <span className="font-milky text-[10px] sm:text-sm bg-white/80 px-2 rounded-full border-2 border-grass-green">¡HAZ CLIC!</span>
-                <ArrowDown className="w-5 h-5 sm:w-8 sm:h-8" />
+              <div className="absolute -top-8 left-1/2 -translate-x-1/2 text-grass-green motion-safe:animate-bounce flex flex-col items-center pointer-events-none">
+                <span className="font-milky text-[8px] sm:text-xs bg-white/80 px-1.5 sm:px-2 rounded-full border border-grass-green whitespace-nowrap">¡HAZ CLIC!</span>
+                <ArrowDown className="w-4 h-4 sm:w-6 sm:h-6" />
               </div>
             </div>
           </div>
@@ -114,28 +114,28 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
           <div className='bg-white/90 p-2 sm:p-3 md:p-4 rounded-xl border-3 sm:border-4 border-teddy-brown shadow-lg flex-1 order-2 min-w-0'>
              <Tabs defaultValue="fur" className="w-full">
                 <TabsList className="grid w-full grid-cols-4">
-                    <TabsTrigger value="fur" className="text-xs sm:text-sm px-1 sm:px-2">Piel</TabsTrigger>
-                    <TabsTrigger value="head" className="text-xs sm:text-sm px-1 sm:px-2">Cabeza</TabsTrigger>
-                    <TabsTrigger value="torso" className="text-xs sm:text-sm px-1 sm:px-2">Cuerpo</TabsTrigger>
-                    <TabsTrigger value="back" className="text-[10px] sm:text-xs px-0.5 sm:px-1">Compañero</TabsTrigger>
+                    <TabsTrigger value="fur" className="text-[10px] sm:text-sm px-0.5 sm:px-1 leading-tight">Piel</TabsTrigger>
+                    <TabsTrigger value="head" className="text-[10px] sm:text-sm px-0.5 sm:px-1 leading-tight">Cabeza</TabsTrigger>
+                    <TabsTrigger value="torso" className="text-[10px] sm:text-sm px-0.5 sm:px-1 leading-tight">Cuerpo</TabsTrigger>
+                    <TabsTrigger value="back" className="text-[8px] sm:text-xs px-0.5 sm:px-1 leading-tight">Compañero</TabsTrigger>
                 </TabsList>
                 <TabsContent value="fur">
-                    <div className='grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-1.5 sm:gap-2 md:gap-3 p-1.5 sm:p-2 md:p-3'>
+                    <div className='grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-1.5 sm:gap-2 md:gap-3 p-1.5 sm:p-2 md:p-3'>
                         {furOptions.map(opt => renderOptionButton(opt, furColor, setFurColor))}
                     </div>
                 </TabsContent>
                 <TabsContent value="head">
-                    <div className='grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-1.5 sm:gap-2 md:gap-3 p-1.5 sm:p-2 md:p-3'>
+                    <div className='grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-1.5 sm:gap-2 md:gap-3 p-1.5 sm:p-2 md:p-3'>
                        {headOptions.map(opt => renderOptionButton(opt, headItem, setHeadItem))}
                     </div>
                 </TabsContent>
                 <TabsContent value="torso">
-                     <div className='grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-1.5 sm:gap-2 md:gap-3 p-1.5 sm:p-2 md:p-3'>
+                     <div className='grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-1.5 sm:gap-2 md:gap-3 p-1.5 sm:p-2 md:p-3'>
                         {torsoOptions.map(opt => renderOptionButton(opt, torsoItem, setTorsoItem))}
                     </div>
                 </TabsContent>
                  <TabsContent value="back">
-                     <div className='grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-1.5 sm:gap-2 md:gap-3 p-1.5 sm:p-2 md:p-3'>
+                     <div className='grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-1.5 sm:gap-2 md:gap-3 p-1.5 sm:p-2 md:p-3'>
                         {backpackerOptions.map(opt => renderOptionButton(opt, backpacker, setBackpacker))}
                     </div>
                 </TabsContent>

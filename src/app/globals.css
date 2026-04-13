@@ -64,6 +64,12 @@ body {
     --honey-box-sky-variant: #AAE5FF;
     --honey-box-text: #003342;
     --honey-box-brown-shadow: #63340b;
+
+    /* ── Safe Area Insets (iOS notch, Android bars) ── */
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-left: env(safe-area-inset-left, 0px);
+    --safe-right: env(safe-area-inset-right, 0px);
   }
 
   .dark {
@@ -166,6 +172,54 @@ body {
   .btn-3d-gold:active {
     transform: translateY(3px);
     box-shadow: 0 3px 0 var(--honey-box-brown-shadow);
+  }
+
+  /* ── Safe Area Utilities ── */
+  .safe-p-top {
+    padding-top: max(var(--spacing, 0px), var(--safe-top));
+  }
+  .safe-p-bottom {
+    padding-bottom: max(var(--spacing, 0px), var(--safe-bottom));
+  }
+  .safe-p-left {
+    padding-left: max(var(--spacing, 0px), var(--safe-left));
+  }
+  .safe-p-right {
+    padding-right: max(var(--spacing, 0px), var(--safe-right));
+  }
+  .safe-inset-top {
+    top: var(--safe-top);
+  }
+  .safe-inset-bottom {
+    bottom: var(--safe-bottom);
+  }
+  .safe-inset-left {
+    left: var(--safe-left);
+  }
+  .safe-inset-right {
+    right: var(--safe-right);
+  }
+
+  /* ── Responsive Container ── */
+  .responsive-container {
+    width: 100%;
+    max-width: min(95vw, 1280px);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: max(1rem, var(--safe-left));
+    padding-right: max(1rem, var(--safe-right));
+  }
+  @media (min-width: 640px) {
+    .responsive-container {
+      padding-left: max(1.5rem, var(--safe-left));
+      padding-right: max(1.5rem, var(--safe-right));
+    }
+  }
+  @media (min-width: 1024px) {
+    .responsive-container {
+      padding-left: max(2rem, var(--safe-left));
+      padding-right: max(2rem, var(--safe-right));
+    }
   }
 }
 
