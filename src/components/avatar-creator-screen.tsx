@@ -99,7 +99,7 @@ export function AvatarCreatorScreen({ initialCoins, onAvatarCreate }: AvatarCrea
               <Button
                 onClick={() => onAvatarCreate(avatarConfig)}
                 aria-label="Guardar avatar creado y confirmar asistencia"
-                className="font-milky bg-grass-green text-white text-sm sm:text-base md:text-lg h-auto px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg border-0 shadow-[0_6px_0_#2E8B57] transition-all duration-200 hover:bg-green-500 hover:shadow-[0_8px_0_#2E8B57] hover:-translate-y-0.5 active:translate-y-1 active:shadow-none"
+                className="font-milky bg-grass-green text-white text-sm sm:text-base md:text-lg h-auto px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg border-0 shadow-[0_6px_0_#2E8B57] transition-all duration-200 hover:bg-green-500 hover:shadow-[0_8px_0_#2E8B57] hover:-translate-y-0.5 active:translate-y-1 active:shadow-[0_0_0_transparent]"
               >
                 ¡Guardar Avatar y Confirmar! ➔
               </Button>

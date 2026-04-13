@@ -116,7 +116,7 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
                 onClick={handlePlay}
                 disabled={!playerName.trim()}
                 aria-label="Entrar al Arcade World para jugar y ganar monedas VIP"
-                className="w-full font-milky text-base sm:text-lg h-11 sm:h-12 border-3 border-teddy-brown transition-all whitespace-normal leading-tight disabled:opacity-50"
+                className="w-full font-milky text-base sm:text-lg h-11 sm:h-12 border-3 border-teddy-brown transition-all whitespace-normal leading-tight disabled:opacity-50 active:translate-y-1 active:shadow-[0_0_0_transparent]"
                 style={{
                   background: playerName.trim() ? '#FFD700' : '#ccc',
                   boxShadow: playerName.trim() ? '0 6px 0 #63340b' : 'none',
@@ -133,7 +133,7 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
               id="btn-skip-arcade"
               onClick={handleSkip}
               aria-label="Saltar los minijuegos e ir directo a las coordenadas"
-              className="w-full font-amble text-xs sm:text-sm h-9 sm:h-10 transition-all"
+              className="w-full font-amble text-xs sm:text-sm h-9 sm:h-10 transition-all active:translate-y-1 active:shadow-[0_0_0_transparent]"
               style={{
                 background: '#87CEEB',
                 border: '3px solid #00008B',
@@ -210,7 +210,7 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
                 id="btn-play-arcade-tablet"
                 onClick={handlePlay}
                 disabled={!playerName.trim()}
-                className="w-full font-milky text-lg h-12 border-3 border-teddy-brown transition-all disabled:opacity-50"
+                className="w-full font-milky text-lg h-12 border-3 border-teddy-brown transition-all disabled:opacity-50 active:translate-y-1 active:shadow-[0_0_0_transparent]"
                 style={{
                   background: playerName.trim() ? '#FFD700' : '#ccc',
                   boxShadow: playerName.trim() ? '0 6px 0 #63340b' : 'none',
@@ -224,7 +224,7 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
               <Button
                 id="btn-skip-arcade-tablet"
                 onClick={handleSkip}
-                className="w-full font-amble text-sm h-10 transition-all"
+                className="w-full font-amble text-sm h-10 transition-all active:translate-y-1 active:shadow-[0_0_0_transparent]"
                 style={{
                   background: '#87CEEB',
                   border: '3px solid #00008B',
@@ -269,7 +269,7 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
       </div>
 
       {/* Main content: 2 columns */}
-      <div className="relative z-10 flex flex-row items-center justify-center gap-20 w-full max-w-5xl px-12 motion-safe:animate-in fade-in-0 slide-in-from-bottom-8 duration-500">
+      <div className="relative z-10 flex flex-col md:flex-row items-center justify-center gap-20 w-full max-w-5xl px-12 motion-safe:animate-in fade-in-0 slide-in-from-bottom-8 duration-500">
 
         {/* LEFT: Shicka character showcase */}
         <div className="flex flex-col items-center gap-4 flex-shrink-0">
@@ -375,7 +375,7 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
                 onClick={handlePlay}
                 disabled={!playerName.trim()}
                 aria-label="Jugar minijuegos del Arcade para ganar monedas"
-                className="w-full font-milky text-2xl py-4 rounded-2xl transition-all duration-100 disabled:opacity-40 disabled:cursor-not-allowed"
+                className="w-full font-milky text-2xl py-4 rounded-2xl transition-all duration-100 disabled:opacity-40 disabled:cursor-not-allowed active:translate-y-1 active:shadow-[0_0_0_transparent]"
                 style={{
                   background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 100%)',
                   border: '4px solid #8B4513',
@@ -383,9 +383,9 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
                   color: 'white',
                   textShadow: '0 2px 4px rgba(0,0,0,0.3)',
                 }}
-                onMouseDown={(e) => (e.currentTarget.style.transform = 'translateY(4px)')}
-                onMouseUp={(e) => (e.currentTarget.style.transform = '')}
-                onMouseLeave={(e) => (e.currentTarget.style.transform = '')}
+
+
+
               >
                 🎮 ¡Entrar al Arcade World!
               </button>
@@ -395,16 +395,16 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
               id="btn-skip-arcade-desktop"
               onClick={handleSkip}
               aria-label="Saltar los minijuegos e ir directo a la misión"
-              className="w-full font-amble text-base py-3 rounded-xl transition-all duration-100"
+              className="w-full font-amble text-base py-3 rounded-xl transition-all duration-100 active:translate-y-1 active:shadow-[0_0_0_transparent]"
               style={{
                 background: '#87CEEB',
                 border: '3px solid #00008B',
                 boxShadow: '0 5px 0 #00008B',
                 color: 'white',
               }}
-              onMouseDown={(e) => (e.currentTarget.style.transform = 'translateY(3px)')}
-              onMouseUp={(e) => (e.currentTarget.style.transform = '')}
-              onMouseLeave={(e) => (e.currentTarget.style.transform = '')}
+
+
+
             >
               Ver las coordenadas directamente →
             </button>
