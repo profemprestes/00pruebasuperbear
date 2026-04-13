@@ -32,7 +32,7 @@ export function PasswordScreen({ onCorrectPassword }: PasswordScreenProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gray-900 text-white p-4">
-      <div className="w-full max-w-sm text-center motion-safe:animate-in fade-in-0 zoom-in-95">
+      <div className="w-full max-w-sm text-center motion-safe:animate-in fade-in-0 slide-in-from-bottom-4 duration-500 ease-out">
         <Shield className="mx-auto h-16 w-16 text-golden-coin mb-6" />
         <h1 className="font-milky text-3xl sm:text-4xl mb-4 text-white">Acceso Privado</h1>
         <p className="font-body text-sm sm:text-base mb-8 text-gray-300">
@@ -53,7 +53,7 @@ export function PasswordScreen({ onCorrectPassword }: PasswordScreenProps) {
           />
           <Button
             onClick={handleSubmit}
-            className="bg-golden-coin text-teddy-brown font-milky text-xl sm:text-2xl h-14 px-6 border-2 border-amber-600 shadow-[0_6px_0_#b8860b] hover:shadow-[0_8px_0_#b8860b] hover:-translate-y-0.5 hover:bg-amber-400 active:translate-y-1 active:shadow-none transition-all"
+            className="bg-golden-coin text-teddy-brown font-milky text-xl sm:text-2xl h-14 px-6 border-2 border-amber-600 shadow-[0_6px_0_#b8860b] hover:shadow-[0_8px_0_#b8860b] hover:-translate-y-0.5 hover:bg-amber-400 active:translate-y-1 active:shadow-[0_0_0_transparent] transition-all"
           >
             Entrar
           </Button>

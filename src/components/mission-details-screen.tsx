@@ -154,7 +154,7 @@ export function MissionDetailsScreen({ playerName, onNext, playedMinigames, avat
                   onClick={() => setIsConfirmed(true)}
                   disabled={isConfirmed}
                   aria-label={isConfirmed ? "Asistencia ya confirmada" : "Confirmar asistencia al evento de Facu"}
-                  className="w-full font-milky text-lg sm:text-xl lg:text-2xl py-3 sm:py-4 rounded-2xl transition-all duration-100 disabled:cursor-not-allowed"
+                  className="w-full font-milky text-lg sm:text-xl lg:text-2xl py-3 sm:py-4 rounded-2xl transition-all duration-100 disabled:cursor-not-allowed active:translate-y-1 active:shadow-[0_0_0_transparent]"
                   style={isConfirmed ? {
                     background: '#7CFC00',
                     border: '4px solid #2E8B57',
@@ -167,9 +167,7 @@ export function MissionDetailsScreen({ playerName, onNext, playedMinigames, avat
                     color: 'white',
                     textShadow: '0 2px 4px rgba(0,0,0,0.3)',
                   }}
-                  onMouseDown={(e) => { if (!isConfirmed) e.currentTarget.style.transform = 'translateY(4px)'; }}
-                  onMouseUp={(e) => { e.currentTarget.style.transform = ''; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.transform = ''; }}
+
                 >
                   {isConfirmed ? '✅ ¡Confirmado!' : '¡Confirmo mi asistencia!'}
                 </button>
@@ -294,7 +292,7 @@ export function MissionDetailsScreen({ playerName, onNext, playedMinigames, avat
                 onClick={() => setIsConfirmed(true)}
                 disabled={isConfirmed}
                 aria-label={isConfirmed ? "Asistencia ya confirmada" : "Confirmar asistencia al evento de Facu"}
-                className="w-full font-milky text-lg sm:text-xl lg:text-2xl py-3 sm:py-4 rounded-2xl transition-all duration-100 disabled:cursor-not-allowed"
+                className="w-full font-milky text-lg sm:text-xl lg:text-2xl py-3 sm:py-4 rounded-2xl transition-all duration-100 disabled:cursor-not-allowed active:translate-y-1 active:shadow-[0_0_0_transparent]"
                 style={isConfirmed ? {
                   background: '#7CFC00',
                   border: '4px solid #2E8B57',
@@ -307,9 +305,7 @@ export function MissionDetailsScreen({ playerName, onNext, playedMinigames, avat
                   color: 'white',
                   textShadow: '0 2px 4px rgba(0,0,0,0.3)',
                 }}
-                onMouseDown={(e) => { if (!isConfirmed) e.currentTarget.style.transform = 'translateY(4px)'; }}
-                onMouseUp={(e) => { e.currentTarget.style.transform = ''; }}
-                onMouseLeave={(e) => { e.currentTarget.style.transform = ''; }}
+
               >
                 {isConfirmed ? '✅ ¡Confirmado!' : '¡Confirmo mi asistencia!'}
               </button>

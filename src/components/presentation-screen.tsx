@@ -14,7 +14,7 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
       style={{ backgroundImage: "url('/mundos/bear_village/Hubbearvillage.webp')" }}
     >
       <div className="absolute inset-0 bg-black/40 z-0" />
-      <div className="relative bg-white border-6 sm:border-8 border-[hsl(var(--foreground))] rounded-2xl p-4 sm:p-8 pt-20 sm:pt-24 md:pt-20 shadow-[8px_8px_0px_hsl(var(--foreground))] max-w-2xl w-full m-4 motion-safe:animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-8 duration-500">
+      <div className="relative bg-white border-6 sm:border-8 border-[hsl(var(--foreground))] rounded-2xl p-4 sm:p-8 pt-20 sm:pt-24 md:pt-20 shadow-[8px_8px_0px_hsl(var(--foreground))] max-w-2xl w-full m-4 motion-safe:animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
         <div className="absolute -top-10 left-1/2 -translate-x-1/2 sm:-top-14 sm:-left-12 md:-top-16 z-10">
           <Image
             src="/facu_bear_sin_fondo.png"
@@ -37,7 +37,7 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
         <button
           onClick={onNext}
           aria-label="Ver los detalles de la misión de cumpleaños"
-          className="absolute -bottom-5 right-4 font-milky text-white text-lg sm:text-xl px-6 py-3 rounded-lg bg-grass-green border-0 shadow-[0_6px_0_#2E8B57] transition-all duration-200 hover:bg-green-500 hover:shadow-[0_8px_0_#2E8B57] hover:-translate-y-0.5 active:translate-y-1 active:shadow-none motion-safe:animate-blink"
+          className="absolute -bottom-5 right-4 font-milky text-white text-lg sm:text-xl px-6 py-3 rounded-lg bg-grass-green border-0 shadow-[0_6px_0_#2E8B57] transition-all duration-200 hover:bg-green-500 hover:shadow-[0_8px_0_#2E8B57] hover:-translate-y-0.5 active:translate-y-1 active:shadow-[0_0_0_transparent] motion-safe:animate-blink"
         >
           Ver Misión ➔
         </button>

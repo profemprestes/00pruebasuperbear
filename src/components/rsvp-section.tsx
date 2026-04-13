@@ -73,7 +73,7 @@ export function RSVPSection({ onNext, onComplete }: RSVPSectionProps) {
                 <button
                   onClick={() => setGuestCount(Math.max(1, guestCount - 1))}
                   aria-label="Reducir cantidad de invitados"
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold text-white active:scale-95"
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold text-white active:translate-y-1 active:shadow-[0_0_0_transparent]"
                   style={{
                     background: "#FFD700",
                     border: "2px solid #8B4513",
@@ -94,7 +94,7 @@ export function RSVPSection({ onNext, onComplete }: RSVPSectionProps) {
                 <button
                   onClick={() => setGuestCount(Math.min(10, guestCount + 1))}
                   aria-label="Aumentar cantidad de invitados"
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold text-white active:scale-95"
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold text-white active:translate-y-1 active:shadow-[0_0_0_transparent]"
                   style={{
                     background: "#FFD700",
                     border: "2px solid #8B4513",
@@ -139,15 +139,15 @@ export function RSVPSection({ onNext, onComplete }: RSVPSectionProps) {
               <button
                 onClick={handleConfirm}
                 aria-label="Confirmar asistencia al evento"
-                className="w-full font-milky text-base sm:text-lg h-auto py-3 sm:py-4 px-4 sm:px-6 text-white transition-all duration-150 active:scale-95 whitespace-normal leading-tight"
+                className="w-full font-milky text-base sm:text-lg h-auto py-3 sm:py-4 px-4 sm:px-6 text-white transition-all duration-150 active:translate-y-1 active:shadow-[0_0_0_transparent] whitespace-normal leading-tight"
                 style={{
                   background: "linear-gradient(180deg, #7CFC00 0%, #5DBB00 100%)",
                   border: "3px solid #2E8B57",
                   boxShadow: "0 6px 0 #2E8B57",
                 }}
-                onMouseDown={(e) => (e.currentTarget.style.transform = "translateY(3px)")}
-                onMouseUp={(e) => (e.currentTarget.style.transform = "")}
-                onMouseLeave={(e) => (e.currentTarget.style.transform = "")}
+
+
+
               >
                 <span className="text-sm sm:text-base">✓ ¡Confirmar Asistencia!</span>
               </button>
