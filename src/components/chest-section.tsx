@@ -105,15 +105,15 @@ export function ChestSection({ onNext, photo1, photo2 }: ChestSectionProps) {
         {/* CTA Button */}
         <Button
           onClick={onNext}
-          className="w-full mt-6 font-milky text-lg sm:text-xl h-auto py-3 px-6 text-white transition-all duration-150"
+          className="w-full mt-6 font-milky text-lg sm:text-xl h-auto py-3 px-6 text-white transition-all duration-150 active:translate-y-1 active:shadow-[0_0_0_transparent]"
           style={{
             background: "linear-gradient(180deg, #FFD700 0%, #FFA500 100%)",
             border: "3px solid #8B4513",
             boxShadow: "0 6px 0 #63340b",
           }}
-          onMouseDown={(e) => (e.currentTarget.style.transform = "translateY(3px)")}
-          onMouseUp={(e) => (e.currentTarget.style.transform = "")}
-          onMouseLeave={(e) => (e.currentTarget.style.transform = "")}
+
+
+
         >
           Continuar al RSVP ✉️ →
         </Button>
