@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { ArrowDown } from 'lucide-react';
+import { Palette, Trophy, Key, Heart, Star } from 'lucide-react';
 import { useBreakpoint } from '@/hooks/use-mobile';
 
 type RegisterScreenProps = {
@@ -12,411 +13,521 @@ type RegisterScreenProps = {
   onSkipArcade: (name: string) => void;
 };
 
+// Frases de Shicka según contexto
+const SHICKA_PHRASES = {
+  welcome: "¡Hola! Soy Shicka, tu guía del Reino. ¡Únete al equipo de Facu para salvar la fiesta! 🎨",
+  idle: ["¿Estás listo para la aventura? 🏀", "¡Facu te necesita en su equipo! ⭐", "¡Vamos, escribe tu nombre! 🎮"],
+  typing: "¡Eso! ¡Escribe tu nombre de jugador! ✍️",
+  nameEntered: (name: string) => `¡Genial ${name}! ¡Bienvenido al equipo! 🎉`,
+  clicked: ["¡Jeje! ¡Eso cosquillea! 😄", "¡Aquí estoy para ayudarte! 💪", "¡Vamos a salvar la fiesta! 🎈"],
+};
+
+// Sonido de clic estilo videojuego
+function playClickSound() {
+  try {
+    const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+    if (!AudioContext) return;
+
+    const ctx = new AudioContext();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(1046.5, ctx.currentTime + 0.1);
+    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.15);
+  } catch (e) {
+    console.debug('Audio no disponible:', e);
+  }
+}
+
+// Sonido de hover suave
+function playHoverSound() {
+  try {
+    const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+    if (!AudioContext) return;
+
+    const ctx = new AudioContext();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(800, ctx.currentTime);
+    gain.gain.setValueAtTime(0.08, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.06);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.06);
+  } catch (e) {
+    // Silenciar
+  }
+}
+
 export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenProps) {
   const [playerName, setPlayerName] = useState('');
+  const [isShickaHovered, setIsShickaHovered] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [shickaPhrase, setShickaPhrase] = useState(SHICKA_PHRASES.welcome);
+  const [clickCount, setClickCount] = useState(0);
   const breakpoint = useBreakpoint();
-  
-  // Smooth transitions between breakpoints
+
   const isMobile = breakpoint === 'mobile';
   const isTablet = breakpoint === 'tablet';
   const isDesktop = breakpoint === 'desktop';
 
-  const handlePlay = () => onPlayArcade(playerName.trim());
-  const handleSkip = () => onSkipArcade(playerName.trim() || 'Invitado');
+  // Cambiar frase de Shicka según contexto del input
+  useEffect(() => {
+    if (playerName.trim().length === 0) {
+      setShickaPhrase(SHICKA_PHRASES.welcome);
+    } else if (playerName.trim().length < 3) {
+      setShickaPhrase(SHICKA_PHRASES.typing);
+    } else {
+      setShickaPhrase(SHICKA_PHRASES.nameEntered(playerName.trim()));
+    }
+  }, [playerName]);
 
-  /* ── MOBILE: JRPG Dialog Box ──────────────────────── */
-  if (isMobile) {
-    return (
-      <div
-        className="min-h-screen w-full bg-cover bg-bottom flex flex-col items-center justify-end pb-8 sm:pb-10 p-3 sm:p-4 relative overflow-auto transition-all duration-300 ease-in-out"
-        style={{ backgroundImage: "url('/mundos/bear_village/Beemothepdesertentrancearea.webp')" }}
-      >
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/35 backdrop-blur-sm" />
+  // Frases idle aleatorias cada 8 segundos si no hay interacción
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (playerName.trim().length === 0) {
+        const randomPhrase = SHICKA_PHRASES.idle[Math.floor(Math.random() * SHICKA_PHRASES.idle.length)];
+        setShickaPhrase(randomPhrase);
+      }
+    }, 8000);
 
-        {/* Pixel tree strip */}
-        <div className="absolute bottom-0 left-0 right-0 flex justify-around items-end px-2 sm:px-4 pb-0 z-10 pointer-events-none" aria-hidden="true">
-          {['🌵', '🌴', '🌵', '🌴', '🌵'].map((t, i) => (
-            <span key={i} className="text-3xl sm:text-4xl leading-none" style={{ marginBottom: -4 }}>{t}</span>
-          ))}
-        </div>
+    return () => clearInterval(interval);
+  }, [playerName]);
 
-        {/* Dialog card — JRPG style */}
-        <div className="relative z-20 w-full max-w-sm mx-auto motion-safe:animate-in fade-in-0 slide-in-from-bottom-6 duration-500">
-          {/* Shicka avatar floating above the dialog box */}
-          <div className="flex justify-start pl-2 sm:pl-4 mb-[-1.5rem] z-30 relative">
-            <div className="motion-safe:animate-float">
-              <Image
-                src="/personajes/Shicka_render_.png"
-                alt="Shicka la guía del reino"
-                width={100}
-                height={100}
-                className="w-20 sm:w-[120px] h-20 sm:h-[120px] drop-shadow-[4px_4px_0px_rgba(0,0,0,0.5)]"
-              />
-            </div>
-          </div>
+  const handlePlay = useCallback(() => {
+    if (!playerName.trim() || isSubmitting) return;
 
-          {/* Dialog bubble with CSS pointer */}
-          <div
-            className="relative bg-sky-light text-voxel-text rounded-xl p-4 sm:p-5"
-            style={{
-              border: '4px solid #8B4513',
-              boxShadow: '0 6px 0 #63340b, 4px 4px 0 rgba(0,0,0,0.2)',
+    setIsSubmitting(true);
+    playClickSound();
+    setShickaPhrase(`¡${playerName.trim()} está listo para la aventura! 🚀`);
+
+    setTimeout(() => {
+      onPlayArcade(playerName.trim());
+      setIsSubmitting(false);
+    }, 200);
+  }, [playerName, onPlayArcade, isSubmitting]);
+
+  const handleSkip = useCallback(() => {
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+    playClickSound();
+    setShickaPhrase("¡No te preocupes, también puedes ver el mapa! 🗺️");
+
+    setTimeout(() => {
+      onSkipArcade(playerName.trim() || 'Invitado');
+      setIsSubmitting(false);
+    }, 200);
+  }, [playerName, onSkipArcade, isSubmitting]);
+
+  const handleKeyPress = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && playerName.trim()) {
+      handlePlay();
+    }
+  }, [playerName, handlePlay]);
+
+  const handleShickaClick = useCallback(() => {
+    playClickSound();
+    setIsShickaHovered(true);
+    setClickCount(prev => prev + 1);
+
+    const randomPhrase = SHICKA_PHRASES.clicked[Math.floor(Math.random() * SHICKA_PHRASES.clicked.length)];
+    setShickaPhrase(randomPhrase);
+
+    setTimeout(() => setIsShickaHovered(false), 600);
+  }, []);
+
+  const content = {
+    title: "¡Registro de Súper Aliado! 🏀",
+    instructions: "Estás a un paso de entrar a la cancha. ¡Ingresa tu nombre de jugador para desbloquear tu equipo de arte y básquet!",
+    placeholder: "Tu nombre de jugador...",
+  };
+
+  return (
+    <div
+      className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden"
+      style={{ backgroundImage: "url('/mundos/bear_village/Beemothepdesertentrancearea.webp')", backgroundSize: 'cover', backgroundPosition: 'center' }}
+    >
+      {/* Overlay de profundidad */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50 z-0" />
+
+      {/* Partículas de "Polvo de Estrellas/Pintura" */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        {[...Array(8)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute text-xl sm:text-2xl"
+            style={{ left: `${10 + i * 12}%` }}
+            animate={{
+              y: [0, -120, -20],
+              x: [0, Math.sin(i) * 30, Math.cos(i) * 20],
+              opacity: [0, 0.8, 0],
+              scale: [0.5, 1, 0.8],
+              rotate: [0, 180, 360],
+            }}
+            transition={{
+              duration: 5 + i * 0.8,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 0.6,
             }}
           >
-            {/* JRPG bubble pointer (triangle pointing up-left toward Shicka) */}
-            <div
-              className="absolute -top-4 left-8 sm:left-10 w-0 h-0"
-              style={{
-                borderLeft: '12px solid transparent',
-                borderRight: '12px solid transparent',
-                borderBottom: '14px solid #8B4513',
-              }}
-              aria-hidden="true"
-            />
-            <div
-              className="absolute -top-[9px] left-[34px] sm:left-[42px] w-0 h-0"
-              style={{
-                borderLeft: '10px solid transparent',
-                borderRight: '10px solid transparent',
-                borderBottom: '12px solid #ECF8FF',
-              }}
-              aria-hidden="true"
-            />
-
-            <p className="font-amble text-sm sm:text-base font-bold mb-3 sm:mb-4 leading-snug">
-              ¡Alto ahí, viajero! Antes de darte los detalles, <em>necesito registrarte</em>.
-            </p>
-
-            {/* Input */}
-            <Input
-              id="player-name-input"
-              type="text"
-              placeholder="Nombre de Aventurero"
-              value={playerName}
-              onChange={(e) => setPlayerName(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && playerName.trim() && handlePlay()}
-              aria-label="Nombre del aventurero"
-              className="border-4 border-teddy-brown h-11 sm:h-12 text-sm sm:text-base text-center font-milky rounded-lg bg-white/90 focus:ring-2 focus:ring-golden-coin focus:border-golden-coin outline-none mb-3 sm:mb-4"
-              style={{ boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.1)' }}
-            />
-
-            {/* Play button */}
-            <div className="relative mb-2 sm:mb-3">
-              {playerName.trim() && (
-                <div className="absolute -top-7 left-1/2 -translate-x-1/2 flex flex-col items-center z-20 pointer-events-none">
-                  <span className="font-milky text-[10px] sm:text-xs bg-amber-400 text-white px-2 py-0.5 rounded-full border-2 border-teddy-brown shadow-md whitespace-nowrap">
-                    🪙 ¡Gana monedas jugando!
-                  </span>
-                  <ArrowDown className="w-3 h-3 sm:w-4 sm:h-4 text-golden-coin motion-safe:animate-bounce" />
-                </div>
-              )}
-              <Button
-                id="btn-play-arcade"
-                onClick={handlePlay}
-                disabled={!playerName.trim()}
-                aria-label="Entrar al Arcade World para jugar y ganar monedas VIP"
-                className="w-full font-milky text-base sm:text-lg h-11 sm:h-12 border-3 border-teddy-brown transition-all whitespace-normal leading-tight disabled:opacity-50 active:translate-y-1 active:shadow-[0_0_0_transparent]"
-                style={{
-                  background: playerName.trim() ? '#FFD700' : '#ccc',
-                  boxShadow: playerName.trim() ? '0 6px 0 #63340b' : 'none',
-                  border: '3px solid #8B4513',
-                  color: 'white',
-                }}
-              >
-                ¡Entrar al Arcade World! (VIP) 🎮
-              </Button>
-            </div>
-
-            {/* Skip button */}
-            <Button
-              id="btn-skip-arcade"
-              onClick={handleSkip}
-              aria-label="Saltar los minijuegos e ir directo a las coordenadas"
-              className="w-full font-amble text-xs sm:text-sm h-9 sm:h-10 transition-all active:translate-y-1 active:shadow-[0_0_0_transparent]"
-              style={{
-                background: '#87CEEB',
-                border: '3px solid #00008B',
-                boxShadow: '0 5px 0 #00008B',
-                color: 'white',
-              }}
-            >
-              Ver Coordenadas Directamente
-            </Button>
-          </div>
-        </div>
+            {i % 3 === 0 ? '🏀' : i % 3 === 1 ? '🎨' : '⭐'}
+          </motion.div>
+        ))}
       </div>
-    );
-  }
 
-  /* ── TABLET: Hybrid Layout ────────────────────────── */
-  if (isTablet) {
-    return (
-      <div
-        className="min-h-screen w-full bg-cover bg-center flex items-center justify-center relative overflow-auto transition-all duration-300 ease-in-out"
-        style={{ backgroundImage: "url('/mundos/bear_village/Beemothepdesertentrancearea.webp')" }}
-      >
-        {/* Gradient overlay */}
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 100%)' }} />
+      {/* Contenedor principal responsive */}
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 md:px-8 py-10 sm:py-12">
+        
+        {/* SHICKA - SIEMPRE VISIBLE ARRIBA (mobile first) */}
+        <div className="flex flex-col items-center mb-6 md:mb-0 md:hidden order-1">
+          {/* Globo de texto - Posición fija y visible */}
+          <motion.div
+            key={shickaPhrase}
+            initial={{ scale: 0.8, opacity: 0, y: 10 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            transition={{ duration: 0.3, type: 'spring', stiffness: 300 }}
+            className="relative bg-white border-4 border-sky-blue px-4 py-3 rounded-2xl shadow-xl mb-4 w-64 sm:w-72 z-30"
+          >
+            <p className="font-body text-xs sm:text-sm text-teddy-brown font-semibold text-center leading-tight">
+              {shickaPhrase}
+            </p>
+            {/* Puntero del globo */}
+            <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[10px] border-l-transparent border-t-[12px] border-t-sky-blue border-r-[10px] border-r-transparent" />
+          </motion.div>
 
-        {/* Main content: centered card with character beside */}
-        <div className="relative z-10 flex flex-col items-center gap-6 w-full max-w-2xl px-6 motion-safe:animate-in fade-in-0 slide-in-from-bottom-8 duration-500">
-          
-          {/* Shicka character */}
-          <div className="motion-safe:animate-float relative">
+          {/* Personaje Shicka */}
+          <motion.div
+            className="relative cursor-pointer"
+            animate={isShickaHovered ? {
+              y: [0, -25, -15, -25, 0],
+            } : {
+              y: [0, -12, 0],
+            }}
+            transition={isShickaHovered ? {
+              duration: 0.6,
+              ease: 'easeOut',
+            } : {
+              duration: 3,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+            onClick={handleShickaClick}
+            onHoverStart={() => {
+              setIsShickaHovered(true);
+              playHoverSound();
+            }}
+            onHoverEnd={() => setIsShickaHovered(false)}
+          >
+            {/* Aura */}
+            <motion.div
+              className="absolute inset-0 flex items-center justify-center"
+              animate={{ scale: [1, 1.15, 1], opacity: [0.3, 0.5, 0.3] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              <div className="w-36 h-36 sm:w-48 sm:h-48 rounded-full bg-sky-blue/25 blur-2xl" />
+            </motion.div>
+
             <Image
               src="/personajes/Shicka_render_.png"
-              alt="Shicka te da la bienvenida"
-              width={180}
-              height={180}
-              className="drop-shadow-[0_8px_16px_rgba(255,215,0,0.4)]"
+              alt="Shicka la guía aliada"
+              width={140}
+              height={140}
+              className="relative z-10 drop-shadow-[0_10px_20px_rgba(135,206,235,0.6)] transition-transform duration-300"
+              priority
             />
+
+            {/* Etiqueta */}
+            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-gradient-to-r from-sky-blue to-blue-400 text-white font-arcade text-[10px] px-3 py-1 rounded-full border-2 border-white shadow-lg whitespace-nowrap z-10">
+              ✦ GUÍA ALIADA ✦
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Layout Desktop: Shicka izquierda, Tarjeta derecha */}
+        <div className="hidden md:flex flex-row items-center justify-center gap-12 lg:gap-16 order-1">
+          {/* IZQUIERDA: SHICKA */}
+          <div className="flex flex-col items-center relative">
+            {/* Globo de texto - Posición visible */}
+            <motion.div
+              key={shickaPhrase}
+              initial={{ scale: 0.8, opacity: 0, x: -20 }}
+              animate={{ scale: 1, opacity: 1, x: 0 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.3, type: 'spring', stiffness: 300 }}
+              className="relative bg-white border-4 border-sky-blue px-5 py-4 rounded-2xl shadow-xl mb-6 w-72 z-30"
+            >
+              <p className="font-body text-sm text-teddy-brown font-semibold text-center leading-tight">
+                {shickaPhrase}
+              </p>
+              {/* Puntero del globo (abajo) */}
+              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[10px] border-l-transparent border-t-[12px] border-t-sky-blue border-r-[10px] border-r-transparent" />
+            </motion.div>
+
+            {/* Personaje Shicka */}
+            <motion.div
+              className="relative cursor-pointer"
+              animate={isShickaHovered ? {
+                y: [0, -25, -15, -25, 0],
+              } : {
+                y: [0, -12, 0],
+              }}
+              transition={isShickaHovered ? {
+                duration: 0.6,
+                ease: 'easeOut',
+              } : {
+                duration: 3,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+              onClick={handleShickaClick}
+              onHoverStart={() => {
+                setIsShickaHovered(true);
+                playHoverSound();
+              }}
+              onHoverEnd={() => setIsShickaHovered(false)}
+            >
+              {/* Aura */}
+              <motion.div
+                className="absolute inset-0 flex items-center justify-center"
+                animate={{ scale: [1, 1.15, 1], opacity: [0.3, 0.5, 0.3] }}
+                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                <div className="w-60 h-60 rounded-full bg-sky-blue/25 blur-2xl" />
+              </motion.div>
+
+              <Image
+                src="/personajes/Shicka_render_.png"
+                alt="Shicka la guía aliada"
+                width={250}
+                height={250}
+                className="relative z-10 drop-shadow-[0_10px_20px_rgba(135,206,235,0.6)] transition-transform duration-300"
+                priority
+              />
+
+              {/* Etiqueta */}
+              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-sky-blue to-blue-400 text-white font-arcade text-xs px-4 py-1.5 rounded-full border-3 border-white shadow-lg whitespace-nowrap z-10">
+                ✦ GUÍA ALIADA ✦
+              </div>
+            </motion.div>
           </div>
 
-          {/* Registration panel */}
-          <div
-            className="w-full max-w-md rounded-2xl p-6 flex flex-col gap-4"
-            style={{
-              background: 'rgba(236,248,255,0.97)',
-              border: '5px solid #8B4513',
-              boxShadow: '0 8px 0 #63340b, 0 20px 40px rgba(0,0,0,0.5)',
-            }}
+          {/* DERECHA: TARJETA DE REGISTRO */}
+          <motion.div
+            initial={{ y: 60, opacity: 0, scale: 0.95 }}
+            animate={{ y: 0, opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
+            className="w-full max-w-md bg-white/95 backdrop-blur-sm border-8 border-teddy-brown rounded-3xl p-8 shadow-[10px_10px_0px_#63340b] relative"
           >
-            {/* Header */}
-            <div className="text-center">
-              <h2 className="font-milky text-2xl text-teddy-brown leading-tight">
-                ¡Alto ahí, viajero!
+            {/* Franja decorativa superior */}
+            <div className="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-golden-coin via-grass-green to-golden-coin rounded-t-3xl" />
+
+            <div className="text-center mb-8 pt-2">
+              <div className="flex items-center justify-center gap-2 mb-3">
+                <motion.div animate={{ rotate: [0, 15, -15, 0] }} transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}>
+                  <Palette className="w-8 h-8 text-sky-blue" />
+                </motion.div>
+                <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}>
+                  <Trophy className="w-8 h-8 text-golden-coin" />
+                </motion.div>
+                <motion.div animate={{ rotate: [0, -15, 15, 0] }} transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}>
+                  <Palette className="w-8 h-8 text-sky-blue" />
+                </motion.div>
+              </div>
+
+              <h2 className="font-milky text-4xl text-teddy-brown leading-tight mb-3">
+                {content.title}
               </h2>
-              <p className="font-amble text-voxel-text/80 text-sm mt-1">
-                Antes de darte los detalles, necesito registrarte.
+              <p className="font-amble text-voxel-text/80 text-base leading-snug">
+                {content.instructions}
               </p>
             </div>
 
-            {/* Input */}
-            <Input
-              id="player-name-tablet"
-              type="text"
-              placeholder="Nombre de Aventurero"
-              value={playerName}
-              onChange={(e) => setPlayerName(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && playerName.trim() && handlePlay()}
-              className="border-4 border-teddy-brown h-12 text-lg text-center font-milky rounded-lg bg-white/90 focus:ring-2 focus:ring-golden-coin focus:border-golden-coin outline-none"
-              style={{ boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.1)' }}
-            />
+            <div className="space-y-6">
+              <motion.div className="relative" whileFocus={{ scale: 1.02 }}>
+                <Input
+                  type="text"
+                  placeholder={content.placeholder}
+                  value={playerName}
+                  onChange={(e) => setPlayerName(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  className="border-4 border-sky-blue h-16 text-center font-milky text-xl rounded-xl focus:ring-4 focus:ring-sky-blue/30 focus:border-sky-blue transition-all"
+                />
+                <Palette className="absolute left-4 top-1/2 -translate-y-1/2 text-sky-blue w-6 h-6 pointer-events-none opacity-70" />
+                <Trophy className="absolute right-4 top-1/2 -translate-y-1/2 text-golden-coin w-6 h-6 pointer-events-none opacity-80" />
+              </motion.div>
 
-            {/* Buttons */}
-            <div className="flex flex-col gap-3">
-              <Button
-                id="btn-play-arcade-tablet"
-                onClick={handlePlay}
-                disabled={!playerName.trim()}
-                className="w-full font-milky text-lg h-12 border-3 border-teddy-brown transition-all disabled:opacity-50 active:translate-y-1 active:shadow-[0_0_0_transparent]"
-                style={{
-                  background: playerName.trim() ? '#FFD700' : '#ccc',
-                  boxShadow: playerName.trim() ? '0 6px 0 #63340b' : 'none',
-                  border: '3px solid #8B4513',
-                  color: 'white',
-                }}
-              >
-                ¡Entrar al Arcade World! (VIP) 🎮
-              </Button>
+              <AnimatePresence>
+                {playerName.trim() && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="flex items-center justify-center gap-2 text-sm"
+                  >
+                    <motion.div animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 1, repeat: Infinity }}>
+                      <Key className="w-4 h-4 text-golden-coin" />
+                    </motion.div>
+                    <span className="font-amble text-golden-coin font-semibold">
+                      ¡Nombre desbloqueado!
+                    </span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
-              <Button
-                id="btn-skip-arcade-tablet"
-                onClick={handleSkip}
-                className="w-full font-amble text-sm h-10 transition-all active:translate-y-1 active:shadow-[0_0_0_transparent]"
-                style={{
-                  background: '#87CEEB',
-                  border: '3px solid #00008B',
-                  boxShadow: '0 5px 0 #00008B',
-                  color: 'white',
-                }}
-              >
-                Ver Coordenadas Directamente
-              </Button>
+              <div className="flex flex-col gap-4 pt-2">
+                <motion.button
+                  onClick={handlePlay}
+                  disabled={!playerName.trim() || isSubmitting}
+                  whileHover={{ scale: playerName.trim() ? 1.03 : 1 }}
+                  whileTap={{ scale: playerName.trim() ? 0.97 : 1 }}
+                  className="w-full font-milky text-xl h-16 bg-gradient-to-b from-golden-coin to-yellow-500 text-teddy-brown border-4 border-teddy-brown rounded-xl transition-all active:translate-y-1 shadow-[0_6px_0_#63340b] hover:shadow-[0_8px_0_#63340b] hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none overflow-hidden relative group"
+                >
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent"
+                    animate={{ x: ['-100%', '100%'] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                  />
+                  <span className="relative z-10 font-bold">
+                    {isSubmitting ? '🎵 Cargando...' : '🎮 ¡Entrar al Arcade World!'}
+                  </span>
+                </motion.button>
+
+                <motion.button
+                  onClick={handleSkip}
+                  disabled={isSubmitting}
+                  whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                  className="w-full font-amble text-sm sm:text-base font-bold text-white bg-[#0095da] hover:bg-[#0081bc] border-3 border-white/30 rounded-xl px-4 py-3 transition-all shadow-[0_4px_0_#0056b3] hover:shadow-[0_6px_0_#0056b3] hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_2px_0_#0056b3] disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none flex items-center justify-center gap-2"
+                >
+                  <span>🗺️</span>
+                  <span>Saltar al mapa y ver coordenadas</span>
+                  <span>→</span>
+                </motion.button>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  /* ── DESKTOP: Character Select Screen ─────────────── */
-  return (
-    <div
-      className="min-h-screen w-full bg-cover bg-center flex items-center justify-center relative overflow-auto transition-all duration-300 ease-in-out"
-      style={{ backgroundImage: "url('/mundos/bear_village/Beemothepdesertentrancearea.webp')" }}
-    >
-      {/* Gradient overlay — stronger on left, lighter on right */}
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.55) 100%)' }} />
-
-      {/* Floating dust particles */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        {[...Array(8)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full bg-amber-200/20 motion-safe:animate-subtle-float"
-            style={{
-              width: `${Math.random() * 40 + 10}px`,
-              height: `${Math.random() * 40 + 10}px`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${i * 0.4}s`,
-              animationDuration: `${3 + i * 0.5}s`,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Main content: 2 columns */}
-      <div className="relative z-10 flex flex-col md:flex-row items-center justify-center gap-20 w-full max-w-5xl px-12 motion-safe:animate-in fade-in-0 slide-in-from-bottom-8 duration-500">
-
-        {/* LEFT: Shicka character showcase */}
-        <div className="flex flex-col items-center gap-4 flex-shrink-0">
-          {/* Glow ring behind Shicka */}
-          <div className="relative">
-            <div
-              className="absolute inset-0 rounded-full"
-              style={{
-                background: 'radial-gradient(circle, rgba(255,215,0,0.3) 0%, transparent 70%)',
-                transform: 'scale(1.5)',
-              }}
-              aria-hidden="true"
-            />
-            <div className="motion-safe:animate-float relative">
-              <Image
-                src="/personajes/Shicka_render_.png"
-                alt="Shicka te da la bienvenida"
-                width={280}
-                height={280}
-                className="drop-shadow-[0_12px_24px_rgba(255,215,0,0.5)] transition-transform duration-300 hover:scale-105"
-              />
-            </div>
-          </div>
-          {/* Character name badge */}
-          <div
-            className="px-4 py-2 rounded-full"
-            style={{ background: '#8B4513', border: '3px solid #FFD700', boxShadow: '0 4px 0 #63340b' }}
-          >
-            <span className="font-arcade text-golden-coin text-lg tracking-widest">SHICKA</span>
-          </div>
-          <p className="font-amble text-cloud-white/80 text-sm text-center max-w-[200px] italic">
-            Guía de aventureros del reino
-          </p>
+          </motion.div>
         </div>
 
-        {/* RIGHT: Registration panel */}
-        <div
-          className="flex-1 max-w-md rounded-2xl p-8 flex flex-col gap-5"
-          style={{
-            background: 'rgba(236,248,255,0.97)',
-            border: '5px solid #8B4513',
-            boxShadow: '0 8px 0 #63340b, 0 20px 40px rgba(0,0,0,0.5)',
-          }}
+        {/* TARJETA DE REGISTRO - Mobile (debajo de Shicka) */}
+        <motion.div
+          initial={{ y: 60, opacity: 0, scale: 0.95 }}
+          animate={{ y: 0, opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
+          className="w-full max-w-md bg-white/95 backdrop-blur-sm border-6 sm:border-8 border-teddy-brown rounded-3xl p-6 sm:p-8 shadow-[10px_10px_0px_#63340b] relative md:hidden order-2"
         >
-          {/* Header */}
-          <div className="text-center">
-            <div
-              className="inline-block px-4 py-1 rounded-full mb-3"
-              style={{ background: '#FFD700', border: '3px solid #8B4513', boxShadow: '0 3px 0 #63340b' }}
-            >
-              <span className="font-arcade text-teddy-brown text-sm tracking-[0.2em]">REGISTRO DE AVENTURERO</span>
+          {/* Franja decorativa superior */}
+          <div className="absolute top-0 left-0 right-0 h-2 sm:h-3 bg-gradient-to-r from-golden-coin via-grass-green to-golden-coin rounded-t-3xl" />
+
+          <div className="text-center mb-6 sm:mb-8 pt-2">
+            <div className="flex items-center justify-center gap-2 mb-3">
+              <motion.div animate={{ rotate: [0, 15, -15, 0] }} transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}>
+                <Palette className="w-6 h-6 sm:w-8 sm:h-8 text-sky-blue" />
+              </motion.div>
+              <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}>
+                <Trophy className="w-6 h-6 sm:w-8 sm:h-8 text-golden-coin" />
+              </motion.div>
+              <motion.div animate={{ rotate: [0, -15, 15, 0] }} transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}>
+                <Palette className="w-6 h-6 sm:w-8 sm:h-8 text-sky-blue" />
+              </motion.div>
             </div>
-            <h2 className="font-milky text-3xl text-teddy-brown leading-tight">
-              ¡Alto ahí, viajero!
+
+            <h2 className="font-milky text-2xl sm:text-3xl md:text-4xl text-teddy-brown leading-tight mb-3">
+              {content.title}
             </h2>
-            <p className="font-amble text-voxel-text/80 text-base mt-1">
-              Antes de darte los detalles, necesito registrarte.
+            <p className="font-amble text-voxel-text/80 text-sm sm:text-base leading-snug">
+              {content.instructions}
             </p>
           </div>
 
-          {/* VIP Reward badge */}
-          <div
-            className="flex items-center gap-3 p-3 rounded-xl"
-            style={{ background: 'rgba(255,215,0,0.15)', border: '2px solid #FFD700' }}
-          >
-            <span className="text-3xl motion-safe:animate-pulse-badge">🪙</span>
-            <div>
-              <p className="font-impact text-teddy-brown text-sm tracking-wide">MODO VIP — ARCADE WORLD</p>
-              <p className="font-amble text-voxel-text text-xs">¡Juega y gana monedas para desbloquear recompensas!</p>
-            </div>
-          </div>
+          <div className="space-y-5 sm:space-y-6">
+            <motion.div className="relative" whileFocus={{ scale: 1.02 }}>
+              <Input
+                type="text"
+                placeholder={content.placeholder}
+                value={playerName}
+                onChange={(e) => setPlayerName(e.target.value)}
+                onKeyPress={handleKeyPress}
+                className="border-4 border-sky-blue h-14 sm:h-16 text-center font-milky text-lg sm:text-xl rounded-xl focus:ring-4 focus:ring-sky-blue/30 focus:border-sky-blue transition-all"
+              />
+              <Palette className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-sky-blue w-5 h-5 sm:w-6 sm:h-6 pointer-events-none opacity-70" />
+              <Trophy className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 text-golden-coin w-5 h-5 sm:w-6 sm:h-6 pointer-events-none opacity-80" />
+            </motion.div>
 
-          {/* Input */}
-          <div>
-            <label htmlFor="player-name-desktop" className="font-amble text-teddy-brown font-bold text-sm block mb-1">
-              Tu nombre de aventurero:
-            </label>
-            <Input
-              id="player-name-desktop"
-              type="text"
-              placeholder="Escribe tu nombre..."
-              value={playerName}
-              onChange={(e) => setPlayerName(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && playerName.trim() && handlePlay()}
-              className="border-4 border-teddy-brown h-14 text-xl text-center font-milky rounded-lg bg-white focus:ring-2 focus:ring-golden-coin focus:border-golden-coin outline-none"
-              style={{ boxShadow: 'inset 0 3px 6px rgba(0,0,0,0.1)', color: '#003342' }}
-            />
-          </div>
-
-          {/* Buttons */}
-          <div className="flex flex-col gap-3">
-            <div className="relative">
+            <AnimatePresence>
               {playerName.trim() && (
-                <div className="absolute -top-8 left-1/2 -translate-x-1/2 flex items-center gap-1 z-20 pointer-events-none whitespace-nowrap">
-                  <span className="font-arcade text-xs text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full border border-amber-400">
-                    ¡Listo para la aventura!
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="flex items-center justify-center gap-2 text-sm"
+                >
+                  <motion.div animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 1, repeat: Infinity }}>
+                    <Key className="w-4 h-4 text-golden-coin" />
+                  </motion.div>
+                  <span className="font-amble text-golden-coin font-semibold">
+                    ¡Nombre desbloqueado!
                   </span>
-                  <ArrowDown className="w-3 h-3 text-golden-coin motion-safe:animate-bounce" />
-                </div>
+                </motion.div>
               )}
-              <button
-                id="btn-play-arcade-desktop"
+            </AnimatePresence>
+
+            <div className="flex flex-col gap-3 sm:gap-4 pt-2">
+              <motion.button
                 onClick={handlePlay}
-                disabled={!playerName.trim()}
-                aria-label="Jugar minijuegos del Arcade para ganar monedas"
-                className="w-full font-milky text-2xl py-4 rounded-2xl transition-all duration-100 disabled:opacity-40 disabled:cursor-not-allowed active:translate-y-1 active:shadow-[0_0_0_transparent]"
-                style={{
-                  background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 100%)',
-                  border: '4px solid #8B4513',
-                  boxShadow: '0 7px 0 #63340b',
-                  color: 'white',
-                  textShadow: '0 2px 4px rgba(0,0,0,0.3)',
-                }}
-
-
-
+                disabled={!playerName.trim() || isSubmitting}
+                whileHover={{ scale: playerName.trim() ? 1.03 : 1 }}
+                whileTap={{ scale: playerName.trim() ? 0.97 : 1 }}
+                className="w-full font-milky text-lg sm:text-xl h-14 sm:h-16 bg-gradient-to-b from-golden-coin to-yellow-500 text-teddy-brown border-4 border-teddy-brown rounded-xl transition-all active:translate-y-1 shadow-[0_6px_0_#63340b] hover:shadow-[0_8px_0_#63340b] hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none overflow-hidden relative group"
               >
-                🎮 ¡Entrar al Arcade World!
-              </button>
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent"
+                  animate={{ x: ['-100%', '100%'] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                />
+                <span className="relative z-10 font-bold">
+                  {isSubmitting ? '🎵 Cargando...' : '🎮 ¡Entrar al Arcade World!'}
+                </span>
+              </motion.button>
+
+              <motion.button
+                onClick={handleSkip}
+                disabled={isSubmitting}
+                whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                className="w-full font-amble text-xs sm:text-sm font-bold text-white bg-[#0095da] hover:bg-[#0081bc] border-3 border-white/30 rounded-lg px-3 py-2.5 transition-all shadow-[0_4px_0_#0056b3] hover:shadow-[0_6px_0_#0056b3] hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_2px_0_#0056b3] disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none flex items-center justify-center gap-2"
+              >
+                <span>🗺️</span>
+                <span>Saltar al mapa y ver coordenadas</span>
+                <span>→</span>
+              </motion.button>
             </div>
-
-            <button
-              id="btn-skip-arcade-desktop"
-              onClick={handleSkip}
-              aria-label="Saltar los minijuegos e ir directo a la misión"
-              className="w-full font-amble text-base py-3 rounded-xl transition-all duration-100 active:translate-y-1 active:shadow-[0_0_0_transparent]"
-              style={{
-                background: '#87CEEB',
-                border: '3px solid #00008B',
-                boxShadow: '0 5px 0 #00008B',
-                color: 'white',
-              }}
-
-
-
-            >
-              Ver las coordenadas directamente →
-            </button>
           </div>
-        </div>
-      </div>
+        </motion.div>
 
-      {/* Pixel tree strip bottom */}
-      <div className="absolute bottom-0 left-0 right-0 flex justify-around items-end px-8 pb-0 z-20 pointer-events-none" aria-hidden="true">
-        {['🌵', '🌴', '🌵', '🌴', '🌵', '🌴', '🌵'].map((t, i) => (
-          <span key={i} className="text-5xl leading-none" style={{ marginBottom: -4 }}>{t}</span>
-        ))}
+        {/* Footer decorativo */}
+        <motion.div
+          className="text-center mt-6 sm:mt-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 1.5 }}
+        >
+          <p className="font-amble text-xs sm:text-sm text-white font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+            🏀 El equipo de Facu te espera...
+          </p>
+        </motion.div>
       </div>
     </div>
   );

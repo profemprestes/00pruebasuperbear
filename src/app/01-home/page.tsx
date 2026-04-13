@@ -102,7 +102,7 @@ export default function Home() {
           </RewardsProvider>
         );
       case 'missionDetails':
-        return <MissionDetailsScreen playerName={playerName} onNext={() => setCurrentScreen('bioBook')} playedMinigames={playedMinigames} avatarConfig={avatarConfig} />;
+        return <MissionDetailsScreen playerName={playerName} onNext={() => setCurrentScreen('bioBook')} />;
       case 'bioBook':
         return <BioBookScreen onRestart={handleRestart} facuLikes={facuLikes} photo1={photo1} photo2={photo2} />;
       default:
