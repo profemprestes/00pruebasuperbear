@@ -10,32 +10,32 @@ Este documento asocia cada pantalla del proyecto Stitch con su archivo local cor
 
 ### Mobile Screens (375-390px)
 
-| # | Stitch Screen ID | Dimensiones | Ruta Local del Archivo | Componente | Estado |
-|---|------------------|-------------|------------------------|------------|--------|
-| 1 | `98ae7883ece4495da4e4c3989e097dd7` | 390×884 | `src/components/register-screen.tsx` | `RegisterScreen` | ✅ Implementado |
-| 2 | `0ea0a4125c3441549dc264026ba40963` | 390×884 | `src/components/password-screen.tsx` | `PasswordScreen` | ✅ Implementado |
-| 3 | `8e0e715d8ccc408bb1a45afc1c6e3a01` | 390×884 | `src/components/avatar-creator-screen.tsx` | `AvatarCreatorScreen` | ✅ Implementado |
-| 4 | `dc562f625c1a496ba1efc6f0f471a100` | 390×1116 | `src/components/mission-details-screen.tsx` | `MissionDetailsScreen` | ✅ Implementado |
-| 5 | `5b0277566e504c7db0f182792b563da7` | 390×1045 | `src/components/bio-book-screen.tsx` | `BioBookScreen` | ✅ Implementado |
-| 6 | `d715155b42f54b4d9295246c27cebb6b` | 390×1177 | `src/components/arcade-world-screen.tsx` | `ArcadeWorldScreen` | ✅ Implementado |
-| 7 | `c6ebfcd75ace41c39ed1beab83261cf6` | 390×884 | `src/components/chest-section.tsx` | `ChestSection` | ⚠️ Pendiente revisar |
-| 8 | `c1dba5509a2f4e54aaeeb6b29f240999` | 390×884 | `src/components/intro-video-screen.tsx` | `IntroVideoScreen` | ✅ Implementado |
-| 9 | `a8035081a8254e9fbad4e690e5299f66` | 390×1109 | `src/components/easter-egg-section.tsx` | `EasterEggSection` | ⚠️ Pendiente revisar |
+| # | Stitch Screen | Dimensiones | Ruta Local del Archivo | Componente | Estado |
+|---|---------------|-------------|------------------------|------------|--------|
+| 1 | [Register Screen](https://stitch.withgoogle.com/preview/12124558162526826616?node-id=98ae7883ece4495da4e4c3989e097dd7) | 390×884 | `src/components/register-screen.tsx` | `RegisterScreen` | ✅ Implementado |
+| 2 | [Password Screen](https://stitch.withgoogle.com/preview/12124558162526826616?node-id=0ea0a4125c3441549dc264026ba40963) | 390×884 | `src/components/password-screen.tsx` | `PasswordScreen` | ✅ Implementado |
+| 3 | [Avatar Creator](https://stitch.withgoogle.com/preview/12124558162526826616?node-id=8e0e715d8ccc408bb1a45afc1c6e3a01) | 390×884 | `src/components/avatar-creator-screen.tsx` | `AvatarCreatorScreen` | ✅ Implementado |
+| 4 | [Mission Details](https://stitch.withgoogle.com/preview/12124558162526826616?node-id=dc562f625c1a496ba1efc6f0f471a100) | 390×1116 | `src/components/mission-details-screen.tsx` | `MissionDetailsScreen` | ✅ Implementado |
+| 5 | [Bio Book](https://stitch.withgoogle.com/preview/12124558162526826616?node-id=5b0277566e504c7db0f182792b563da7) | 390×1045 | `src/components/bio-book-screen.tsx` | `BioBookScreen` | ✅ Implementado |
+| 6 | [Arcade World](https://stitch.withgoogle.com/preview/12124558162526826616?node-id=d715155b42f54b4d9295246c27cebb6b) | 390×1177 | `src/components/arcade-world-screen.tsx` | `ArcadeWorldScreen` | ✅ Implementado |
+| 7 | [Chest Section](https://stitch.withgoogle.com/preview/12124558162526826616?node-id=c6ebfcd75ace41c39ed1beab83261cf6) | 390×884 | `src/components/chest-section.tsx` | `ChestSection` | ⚠️ Pendiente revisar |
+| 8 | [Intro Video](https://stitch.withgoogle.com/preview/12124558162526826616?node-id=c1dba5509a2f4e54aaeeb6b29f240999) | 390×884 | `src/components/intro-video-screen.tsx` | `IntroVideoScreen` | ✅ Implementado |
+| 9 | [Easter Egg](https://stitch.withgoogle.com/preview/12124558162526826616?node-id=a8035081a8254e9fbad4e690e5299f66) | 390×1109 | `src/components/easter-egg-section.tsx` | `EasterEggSection` | ⚠️ Pendiente revisar |
 
 ### Desktop Screens (1280px)
 
-| # | Stitch Screen ID | Dimensiones | Ruta Local del Archivo | Componente | Estado |
-|---|------------------|-------------|------------------------|------------|--------|
-| 1 | `14b78e8fece8457c921d4080939a5830` | 1280×1024 | `src/components/register-screen.tsx` | `RegisterScreen` (variante desktop) | ✅ Implementado (mismo archivo) |
-| 2 | `128e8cc71f3c43f3a4b34c180c49e61d` | 1280×1024 | `src/components/rsvp-section.tsx` | `RSVPSection` | ⚠️ Pendiente revisar |
-| 3 | `ca03b8f42eba42b8b3d12ab5694f3a13` | 1280×910 | `src/components/loading-screen.tsx` | `LoadingScreen` | ✅ Implementado |
-| 4 | `ffc11db36aba4c188c51c79d45478ee4` | 1280×1024 | *(Verificar)* | *(Pendiente identificar)* | ❓ Sin identificar |
+| # | Stitch Screen | Dimensiones | Ruta Local del Archivo | Componente | Estado |
+|---|---------------|-------------|------------------------|------------|--------|
+| 1 | [Register Desktop](https://stitch.withgoogle.com/preview/12124558162526826616?node-id=14b78e8fece8457c921d4080939a5830) | 1280×1024 | `src/components/register-screen.tsx` | `RegisterScreen` (variante desktop) | ✅ Implementado (mismo archivo) |
+| 2 | [RSVP Desktop](https://stitch.withgoogle.com/preview/12124558162526826616?node-id=128e8cc71f3c43f3a4b34c180c49e61d) | 1280×1024 | `src/components/rsvp-section.tsx` | `RSVPSection` | ⚠️ Pendiente revisar |
+| 3 | [Loading Desktop](https://stitch.withgoogle.com/preview/12124558162526826616?node-id=ca03b8f42eba42b8b3d12ab5694f3a13) | 1280×910 | `src/components/loading-screen.tsx` | `LoadingScreen` | ✅ Implementado |
+| 4 | [❓ Sin Identificar](https://stitch.withgoogle.com/preview/12124558162526826616?node-id=ffc11db36aba4c188c51c79d45478ee4) | 1280×1024 | *(Verificar)* | *(Pendiente identificar)* | ❓ Sin identificar |
 
-### Pantella Adicional Detectada
+### Pantalla Adicional Detectada
 
-| Stitch Screen ID | Posición | Dimensiones | Posible Uso |
-|------------------|----------|-------------|-------------|
-| `6917e34ebbc64069a681b149f13b97d3` | X: 1344, Y: 1168 | 390×1117 | Posible variante de Mission o pantalla extra |
+| Stitch Screen | Posición | Dimensiones | Posible Uso |
+|---------------|----------|-------------|-------------|
+| [Variante Extra](https://stitch.withgoogle.com/preview/12124558162526826616?node-id=6917e34ebbc64069a681b149f13b97d3) | X: 1344, Y: 1168 | 390×1117 | Posible variante de Mission o pantalla extra |
 
 ---
 
