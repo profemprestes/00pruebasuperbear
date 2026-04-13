@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MissionSection } from "./mission-section";
+import { MissionSection } from "@/components/18-mission-section";
 import { useIsDesktop } from "@/hooks/use-media-query";
 import { Mail, Phone, Instagram, MapPin } from "lucide-react";
 import { useState } from "react";

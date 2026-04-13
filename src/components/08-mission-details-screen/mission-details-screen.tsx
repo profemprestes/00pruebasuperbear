@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import { missionData } from '@/lib/eventData';
-import { Button } from './ui/button';
+import { Button } from '@/components/ui/button';
 import type { AvatarConfig } from '@/lib/avatarOptions';
 import { ArrowDown } from 'lucide-react';
-import { CountdownTimer } from './countdown-timer';
-import { AvatarDisplay } from './avatar-display';
+import { CountdownTimer } from '@/components/13-countdown-timer';
+import { AvatarDisplay } from '@/components/10-avatar-display';
 
 type MissionDetailsScreenProps = {
   playerName: string;

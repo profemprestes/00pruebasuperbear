@@ -2,12 +2,12 @@
 
 import { AnimatePresence } from "framer-motion";
 import { useRewards } from "@/hooks/use-rewards";
-import { GameHUD } from "./game-hud";
-import { MapSection } from "./map-section";
-import { ChestSection } from "./chest-section";
-import { RSVPSection } from "./rsvp-section";
-import { ShopSection } from "./shop-section";
-import { EasterEggSection } from "./easter-egg-section";
+import { GameHUD } from "@/components/12-game-hud";
+import { MapSection } from "@/components/20-map-section";
+import { ChestSection } from "@/components/19-chest-section";
+import { RSVPSection } from "@/components/21-rsvp-section";
+import { ShopSection } from "@/components/22-shop-section";
+import { EasterEggSection } from "@/components/23-easter-egg-section";
 
 type GameFlowProps = {
   photo1?: string | null;

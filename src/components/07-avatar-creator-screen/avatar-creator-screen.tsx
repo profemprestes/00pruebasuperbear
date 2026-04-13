@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button } from './ui/button';
+import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from '@/lib/utils';
 import { Lock, ArrowDown } from 'lucide-react';
-import { AvatarDisplay } from './avatar-display';
+import { AvatarDisplay } from '@/components/10-avatar-display';
 import { furOptions, headOptions, torsoOptions, backpackerOptions, type AvatarConfig, type FurColor, type HeadItem, type TorsoItem, type Backpacker } from '@/lib/avatarOptions';
 
 type AvatarCreatorScreenProps = {

@@ -1,7 +1,7 @@
 "use client";
 
-import { MissionSection } from "./mission-section";
-import { Button } from "./ui/button";
+import { MissionSection } from "@/components/18-mission-section";
+import { Button } from "@/components/ui/button";
 import { useIsDesktop } from "@/hooks/use-media-query";
 import { Shirt, Star, Crown } from "lucide-react";
 import { useState } from "react";

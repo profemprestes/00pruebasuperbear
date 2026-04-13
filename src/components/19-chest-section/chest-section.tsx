@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { MissionSection } from "./mission-section";
-import { Button } from "./ui/button";
+import { MissionSection } from "@/components/18-mission-section";
+import { Button } from "@/components/ui/button";
 import { useIsDesktop } from "@/hooks/use-media-query";
 import Image from "next/image";
 

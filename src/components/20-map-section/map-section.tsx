@@ -1,7 +1,7 @@
 "use client";
 
-import { MissionSection } from "./mission-section";
-import { Button } from "./ui/button";
+import { MissionSection } from "@/components/18-mission-section";
+import { Button } from "@/components/ui/button";
 import { useRewards } from "@/hooks/use-rewards";
 import { MapPin, Calendar, Clock } from "lucide-react";
 import { missionData } from "@/lib/eventData";
