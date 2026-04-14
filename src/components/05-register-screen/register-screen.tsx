@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Container } from '@/components/ui/container';
 import { Palette, Trophy, Key, Heart, Star } from 'lucide-react';
 import { useBreakpoint } from '@/hooks/use-mobile';
 
@@ -190,7 +191,7 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
       </div>
 
       {/* Contenedor principal responsive */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 md:px-8 py-10 sm:py-12">
+      <Container size="lg" spacing="lg">
         
         {/* SHICKA - SIEMPRE VISIBLE ARRIBA (mobile first) */}
         <div className="flex flex-col items-center mb-6 md:mb-0 md:hidden order-1">
@@ -531,7 +532,7 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
             🏀 El equipo de Facu te espera...
           </p>
         </motion.div>
-      </div>
+      </Container>
     </div>
   );
 }

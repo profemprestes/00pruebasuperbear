@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import { Container } from '@/components/ui/container';
 import { ArrowDown } from 'lucide-react';
 
 type BioBookScreenProps = {
@@ -30,7 +31,7 @@ export function BioBookScreen({ onRestart, facuLikes, photo1, photo2 }: BioBookS
     >
       <div className="absolute inset-0 bg-black/70 backdrop-blur-lg z-0" />
 
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-2 sm:px-4 text-center">
+      <Container size="md" spacing="md">
         {/* ── Title ── */}
         <h2
           className="font-milky text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mb-6 sm:mb-8"
@@ -111,7 +112,7 @@ export function BioBookScreen({ onRestart, facuLikes, photo1, photo2 }: BioBookS
             Volver al Inicio
           </Button>
         </div>
-      </div>
+      </Container>
     </div>
   );
 }

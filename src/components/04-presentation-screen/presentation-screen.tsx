@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Heading, Body, Label } from '@/components/ui/typography';
+import { Container } from '@/components/ui/container';
 
 type PresentationScreenProps = {
   onNext: () => void;
@@ -125,7 +126,7 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
       </div>
 
       {/* Contenedor principal responsive */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 md:px-8 py-6 sm:py-8">
+      <Container size="md" spacing="md">
         <motion.div
           initial={{ opacity: 0, y: 40, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -216,18 +217,19 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               {/* Título con efecto */}
-              <motion.h2
-                className="font-milky text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[hsl(var(--foreground))] leading-tight"
+              <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
               >
-                <span className="inline-block">Gran Facu</span>
-                <br />
-                <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-grass-green via-golden-coin to-grass-green">
-                  Aventura ⭐
-                </span>
-              </motion.h2>
+                <Heading level="h1" className="leading-tight">
+                  <span className="inline-block">Gran Facu</span>
+                  <br />
+                  <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-grass-green via-golden-coin to-grass-green">
+                    Aventura ⭐
+                  </span>
+                </Heading>
+              </motion.div>
 
               {/* Línea decorativa */}
               <motion.div
@@ -255,13 +257,13 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
                 transition={{ duration: 0.5, delay: 0.8 }}
               >
                 <div className="voxel-card px-3 py-2 bg-grass-green/10">
-                  <span className="font-amble text-xs sm:text-sm">🏀 Básquet</span>
+                  <Label size="sm">🏀 Básquet</Label>
                 </div>
                 <div className="voxel-card px-3 py-2 bg-golden-coin/10">
-                  <span className="font-amble text-xs sm:text-sm">🥋 Taekwondo</span>
+                  <Label size="sm">🥋 Taekwondo</Label>
                 </div>
                 <div className="voxel-card px-3 py-2 bg-sky-blue/20">
-                  <span className="font-amble text-xs sm:text-sm">🎮 Gamer</span>
+                  <Label size="sm">🎮 Gamer</Label>
                 </div>
               </motion.div>
             </motion.div>
@@ -321,11 +323,11 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 1.2 }}
         >
-          <p className="font-amble text-xs sm:text-sm text-white/80 drop-shadow-lg">
+          <Body size="sm" className="text-white/80 drop-shadow-lg">
             🐻 Una aventura épica te espera...
-          </p>
+          </Body>
         </motion.div>
-      </div>
+      </Container>
     </div>
   );
 }

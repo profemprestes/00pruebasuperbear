@@ -7,6 +7,7 @@ import { missionData } from '@/lib/eventData';
 import { CalendarDays, MapPin, Clock, Backpack, CalendarPlus, Check } from 'lucide-react';
 import { CountdownTimer } from '@/components/13-countdown-timer';
 import { Button } from '@/components/ui/button';
+import { Container } from '@/components/ui/container';
 import { useBreakpoint } from '@/hooks/use-mobile';
 
 type MissionDetailsScreenProps = {
@@ -148,7 +149,7 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
       </motion.div>
 
       {/* Contenedor principal responsive */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8 pb-8">
+      <Container size="lg" spacing="md">
         
         {/* MOBILE: Facu arriba saludando, luego bloques de info */}
         <div className="md:hidden flex flex-col items-center gap-4">
@@ -536,7 +537,7 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
             </div>
           </motion.div>
         </div>
-      </div>
+      </Container>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MissionSection } from "@/components/18-mission-section";
 import { Button } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
 import { ChevronLeft, ChevronRight, Sparkles, Star } from "lucide-react";
 import Image from "next/image";
 import { useIsDesktop } from "@/hooks/use-media-query";
@@ -64,7 +65,7 @@ export function ShopSection({ onNext }: { onNext: () => void }) {
 
   return (
     <MissionSection stepId="shop" bgImage="/mundos/bear_village/Outfitshopplatform.webp">
-      <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center p-4 md:p-8 min-h-[80vh] justify-between">
+      <Container size="xl" spacing="md">
 
         {/* DIÁLOGO DINÁMICO DE FACU */}
         <div className="w-full flex justify-center mb-4 md:mb-8">
@@ -262,7 +263,7 @@ export function ShopSection({ onNext }: { onNext: () => void }) {
             </div>
           </motion.div>
         )}
-      </div>
+      </Container>
     </MissionSection>
   );
 }
