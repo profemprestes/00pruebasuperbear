@@ -390,12 +390,13 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
               </AnimatePresence>
 
               <div className="flex flex-col gap-4 pt-2">
-                <motion.button
+                <Button
                   onClick={handlePlay}
                   disabled={!playerName.trim() || isSubmitting}
-                  whileHover={{ scale: playerName.trim() ? 1.03 : 1 }}
-                  whileTap={{ scale: playerName.trim() ? 0.97 : 1 }}
-                  className="w-full font-milky text-xl h-16 bg-gradient-to-b from-golden-coin to-yellow-500 text-teddy-brown border-4 border-teddy-brown rounded-xl transition-all active:translate-y-1 shadow-[0_6px_0_#63340b] hover:shadow-[0_8px_0_#63340b] hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none overflow-hidden relative group"
+                  variant="3d-gold"
+                  size="game-xl"
+                  className="w-full overflow-hidden relative group font-milky"
+                  onMouseEnter={() => playHoverSound()}
                 >
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent"
@@ -405,18 +406,20 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
                   <span className="relative z-10 font-bold">
                     {isSubmitting ? '🎵 Cargando...' : '🎮 ¡Entrar al Arcade World!'}
                   </span>
-                </motion.button>
+                </Button>
 
-                <motion.button
+                <Button
                   onClick={handleSkip}
                   disabled={isSubmitting}
-                  whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-                  className="w-full font-amble text-sm sm:text-base font-bold text-white bg-[#0095da] hover:bg-[#0081bc] border-3 border-white/30 rounded-xl px-4 py-3 transition-all shadow-[0_4px_0_#0056b3] hover:shadow-[0_6px_0_#0056b3] hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_2px_0_#0056b3] disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none flex items-center justify-center gap-2"
+                  variant="3d-blue"
+                  size="game-md"
+                  className="w-full font-amble"
+                  onMouseEnter={() => playHoverSound()}
                 >
                   <span>🗺️</span>
                   <span>Saltar al mapa y ver coordenadas</span>
                   <span>→</span>
-                </motion.button>
+                </Button>
               </div>
             </div>
           </motion.div>

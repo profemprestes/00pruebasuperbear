@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { missionData } from '@/lib/eventData';
 import { CalendarDays, MapPin, Clock, Backpack, CalendarPlus, Check } from 'lucide-react';
 import { CountdownTimer } from '@/components/13-countdown-timer';
+import { Button } from '@/components/ui/button';
 import { useBreakpoint } from '@/hooks/use-mobile';
 
 type MissionDetailsScreenProps = {
@@ -287,23 +288,21 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
             {/* Botones de acción */}
             <div className="mt-4 sm:mt-6 flex flex-col gap-3">
               {/* Botón Confirmar */}
-              <motion.button
+              <Button
                 onClick={handleConfirm}
                 disabled={isConfirmed}
-                whileHover={!isConfirmed ? { scale: 1.02 } : {}}
-                whileTap={!isConfirmed ? { scale: 0.98 } : {}}
-                className={`w-full font-milky text-lg sm:text-xl h-14 sm:h-16 rounded-xl border-4 transition-all ${
-                  isConfirmed
-                    ? 'bg-green-500 border-green-700 shadow-[0_4px_0_#1a5c2e]'
-                    : 'bg-gradient-to-b from-golden-coin to-yellow-500 border-teddy-brown shadow-[0_6px_0_#63340b] hover:shadow-[0_8px_0_#63340b] hover:-translate-y-0.5 active:translate-y-1 active:shadow-[0_2px_0_#63340b]'
-                } disabled:cursor-not-allowed overflow-hidden relative`}
+                variant={isConfirmed ? "3d-green" : "3d-gold"}
+                size="game-lg"
+                className={`w-full font-milky overflow-hidden relative ${
+                  isConfirmed ? 'bg-green-500' : ''
+                }`}
               >
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
                   animate={{ x: ['-100%', '100%'] }}
                   transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
                 />
-                <span className="relative z-10 text-white">
+                <span className="relative z-10">
                   {isConfirmed ? (
                     <span className="flex items-center justify-center gap-2">
                       <Check className="w-5 h-5" />
@@ -313,7 +312,7 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
                     '¡CONFIRMAR ASISTENCIA! 🏀'
                   )}
                 </span>
-              </motion.button>
+              </Button>
 
               {/* Botón Google Calendar */}
               <a
@@ -487,23 +486,21 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
             {/* Botones de acción */}
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
               {/* Botón Confirmar */}
-              <motion.button
+              <Button
                 onClick={handleConfirm}
                 disabled={isConfirmed}
-                whileHover={!isConfirmed ? { scale: 1.03 } : {}}
-                whileTap={!isConfirmed ? { scale: 0.97 } : {}}
-                className={`flex-1 font-milky text-xl lg:text-2xl h-16 rounded-xl border-4 transition-all ${
-                  isConfirmed
-                    ? 'bg-green-500 border-green-700 shadow-[0_4px_0_#1a5c2e]'
-                    : 'bg-gradient-to-b from-golden-coin to-yellow-500 border-teddy-brown shadow-[0_6px_0_#63340b] hover:shadow-[0_8px_0_#63340b] hover:-translate-y-0.5 active:translate-y-1 active:shadow-[0_2px_0_#63340b]'
-                } disabled:cursor-not-allowed overflow-hidden relative`}
+                variant={isConfirmed ? "3d-green" : "3d-gold"}
+                size="game-xl"
+                className={`flex-1 font-milky overflow-hidden relative ${
+                  isConfirmed ? 'bg-green-500' : ''
+                }`}
               >
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
                   animate={{ x: ['-100%', '100%'] }}
                   transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
                 />
-                <span className="relative z-10 text-white">
+                <span className="relative z-10">
                   {isConfirmed ? (
                     <span className="flex items-center justify-center gap-2">
                       <Check className="w-6 h-6" />
@@ -513,7 +510,7 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
                     '¡CONFIRMAR ASISTENCIA! 🏀'
                   )}
                 </span>
-              </motion.button>
+              </Button>
 
               {/* Botón Google Calendar */}
               <a

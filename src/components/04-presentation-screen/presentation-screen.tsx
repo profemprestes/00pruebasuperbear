@@ -3,6 +3,8 @@
 import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { Heading, Body, Label } from '@/components/ui/typography';
 
 type PresentationScreenProps = {
   onNext: () => void;
@@ -282,14 +284,14 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
               </div>
 
               {/* Botón principal */}
-              <motion.button
+              <Button
                 onClick={handleClick}
                 disabled={isPlaying}
                 aria-label="Aceptar misión de cumpleaños"
-                className="relative font-milky text-white text-lg sm:text-xl md:text-2xl px-8 sm:px-10 py-3 sm:py-4 rounded-xl sm:rounded-2xl bg-gradient-to-b from-grass-green to-green-600 border-4 border-green-700 shadow-[0_6px_0_#1a5c2e] transition-all duration-200 hover:shadow-[0_8px_0_#1a5c2e] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_2px_0_#1a5c2e] disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden group"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onHoverStart={() => playHoverSound()}
+                variant="3d-green"
+                size="game-lg"
+                className="relative overflow-hidden group font-milky"
+                onMouseEnter={() => playHoverSound()}
               >
                 {/* Efecto shimmer */}
                 <motion.div
@@ -303,11 +305,11 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
                     ease: 'linear',
                   }}
                 />
-                
+
                 <span className="relative z-10">
                   {isPlaying ? '🎵 Cargando...' : '¡Aceptar Misión! ➔'}
                 </span>
-              </motion.button>
+              </Button>
             </div>
           </motion.div>
         </motion.div>

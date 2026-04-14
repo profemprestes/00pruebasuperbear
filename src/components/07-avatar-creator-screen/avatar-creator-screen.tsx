@@ -248,7 +248,9 @@ export function ShopSection({ onNext }: { onNext: () => void }) {
               <Button
                 onClick={handleConfirm}
                 disabled={phase === 'confirmed'}
-                className="w-full font-milky text-xl md:text-2xl h-14 md:h-16 border-b-8 border-amber-900 bg-golden-coin hover:bg-yellow-400 text-white flex items-center justify-center gap-3 shadow-2xl transition-all active:translate-y-1 active:border-b-0 disabled:opacity-50"
+                variant="3d-gold"
+                size="game-xl"
+                className="w-full font-milky"
               >
                 <Sparkles className="w-6 h-6 animate-pulse" />
                 {phase === 'confirmed' ? '¡ELEGIDO!' : '¡ENTRAR A LA CANCHA!'}

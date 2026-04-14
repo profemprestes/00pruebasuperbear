@@ -104,7 +104,9 @@ export function BioBookScreen({ onRestart, facuLikes, photo1, photo2 }: BioBookS
           </div>
           <Button
             onClick={onRestart}
-            className="font-milky text-white text-lg sm:text-xl lg:text-2xl px-6 py-3 sm:px-8 sm:py-4 rounded-lg bg-grass-green border-0 shadow-[0_6px_0_#2E8B57] transition-all duration-200 hover:bg-green-500 hover:shadow-[0_8px_0_#2E8B57] hover:-translate-y-0.5 active:translate-y-1 active:shadow-[0_0_0_transparent]"
+            variant="3d-green"
+            size="game-lg"
+            className="font-milky"
           >
             Volver al Inicio
           </Button>

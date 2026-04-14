@@ -109,7 +109,7 @@ const LavaFloorGame = ({ onComplete }: { onComplete: () => void }) => {
             setTimeout(() => setWarning(false), 1000);
         }
     };
-    
+
     useEffect(() => {
         if(safePlatforms.size > 0 && clickedSafe.size === safePlatforms.size) {
             onComplete();
@@ -122,12 +122,20 @@ const LavaFloorGame = ({ onComplete }: { onComplete: () => void }) => {
             {warning && <p className="text-red-500 font-bold motion-safe:animate-pulse text-sm sm:text-base">¡Cuidado!</p>}
             <div className="grid grid-cols-3 gap-1.5 sm:gap-2 w-full max-w-[16rem] sm:max-w-[20rem] aspect-square mx-auto mt-2 sm:mt-4">
                 {Array.from({ length: 9 }).map((_, i) => (
-                    <div key={i} onClick={() => handleClick(i)} className={cn("w-full h-full rounded-md cursor-pointer flex items-center justify-center",
-                        safePlatforms.has(i) ? 'bg-green-500' : 'bg-red-600',
-                        clickedSafe.has(i) && 'opacity-50'
-                    )}>
+                    <Button
+                        key={i}
+                        onClick={() => handleClick(i)}
+                        aria-label={`Plataforma ${i + 1}`}
+                        variant="ghost"
+                        size="icon"
+                        className={cn(
+                            "w-full h-full rounded-md flex items-center justify-center",
+                            safePlatforms.has(i) ? 'bg-green-500 hover:bg-green-600' : 'bg-red-600 hover:bg-red-700',
+                            clickedSafe.has(i) && 'opacity-50'
+                        )}
+                    >
                        {clickedSafe.has(i) && '✅'}
-                    </div>
+                    </Button>
                 ))}
             </div>
         </div>
@@ -140,7 +148,16 @@ const HoneyDodgeGame = ({ onComplete }: { onComplete: () => void }) => {
     <div className="p-3 sm:p-4 h-full flex flex-col items-center justify-center">
       <p className="font-body font-bold text-xs sm:text-sm md:text-lg mb-3 sm:mb-4 text-center leading-tight">¡La fábrica de The Hive! Atrapa la llave, pero NO toques la miel morada.</p>
       <div className="relative w-full h-4/5">
-        <div onClick={onComplete} className="absolute text-4xl sm:text-5xl cursor-pointer motion-safe:animate-float" style={{ top: '40%', left: '20%' }}>🔑</div>
+        <Button
+          onClick={onComplete}
+          aria-label="Atrapar la llave"
+          variant="ghost"
+          size="icon"
+          className="absolute text-4xl sm:text-5xl motion-safe:animate-float hover:bg-transparent"
+          style={{ top: '40%', left: '20%' }}
+        >
+          🔑
+        </Button>
         <div className="absolute text-4xl sm:text-5xl motion-safe:animate-sway" style={{ top: '20%', left: '60%' }}>🟣</div>
         <div className="absolute text-4xl sm:text-5xl motion-safe:animate-sway" style={{ top: '60%', left: '80%', animationDelay: '-2s' }}>🟣</div>
       </div>
@@ -175,7 +192,17 @@ const MoleWhackGame = ({ onComplete }: { onComplete: () => void }) => {
             <div className="flex justify-around w-full mt-4 sm:mt-8">
                 {moles.map(mole => (
                     <div key={mole.id} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-stone-700 rounded-full flex items-center justify-center">
-                        {mole.active && <div onClick={handleWhack} className="text-3xl sm:text-4xl md:text-5xl cursor-pointer motion-safe:animate-in fade-in-0 zoom-in-75">️‍🔥</div>}
+                        {mole.active && (
+                            <Button
+                                onClick={handleWhack}
+                                aria-label="Golpear topo"
+                                variant="ghost"
+                                size="icon"
+                                className="text-3xl sm:text-4xl md:text-5xl motion-safe:animate-in fade-in-0 zoom-in-75 hover:bg-transparent"
+                            >
+                                🔥
+                            </Button>
+                        )}
                     </div>
                 ))}
             </div>
@@ -196,9 +223,15 @@ const RouletteGame = ({ onComplete }: { onComplete: () => void }) => {
         <div className="p-3 sm:p-4 h-full flex flex-col items-center justify-center">
              <p className="font-body font-bold text-xs sm:text-sm md:text-lg mb-3 sm:mb-4 text-center leading-tight">¡Gira la ruleta de Capitalos para tu recompensa final!</p>
             {!spinning ? (
-                <button onClick={handleSpin} aria-label="Girar la ruleta de Capitalos para obtener recompensa" className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-tr from-red-500 via-yellow-500 to-blue-500 flex items-center justify-center font-milky text-base sm:text-lg md:text-2xl shadow-lg transition-transform hover:scale-105 active:scale-95 motion-safe:animate-float">
+                <Button
+                    onClick={handleSpin}
+                    aria-label="Girar la ruleta de Capitalos para obtener recompensa"
+                    variant="3d-gold"
+                    size="game-lg"
+                    className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-tr from-red-500 via-yellow-500 to-blue-500 font-milky text-base sm:text-lg md:text-2xl shadow-lg motion-safe:animate-float"
+                >
                     GIRAR
-                </button>
+                </Button>
             ) : (
                 <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-tr from-red-500 via-yellow-500 to-blue-500 motion-safe:animate-roulette flex items-center justify-center">
                      <div className="w-[calc(100%-8px)] h-[calc(100%-8px)] rounded-full bg-white flex items-center justify-center font-milky text-teddy-brown text-xs sm:text-sm md:text-lg text-center p-2">
