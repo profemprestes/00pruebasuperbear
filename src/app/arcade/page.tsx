@@ -6,12 +6,13 @@ import { useRouter } from 'next/navigation';
 
 export default function ArcadePage() {
   const router = useRouter();
-  const { setPlayedMinigames } = useGameState();
+  const { setPlayedMinigames, addCoins } = useGameState();
   
-  const handleComplete = () => {
+  const handleArcadeEnd = (coins: number) => {
     setPlayedMinigames(true);
+    addCoins(coins);
     router.push('/avatar');
   };
   
-  return <ArcadeWorldScreen onComplete={handleComplete} />;
+  return <ArcadeWorldScreen onArcadeEnd={handleArcadeEnd} />;
 }

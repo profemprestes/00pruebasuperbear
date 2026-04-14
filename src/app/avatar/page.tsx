@@ -8,15 +8,14 @@ export default function AvatarPage() {
   const router = useRouter();
   const { setAvatarConfig } = useGameState();
   
-  const handleConfirm = (config: any) => {
-    setAvatarConfig(config);
+  const handleNext = () => {
+    // ShopSection doesn't pass config, so we'll just navigate
     router.push('/mission');
   };
   
   return (
     <ShopSection
-      onConfirm={handleConfirm}
-      phase="intro"
+      onNext={handleNext}
     />
   );
 }

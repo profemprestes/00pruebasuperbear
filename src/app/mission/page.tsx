@@ -31,7 +31,6 @@ export default function MissionPage() {
   } = useGameState();
   
   const [currentScreen, setCurrentScreen] = useState<Screen>('loading');
-  const [showNavControls, setShowNavControls] = useState(false);
 
   // Navigate to details or bio
   const navigateToDetails = () => {
@@ -42,12 +41,12 @@ export default function MissionPage() {
     router.push('/mission/bio');
   };
 
-  // Screen handlers
-  const handleLoadingComplete = () => {
+  // Screen handlers - matching actual component props
+  const handleLoadingStart = () => {
     setCurrentScreen('introVideo');
   };
 
-  const handleIntroComplete = () => {
+  const handleIntroSkip = () => {
     setCurrentScreen('presentation');
   };
 
@@ -70,18 +69,13 @@ export default function MissionPage() {
     setCurrentScreen('gameFlow');
   };
 
-  const handleGameFlowNav = (section: string) => {
-    // Handle navigation within GameFlow
-    console.log('Navigate to:', section);
-  };
-
   // Render current screen
   const renderScreen = () => {
     switch (currentScreen) {
       case 'loading':
-        return <LoadingScreen onComplete={handleLoadingComplete} />;
+        return <LoadingScreen onStart={handleLoadingStart} />;
       case 'introVideo':
-        return <IntroVideoScreen onComplete={handleIntroComplete} />;
+        return <IntroVideoScreen onVideoEnd={handleIntroSkip} />;
       case 'presentation':
         return (
           <PresentationScreen
@@ -92,35 +86,26 @@ export default function MissionPage() {
       case 'register':
         return (
           <RegisterScreen
-            onComplete={handleRegisterComplete}
-            onSkip={() => setCurrentScreen('arcadeWorld')}
+            onPlayArcade={handleRegisterComplete}
+            onSkipArcade={() => setCurrentScreen('arcadeWorld')}
           />
         );
       case 'arcadeWorld':
-        return <ArcadeWorldScreen onComplete={handleArcadeComplete} />;
+        return <ArcadeWorldScreen onArcadeEnd={handleArcadeComplete} />;
       case 'avatarCreator':
         return (
           <ShopSection
-            onConfirm={handleAvatarConfirm}
-            phase="intro"
+            onNext={handleAvatarConfirm as any}
           />
         );
       case 'gameFlow':
         return (
           <RewardsProvider>
-            <GameFlow
-              playerName={playerName}
-              facuLikes={facuLikes}
-              photo1={photo1}
-              photo2={photo2}
-              onNavigate={handleGameFlowNav}
-              onGoToDetails={navigateToDetails}
-              onGoToBio={navigateToBio}
-            />
+            <GameFlow />
           </RewardsProvider>
         );
       default:
-        return <LoadingScreen onComplete={handleLoadingComplete} />;
+        return <LoadingScreen onStart={handleLoadingStart} />;
     }
   };
 
