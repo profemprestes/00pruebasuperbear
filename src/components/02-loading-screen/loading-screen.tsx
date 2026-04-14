@@ -61,23 +61,23 @@ export function LoadingScreen({ onStart }: LoadingScreenProps) {
         {/* Bear */}
         <div className="motion-safe:animate-float flex-shrink-0">
           <Image
-            src="/personajes/Baaren.render.png"
-            alt="Baaren el oso héroe"
-            width={140}
-            height={140}
-            className="w-28 h-28 sm:w-36 sm:h-36 md:w-52 md:h-52 lg:w-64 lg:h-64 drop-shadow-[0_8px_12px_rgba(0,0,0,0.3)] md:drop-shadow-[0_16px_24px_rgba(0,0,0,0.5)]"
+            src="/facu_bear_sin_fondo.png"
+            alt="Facu Bear"
+            width={400}
+            height={400}
+            className="w-40 h-40 sm:w-56 sm:h-56 md:w-72 md:h-72 lg:w-[450px] lg:h-[450px] drop-shadow-[0_8px_12px_rgba(0,0,0,0.3)] md:drop-shadow-[0_16px_24px_rgba(0,0,0,0.5)]"
             priority
           />
         </div>
 
         {/* Title + progress */}
-        <div className="flex flex-col items-center gap-3 sm:gap-4 md:gap-6 w-full max-w-xs sm:max-w-sm md:max-w-lg">
+        <div className="flex flex-col items-center gap-3 sm:gap-4 md:gap-6 w-full max-w-xs sm:max-w-md md:max-w-2xl">
           <Image
-            src="/titulo_super_facu_1.png"
+            src="/logo_completo.png"
             alt="Super Facu Aventura"
-            width={620}
-            height={310}
-            className="w-48 sm:w-64 md:w-80 lg:w-[32rem] drop-shadow-lg md:drop-shadow-[0_8px_20px_rgba(255,215,0,0.6)] hover:scale-105 transition-transform duration-300"
+            width={800}
+            height={400}
+            className="w-64 sm:w-80 md:w-[32rem] lg:w-[45rem] drop-shadow-lg md:drop-shadow-[0_8px_20px_rgba(255,215,0,0.6)] hover:scale-105 transition-transform duration-300"
             priority
           />
 
