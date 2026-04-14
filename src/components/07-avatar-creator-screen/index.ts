@@ -1,1 +1,1 @@
-export { AvatarCreatorScreen } from './avatar-creator-screen';
+export { ShopSection } from './avatar-creator-screen';
