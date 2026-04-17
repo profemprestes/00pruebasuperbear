@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facu's Level 9 Quest - RPG Dialogue</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sky-blue': '#87CEEB',
+                        'teddy-brown': '#8D6E63',
+                        'golden-coin': '#FFD600',
+                        'dark-wood': '#4E342E',
+                        'grass-green': '#4CAF50',
+                        'basketball-orange': '#F26822'
+                    },
+                    fontFamily: {
+                        'title': ['"Fredoka One"', 'cursive'],
+                        'body': ['"Nunito"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #87CEEB;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        .screen {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .screen.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .voxel-card {
+            background: white;
+            border: 4px solid #4E342E;
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.15);
+        }
+
+        .dialogue-box {
+            background: rgba(255, 255, 255, 0.95);
+            border: 6px solid #4E342E;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .btn-rpg {
+            background: #FFD600;
+            border: 3px solid #4E342E;
+            border-radius: 8px;
+            box-shadow: 0 4px 0 #4E342E;
+            transition: 0.1s;
+        }
+
+        .btn-rpg:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 transparent;
+        }
+
+        .portrait {
+            width: 100px;
+            height: 100px;
+            background: #87CEEB;
+            border: 4px solid #4E342E;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .typing-cursor::after {
+            content: ' ▼';
+            animation: bounce-small 1s infinite;
+        }
+
+        @keyframes bounce-small {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(5px);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+    </style>
+</head>
+
+<body class="font-body text-dark-wood flex items-center justify-center">
+
+    <!-- Background Elements -->
+    <div class="fixed inset-0 z-[-1] flex items-center justify-center pointer-events-none opacity-20">
+        <h1 class="font-title text-[15vw] text-white rotate-[-10deg]">KBOOM</h1>
+    </div>
+
+    <!-- SCREEN 1: RPG CUTSCENE / GATEKEEPER -->
+    <div id="cutscene-screen" class="screen active w-full h-full flex-col justify-end p-4 md:p-10">
+
+        <!-- Interactive Character (Shicka) -->
+        <div class="flex-grow flex items-center justify-center">
+            <div id="character-sprite" class="text-[120px] transition-transform duration-300">🦊</div>
+        </div>
+
+        <!-- Dialogue Box -->
+        <div class="dialogue-box w-full max-w-4xl mx-auto p-4 md:p-6 flex flex-col md:flex-row gap-4 md:gap-6 items-start cursor-pointer animate-slide-up"
+            onclick="advanceDialogue()">
+            <div class="portrait flex-shrink-0 mx-auto md:mx-0">
+                🦊
+            </div>
+            <div class="flex-grow">
+                <div class="font-title text-2xl text-basketball-orange mb-2" style="text-shadow: 1px 1px 0 #4E342E;">
+                    SHICKA</div>
+                <div id="dialogue-text" class="font-bold text-xl md:text-2xl min-h-[80px]"></div>
+
+                <!-- Choices (Hidden initially) -->
+                <div id="dialogue-choices" class="hidden mt-6 flex-col sm:flex-row gap-4">
+                    <button onclick="event.stopPropagation(); selectPath('kids')"
+                        class="btn-rpg font-title text-xl py-3 px-6 flex-1 bg-golden-coin flex justify-center items-center gap-2">
+                        <span>👾</span> ¡VAMOS A JUGAR!
+                    </button>
+                    <button onclick="event.stopPropagation(); selectPath('adults')"
+                        class="btn-rpg font-title text-xl py-3 px-6 flex-1 bg-grass-green text-white flex justify-center items-center gap-2">
+                        <span>🛡️</span> SOY UN GUARDIÁN (Padres)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCREEN 2: KIDS PATH (Hub Mockup) -->
+    <div id="kids-hub-screen" class="screen w-full h-full flex-col items-center justify-center p-4">
+        <div class="voxel-card max-w-lg w-full p-8 text-center bg-white/95">
+            <h2 class="font-title text-3xl text-golden-coin mb-6" style="text-shadow: 2px 2px 0 #4E342E;">¡MODO
+                AVENTURERO!</h2>
+            <div class="text-6xl mb-6">🎮🐻🏀</div>
+            <p class="font-bold text-xl mb-8">¡Te has unido al equipo! Aquí es donde jugarías los minijuegos para
+                desbloquear la info de la fiesta.</p>
+            <button onclick="alert('Lanzando Minijuego: Rescate de Medias 🧦')"
+                class="btn-rpg w-full bg-sky-blue text-white font-title text-2xl py-4">
+                INICIAR NIVEL 1
+            </button>
+        </div>
+    </div>
+
+    <!-- SCREEN 3: ADULTS PATH (Info Mockup) -->
+    <div id="adults-info-screen" class="screen w-full h-full flex-col items-center justify-center p-4">
+        <div class="voxel-card max-w-lg w-full p-8 bg-white/95 border-grass-green border-8">
+            <h2 class="font-title text-3xl text-grass-green mb-6 text-center" style="text-shadow: 1px 1px 0 #4E342E;">
+                🛡️ PROTOCOLO GUARDIÁN</h2>
+
+            <ul class="space-y-4 font-bold text-lg mb-8">
+                <li class="border-b-2 border-dashed border-gray-300 pb-2">📍 <strong>Lugar:</strong> KBOOM (Av. Italia
+                    3421)</li>
+                <li class="border-b-2 border-dashed border-gray-300 pb-2">📅 <strong>Día:</strong> Domingo 24 de Mayo
+                </li>
+                <li class="border-b-2 border-dashed border-gray-300 pb-2">⏰ <strong>Hora:</strong> 18:30 a 21:00 hs</li>
+                <li class="text-red-500 bg-red-50 p-3 rounded border border-red-200">⚠️ <strong>IMPORTANTE:</strong> Los
+                    niños deben llevar medias obligatoriamente.</li>
+            </ul>
+
+            <div class="flex flex-col gap-3">
+                <button onclick="alert('Confirmación Registrada')"
+                    class="btn-rpg w-full bg-golden-coin font-title text-xl py-3">
+                    CONFIRMAR ASISTENCIA
+                </button>
+                <button onclick="alert('Abriendo Maps')"
+                    class="btn-rpg w-full bg-white text-dark-wood border-gray-300 font-title text-xl py-3">
+                    VER UBICACIÓN
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dialog Script
+        const script = [
+            "¡Che, despertate! ¿Estás ahí?",
+            "El servidor de Facu está a punto de llegar al NIVEL 9 y necesitamos armar el equipo.",
+            "La base de operaciones será en KBOOM. ¡Va a haber salto, baloncesto y de todo!",
+            "Decime... ¿Venís a jugar la partida completa o sos el Guardián que lo trae?"
+        ];
+
+        let currentLine = 0;
+        let isTyping = false;
+        let typeTimeout;
+
+        function startSequence() {
+            typeLine();
+        }
+
+        function typeLine() {
+            const el = document.getElementById('dialogue-text');
+            const text = script[currentLine];
+            el.innerHTML = '';
+            el.classList.add('typing-cursor');
+            isTyping = true;
+            let i = 0;
+
+            // Simple bounce animation for character while talking
+            document.getElementById('character-sprite').style.transform = 'translateY(-20px)';
+
+            function typeChar() {
+                if (i < text.length && isTyping) {
+                    el.innerHTML += text.charAt(i);
+                    i++;
+                    typeTimeout = setTimeout(typeChar, 35);
+
+                    if (i % 3 === 0) {
+                        const sprite = document.getElementById('character-sprite');
+                        sprite.style.transform = sprite.style.transform === 'translateY(0px)' ? 'translateY(-10px)' : 'translateY(0px)';
+                    }
+                } else {
+                    finishLine();
+                }
+            }
+            typeChar();
+        }
+
+        function finishLine() {
+            isTyping = false;
+            document.getElementById('character-sprite').style.transform = 'translateY(0)';
+            document.getElementById('dialogue-text').innerHTML = script[currentLine];
+
+            if (currentLine === script.length - 1) {
+                document.getElementById('dialogue-text').classList.remove('typing-cursor');
+                document.getElementById('dialogue-choices').classList.remove('hidden');
+                document.getElementById('dialogue-choices').classList.add('flex');
+            }
+        }
+
+        function advanceDialogue() {
+            if (currentLine === script.length - 1 && !isTyping) {
+                return; // Waiting for choice
+            }
+
+            if (isTyping) {
+                clearTimeout(typeTimeout);
+                finishLine();
+            } else {
+                currentLine++;
+                typeLine();
+            }
+        }
+
+        // Branching Logic
+        function selectPath(path) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+
+            if (path === 'kids') {
+                document.getElementById('kids-hub-screen').classList.add('active');
+            } else {
+                document.getElementById('adults-info-screen').classList.add('active');
+            }
+        }
+
+        // Initialize on load
+        window.onload = () => {
+            setTimeout(startSequence, 500);
+        };
+    </script>
+</body>
+
+</html>

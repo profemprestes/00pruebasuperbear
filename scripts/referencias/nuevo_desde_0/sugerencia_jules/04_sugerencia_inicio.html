@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facu's Level 9 Quest - Console Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sky-blue': '#87CEEB',
+                        'teddy-brown': '#8D6E63',
+                        'golden-coin': '#FFD600',
+                        'dark-wood': '#4E342E',
+                        'grass-green': '#4CAF50',
+                        'basketball-orange': '#F26822',
+                        'console-grey': '#CFD8DC',
+                        'console-dark': '#37474F'
+                    },
+                    fontFamily: {
+                        'title': ['"Fredoka One"', 'cursive'],
+                        'body': ['"Nunito"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #37474F;
+            /* Dark console background */
+            background-image: radial-gradient(#CFD8DC 1px, transparent 1px);
+            background-size: 20px 20px;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            color: white;
+        }
+
+        .screen {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .screen.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .voxel-panel {
+            background: #CFD8DC;
+            /* Light grey console */
+            border: 6px solid #4E342E;
+            border-radius: 8px;
+            box-shadow: inset -4px -4px 0px rgba(0, 0, 0, 0.2), 0 8px 0px rgba(0, 0, 0, 0.5);
+            color: #4E342E;
+        }
+
+        .btn-console {
+            background: #FFD600;
+            border: 4px solid #4E342E;
+            border-radius: 8px;
+            box-shadow: 0 6px 0 #4E342E;
+            transition: all 0.1s;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .btn-console:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #4E342E;
+        }
+
+        /* Save Slot styling */
+        .save-slot {
+            background: #4E342E;
+            color: #FFD600;
+            border: 4px solid #FFD600;
+            transition: all 0.2s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .save-slot:hover {
+            background: #FFD600;
+            color: #4E342E;
+            border-color: #4E342E;
+            transform: scale(1.02);
+        }
+
+        .save-slot.locked {
+            background: #263238;
+            color: #546E7A;
+            border-color: #37474F;
+            cursor: not-allowed;
+        }
+
+        .save-slot.locked:hover {
+            transform: none;
+        }
+
+        /* Character Select styling */
+        .char-card {
+            background: white;
+            border: 4px solid #4E342E;
+            transition: all 0.2s;
+            cursor: pointer;
+            filter: grayscale(80%);
+        }
+
+        .char-card.selected {
+            border-color: #F26822;
+            /* Basketball Orange focus */
+            box-shadow: 0 0 15px #F26822, 0 6px 0 #4E342E;
+            filter: grayscale(0%);
+            transform: translateY(-4px);
+        }
+
+        @keyframes scanline {
+            0% {
+                transform: translateY(-100%);
+            }
+
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+
+        .crt-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+    </style>
+</head>
+
+<body class="font-body">
+
+    <div class="crt-overlay"></div>
+
+    <!-- SCREEN 1: GATEKEEPER / MAIN MENU -->
+    <div id="menu-screen" class="screen active flex-col items-center justify-center min-h-screen p-4">
+
+        <div class="text-center mb-10 animate-bounce">
+            <div class="text-6xl mb-2">🏀🐻</div>
+            <h1 class="font-title text-4xl md:text-6xl text-golden-coin" style="text-shadow: 4px 4px 0px #4E342E;">LEVEL
+                9 QUEST</h1>
+            <p class="font-title text-xl text-sky-blue tracking-widest mt-2" style="text-shadow: 2px 2px 0px #4E342E;">
+                PRESS START</p>
+        </div>
+
+        <div class="voxel-panel w-full max-w-sm p-6 flex flex-col gap-4">
+            <button onclick="goToClassSelect()"
+                class="btn-console py-3 px-4 font-title text-xl flex justify-between items-center group">
+                <span>▶ NEW GAME (KIDS)</span>
+                <span class="opacity-0 group-hover:opacity-100 transition-opacity">👾</span>
+            </button>
+            <button onclick="goToGuardianData()"
+                class="btn-console bg-sky-blue py-3 px-4 font-title text-xl flex justify-between items-center group">
+                <span>▶ LOAD DATA (ADULTS)</span>
+                <span class="opacity-0 group-hover:opacity-100 transition-opacity">🛡️</span>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- SCREEN 2: CLASS / AVATAR SELECT (Kids) -->
+    <div id="class-select-screen" class="screen flex-col items-center justify-center min-h-screen p-4">
+        <div class="w-full max-w-2xl">
+            <h2 class="font-title text-3xl text-golden-coin mb-6 text-center" style="text-shadow: 2px 2px 0px #4E342E;">
+                CHOOSE YOUR HERO</h2>
+
+            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                <!-- Character 1 -->
+                <div class="char-card w-32 p-2 rounded-lg text-center" onclick="selectChar(this, 'Baaren')">
+                    <div
+                        class="w-24 h-24 mx-auto bg-sky-blue rounded mb-2 flex items-center justify-center text-4xl border-2 border-dark-wood">
+                        🐻</div>
+                    <p class="font-title text-dark-wood">BAAREN</p>
+                </div>
+                <!-- Character 2 -->
+                <div class="char-card w-32 p-2 rounded-lg text-center" onclick="selectChar(this, 'Shicka')">
+                    <div
+                        class="w-24 h-24 mx-auto bg-basketball-orange rounded mb-2 flex items-center justify-center text-4xl border-2 border-dark-wood">
+                        🦊</div>
+                    <p class="font-title text-dark-wood">SHICKA</p>
+                </div>
+                <!-- Character 3 -->
+                <div class="char-card w-32 p-2 rounded-lg text-center" onclick="selectChar(this, 'Dunker')">
+                    <div
+                        class="w-24 h-24 mx-auto bg-grass-green rounded mb-2 flex items-center justify-center text-4xl border-2 border-dark-wood">
+                        🏀</div>
+                    <p class="font-title text-dark-wood">DUNKER</p>
+                </div>
+            </div>
+
+            <!-- Context Dialogue -->
+            <div class="voxel-panel p-4 mb-8 min-h-[100px] flex items-center justify-center text-center">
+                <p id="char-desc" class="font-bold text-lg">Select a character to view their stats...</p>
+            </div>
+
+            <div class="text-center">
+                <button id="btn-confirm-char" onclick="goToMinigames()"
+                    class="btn-console py-4 px-8 font-title text-2xl hidden mx-auto bg-grass-green text-white">
+                    CONFIRM SELECTION!
+                </button>
+                <button onclick="switchScreen('menu-screen')"
+                    class="mt-4 text-sky-blue underline font-bold uppercase hover:text-white">Back to Title</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCREEN 3: MISSION HUB / SAVE SLOTS (Kids - Post Minigame Sim) -->
+    <div id="mission-hub-screen" class="screen flex-col items-center justify-center min-h-screen p-4">
+        <div class="voxel-panel w-full max-w-lg p-6">
+            <div class="flex justify-between items-center border-b-4 border-dark-wood pb-4 mb-6">
+                <h2 class="font-title text-2xl">MISSION BRIEFING</h2>
+                <div class="bg-basketball-orange text-white px-3 py-1 rounded font-title border-2 border-dark-wood">LVL
+                    9</div>
+            </div>
+
+            <ul class="space-y-3 font-bold text-lg mb-8">
+                <li class="flex items-center gap-2"><span>📍</span> <strong>TARGET:</strong> KBOOM (Av. Italia 3421)
+                </li>
+                <li class="flex items-center gap-2"><span>⏰</span> <strong>TIME:</strong> May 24th, 18:30 - 21:00 hs
+                </li>
+                <li class="flex items-center gap-2 text-red-600 bg-red-100 p-2 rounded border border-red-300">
+                    <span>⚠️</span> <strong>GEAR REQ:</strong> Must equip SOCKS! 🧦
+                </li>
+            </ul>
+
+            <h3 class="font-title text-xl mb-4 text-center">SELECT SAVE SLOT TO RSVP:</h3>
+
+            <div class="flex flex-col gap-3">
+                <div class="save-slot p-4 rounded-lg flex justify-between items-center" onclick="confirmRSVP('SLOT A')">
+                    <div>
+                        <p class="font-title text-xl">SLOT A</p>
+                        <p class="font-body text-sm opacity-80">Empty Slot</p>
+                    </div>
+                    <span class="text-2xl">💾</span>
+                </div>
+
+                <div class="save-slot p-4 rounded-lg flex justify-between items-center" onclick="confirmRSVP('SLOT B')">
+                    <div>
+                        <p class="font-title text-xl">SLOT B</p>
+                        <p class="font-body text-sm opacity-80">Empty Slot</p>
+                    </div>
+                    <span class="text-2xl">💾</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCREEN 4: GUARDIAN DATA TERMINAL (Adults) -->
+    <div id="guardian-data-screen" class="screen flex-col items-center justify-center min-h-screen p-4">
+        <div class="voxel-panel w-full max-w-md p-6 bg-console-dark text-console-grey border-console-grey">
+            <h2 class="font-title text-2xl mb-4 text-sky-blue border-b border-sky-blue pb-2">> LOGISTICS_TERMINAL.exe
+            </h2>
+
+            <div class="font-mono text-sm space-y-4 mb-8">
+                <p><span class="text-golden-coin">EVENT:</span> Facu's 9th Birthday</p>
+                <p><span class="text-golden-coin">LOC:</span> KBOOM (Av. Italia 3421)<br>
+                    <a href="#" class="text-sky-blue underline hover:text-white">>> RUN Maps_Locator</a>
+                </p>
+                <p><span class="text-golden-coin">DATE:</span> Sun, May 24th [18:30 - 21:00]</p>
+                <p class="text-red-400 bg-red-900/30 p-2 border border-red-500">
+                    ! CRITICAL REQUIREMENT !<br>
+                    Socks and comfortable clothes are mandatory for participation.
+                </p>
+            </div>
+
+            <button onclick="alert('SYSTEM: RSVP Confirmed.')"
+                class="w-full bg-grass-green text-white font-title text-xl py-3 border-2 border-white hover:bg-white hover:text-grass-green transition-colors mb-4">
+                > EXECUTE RSVP
+            </button>
+
+            <button onclick="switchScreen('menu-screen')"
+                class="w-full text-center font-mono text-sm text-gray-400 hover:text-white uppercase">
+                [ Return to Root ]
+            </button>
+        </div>
+    </div>
+
+
+    <script>
+        // State
+        let selectedCharacter = null;
+
+        // Navigation
+        function switchScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function goToClassSelect() {
+            switchScreen('class-select-screen');
+        }
+
+        function goToGuardianData() {
+            switchScreen('guardian-data-screen');
+        }
+
+        // Logic
+        const charDescriptions = {
+            'Baaren': '"Ready for impact! Heavy jumper, excellent for KBOOM bounce zones." 🐻',
+            'Shicka': '"If we get lost, blame the map! Fast runner, agile on the court." 🦊',
+            'Dunker': '"Three-point specialist! High stamina for the 2.5 hour mission." 🏀'
+        };
+
+        function selectChar(element, charName) {
+            // Reset styles
+            document.querySelectorAll('.char-card').forEach(c => c.classList.remove('selected'));
+            // Apply select style
+            element.classList.add('selected');
+
+            selectedCharacter = charName;
+
+            // Update Text
+            document.getElementById('char-desc').innerText = charDescriptions[charName];
+
+            // Show confirm button
+            document.getElementById('btn-confirm-char').classList.remove('hidden');
+        }
+
+        function goToMinigames() {
+            // In a real flow, this would load minijuegos.html or a minigame component.
+            // For this mockup, we simulate winning the games and going to the Save Hub.
+            alert(`You selected ${selectedCharacter}! Simulating gameplay victory...`);
+            switchScreen('mission-hub-screen');
+        }
+
+        function confirmRSVP(slot) {
+            if (confirm(`Overwrite ${slot} and confirm attendance?`)) {
+                alert('SAVE SUCCESSFUL! 💾\nSee you on May 24th at KBOOM!');
+            }
+        }
+    </script>
+</body>
+
+</html>
