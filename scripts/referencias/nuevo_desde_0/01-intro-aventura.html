@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GRAN FACU AVENTURA - ¡La Misión Comienza!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap"
+        rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -78,12 +80,12 @@
             font-family: 'Fredoka One', cursive;
             font-size: clamp(3rem, 10vw, 6rem);
             color: var(--amarillo);
-            text-shadow: 
+            text-shadow:
                 5px 5px 0 var(--marron-oscuro),
                 -3px -3px 0 var(--marron-oscuro),
                 3px -3px 0 var(--marron-oscuro),
                 -3px 3px 0 var(--marron-oscuro),
-                0 8px 0 rgba(0,0,0,0.3);
+                0 8px 0 rgba(0, 0, 0, 0.3);
             text-align: center;
             z-index: 10;
             animation: titleBounce 1.5s ease-in-out infinite alternate;
@@ -99,7 +101,7 @@
             font-family: 'Fredoka One', cursive;
             font-size: clamp(1rem, 3vw, 1.8rem);
             color: white;
-            text-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+            text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
             margin-top: 20px;
             z-index: 10;
             animation: fadeInUp 1s ease 0.5s both;
@@ -148,8 +150,13 @@
             z-index: 1;
         }
 
-        .bear-ear-main.left { left: 8%; }
-        .bear-ear-main.right { right: 8%; }
+        .bear-ear-main.left {
+            left: 8%;
+        }
+
+        .bear-ear-main.right {
+            right: 8%;
+        }
 
         .bear-ear-inner-main {
             width: 50%;
@@ -171,8 +178,13 @@
             animation: bearBlink 4s infinite;
         }
 
-        .bear-eye-main.left { left: 26%; }
-        .bear-eye-main.right { right: 26%; }
+        .bear-eye-main.left {
+            left: 26%;
+        }
+
+        .bear-eye-main.right {
+            right: 26%;
+        }
 
         .bear-eye-main::after {
             content: '';
@@ -357,10 +369,10 @@
             bottom: 25%;
             left: 10%;
             z-index: 5;
-            width: 180px; 
+            width: 180px;
             height: auto;
             animation: npcIdle 3s ease-in-out infinite;
-            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.3));
+            filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.3));
         }
 
         .npc-character img {
@@ -380,7 +392,7 @@
             background: white;
             border-radius: 20px;
             border: 5px solid #333;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             padding: 25px;
             z-index: 100;
         }
@@ -442,7 +454,7 @@
             justify-content: space-between;
             align-items: center;
             z-index: 100;
-            background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, transparent 100%);
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, transparent 100%);
         }
 
         .hud-coin-display {
@@ -452,7 +464,7 @@
             font-family: 'Fredoka One', cursive;
             font-size: 1.6rem;
             color: var(--amarillo);
-            text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
         }
 
         .coin-icon-hud {
@@ -544,7 +556,7 @@
             font-family: 'Fredoka One', cursive;
             font-size: clamp(0.6rem, 1.8vw, 0.8rem);
             color: white;
-            text-shadow: 2px 2px 0 rgba(0,0,0,0.8);
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
             text-align: center;
             z-index: 2;
             margin-top: 5px;
@@ -563,11 +575,25 @@
             border: 2px solid var(--marron-oscuro);
         }
 
-        .node-1 { background: #4CAF50; }
-        .node-2 { background: #2196F3; }
-        .node-3 { background: #FF9800; }
-        .node-4 { background: #9C27B0; }
-        .node-5 { background: #F44336; }
+        .node-1 {
+            background: #4CAF50;
+        }
+
+        .node-2 {
+            background: #2196F3;
+        }
+
+        .node-3 {
+            background: #FF9800;
+        }
+
+        .node-4 {
+            background: #9C27B0;
+        }
+
+        .node-5 {
+            background: #F44336;
+        }
 
         .path-connector-line {
             width: 8px;
@@ -588,12 +614,29 @@
         }
 
         /* Zigzag en el camino */
-        .adventure-path .path-node:nth-child(1) { transform: translateX(-40px); }
-        .adventure-path .path-node:nth-child(3) { transform: translateX(-40px); }
-        .adventure-path .path-node:nth-child(5) { transform: translateX(-40px); }
-        .adventure-path .path-node:nth-child(2) { transform: translateX(40px); }
-        .adventure-path .path-node:nth-child(4) { transform: translateX(40px); }
-        .adventure-path .path-node:nth-child(6) { transform: translateX(40px); }
+        .adventure-path .path-node:nth-child(1) {
+            transform: translateX(-40px);
+        }
+
+        .adventure-path .path-node:nth-child(3) {
+            transform: translateX(-40px);
+        }
+
+        .adventure-path .path-node:nth-child(5) {
+            transform: translateX(-40px);
+        }
+
+        .adventure-path .path-node:nth-child(2) {
+            transform: translateX(40px);
+        }
+
+        .adventure-path .path-node:nth-child(4) {
+            transform: translateX(40px);
+        }
+
+        .adventure-path .path-node:nth-child(6) {
+            transform: translateX(40px);
+        }
 
         /* ============================================
            TARJETAS DE INFORMACIÓN
@@ -607,7 +650,7 @@
             background: white;
             border-radius: 25px;
             border: 6px solid var(--marron-oscuro);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4), 0 0 0 5px var(--amarillo);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 0 5px var(--amarillo);
             padding: 35px;
             z-index: 200;
             max-width: 550px;
@@ -627,7 +670,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0, 0, 0, 0.7);
             z-index: 199;
         }
 
@@ -698,68 +741,152 @@
            ANIMACIONES
            ============================================ */
         @keyframes floatCloud {
-            from { transform: translateX(-200px); }
-            to { transform: translateX(calc(100vw + 200px)); }
+            from {
+                transform: translateX(-200px);
+            }
+
+            to {
+                transform: translateX(calc(100vw + 200px));
+            }
         }
 
         @keyframes titleBounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-15px); }
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-15px);
+            }
         }
 
         @keyframes bearFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
         }
 
         @keyframes bearBlink {
-            0%, 95%, 100% { transform: scaleY(1); }
-            97% { transform: scaleY(0.1); }
+
+            0%,
+            95%,
+            100% {
+                transform: scaleY(1);
+            }
+
+            97% {
+                transform: scaleY(0.1);
+            }
         }
 
         @keyframes pulseButton {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.08);
+            }
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes npcIdle {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
         }
 
         @keyframes indicatorBlink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
         }
 
         @keyframes coinSpin {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
+            0% {
+                transform: rotateY(0deg);
+            }
+
+            100% {
+                transform: rotateY(360deg);
+            }
         }
 
         @keyframes heartPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
         }
 
         @keyframes nodeGlow {
-            0%, 100% { box-shadow: 0 8px 0 var(--marron-oscuro), 0 0 25px rgba(255,214,0,0.6); }
-            50% { box-shadow: 0 8px 0 var(--marron-oscuro), 0 0 50px rgba(255,214,0,1); }
+
+            0%,
+            100% {
+                box-shadow: 0 8px 0 var(--marron-oscuro), 0 0 25px rgba(255, 214, 0, 0.6);
+            }
+
+            50% {
+                box-shadow: 0 8px 0 var(--marron-oscuro), 0 0 50px rgba(255, 214, 0, 1);
+            }
         }
 
         @keyframes popupAppear {
-            from { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
-            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.3);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
         }
 
         /* ============================================
@@ -790,6 +917,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- ============================================
@@ -819,8 +947,12 @@
         <!-- Oso héroe -->
         <div class="hero-bear">
             <div class="bear-head-main">
-                <div class="bear-ear-main left"><div class="bear-ear-inner-main"></div></div>
-                <div class="bear-ear-main right"><div class="bear-ear-inner-main"></div></div>
+                <div class="bear-ear-main left">
+                    <div class="bear-ear-inner-main"></div>
+                </div>
+                <div class="bear-ear-main right">
+                    <div class="bear-ear-inner-main"></div>
+                </div>
                 <div class="bear-eye-main left"></div>
                 <div class="bear-eye-main right"></div>
                 <div class="bear-snout-main">
@@ -835,7 +967,7 @@
 
         <!-- Botón Start -->
         <button class="start-button" onclick="startAdventure()">
-             ¡INICIAR AVENTURA! 
+            ¡INICIAR AVENTURA!
         </button>
     </div>
 
@@ -899,7 +1031,8 @@
                 <div class="coin-icon-hud"></div>
                 <span id="coinCounter">0</span>
             </div>
-            <div style="font-family: 'Fredoka One', cursive; color: white; text-shadow: 2px 2px 0 rgba(0,0,0,0.5); font-size: 1rem;">
+            <div
+                style="font-family: 'Fredoka One', cursive; color: white; text-shadow: 2px 2px 0 rgba(0,0,0,0.5); font-size: 1rem;">
                 GRAN FACU AVENTURA
             </div>
             <div class="hud-lives-display">
@@ -912,7 +1045,7 @@
         <!-- Contenido del mapa -->
         <div class="map-content">
             <div class="map-title-text"> MAPA DE LA MISIÓN</div>
-            
+
             <div class="adventure-path">
                 <!-- Nodo 1 -->
                 <div class="path-node node-1 active-node" onclick="openNodeInfo(1)">
@@ -962,7 +1095,8 @@
         <div class="popup-icon"></div>
         <div class="popup-title">¡Bienvenido a la misión!</div>
         <div class="popup-description">
-            Facu cumple <strong>9 años</strong> y necesita tu ayuda para completar esta aventura épica. ¡Explora cada nivel para descubrir los detalles de la fiesta!
+            Facu cumple <strong>9 años</strong> y necesita tu ayuda para completar esta aventura épica. ¡Explora cada
+            nivel para descubrir los detalles de la fiesta!
         </div>
         <div class="popup-detail">
             <span class="popup-detail-icon">📅</span>
@@ -1086,7 +1220,7 @@
             currentScene: 0
         };
 
-        // Diálogos secuenciales (como el Video 1)
+        // Diálogos secuenciales
         const dialogues = [
             {
                 name: ' Amigo de Facu',
@@ -1132,12 +1266,12 @@
 
             const dialogue = dialogues[gameState.currentDialogue];
             document.getElementById('dialogueName').textContent = dialogue.name;
-            
+
             // Efecto typing
             const textElement = document.getElementById('dialogueText');
             textElement.textContent = '';
             let charIndex = 0;
-            
+
             const typeInterval = setInterval(() => {
                 if (charIndex < dialogue.text.length) {
                     textElement.textContent += dialogue.text[charIndex];
@@ -1158,11 +1292,11 @@
         function openNodeInfo(nodeNum) {
             // Ocultar todos los popups
             document.querySelectorAll('.info-popup').forEach(p => p.classList.remove('active'));
-            
+
             // Mostrar popup correspondiente
             document.getElementById('popup' + nodeNum).classList.add('active');
             document.getElementById('popupOverlay').classList.add('active');
-            
+
             // Efecto de confetti simple
             spawnMiniConfetti();
         }
@@ -1176,7 +1310,7 @@
         // Mini confetti
         function spawnMiniConfetti() {
             const colors = ['#FFD600', '#F44336', '#4CAF50', '#2196F3', '#FF9800', '#9C27B0'];
-            
+
             for (let i = 0; i < 30; i++) {
                 const confetti = document.createElement('div');
                 confetti.style.cssText = `
@@ -1192,7 +1326,7 @@
                     pointer-events: none;
                 `;
                 document.body.appendChild(confetti);
-                
+
                 setTimeout(() => confetti.remove(), 3000);
             }
         }
@@ -1213,4 +1347,5 @@
         });
     </script>
 </body>
+
 </html>
