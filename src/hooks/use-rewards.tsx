@@ -51,9 +51,9 @@ export function RewardsProvider({ children }: { children: ReactNode }) {
 
   const initialState = useMemo(getInitialState, []);
   
-  const [coins, setCoins] = useState(initialState.coins ?? 0);
+  const [coins, setCoins] = useState<number>(initialState.coins ?? 0);
   const [steps, setSteps] = useState<MissionStep[]>(initialState.steps ?? defaultSteps);
-  const [currentStepIndex, setCurrentStepIndex] = useState(initialState.currentStepIndex ?? 0);
+  const [currentStepIndex, setCurrentStepIndex] = useState<number>(initialState.currentStepIndex ?? 0);
 
   // Debounced save to localStorage
   useEffect(() => {
