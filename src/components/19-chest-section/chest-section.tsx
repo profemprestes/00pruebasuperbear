@@ -121,3 +121,4 @@ export function ChestSection({ onNext, photo1, photo2 }: ChestSectionProps) {
     </MissionSection>
   );
 }
+

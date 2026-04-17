@@ -141,3 +141,4 @@ export function ShopSection({ onNext }: ShopSectionProps) {
     </MissionSection>
   );
 }
+

@@ -141,3 +141,4 @@ export function MissionSection({
     </motion.div>
   );
 }
+

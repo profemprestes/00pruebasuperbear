@@ -150,3 +150,4 @@ const Subtitle = React.forwardRef<HTMLParagraphElement, SubtitleProps>(
 Subtitle.displayName = "Subtitle"
 
 export { Heading, Body, Label, Subtitle, headingVariants, bodyVariants, labelVariants, subtitleVariants }
+

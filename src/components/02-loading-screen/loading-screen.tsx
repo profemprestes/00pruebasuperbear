@@ -124,3 +124,4 @@ export function LoadingScreen({ onStart }: LoadingScreenProps) {
     </div>
   );
 }
+

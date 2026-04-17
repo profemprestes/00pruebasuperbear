@@ -25,3 +25,4 @@ export function DialogBox({ icon, title, children, className }: DialogBoxProps) 
     </Card>
   );
 }
+

@@ -40,3 +40,4 @@ export function AvatarDisplay({ config, className }: AvatarDisplayProps) {
         </div>
     );
 };
+

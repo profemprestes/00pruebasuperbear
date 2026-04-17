@@ -116,3 +116,4 @@ export function BioBookScreen({ onRestart, facuLikes, photo1, photo2 }: BioBookS
     </div>
   );
 }
+

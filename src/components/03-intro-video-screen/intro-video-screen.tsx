@@ -38,3 +38,4 @@ export function IntroVideoScreen({ onVideoEnd }: IntroVideoScreenProps) {
         </div>
     );
 }
+

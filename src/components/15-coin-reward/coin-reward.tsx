@@ -110,3 +110,4 @@ export function CoinReward({ amount, onComplete, className }: CoinRewardProps) {
     </AnimatePresence>
   );
 }
+

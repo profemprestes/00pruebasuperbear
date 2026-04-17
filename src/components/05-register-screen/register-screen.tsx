@@ -536,3 +536,4 @@ export function RegisterScreen({ onPlayArcade, onSkipArcade }: RegisterScreenPro
     </div>
   );
 }
+

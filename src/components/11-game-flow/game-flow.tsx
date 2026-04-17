@@ -58,3 +58,4 @@ export function GameFlow({ photo1, photo2 }: GameFlowProps) {
     </div>
   );
 }
+

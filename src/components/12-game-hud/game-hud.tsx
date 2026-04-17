@@ -180,3 +180,4 @@ export function GameHUD({ onStepClick, className }: GameHUDProps) {
     </div>
   );
 }
+

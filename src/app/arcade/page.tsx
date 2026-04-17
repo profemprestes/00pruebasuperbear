@@ -16,3 +16,4 @@ export default function ArcadePage() {
   
   return <ArcadeWorldScreen onArcadeEnd={handleArcadeEnd} />;
 }
+

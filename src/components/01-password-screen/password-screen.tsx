@@ -65,3 +65,4 @@ export function PasswordScreen({ onCorrectPassword }: PasswordScreenProps) {
     </div>
   );
 }
+

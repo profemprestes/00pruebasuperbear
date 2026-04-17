@@ -131,3 +131,4 @@ export function MapSection({ onNext }: MapSectionProps) {
     </MissionSection>
   );
 }
+
