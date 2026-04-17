@@ -38,21 +38,6 @@ const nextConfig: NextConfig = {
   compress: true,
   // Enable React Strict Mode for better performance in development
   reactStrictMode: true,
-  // Optimize CSS
-  css: {
-    loaderOptions: {
-      postcss: {
-        preset: [
-          'default',
-          {
-            autoprefixer: {
-              overrideBrowserslist: ['last 2 versions', '> 1%', 'not dead'],
-            },
-          },
-        ],
-      },
-    },
-  },
   // Webpack optimizations
   webpack: (config, { isServer }) => {
     // Reduce bundle size by excluding certain modules
