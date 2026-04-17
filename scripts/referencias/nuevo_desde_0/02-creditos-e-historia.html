@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRAN FACU AVENTURA - Créditos e Historia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --amarillo: #FFD600;
+            --marron-oscuro: #4E342E;
+            --azul-fondo: #1A237E;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            overflow: hidden;
+            background: #000;
+        }
+
+        /* ============================================
+           PANTALLA DE CRÉDITOS (Como el Video 2)
+           ============================================ */
+        .credits-screen {
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Monedas flotantes estilo Video 2 */
+        .floating-coin-credit {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: var(--amarillo);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            animation: coinFloat linear infinite;
+            opacity: 0.7;
+        }
+
+        .coin-1 { left: 10%; animation-duration: 8s; animation-delay: 0s; }
+        .coin-2 { left: 25%; animation-duration: 10s; animation-delay: 2s; }
+        .coin-3 { left: 40%; animation-duration: 9s; animation-delay: 1s; }
+        .coin-4 { left: 55%; animation-duration: 11s; animation-delay: 3s; }
+        .coin-5 { left: 70%; animation-duration: 8s; animation-delay: 0.5s; }
+        .coin-6 { left: 85%; animation-duration: 10s; animation-delay: 2.5s; }
+        .coin-7 { left: 15%; animation-duration: 12s; animation-delay: 4s; }
+        .coin-8 { left: 60%; animation-duration: 9s; animation-delay: 1.5s; }
+
+        /* Contenido de créditos scrolleable */
+        .credits-content {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+            animation: creditsScroll 25s linear forwards;
+        }
+
+        .credit-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+        }
+
+        .credit-name {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.3rem;
+            color: white;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .credit-section {
+            margin-bottom: 50px;
+        }
+
+        /* Oso en los créditos (como el Video 2) */
+        .credit-bear {
+            width: 80px;
+            height: 100px;
+            margin: 30px auto;
+            position: relative;
+            animation: bearWalk 1s ease-in-out infinite alternate;
+        }
+
+        .credit-bear-body {
+            width: 60px;
+            height: 70px;
+            background: #8D6E63;
+            border-radius: 10px;
+            position: absolute;
+            bottom: 0;
+            left: 10px;
+            border: 3px solid #4E342E;
+        }
+
+        .credit-bear-head {
+            width: 70px;
+            height: 60px;
+            background: #8D6E63;
+            border-radius: 8px;
+            position: absolute;
+            top: 0;
+            left: 5px;
+            border: 3px solid #4E342E;
+        }
+
+        .credit-bear-eye {
+            width: 8px;
+            height: 10px;
+            background: #4E342E;
+            border-radius: 50%;
+            position: absolute;
+            top: 20px;
+        }
+
+        .credit-bear-eye.left { left: 18px; }
+        .credit-bear-eye.right { right: 18px; }
+
+        /* Botón Saltar */
+        .skip-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1rem;
+            padding: 10px 25px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.5);
+            border-radius: 25px;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s;
+        }
+
+        .skip-button:hover {
+            background: rgba(255,255,255,0.4);
+        }
+
+        /* ============================================
+           PANTALLA DE HISTORIA (Cutscenes)
+           ============================================ */
+        .story-screen {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-screen.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Paneles de historia estilo cómic */
+        .story-panel {
+            display: none;
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .story-panel.active {
+            display: flex;
+            animation: panelAppear 0.6s ease;
+        }
+
+        /* Ilustración estilo dibujado */
+        .story-illustration {
+            width: clamp(250px, 70vw, 500px);
+            height: clamp(200px, 50vh, 350px);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Escena 1: El reino feliz */
+        .scene-happy-kingdom {
+            background: linear-gradient(180deg, #87CEEB 0%, #87CEEB 50%, #4CAF50 50%, #66BB6A 100%);
+        }
+
+        .scene-happy-kingdom::before {
+            content: '🏰🎉🦊';
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+            white-space: nowrap;
+        }
+
+        .scene-happy-kingdom::after {
+            content: 'Por siglos, existió un reino feliz...';
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Fredoka One', cursive;
+            color: white;
+            font-size: 1.2rem;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+            white-space: nowrap;
+        }
+
+        /* Escena 2: La amenaza */
+        .scene-threat {
+            background: linear-gradient(180deg, #FF6F00 0%, #FF6F00 50%, #F44336 50%, #B71C1C 100%);
+        }
+
+        .scene-threat::before {
+            content: '😱🐸💜';
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+            white-space: nowrap;
+        }
+
+        .scene-threat::after {
+            content: '¡Pero una amenaza oscura se acercaba!';
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Fredoka One', cursive;
+            color: white;
+            font-size: 1.2rem;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+            white-space: nowrap;
+        }
+
+        /* Escena 3: El héroe */
+        .scene-hero {
+            background: linear-gradient(180deg, #87CEEB 0%, #87CEEB 50%, #4CAF50 50%, #66BB6A 100%);
+        }
+
+        .scene-hero::before {
+            content: '🐻✨';
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 4rem;
+        }
+
+        .scene-hero::after {
+            content: '¡Pero un héroe valiente se alzó!';
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Fredoka One', cursive;
+            color: white;
+            font-size: 1.2rem;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+            white-space: nowrap;
+        }
+
+        /* Escena 4: La fiesta */
+        .scene-party {
+            background: linear-gradient(180deg, #FFD600 0%, #FFD600 50%, #4CAF50 50%, #66BB6A 100%);
+        }
+
+        .scene-party::before {
+            content: '🎉🎂🎈🎊';
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+            white-space: nowrap;
+        }
+
+        .scene-party::after {
+            content: '¡Y la aventura culminó en una GRAN FIESTA!';
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Fredoka One', cursive;
+            color: white;
+            font-size: 1.2rem;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+            white-space: nowrap;
+        }
+
+        /* Texto de historia */
+        .story-text {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: #333;
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* Botones de navegación */
+        .story-nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .story-nav-btn {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1rem;
+            padding: 12px 30px;
+            background: var(--amarillo);
+            color: var(--marron-oscuro);
+            border: 3px solid var(--marron-oscuro);
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 0 var(--marron-oscuro);
+            transition: all 0.2s;
+        }
+
+        .story-nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 0 var(--marron-oscuro);
+        }
+
+        .story-nav-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 var(--marron-oscuro);
+        }
+
+        /* Indicador de página */
+        .page-indicator {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Fredoka One', cursive;
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* ============================================
+           PANTALLA DE SELECCIÓN DE PARTIDA
+           ============================================ */
+        .save-select-screen {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(180deg, #87CEEB 0%, #4CAF50 50%, #2E7D32 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .save-select-screen.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .save-select-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            color: white;
+            text-shadow: 3px 3px 0 var(--marron-oscuro);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        /* Slots de guardado */
+        .save-slots {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0 20px;
+        }
+
+        .save-slot {
+            width: clamp(150px, 30vw, 200px);
+            padding: 30px 20px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
+            border: 5px solid var(--marron-oscuro);
+            box-shadow: 0 8px 0 var(--marron-oscuro);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .save-slot:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 0 var(--marron-oscuro);
+        }
+
+        .save-slot:active {
+            transform: translateY(4px);
+            box-shadow: 0 3px 0 var(--marron-oscuro);
+        }
+
+        .save-slot-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .save-slot-name {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.2rem;
+            color: var(--marron-oscuro);
+            margin-bottom: 5px;
+        }
+
+        .save-slot-status {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Confirmación */
+        .confirm-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 20px;
+            border: 5px solid var(--marron-oscuro);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            padding: 30px;
+            z-index: 200;
+            text-align: center;
+            animation: popupAppear 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .confirm-popup.active {
+            display: block;
+        }
+
+        .confirm-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.5rem;
+            color: var(--marron-oscuro);
+            margin-bottom: 15px;
+        }
+
+        .confirm-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .confirm-btn {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1rem;
+            padding: 12px 30px;
+            border: 3px solid var(--marron-oscuro);
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 0 var(--marron-oscuro);
+            transition: all 0.2s;
+        }
+
+        .confirm-btn.confirm {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .confirm-btn.cancel {
+            background: #F44336;
+            color: white;
+        }
+
+        .confirm-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        /* ============================================
+           TRANSICIONES
+           ============================================ */
+        .transition-zigzag {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 500;
+            pointer-events: none;
+        }
+
+        .transition-zigzag.active {
+            display: block;
+            animation: zigzagTransition 0.5s ease forwards;
+        }
+
+        .zigzag-left, .zigzag-right {
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 100%;
+        }
+
+        .zigzag-left {
+            left: 0;
+            background: linear-gradient(135deg, #2196F3 25%, #FFD600 25%, #FFD600 50%, #2196F3 50%, #2196F3 75%, #FFD600 75%);
+            background-size: 40px 40px;
+            transform: translateX(-100%);
+            animation: zigzagLeft 0.5s ease forwards;
+        }
+
+        .zigzag-right {
+            right: 0;
+            background: linear-gradient(135deg, #FFD600 25%, #2196F3 25%, #2196F3 50%, #FFD600 50%, #FFD600 75%, #2196F3 75%);
+            background-size: 40px 40px;
+            transform: translateX(100%);
+            animation: zigzagRight 0.5s ease forwards;
+        }
+
+        /* ============================================
+           ANIMACIONES
+           ============================================ */
+        @keyframes coinFloat {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        @keyframes creditsScroll {
+            0% { top: 100%; }
+            100% { top: -100%; }
+        }
+
+        @keyframes bearWalk {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes panelAppear {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes popupAppear {
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        @keyframes zigzagLeft {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        @keyframes zigzagRight {
+            0% { transform: translateX(100%); }
+            50% { transform: translateX(0); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 600px) {
+            .save-slots {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .story-illustration {
+                width: 90%;
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         PANTALLA DE CRÉDITOS (Como Video 2)
+         ============================================ -->
+    <div class="credits-screen" id="creditsScreen">
+        <!-- Monedas flotantes -->
+        <div class="floating-coin-credit coin-1"></div>
+        <div class="floating-coin-credit coin-2"></div>
+        <div class="floating-coin-credit coin-3"></div>
+        <div class="floating-coin-credit coin-4"></div>
+        <div class="floating-coin-credit coin-5"></div>
+        <div class="floating-coin-credit coin-6"></div>
+        <div class="floating-coin-credit coin-7"></div>
+        <div class="floating-coin-credit coin-8"></div>
+
+        <!-- Botón Saltar -->
+        <button class="skip-button" onclick="skipCredits()"> Saltar </button>
+
+        <!-- Contenido de créditos -->
+        <div class="credits-content">
+            <div class="credit-section">
+                <div class="credit-title">GRAN FACU AVENTURA</div>
+                <div class="credit-name">Una invitación de cumpleaños épica</div>
+            </div>
+
+            <div class="credit-bear">
+                <div class="credit-bear-head">
+                    <div class="credit-bear-eye left"></div>
+                    <div class="credit-bear-eye right"></div>
+                </div>
+                <div class="credit-bear-body"></div>
+            </div>
+
+            <div class="credit-section">
+                <div class="credit-title">Creado por</div>
+                <div class="credit-name">Los Amigos de Facu</div>
+            </div>
+
+            <div class="credit-section">
+                <div class="credit-title">Música</div>
+                <div class="credit-name">¡La fiesta de cumpleaños!</div>
+            </div>
+
+            <div class="credit-section">
+                <div class="credit-title">Ilustraciones</div>
+                <div class="credit-name">Tu imaginación </div>
+            </div>
+
+            <div class="credit-section">
+                <div class="credit-title">Agradecimientos especiales</div>
+                <div class="credit-name">A todos los amigos que vendrán<br>a celebrar con Facu</div>
+            </div>
+
+            <div class="credit-section">
+                <div class="credit-title">Traducción al diversión</div>
+                <div class="credit-name">Facu y sus 9 años de aventuras</div>
+            </div>
+
+            <div class="credit-section">
+                <div class="credit-title">Powered by</div>
+                <div class="credit-name">Amistad y Diversión</div>
+            </div>
+
+            <div class="credit-section">
+                <div class="credit-title" style="font-size: 2.5rem; color: #FFD600;">¡FELIZ CUMPLEAÑOS FACU!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         PANTALLA DE HISTORIA (Cutscenes)
+         ============================================ -->
+    <div class="story-screen" id="storyScreen">
+        <!-- Panel 1: El reino feliz -->
+        <div class="story-panel active" data-panel="1">
+            <div class="story-illustration scene-happy-kingdom"></div>
+            <div class="story-text">
+                Por siglos, existió un reino donde la diversión y la alegría reinaban. Todos los amigos vivían en armonía, jugando y riendo juntos.
+            </div>
+            <div class="story-nav">
+                <button class="story-nav-btn" onclick="nextPanel()">Siguiente ▶️</button>
+            </div>
+            <div class="page-indicator">Página 1/4</div>
+        </div>
+
+        <!-- Panel 2: La amenaza -->
+        <div class="story-panel" data-panel="2">
+            <div class="story-illustration scene-threat"></div>
+            <div class="story-text">
+                Pero un día, una amenaza oscura se acercó... ¡El aburrimiento! Los amigos comenzaron a estar tristes y sin ganas de jugar.
+            </div>
+            <div class="story-nav">
+                <button class="story-nav-btn" onclick="prevPanel()">◀️ Anterior</button>
+                <button class="story-nav-btn" onclick="nextPanel()">Siguiente ▶️</button>
+            </div>
+            <div class="page-indicator">Página 2/4</div>
+        </div>
+
+        <!-- Panel 3: El héroe -->
+        <div class="story-panel" data-panel="3">
+            <div class="story-illustration scene-hero"></div>
+            <div class="story-text">
+                Afortunadamente, un oso valiente llamado Facu se alzó. ¡Él cumpliría 9 años y organizaría la fiesta más épica de todas!
+            </div>
+            <div class="story-nav">
+                <button class="story-nav-btn" onclick="prevPanel()">◀️ Anterior</button>
+                <button class="story-nav-btn" onclick="nextPanel()">Siguiente ▶️</button>
+            </div>
+            <div class="page-indicator">Página 3/4</div>
+        </div>
+
+        <!-- Panel 4: La fiesta -->
+        <div class="story-panel" data-panel="4">
+            <div class="story-illustration scene-party"></div>
+            <div class="story-text">
+                Y así, Facu organizó una GRAN AVENTURA de cumpleaños. ¡Con juegos, comida, pastel y mucha diversión! ¿Te unes a la misión?
+            </div>
+            <div class="story-nav">
+                <button class="story-nav-btn" onclick="prevPanel()">◀️ Anterior</button>
+                <button class="story-nav-btn" onclick="goToSaveSelect()">¡Sí, quiero jugar! </button>
+            </div>
+            <div class="page-indicator">Página 4/4</div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         PANTALLA DE SELECCIÓN DE PARTIDA
+         ============================================ -->
+    <div class="save-select-screen" id="saveSelectScreen">
+        <div class="save-select-title"> Elige una partida para empezar a jugar</div>
+        
+        <div class="save-slots">
+            <div class="save-slot" onclick="selectSave('A')">
+                <div class="save-slot-icon">🐻</div>
+                <div class="save-slot-name">Partida A</div>
+                <div class="save-slot-status">¡Confirmar asistencia!</div>
+            </div>
+            <div class="save-slot" onclick="selectSave('B')">
+                <div class="save-slot-icon">🐻</div>
+                <div class="save-slot-name">Partida B</div>
+                <div class="save-slot-status">¡Confirmar asistencia!</div>
+            </div>
+            <div class="save-slot" onclick="selectSave('C')">
+                <div class="save-slot-icon">🐻</div>
+                <div class="save-slot-name">Partida C</div>
+                <div class="save-slot-status">¡Confirmar asistencia!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup de confirmación -->
+    <div class="confirm-popup" id="confirmPopup">
+        <div class="confirm-title" id="confirmTitle">¿Confirmar asistencia?</div>
+        <div style="font-size: 3rem; margin: 15px 0;">🎉</div>
+        <div style="color: #666;">
+            ¡Facu te espera el<br><strong>Sábado 15 de Junio</strong><br>a las <strong>4:00 PM</strong>!
+        </div>
+        <div class="confirm-buttons">
+            <button class="confirm-btn confirm" onclick="confirmAttendance()">¡Confirmar! ✅</button>
+            <button class="confirm-btn cancel" onclick="closeConfirm()">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- Transición zigzag -->
+    <div class="transition-zigzag" id="transitionZigzag">
+        <div class="zigzag-left"></div>
+        <div class="zigzag-right"></div>
+    </div>
+
+    <!-- ============================================
+         SCRIPTS
+         ============================================ -->
+    <script>
+        let currentPanel = 1;
+        const totalPanels = 4;
+
+        // Saltar créditos
+        function skipCredits() {
+            doTransition(() => {
+                document.getElementById('creditsScreen').style.display = 'none';
+                document.getElementById('storyScreen').classList.add('active');
+            });
+        }
+
+        // Auto-skip después de que terminen los créditos
+        setTimeout(() => {
+            if (document.getElementById('creditsScreen').style.display !== 'none') {
+                skipCredits();
+            }
+        }, 26000);
+
+        // Siguiente panel
+        function nextPanel() {
+            if (currentPanel < totalPanels) {
+                document.querySelector(`.story-panel[data-panel="${currentPanel}"]`).classList.remove('active');
+                currentPanel++;
+                document.querySelector(`.story-panel[data-panel="${currentPanel}"]`).classList.add('active');
+            }
+        }
+
+        // Panel anterior
+        function prevPanel() {
+            if (currentPanel > 1) {
+                document.querySelector(`.story-panel[data-panel="${currentPanel}"]`).classList.remove('active');
+                currentPanel--;
+                document.querySelector(`.story-panel[data-panel="${currentPanel}"]`).classList.add('active');
+            }
+        }
+
+        // Ir a selección de partida
+        function goToSaveSelect() {
+            doTransition(() => {
+                document.getElementById('storyScreen').classList.remove('active');
+                document.getElementById('saveSelectScreen').classList.add('active');
+            });
+        }
+
+        // Seleccionar guardado
+        function selectSave(slot) {
+            document.getElementById('confirmPopup').classList.add('active');
+        }
+
+        // Cerrar confirmación
+        function closeConfirm() {
+            document.getElementById('confirmPopup').classList.remove('active');
+        }
+
+        // Confirmar asistencia
+        function confirmAttendance() {
+            document.getElementById('confirmPopup').classList.remove('active');
+            
+            // Mostrar mensaje de éxito
+            setTimeout(() => {
+                alert('¡Asistencia confirmada! 🎉\n\n¡Nos vemos en la fiesta de Facu!\n\n📅 Sábado 15 de Junio\n⏰ 4:00 PM\n📍 Casa de Facu');
+            }, 300);
+        }
+
+        // Transición zigzag
+        function doTransition(callback) {
+            const transition = document.getElementById('transitionZigzag');
+            transition.classList.add('active');
+            
+            setTimeout(() => {
+                callback();
+                transition.classList.remove('active');
+            }, 500);
+        }
+
+        // Prevenir scroll
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.style.overflow = 'hidden';
+        });
+    </script>
+</body>
+</html>

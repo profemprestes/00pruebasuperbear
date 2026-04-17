@@ -1,0 +1,2054 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 GRAN FACU AVENTURA - ¡Estás Invitado!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           RESET Y VARIABLES GLOBALES
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --verde-principal: #4CAF50;
+            --verde-oscuro: #2E7D32;
+            --amarillo: #FFD600;
+            --azul: #2196F3;
+            --naranja: #FF9800;
+            --rojo: #F44336;
+            --morado: #9C27B0;
+            --celeste: #00BCD4;
+            --rosa: #E91E63;
+            --marron-claro: #8D6E63;
+            --marron-oscuro: #4E342E;
+            --suelo: #795548;
+            --cielo: #87CEEB;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            overflow-x: hidden;
+            background: var(--cielo);
+            cursor: url('image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="%23FFD600" stroke="%234E342E" stroke-width="3"/><circle cx="12" cy="12" r="3" fill="%234E342E"/><circle cx="20" cy="12" r="3" fill="%234E342E"/><ellipse cx="16" cy="20" rx="5" ry="3" fill="%234E342E"/></svg>') 16 16, auto;
+        }
+
+        /* ============================================
+           PANTALLA DE INICIO / SPLASH SCREEN
+           ============================================ */
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #87CEEB 0%, #4CAF50 60%, #2E7D32 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .splash-screen.hidden {
+            opacity: 0;
+            transform: scale(1.1);
+            pointer-events: none;
+        }
+
+        .splash-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            color: var(--amarillo);
+            text-shadow: 
+                4px 4px 0 var(--marron-oscuro),
+                -2px -2px 0 var(--marron-oscuro),
+                2px -2px 0 var(--marron-oscuro),
+                -2px 2px 0 var(--marron-oscuro),
+                0 6px 0 rgba(0,0,0,0.3);
+            animation: bounceTitle 1s ease-in-out infinite alternate;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .splash-subtitle {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            color: white;
+            text-shadow: 2px 2px 0 var(--marron-oscuro);
+            margin-top: 10px;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        .splash-bear {
+            width: clamp(150px, 30vw, 250px);
+            height: clamp(150px, 30vw, 250px);
+            position: relative;
+            margin: 30px 0;
+            animation: floatBear 3s ease-in-out infinite;
+        }
+
+        .bear-body {
+            width: 100%;
+            height: 70%;
+            background: var(--marron-claro);
+            border-radius: 20px;
+            position: absolute;
+            bottom: 0;
+            border: 4px solid var(--marron-oscuro);
+        }
+
+        .bear-head {
+            width: 80%;
+            height: 55%;
+            background: var(--marron-claro);
+            border-radius: 15px;
+            position: absolute;
+            top: 0;
+            left: 10%;
+            border: 4px solid var(--marron-oscuro);
+            z-index: 2;
+        }
+
+        .bear-ear {
+            width: 30%;
+            height: 30%;
+            background: var(--marron-claro);
+            border-radius: 50%;
+            position: absolute;
+            top: -10%;
+            border: 4px solid var(--marron-oscuro);
+            z-index: 1;
+        }
+
+        .bear-ear.left { left: 5%; }
+        .bear-ear.right { right: 5%; }
+
+        .bear-ear-inner {
+            width: 50%;
+            height: 50%;
+            background: #BCAAA4;
+            border-radius: 50%;
+            position: absolute;
+            top: 25%;
+            left: 25%;
+        }
+
+        .bear-eye {
+            width: 18%;
+            height: 22%;
+            background: var(--marron-oscuro);
+            border-radius: 50%;
+            position: absolute;
+            top: 30%;
+            animation: blink 4s infinite;
+        }
+
+        .bear-eye.left { left: 25%; }
+        .bear-eye.right { right: 25%; }
+
+        .bear-eye::after {
+            content: '';
+            width: 40%;
+            height: 40%;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 15%;
+            right: 15%;
+        }
+
+        .bear-snout {
+            width: 40%;
+            height: 30%;
+            background: #BCAAA4;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 15%;
+            left: 30%;
+        }
+
+        .bear-nose {
+            width: 35%;
+            height: 30%;
+            background: var(--marron-oscuro);
+            border-radius: 50%;
+            position: absolute;
+            top: 20%;
+            left: 32%;
+        }
+
+        .bear-mouth {
+            width: 40%;
+            height: 15%;
+            border-bottom: 3px solid var(--marron-oscuro);
+            border-radius: 0 0 50% 50%;
+            position: absolute;
+            bottom: 15%;
+            left: 30%;
+        }
+
+        .bear-belly {
+            width: 50%;
+            height: 40%;
+            background: #BCAAA4;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 10%;
+            left: 25%;
+        }
+
+        .start-btn {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            padding: 15px 50px;
+            background: var(--amarillo);
+            color: var(--marron-oscuro);
+            border: 4px solid var(--marron-oscuro);
+            border-radius: 15px;
+            cursor: pointer;
+            animation: pulseBtn 1.5s ease-in-out infinite;
+            transition: all 0.3s;
+            box-shadow: 0 6px 0 var(--marron-oscuro);
+            position: relative;
+            top: 0;
+        }
+
+        .start-btn:hover {
+            top: -4px;
+            box-shadow: 0 10px 0 var(--marron-oscuro);
+        }
+
+        .start-btn:active {
+            top: 2px;
+            box-shadow: 0 2px 0 var(--marron-oscuro);
+        }
+
+        /* ============================================
+           MUNDO PRINCIPAL / OVERWORLD
+           ============================================ */
+        .game-world {
+            display: none;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #87CEEB 0%, #B8E6F0 40%, #4CAF50 40%, #2E7D32 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-world.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* HUD Superior */
+        .hud {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 100%);
+        }
+
+        .hud-coins {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.5rem;
+            color: var(--amarillo);
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+        }
+
+        .hud-coin-icon {
+            width: 30px;
+            height: 30px;
+            background: var(--amarillo);
+            border-radius: 50%;
+            border: 3px solid #FFA000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            animation: spin3d 2s linear infinite;
+        }
+
+        .hud-lives {
+            display: flex;
+            gap: 5px;
+        }
+
+        .heart {
+            font-size: 1.5rem;
+            animation: heartBeat 1s ease-in-out infinite;
+        }
+
+        .hud-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(0.8rem, 2vw, 1.2rem);
+            color: white;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        /* ============================================
+           MAPA DEL MUNDO / WORLD MAP
+           ============================================ */
+        .world-map {
+            padding: 80px 20px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .map-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            color: white;
+            text-shadow: 3px 3px 0 var(--marron-oscuro);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .map-path {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        /* Nodos del camino */
+        .map-node {
+            width: clamp(80px, 20vw, 120px);
+            height: clamp(80px, 20vw, 120px);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            border: 4px solid var(--marron-oscuro);
+            box-shadow: 0 6px 0 var(--marron-oscuro);
+        }
+
+        .map-node:hover {
+            transform: scale(1.1) translateY(-5px);
+        }
+
+        .map-node:active {
+            transform: scale(0.95) translateY(2px);
+            box-shadow: 0 2px 0 var(--marron-oscuro);
+        }
+
+        .map-node.locked {
+            filter: grayscale(0.7);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .map-node.locked::after {
+            content: '🔒';
+            position: absolute;
+            font-size: 2rem;
+        }
+
+        .map-node.current {
+            animation: glowNode 2s ease-in-out infinite;
+        }
+
+        .node-icon {
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            z-index: 2;
+        }
+
+        .node-label {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(0.5rem, 1.5vw, 0.7rem);
+            color: white;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.8);
+            text-align: center;
+            z-index: 2;
+        }
+
+        .node-1 { background: var(--verde-principal); }
+        .node-2 { background: var(--azul); }
+        .node-3 { background: var(--naranja); }
+        .node-4 { background: var(--morado); }
+        .node-5 { background: var(--rojo); }
+
+        /* Conectores entre nodos */
+        .path-connector {
+            width: 6px;
+            height: 30px;
+            background: var(--marron-claro);
+            border-radius: 3px;
+            position: relative;
+        }
+
+        .path-connector::before {
+            content: '▶';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--marron-claro);
+            font-size: 0.8rem;
+        }
+
+        /* Zigzag para los nodos */
+        .map-path .map-node:nth-child(odd) {
+            transform: translateX(-30px);
+        }
+
+        .map-path .map-node:nth-child(even) {
+            transform: translateX(30px);
+        }
+
+        /* ============================================
+           ESCENARIO 3D / LEVEL DISPLAY
+           ============================================ */
+        .level-scene {
+            display: none;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level-scene.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .level-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .level-bg.green-hills {
+            background: linear-gradient(180deg, #87CEEB 0%, #B8E6F0 30%, #4CAF50 30%, #66BB6A 50%, #4CAF50 70%, #2E7D32 100%);
+        }
+
+        .level-bg.blue-water {
+            background: linear-gradient(180deg, #87CEEB 0%, #B8E6F0 30%, #2196F3 30%, #42A5F5 50%, #2196F3 70%, #1565C0 100%);
+        }
+
+        .level-bg.orange-desert {
+            background: linear-gradient(180deg, #FF8A65 0%, #FFB74D 30%, #FF9800 30%, #FFA726 50%, #FF9800 70%, #F57C00 100%);
+        }
+
+        .level-bg.purple-castle {
+            background: linear-gradient(180deg, #4A148C 0%, #7B1FA2 30%, #9C27B0 30%, #AB47BC 50%, #9C27B0 70%, #6A1B9A 100%);
+        }
+
+        .level-bg.red-lava {
+            background: linear-gradient(180deg, #FF6F00 0%, #FF8F00 30%, #F44336 30%, #E53935 50%, #F44336 70%, #B71C1C 100%);
+        }
+
+        /* Montañas de fondo estilo low-poly */
+        .mountains {
+            position: absolute;
+            bottom: 30%;
+            left: 0;
+            width: 100%;
+            height: 200px;
+        }
+
+        .mountain {
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: solid transparent;
+            border-right: solid transparent;
+            border-bottom: solid;
+        }
+
+        .mountain-1 {
+            left: 5%;
+            border-left-width: 100px;
+            border-right-width: 120px;
+            border-bottom-width: 180px;
+            border-bottom-color: rgba(0,0,0,0.1);
+        }
+
+        .mountain-2 {
+            left: 25%;
+            border-left-width: 150px;
+            border-right-width: 130px;
+            border-bottom-width: 200px;
+            border-bottom-color: rgba(0,0,0,0.15);
+        }
+
+        .mountain-3 {
+            right: 10%;
+            border-left-width: 130px;
+            border-right-width: 110px;
+            border-bottom-width: 160px;
+            border-bottom-color: rgba(0,0,0,0.08);
+        }
+
+        /* Nubes flotantes */
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 50px;
+            opacity: 0.8;
+            animation: floatCloud linear infinite;
+        }
+
+        .cloud-1 {
+            width: 100px;
+            height: 40px;
+            top: 10%;
+            left: -100px;
+            animation-duration: 20s;
+        }
+
+        .cloud-2 {
+            width: 80px;
+            height: 30px;
+            top: 15%;
+            left: -80px;
+            animation-duration: 25s;
+            animation-delay: 5s;
+        }
+
+        .cloud-3 {
+            width: 120px;
+            height: 45px;
+            top: 8%;
+            left: -120px;
+            animation-duration: 18s;
+            animation-delay: 10s;
+        }
+
+        /* Plataforma estilo Minecraft/Super Bear */
+        .platforms-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+        }
+
+        .platform {
+            position: absolute;
+            background: var(--suelo);
+            border: 3px solid var(--marron-oscuro);
+            border-radius: 5px;
+        }
+
+        .platform-top {
+            position: absolute;
+            top: -8px;
+            left: -3px;
+            right: -3px;
+            height: 15px;
+            background: var(--verde-principal);
+            border: 3px solid var(--verde-oscuro);
+            border-radius: 5px;
+        }
+
+        /* Bloques de preguntas estilo Mario */
+        .question-block {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: var(--amarillo);
+            border: 3px solid #FFA000;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.5rem;
+            color: var(--marron-oscuro);
+            cursor: pointer;
+            animation: bounceBlock 2s ease-in-out infinite;
+            box-shadow: inset -3px -3px 0 rgba(0,0,0,0.1);
+        }
+
+        .question-block:hover {
+            animation: shake 0.3s ease;
+        }
+
+        /* Monedas flotantes */
+        .floating-coin {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: var(--amarillo);
+            border-radius: 50%;
+            border: 3px solid #FFA000;
+            animation: spin3d 1.5s linear infinite, floatCoin 2s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #FFA000;
+            cursor: pointer;
+        }
+
+        /* Árboles low-poly */
+        .tree {
+            position: absolute;
+            bottom: 35%;
+        }
+
+        .tree-trunk {
+            width: 20px;
+            height: 60px;
+            background: var(--marron-oscuro);
+            margin: 0 auto;
+            border-radius: 3px;
+        }
+
+        .tree-leaves {
+            width: 0;
+            height: 0;
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+            border-bottom: 70px solid var(--verde-principal);
+            margin-bottom: -10px;
+            position: relative;
+        }
+
+        .tree-leaves::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: -50px;
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 70px solid var(--verde-oscuro);
+        }
+
+        /* ============================================
+           TARJETA DE INFORMACIÓN / INFO CARD
+           ============================================ */
+        .info-card {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 20px;
+            border: 5px solid var(--marron-oscuro);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 0 4px var(--amarillo);
+            padding: 30px;
+            z-index: 200;
+            max-width: 500px;
+            width: 90%;
+            animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            text-align: center;
+        }
+
+        .info-card.active {
+            display: block;
+        }
+
+        .info-card-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 199;
+        }
+
+        .info-card-overlay.active {
+            display: block;
+        }
+
+        .info-card-icon {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .info-card-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.8rem;
+            color: var(--marron-oscuro);
+            margin-bottom: 15px;
+        }
+
+        .info-card-text {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .info-card-detail {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f5f5f5;
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin: 8px 0;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .info-card-detail-icon {
+            font-size: 1.5rem;
+        }
+
+        .close-card-btn {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1rem;
+            padding: 10px 30px;
+            background: var(--verde-principal);
+            color: white;
+            border: 3px solid var(--verde-oscuro);
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 0 var(--verde-oscuro);
+        }
+
+        .close-card-btn:hover {
+            background: var(--verde-oscuro);
+            transform: translateY(-2px);
+        }
+
+        .close-card-btn:active {
+            transform: translateY(2px);
+            box-shadow: none;
+        }
+
+        /* ============================================
+           DIÁLOGO TIPO RPG
+           ============================================ */
+        .dialogue-box {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            border-radius: 15px;
+            border: 4px solid var(--marron-oscuro);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            padding: 20px;
+            z-index: 150;
+            animation: slideUp 0.4s ease;
+        }
+
+        .dialogue-box.active {
+            display: block;
+        }
+
+        .dialogue-speaker {
+            display: inline-block;
+            background: var(--amarillo);
+            color: var(--marron-oscuro);
+            font-family: 'Fredoka One', cursive;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            border: 2px solid #FFA000;
+        }
+
+        .dialogue-text {
+            font-size: 1rem;
+            color: #333;
+            line-height: 1.5;
+            min-height: 50px;
+        }
+
+        .dialogue-next {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 1.2rem;
+            animation: blink 1s infinite;
+            color: var(--marron-oscuro);
+        }
+
+        /* ============================================
+           CONFETTI Y PARTÍCULAS
+           ============================================ */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 300;
+            overflow: hidden;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            animation: confettiFall linear forwards;
+        }
+
+        /* ============================================
+           MINIMAPA
+           ============================================ */
+        .minimap {
+            position: fixed;
+            top: 60px;
+            right: 15px;
+            width: 80px;
+            height: 80px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 10px;
+            border: 2px solid var(--marron-oscuro);
+            z-index: 100;
+            display: none;
+            overflow: hidden;
+        }
+
+        .minimap.active {
+            display: block;
+        }
+
+        /* ============================================
+           CONTROLES MÓVILES
+           ============================================ */
+        .mobile-controls {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            padding: 0 20px;
+            z-index: 100;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dpad {
+            width: 120px;
+            height: 120px;
+            position: relative;
+        }
+
+        .dpad-btn {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.5);
+            border: 2px solid rgba(0,0,0,0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .dpad-btn:active {
+            background: rgba(255,255,255,0.8);
+        }
+
+        .dpad-up { top: 0; left: 40px; }
+        .dpad-down { bottom: 0; left: 40px; }
+        .dpad-left { top: 40px; left: 0; }
+        .dpad-right { top: 40px; right: 0; }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .action-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.2rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .btn-a {
+            background: rgba(76, 175, 80, 0.7);
+            color: white;
+        }
+
+        .btn-b {
+            background: rgba(244, 67, 54, 0.7);
+            color: white;
+        }
+
+        /* ============================================
+           PANTALLA FINAL / VICTORY
+           ============================================ */
+        .victory-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #1A237E 0%, #283593 50%, #3949AB 100%);
+            z-index: 500;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .victory-screen.active {
+            display: flex;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .victory-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(2rem, 8vw, 4rem);
+            color: var(--amarillo);
+            text-shadow: 4px 4px 0 rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+            animation: bounceTitle 1s ease-in-out infinite alternate;
+        }
+
+        .victory-text {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: white;
+            max-width: 500px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .victory-bear {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: floatBear 2s ease-in-out infinite;
+        }
+
+        .victory-btn {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.2rem;
+            padding: 15px 40px;
+            background: var(--amarillo);
+            color: var(--marron-oscuro);
+            border: 4px solid var(--marron-oscuro);
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 6px 0 var(--marron-oscuro);
+            transition: all 0.3s;
+            margin: 10px;
+        }
+
+        .victory-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 0 var(--marron-oscuro);
+        }
+
+        /* ============================================
+           ANIMACIONES
+           ============================================ */
+        @keyframes bounceTitle {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+
+        @keyframes floatBear {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translate(-50%, 100px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        @keyframes pulseBtn {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes spin3d {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+
+        @keyframes floatCloud {
+            from { transform: translateX(0); }
+            to { transform: translateX(calc(100vw + 100px)); }
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        @keyframes blink {
+            0%, 95%, 100% { opacity: 1; }
+            97% { opacity: 0; }
+        }
+
+        @keyframes bounceBlock {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        @keyframes glowNode {
+            0%, 100% { box-shadow: 0 6px 0 var(--marron-oscuro), 0 0 20px rgba(255,214,0,0.5); }
+            50% { box-shadow: 0 6px 0 var(--marron-oscuro), 0 0 40px rgba(255,214,0,0.8); }
+        }
+
+        @keyframes floatCoin {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.5); }
+        }
+
+        /* ============================================
+           DECORACIONES DEL MUNDO
+           ============================================ */
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--amarillo);
+            border-radius: 50%;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        .flower {
+            position: absolute;
+            bottom: 35%;
+            font-size: 1.5rem;
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 600px) {
+            .hud {
+                padding: 8px 15px;
+            }
+
+            .hud-coins {
+                font-size: 1.2rem;
+            }
+
+            .heart {
+                font-size: 1.2rem;
+            }
+
+            .world-map {
+                padding: 70px 15px 30px;
+            }
+
+            .info-card {
+                padding: 20px;
+            }
+
+            .info-card-title {
+                font-size: 1.4rem;
+            }
+
+            .mobile-controls {
+                display: flex;
+            }
+
+            .minimap {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        /* ============================================
+           ESTRELLAS DECORATIVAS
+           ============================================ */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        /* ============================================
+           PERSONAJE CAMINANDO
+           ============================================ */
+        .walking-bear {
+            position: absolute;
+            bottom: 35%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 50;
+            animation: walkBounce 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes walkBounce {
+            from { transform: translateX(-50%) translateY(0); }
+            to { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* ============================================
+           BADGE / INSIGNIA
+           ============================================ */
+        .badge {
+            display: inline-block;
+            background: var(--amarillo);
+            color: var(--marron-oscuro);
+            font-family: 'Fredoka One', cursive;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            border: 2px solid #FFA000;
+            position: absolute;
+            top: -10px;
+            right: -10px;
+        }
+
+        /* ============================================
+           PROGRESS BAR
+           ============================================ */
+        .progress-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: rgba(0,0,0,0.3);
+            z-index: 100;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--amarillo), var(--naranja));
+            transition: width 0.5s ease;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* ============================================
+           TOOLTIP
+           ============================================ */
+        .tooltip {
+            position: absolute;
+            background: var(--marron-oscuro);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 300;
+        }
+
+        .map-node:hover .tooltip {
+            opacity: 1;
+        }
+
+        /* ============================================
+           LOADING BAR STYLE
+           ============================================ */
+        .loading-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1A237E;
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-container.active {
+            display: flex;
+        }
+
+        .loading-bar-bg {
+            width: 80%;
+            max-width: 400px;
+            height: 30px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+        }
+
+        .loading-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--amarillo), var(--naranja));
+            border-radius: 15px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .loading-text {
+            font-family: 'Fredoka One', cursive;
+            color: white;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         PANTALLA DE INICIO
+         ============================================ -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="stars" id="starsContainer"></div>
+        <div class="splash-title">🎮 GRAN FACU<br>AVENTURA</div>
+        <div class="splash-subtitle">¡Una aventura épica de cumpleaños!</div>
+        
+        <div class="splash-bear">
+            <div class="bear-head">
+                <div class="bear-ear left"><div class="bear-ear-inner"></div></div>
+                <div class="bear-ear right"><div class="bear-ear-inner"></div></div>
+                <div class="bear-eye left"></div>
+                <div class="bear-eye right"></div>
+                <div class="bear-snout">
+                    <div class="bear-nose"></div>
+                    <div class="bear-mouth"></div>
+                </div>
+            </div>
+            <div class="bear-body">
+                <div class="bear-belly"></div>
+            </div>
+        </div>
+
+        <button class="start-btn" onclick="startGame()">
+             ¡PRESIONA START! 
+        </button>
+    </div>
+
+    <!-- ============================================
+         LOADING
+         ============================================ -->
+    <div class="loading-container" id="loadingScreen">
+        <div style="font-size: 3rem;"></div>
+        <div class="loading-text">Cargando aventura...</div>
+        <div class="loading-bar-bg">
+            <div class="loading-bar-fill" id="loadingBar"></div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         MUNDO PRINCIPAL
+         ============================================ -->
+    <div class="game-world" id="gameWorld">
+        <!-- HUD -->
+        <div class="hud">
+            <div class="hud-coins">
+                <div class="hud-coin-icon">⭐</div>
+                <span id="coinCount">0</span>
+            </div>
+            <div class="hud-title">🎮 GRAN FACU AVENTURA</div>
+            <div class="hud-lives">
+                <span class="heart">❤️</span>
+                <span class="heart">❤️</span>
+                <span class="heart">❤️</span>
+            </div>
+        </div>
+
+        <!-- Minimapa -->
+        <div class="minimap" id="minimap"></div>
+
+        <!-- Barra de progreso -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+
+        <!-- Mapa del Mundo -->
+        <div class="world-map" id="worldMap">
+            <div class="map-title">️ MAPA DE LA AVENTURA</div>
+            <div class="map-path">
+                <!-- Nodo 1: Entrada -->
+                <div class="map-node node-1 current" onclick="openLevel(1)" data-level="1">
+                    <span class="node-icon">🏠</span>
+                    <span class="node-label">Casa de<br>Facu</span>
+                    <span class="badge">¡INICIO!</span>
+                    <div class="tooltip">¡Empieza aquí!</div>
+                </div>
+                <div class="path-connector"></div>
+
+                <!-- Nodo 2: Zona de juegos -->
+                <div class="map-node node-2" onclick="openLevel(2)" data-level="2">
+                    <span class="node-icon">🎮</span>
+                    <span class="node-label">Zona<br>Gamer</span>
+                    <span class="badge">NIVEL 2</span>
+                </div>
+                <div class="path-connector"></div>
+
+                <!-- Nodo 3: Comida -->
+                <div class="map-node node-3" onclick="openLevel(3)" data-level="3">
+                    <span class="node-icon">🍕</span>
+                    <span class="node-label">Festín<br>Real</span>
+                    <span class="badge">NIVEL 3</span>
+                </div>
+                <div class="path-connector"></div>
+
+                <!-- Nodo 4: Pastel -->
+                <div class="map-node node-4" onclick="openLevel(4)" data-level="4">
+                    <span class="node-icon">🎂</span>
+                    <span class="node-label">Torre del<br>Pastel</span>
+                    <span class="badge">BOSS!</span>
+                </div>
+                <div class="path-connector"></div>
+
+                <!-- Nodo 5: Fiesta final -->
+                <div class="map-node node-5" onclick="openLevel(5)" data-level="5">
+                    <span class="node-icon"></span>
+                    <span class="node-label">Gran<br>Fiesta!</span>
+                    <span class="badge">FINAL!</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Escenarios de Nivel -->
+        <!-- Nivel 1: Casa de Facu -->
+        <div class="level-scene" id="level1">
+            <div class="level-bg green-hills">
+                <div class="cloud cloud-1"></div>
+                <div class="cloud cloud-2"></div>
+                <div class="cloud cloud-3"></div>
+                <div class="mountains">
+                    <div class="mountain mountain-1"></div>
+                    <div class="mountain mountain-2"></div>
+                    <div class="mountain mountain-3"></div>
+                </div>
+                <div class="platforms-container">
+                    <div class="platform" style="left: 10%; bottom: 10%; width: 30%; height: 60px;">
+                        <div class="platform-top"></div>
+                    </div>
+                    <div class="platform" style="left: 50%; bottom: 20%; width: 25%; height: 60px;">
+                        <div class="platform-top"></div>
+                    </div>
+                    <div class="platform" style="right: 5%; bottom: 15%; width: 20%; height: 60px;">
+                        <div class="platform-top"></div>
+                    </div>
+                </div>
+                <div class="floating-coin" style="top: 40%; left: 20%;" onclick="collectCoin(this)">⭐</div>
+                <div class="floating-coin" style="top: 35%; left: 55%;" onclick="collectCoin(this)">⭐</div>
+                <div class="floating-coin" style="top: 45%; right: 15%;" onclick="collectCoin(this)">⭐</div>
+                <div class="question-block" style="top: 30%; left: 40%;" onclick="hitBlock(this)">?</div>
+                <div class="tree" style="left: 15%;">
+                    <div class="tree-leaves"></div>
+                    <div class="tree-trunk"></div>
+                </div>
+                <div class="tree" style="right: 10%;">
+                    <div class="tree-leaves"></div>
+                    <div class="tree-trunk"></div>
+                </div>
+            </div>
+            <div class="walking-bear">🐻</div>
+        </div>
+
+        <!-- Nivel 2: Zona Gamer -->
+        <div class="level-scene" id="level2">
+            <div class="level-bg blue-water">
+                <div class="cloud cloud-1"></div>
+                <div class="cloud cloud-2"></div>
+                <div class="mountains">
+                    <div class="mountain mountain-1"></div>
+                    <div class="mountain mountain-3"></div>
+                </div>
+                <div class="platforms-container">
+                    <div class="platform" style="left: 5%; bottom: 10%; width: 20%; height: 60px;">
+                        <div class="platform-top" style="background: #2196F3; border-color: #1565C0;"></div>
+                    </div>
+                    <div class="platform" style="left: 30%; bottom: 25%; width: 20%; height: 60px;">
+                        <div class="platform-top" style="background: #2196F3; border-color: #1565C0;"></div>
+                    </div>
+                    <div class="platform" style="left: 55%; bottom: 15%; width: 20%; height: 60px;">
+                        <div class="platform-top" style="background: #2196F3; border-color: #1565C0;"></div>
+                    </div>
+                    <div class="platform" style="right: 5%; bottom: 30%; width: 15%; height: 60px;">
+                        <div class="platform-top" style="background: #2196F3; border-color: #1565C0;"></div>
+                    </div>
+                </div>
+                <div class="floating-coin" style="top: 35%; left: 15%;" onclick="collectCoin(this)">⭐</div>
+                <div class="floating-coin" style="top: 30%; left: 40%;" onclick="collectCoin(this)">⭐</div>
+                <div class="floating-coin" style="top: 40%; left: 65%;" onclick="collectCoin(this)">⭐</div>
+                <div class="question-block" style="top: 25%; left: 35%;" onclick="hitBlock(this)">?</div>
+            </div>
+            <div class="walking-bear">🐻</div>
+        </div>
+
+        <!-- Nivel 3: Festín Real -->
+        <div class="level-scene" id="level3">
+            <div class="level-bg orange-desert">
+                <div class="cloud cloud-1"></div>
+                <div class="cloud cloud-3"></div>
+                <div class="platforms-container">
+                    <div class="platform" style="left: 15%; bottom: 10%; width: 25%; height: 60px;">
+                        <div class="platform-top" style="background: #FF9800; border-color: #F57C00;"></div>
+                    </div>
+                    <div class="platform" style="left: 45%; bottom: 20%; width: 20%; height: 60px;">
+                        <div class="platform-top" style="background: #FF9800; border-color: #F57C00;"></div>
+                    </div>
+                    <div class="platform" style="right: 10%; bottom: 15%; width: 25%; height: 60px;">
+                        <div class="platform-top" style="background: #FF9800; border-color: #F57C00;"></div>
+                    </div>
+                </div>
+                <div class="floating-coin" style="top: 35%; left: 25%;" onclick="collectCoin(this)">⭐</div>
+                <div class="floating-coin" style="top: 30%; left: 55%;" onclick="collectCoin(this)">⭐</div>
+                <div class="question-block" style="top: 25%; right: 20%;" onclick="hitBlock(this)">?</div>
+            </div>
+            <div class="walking-bear">🐻</div>
+        </div>
+
+        <!-- Nivel 4: Torre del Pastel -->
+        <div class="level-scene" id="level4">
+            <div class="level-bg purple-castle">
+                <div class="cloud cloud-1"></div>
+                <div class="cloud cloud-2"></div>
+                <div class="mountains">
+                    <div class="mountain mountain-2"></div>
+                    <div class="mountain mountain-3"></div>
+                </div>
+                <div class="platforms-container">
+                    <div class="platform" style="left: 10%; bottom: 10%; width: 30%; height: 60px;">
+                        <div class="platform-top" style="background: #9C27B0; border-color: #6A1B9A;"></div>
+                    </div>
+                    <div class="platform" style="left: 45%; bottom: 25%; width: 25%; height: 60px;">
+                        <div class="platform-top" style="background: #9C27B0; border-color: #6A1B9A;"></div>
+                    </div>
+                    <div class="platform" style="right: 5%; bottom: 20%; width: 20%; height: 60px;">
+                        <div class="platform-top" style="background: #9C27B0; border-color: #6A1B9A;"></div>
+                    </div>
+                </div>
+                <div class="floating-coin" style="top: 35%; left: 20%;" onclick="collectCoin(this)">⭐</div>
+                <div class="floating-coin" style="top: 30%; left: 55%;" onclick="collectCoin(this)">⭐</div>
+                <div class="question-block" style="top: 25%; left: 45%;" onclick="hitBlock(this)">?</div>
+            </div>
+            <div class="walking-bear">🐻</div>
+        </div>
+
+        <!-- Nivel 5: Gran Fiesta -->
+        <div class="level-scene" id="level5">
+            <div class="level-bg red-lava">
+                <div class="cloud cloud-1"></div>
+                <div class="cloud cloud-3"></div>
+                <div class="platforms-container">
+                    <div class="platform" style="left: 15%; bottom: 10%; width: 25%; height: 60px;">
+                        <div class="platform-top" style="background: #F44336; border-color: #B71C1C;"></div>
+                    </div>
+                    <div class="platform" style="left: 45%; bottom: 20%; width: 20%; height: 60px;">
+                        <div class="platform-top" style="background: #F44336; border-color: #B71C1C;"></div>
+                    </div>
+                    <div class="platform" style="right: 10%; bottom: 15%; width: 25%; height: 60px;">
+                        <div class="platform-top" style="background: #F44336; border-color: #B71C1C;"></div>
+                    </div>
+                </div>
+                <div class="floating-coin" style="top: 35%; left: 25%;" onclick="collectCoin(this)">⭐</div>
+                <div class="floating-coin" style="top: 30%; left: 55%;" onclick="collectCoin(this)">⭐</div>
+                <div class="question-block" style="top: 25%; left: 40%;" onclick="hitBlock(this)">?</div>
+            </div>
+            <div class="walking-bear">🐻</div>
+        </div>
+
+        <!-- Controles Móviles -->
+        <div class="mobile-controls" id="mobileControls">
+            <div class="dpad">
+                <div class="dpad-btn dpad-up">️</div>
+                <div class="dpad-btn dpad-down">⬇️</div>
+                <div class="dpad-btn dpad-left">⬅️</div>
+                <div class="dpad-btn dpad-right">➡️</div>
+            </div>
+            <div class="action-buttons">
+                <div class="action-btn btn-b" onclick="goBack()">B</div>
+                <div class="action-btn btn-a" onclick="interact()">A</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         TARJETAS DE INFORMACIÓN
+         ============================================ -->
+    <div class="info-card-overlay" id="cardOverlay" onclick="closeCard()"></div>
+
+    <!-- Tarjeta 1: Casa de Facu -->
+    <div class="info-card" id="card1">
+        <div class="info-card-icon"></div>
+        <div class="info-card-title">🎉 ¡Bienvenido a la Casa de Facu!</div>
+        <div class="info-card-text">
+            ¡Facu cumple <strong>9 años</strong> y te invita a una aventura épica llena de diversión, juegos y sorpresas!
+        </div>
+        <div class="info-card-detail">
+            <span class="info-card-detail-icon">📅</span>
+            <span><strong>Día:</strong> Sábado 15 de Junio, 2024</span>
+        </div>
+        <div class="info-card-detail">
+            <span class="info-card-detail-icon">⏰</span>
+            <span><strong>Hora:</strong> 4:00 PM - 7:00 PM</span>
+        </div>
+        <div class="info-card-detail">
+            <span class="info-card-detail-icon">📍</span>
+            <span><strong>Lugar:</strong> Casa de Facu</span>
+        </div>
+        <button class="close-card-btn" onclick="closeCard()">¡Entendido! ✅</button>
+    </div>
+
+    <!-- Tarjeta 2: Zona Gamer -->
+    <div class="info-card" id="card2">
+        <div class="info-card-icon">🎮</div>
+        <div class="info-card-title">️ ¡Zona Gamer!</div>
+        <div class="info-card-text">
+            Prepará tus habilidades porque habrá:
+        </div>
+        <div class="info-card-detail">
+            <span class="info-card-detail-icon">🎯</span>
+            <span>Competencias de videojuegos</span>
+        </div>
+        <div class="info-card-detail">
+            <span class="info-card-detail-icon"></span>
+            <span>Torneos con premios épicos</span>
+        </div>
+        <div class="info-card-detail">
+            <span class="info-card-detail-icon"></span>
+            <span>Juegos de mesa y desafíos</span>
+        </div>
+        <button class="close-card-btn" onclick="closeCard()">¡Estoy listo! 🎮</button>
+    </div>
+
+    <!-- Tarjeta 3: Festín Real -->
+    <div class="info-card" id="card3">
+        <div class="info-card-icon">🍕</div>
+        <div class="info-card-title">🍔 ¡El Gran Festín!</div>
+        <div class="info-card-text">
+            El nivel más delicioso de la aventura:
+        </div>
+        <div class="info-card-detail">
+            <span class="info-card-detail-icon">🍕</span>
+            <span>Pizza infinita</span>
+        </div>
+        <div class="info-card-detail">
+            <span class="info-card-detail-icon"></span>
+            <span>Hot dogs y snacks</span>
+        </div>
+        <div class="info-card-detail">
+            <span class="info-card-detail-icon">🧃</span>
+            <span>Jugos y gaseosas</span>
+        </div>
+        <div class="info-card-detail">
+            <span class="info-card-detail-icon">🍬</span>
+            <span>Mesa de dulces</span>
+        </div>
+        <button class="close-card-btn" onclick="closeCard()">¡Delicioso! 😋</button>
+    </div>
+
+    <!-- Tarjeta 4: Torre del Pastel -->
+    <div class="info-card" id="card4">
+        <div class="info-card-icon">🎂</div>
+        <div class="info-card-title">👑 ¡La Torre del Pastel!</div>
+        <div class="info-card-text">
+            El boss final de la aventura:
+        </div>
+        <div class="info-card-detail">
+            <span class="info-card-detail-icon">🎂</span>
+            <span>Pastel épico de cumpleaños</span>
+        </div>
+        <div class="info-card-detail">
+            <span class="info-card-detail-icon">️</span>
+            <span>¡9 velas para 9 años!</span>
+        </div>
+        <div class="info-card-detail">
+            <span class="info-card-detail-icon">🎁</span>
+            <span>¡Regalos y sorpresas!</span>
+        </div>
+        <button class="close-card-btn" onclick="closeCard()">¡Vamos a por el boss! 👑</button>
+    </div>
+
+    <!-- Tarjeta 5: Gran Fiesta -->
+    <div class="info-card" id="card5">
+        <div class="info-card-icon">🎉</div>
+        <div class="info-card-title"> ¡La Gran Final!</div>
+        <div class="info-card-text">
+            Completaste la aventura. Ahora viene la mejor parte:
+        </div>
+        <div class="info-card-detail">
+            <span class="info-card-detail-icon">🎈</span>
+            <span>Globos y decoración temática</span>
+        </div>
+        <div class="info-card-detail">
+            <span class="info-card-detail-icon">🎵</span>
+            <span>Música y baile</span>
+        </div>
+        <div class="info-card-detail">
+            <span class="info-card-detail-icon"></span>
+            <span>Foto épica con Facu</span>
+        </div>
+        <div class="info-card-detail">
+            <span class="info-card-detail-icon">🎊</span>
+            <span>¡Y mucha diversión!</span>
+        </div>
+        <button class="close-card-btn" onclick="showVictory()">¡FELIZ CUMPLEAÑOS FACU! </button>
+    </div>
+
+    <!-- ============================================
+         DIÁLOGO RPG
+         ============================================ -->
+    <div class="dialogue-box" id="dialogueBox">
+        <div class="dialogue-speaker" id="dialogueSpeaker"> Facu</div>
+        <div class="dialogue-text" id="dialogueText">¡Hola! ¡Bienvenido a mi aventura de cumpleaños!</div>
+        <div class="dialogue-next">▼</div>
+    </div>
+
+    <!-- ============================================
+         PANTALLA DE VICTORIA
+         ============================================ -->
+    <div class="victory-screen" id="victoryScreen">
+        <div class="victory-bear">🐻🎉</div>
+        <div class="victory-title">🎉 ¡FELIZ CUMPLEAÑOS FACU! 🎉</div>
+        <div class="victory-text">
+            ¡Completaste la Gran Facu Aventura!<br><br>
+            🎂 9 años de pura diversión 🎂<br><br>
+            ¡Nos vemos el <strong>Sábado 15 de Junio</strong> a las <strong>4:00 PM</strong>!<br><br>
+            📍 Casa de Facu <br><br>
+            ¡No te lo pierdas, héroe! ‍♂️
+        </div>
+        <button class="victory-btn" onclick="resetGame()">🔄 Jugar de nuevo</button>
+    </div>
+
+    <!-- ============================================
+         CONFETTI
+         ============================================ -->
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <!-- ============================================
+         SCRIPTS
+         ============================================ -->
+    <script>
+        // ============================================
+        // ESTADO DEL JUEGO
+        // ============================================
+        let gameState = {
+            coins: 0,
+            unlockedLevels: [1],
+            currentLevel: 0,
+            dialogues: {},
+            completedNodes: []
+        };
+
+        // ============================================
+        // DIÁLOGOS POR NIVEL
+        // ============================================
+        const dialogues = {
+            1: [
+                { speaker: '🐻 Facu', text: '¡Hola amigo! ¡Bienvenido a mi aventura de cumpleaños!' },
+                { speaker: '🐻 Facu', text: '¡Estoy cumpliendo 9 años y quiero que seas parte de esta épica misión!' },
+                { speaker: '🐻 Facu', text: 'Explora los niveles para descubrir todos los detalles de la fiesta 🎉' }
+            ],
+            2: [
+                { speaker: ' Game Master', text: '¡Bienvenido a la Zona Gamer!' },
+                { speaker: '🎮 Game Master', text: 'Aquí habrá competencias, torneos y muchos juegos divertidos' },
+                { speaker: ' Game Master', text: '¡Preparate para la acción! 🕹️' }
+            ],
+            3: [
+                { speaker: '👨‍ Chef Bear', text: '¡Mmm! ¡Huele delicioso por aquí!' },
+                { speaker: '👨‍ Chef Bear', text: 'Pizza, hot dogs, snacks y una mesa de dulces infinita' },
+                { speaker: '‍🍳 Chef Bear', text: '¡Traé hambre porque habrá banquete real! 🍕' }
+            ],
+            4: [
+                { speaker: '👑 King Facu', text: '¡Has llegado a la Torre del Pastel!' },
+                { speaker: '👑 King Facu', text: 'El boss final te espera... ¡un pastel épico con 9 velas!' },
+                { speaker: '👑 King Facu', text: '¡Y habrá regalos y sorpresas! 🎁' }
+            ],
+            5: [
+                { speaker: ' Party Master', text: '¡FELICIDADES! ¡Has completado la Gran Facu Aventura!' },
+                { speaker: ' Party Master', text: 'Ahora viene lo mejor: ¡la fiesta con todos tus amigos!' },
+                { speaker: '🎉 Party Master', text: '¡Nos vemos el Sábado 15 de Junio a las 4:00 PM! 🎈' }
+            ]
+        };
+
+        // ============================================
+        // FUNCIONES PRINCIPALES
+        // ============================================
+
+        // Crear estrellas en splash screen
+        function createStars() {
+            const container = document.getElementById('starsContainer');
+            for (let i = 0; i < 30; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                star.style.animationDuration = (Math.random() * 2 + 1) + 's';
+                container.appendChild(star);
+            }
+        }
+
+        // Iniciar juego
+        function startGame() {
+            const splash = document.getElementById('splashScreen');
+            const loading = document.getElementById('loadingScreen');
+            
+            splash.classList.add('hidden');
+            
+            setTimeout(() => {
+                loading.classList.add('active');
+                simulateLoading();
+            }, 800);
+        }
+
+        // Simular carga
+        function simulateLoading() {
+            const bar = document.getElementById('loadingBar');
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15 + 5;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        document.getElementById('loadingScreen').classList.remove('active');
+                        document.getElementById('gameWorld').classList.add('active');
+                        document.getElementById('minimap').classList.add('active');
+                        showMobileControls();
+                        showDialogue(1);
+                    }, 500);
+                }
+                bar.style.width = progress + '%';
+            }, 200);
+        }
+
+        // Abrir nivel
+        function openLevel(levelNum) {
+            if (!gameState.unlockedLevels.includes(levelNum) && levelNum > 1) {
+                // Shake animation
+                const node = document.querySelector(`[data-level="${levelNum}"]`);
+                node.style.animation = 'shake 0.3s ease';
+                setTimeout(() => node.style.animation = '', 300);
+                return;
+            }
+
+            gameState.currentLevel = levelNum;
+            
+            // Ocultar mapa, mostrar nivel
+            document.getElementById('worldMap').style.display = 'none';
+            document.querySelectorAll('.level-scene').forEach(el => el.classList.remove('active'));
+            document.getElementById('level' + levelNum).classList.add('active');
+            
+            // Actualizar progreso
+            const progress = (levelNum / 5) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            
+            // Mostrar diálogo del nivel
+            setTimeout(() => {
+                showDialogue(levelNum);
+            }, 500);
+        }
+
+        // Mostrar diálogo
+        function showDialogue(levelNum) {
+            const dialogBox = document.getElementById('dialogueBox');
+            const speaker = document.getElementById('dialogueSpeaker');
+            const text = document.getElementById('dialogueText');
+            
+            if (!dialogues[levelNum]) return;
+            
+            let currentMsg = 0;
+            dialogBox.classList.add('active');
+            
+            function showNextMessage() {
+                if (currentMsg >= dialogues[levelNum].length) {
+                    setTimeout(() => {
+                        dialogBox.classList.remove('active');
+                        if (levelNum === 5) {
+                            setTimeout(() => showVictory(), 1000);
+                        }
+                    }, 1000);
+                    return;
+                }
+                
+                const msg = dialogues[levelNum][currentMsg];
+                speaker.textContent = msg.speaker;
+                text.textContent = '';
+                
+                // Typing effect
+                let charIndex = 0;
+                const typeInterval = setInterval(() => {
+                    if (charIndex < msg.text.length) {
+                        text.textContent += msg.text[charIndex];
+                        charIndex++;
+                    } else {
+                        clearInterval(typeInterval);
+                        currentMsg++;
+                    }
+                }, 30);
+            }
+            
+            dialogBox.onclick = showNextMessage;
+            showNextMessage();
+        }
+
+        // Cerrar tarjeta
+        function closeCard() {
+            document.querySelectorAll('.info-card').forEach(el => el.classList.remove('active'));
+            document.getElementById('cardOverlay').classList.remove('active');
+        }
+
+        // Volver al mapa
+        function goBack() {
+            if (gameState.currentLevel > 0) {
+                document.querySelectorAll('.level-scene').forEach(el => el.classList.remove('active'));
+                document.getElementById('worldMap').style.display = 'block';
+                document.getElementById('dialogueBox').classList.remove('active');
+                gameState.currentLevel = 0;
+            }
+        }
+
+        // Interactuar
+        function interact() {
+            if (gameState.currentLevel > 0) {
+                const cardId = 'card' + gameState.currentLevel;
+                const card = document.getElementById(cardId);
+                if (card) {
+                    card.classList.add('active');
+                    document.getElementById('cardOverlay').classList.add('active');
+                    spawnConfetti();
+                }
+            }
+        }
+
+        // Recoger moneda
+        function collectCoin(coin) {
+            gameState.coins++;
+            document.getElementById('coinCount').textContent = gameState.coins;
+            
+            // Animación de recogida
+            coin.style.transform = 'scale(0)';
+            coin.style.transition = 'transform 0.3s ease';
+            
+            setTimeout(() => {
+                coin.remove();
+            }, 300);
+            
+            // Efecto de sonido visual
+            const plusOne = document.createElement('div');
+            plusOne.textContent = '+1 ';
+            plusOne.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-family: 'Fredoka One', cursive;
+                font-size: 2rem;
+                color: #FFD600;
+                text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+                z-index: 500;
+                animation: fadeInUp 1s ease forwards;
+                pointer-events: none;
+            `;
+            document.body.appendChild(plusOne);
+            setTimeout(() => plusOne.remove(), 1000);
+        }
+
+        // Golpear bloque
+        function hitBlock(block) {
+            block.style.animation = 'shake 0.3s ease';
+            block.style.background = '#8D6E63';
+            block.style.borderColor = '#4E342E';
+            block.textContent = '✓';
+            
+            setTimeout(() => {
+                block.style.animation = '';
+            }, 300);
+            
+            // Dar monedas
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    gameState.coins++;
+                    document.getElementById('coinCount').textContent = gameState.coins;
+                }, i * 200);
+            }
+        }
+
+        // Mostrar controles móviles
+        function showMobileControls() {
+            if (window.innerWidth <= 768) {
+                document.getElementById('mobileControls').style.display = 'flex';
+            }
+        }
+
+        // Confetti
+        function spawnConfetti() {
+            const container = document.getElementById('confettiContainer');
+            const colors = ['#FFD600', '#F44336', '#4CAF50', '#2196F3', '#FF9800', '#9C27B0', '#E91E63'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = (Math.random() * 2 + 1) + 's';
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                
+                // Formas variadas
+                if (Math.random() > 0.5) {
+                    confetti.style.borderRadius = '50%';
+                } else {
+                    confetti.style.width = '8px';
+                    confetti.style.height = '15px';
+                }
+                
+                container.appendChild(confetti);
+                
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+
+        // Mostrar victoria
+        function showVictory() {
+            closeCard();
+            document.getElementById('victoryScreen').classList.add('active');
+            spawnConfetti();
+            setInterval(spawnConfetti, 2000);
+        }
+
+        // Resetear juego
+        function resetGame() {
+            gameState = {
+                coins: 0,
+                unlockedLevels: [1],
+                currentLevel: 0,
+                dialogues: {},
+                completedNodes: []
+            };
+            
+            document.getElementById('coinCount').textContent = '0';
+            document.getElementById('victoryScreen').classList.remove('active');
+            document.querySelectorAll('.level-scene').forEach(el => el.classList.remove('active'));
+            document.getElementById('worldMap').style.display = 'block';
+            document.getElementById('progressBar').style.width = '0%';
+            
+            // Recrear monedas y bloques
+            document.querySelectorAll('.floating-coin').forEach(coin => {
+                coin.style.transform = '';
+                coin.style.display = '';
+            });
+            document.querySelectorAll('.question-block').forEach(block => {
+                block.style.background = '';
+                block.style.borderColor = '';
+                block.textContent = '?';
+            });
+        }
+
+        // ============================================
+        // EVENT LISTENERS
+        // ============================================
+
+        // Teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && gameState.currentLevel > 0) {
+                goBack();
+            }
+            if (e.key === 'Enter' || e.key === ' ') {
+                if (gameState.currentLevel > 0) {
+                    interact();
+                }
+            }
+        });
+
+        // Resize
+        window.addEventListener('resize', showMobileControls);
+
+        // ============================================
+        // INICIALIZACIÓN
+        // ============================================
+        createStars();
+
+        // Easter egg: Konami code
+        let konamiCode = [];
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.key);
+            if (konamiCode.length > 10) konamiCode.shift();
+            
+            if (JSON.stringify(konamiCode) === JSON.stringify(konamiSequence)) {
+                spawnConfetti();
+                spawnConfetti();
+                gameState.coins += 100;
+                document.getElementById('coinCount').textContent = gameState.coins;
+            }
+        });
+    </script>
+</body>
+</html>
