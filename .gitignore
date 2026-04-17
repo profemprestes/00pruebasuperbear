@@ -95,5 +95,6 @@ out/
 Wait, looking at the file changes again - only source code files were modified (`.ts`, `.tsx`), no build artifacts, dependencies, or temp files were mentioned in the changes. Following rule #6:
 
 ```gitignore
-
+# Qwen settings
+.qwen/
 ```
