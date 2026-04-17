@@ -1,4 +1,5 @@
 import type {Config} from 'tailwindcss';
+import plugin from 'tailwindcss/plugin';
 
 export default {
   darkMode: ['class'],
@@ -160,5 +161,25 @@ export default {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+    plugin(function({ addVariant, addUtilities }) {
+      addVariant('data-open', ['&:where([data-state="open"])', '&:where([data-open="true"])']);
+      addVariant('data-closed', ['&:where([data-state="closed"])', '&:where([data-closed="true"])']);
+      addVariant('data-checked', ['&:where([data-state="checked"])', '&:where([data-checked="true"])']);
+      addVariant('data-unchecked', ['&:where([data-state="unchecked"])', '&:where([data-unchecked="true"])']);
+      addVariant('data-selected', '&:where([data-selected="true"])');
+      addVariant('data-active', ['&:where([data-state="active"])', '&:where([data-active="true"])']);
+      
+      addUtilities({
+        '.no-scrollbar': {
+          '-ms-overflow-style': 'none',
+          'scrollbar-width': 'none',
+          '&::-webkit-scrollbar': {
+            'display': 'none',
+          },
+        },
+      });
+    }),
+  ],
 } satisfies Config;
