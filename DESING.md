@@ -1,98 +1,96 @@
-# Design System: Arcade Bear World
+# Design System Document: The Adventurer’s Odyssey
 
-## 1. Overview & Creative North Star
+## 1. Overview & Creative North Star: "The Digital Playground"
 
-**Creative North Star: "The Tactile Pixel Quest"**
+This design system is a departure from the sterile, rigid layouts of corporate software. Our Creative North Star is **The Digital Playground**. We are not building a website; we are crafting an interactive quest.
 
-This design system moves away from the flat, sterile web and toward a high-fidelity, "playable" editorial experience. We are not just building an invitation; we are constructing a 2.5D JRPG world. The aesthetic blends the precision of **Voxel Geometry** with the warmth of a **Plush Bear Narrative**.
-
-To break the "template" look, we employ **Intentional Asymmetry**. Containers should not always be perfectly centered; they should feel like floating UI windows from a classic 90s console game. We use "Extruded Depth" to make every element feel like a physical button or block that a child would want to press. This is a "Premium Playful" approach—sophisticated enough for a design-forward event, yet tactile enough for a 9-year-old’s imagination.
+To achieve this, the system rejects traditional "flat" design in favor of **Organic Layering**. We move beyond the "template" look by utilizing intentional asymmetry, overlapping elements that "pop" out of their containers, and a scale-defying typography hierarchy. Every interaction should feel like a reward—a "celebratory" moment—achieved through vibrant color transitions and soft, tactile surfaces that mimic high-end physical toys.
 
 ---
 
-## 2. Colors & Surface Philosophy
+## 2. Colors & Tonal Depth
 
-The palette is a sophisticated take on primary arcade tones, utilizing the Material Design token set to create a rich, layered environment.
+Our palette is a high-energy mix of adventurous blues, lush greens, and "achievement" yellows.
 
-### The "No-Line" Rule & Tonal Depth
+### The "No-Line" Rule
 
-Standard 1px hairline strokes are strictly prohibited. In this system, boundaries are created by **3D Extrusion** or **Tonal Shifts**.
+**Explicit Instruction:** Designers are prohibited from using 1px solid borders for sectioning or containment. Boundaries must be defined solely through background color shifts.
 
-- **Physicality:** Use `surface_container` variants to define sections. A "Map" section should sit on `surface_container_low`, while the "Stats/Details" card should be `surface_container_lowest`.
+- To separate a section, transition from `surface` to `surface-container-low`.
 
-- **The "Voxel Edge":** Instead of a border, use a 4px bottom-offset shadow using `tertiary` (#934B19) to create a "thick" 3D base for any `primary` or `secondary` element.
+- To highlight a callout, use a background of `secondary_container` instead of drawing a box around it.
 
-### Color Roles
+### Surface Hierarchy & Nesting
 
-- **Primary (#0C6780 / #87CEEB):** "The Sky World." Used for high-level hero containers and primary navigation.
+Treat the UI as a series of physical layers. We use the Material surface tiers to create depth without clutter:
 
-- **Secondary (#705D00 / #FCD400):** "The Power-Up." Reserved for interactive elements, "New High Score" alerts, and call-to-action (CTA) backgrounds.
+- **Base Layer:** `surface` (#f8f9ff)
 
-- **Tertiary (#934B19):** "The Bear/Ground." Used for the 3D "extrusion" effect and grounding elements.
+- **Primary Sectioning:** `surface_container` (#e5eeff)
 
-- **Signature Textures:** Apply a 10% opacity noise texture or a subtle pixel-grid overlay to `primary_container` to give it a "screen-glow" feel.
+- **Interactive Cards:** `surface_container_lowest` (#ffffff) sitting on top of `surface_container_low`.
 
----
+### The "Glass & Gradient" Rule
 
-## 3. Typography: The Narrative Voice
+To capture the "game-like" essence, use **Glassmorphism** for floating UI (modals, navigation bars).
 
-We balance "Playful Modern" with "Arcade Retro" to ensure readability while maintaining the JRPG soul.
+- Use a semi-transparent `surface` color with a `backdrop-blur` of 20px.
 
-- **Display & Headlines (Plus Jakarta Sans):** These must be set with tight letter-spacing and "Heavy" weights. The rounded nature of Jakarta Sans provides the "friendly bear" feel.
-  - _Styling Tip:_ Use `headline-lg` with a text-shadow of `tertiary` to mimic 8-bit title screens.
-
-- **Body (Be Vietnam Pro):** High legibility for party details (location, time). This acts as the "Instruction Manual" text.
-
-- **Accents & Labels (Space Grotesk):** While the prompt asks for pixel-style fonts, we use Space Grotesk as our functional "Pixel-Lite" alternative for technical data (RSVPs, dates) to ensure maximum accessibility across all devices.
+- **Signature Textures:** Main CTAs and Hero backgrounds must use linear gradients (e.g., `primary` to `primary_container`) to provide a "soulful" 3D depth that flat fills cannot replicate.
 
 ---
 
-## 4. Elevation & Depth: The "3D Voxel" Principle
+## 3. Typography: Bold & Narrative
 
-Forget standard soft shadows. This system uses **Hard-Edge Extrusion**.
+We utilize a high-contrast pairing to balance playfulness with readability.
 
-- **The Layering Principle:**
-  - Base: `surface`
+- **Display & Headlines (Plus Jakarta Sans):** Our "Adventure" font. Use `display-lg` (3.5rem) and `headline-lg` (2rem) with tight letter-spacing to create a bold, authoritative, yet friendly presence. These should often be set in `primary` or `secondary` colors to drive the narrative.
 
-  - Mid-ground (UI Panels): `surface_container_low`
+- **Body & Labels (Be Vietnam Pro):** Our "Guide" font. This provides technical clarity. `body-lg` (1rem) ensures that instructions are legible, while `label-md` handles the metadata of the "quest."
 
-  - Fore-ground (Interactive): `primary_container` with a `tertiary` bottom shadow.
+- **Hierarchy as Identity:** Use extreme scale differences. A `display-lg` headline should sit near a `body-md` description to create a sophisticated, editorial "poster" feel.
 
-- **Ambient Shadows:** We do not use "drop shadows" for depth. We use a **4px - 8px block offset**. If an element is "floating" (like a tooltip), use a `primary_fixed_dim` shadow at 20% opacity with a large 24px blur to simulate a "cloud" floating over the arcade world.
+---
 
-- **Glassmorphism:** For the "HUD" (Heads-Up Display) navigation, use `surface_container_lowest` at 80% opacity with a `20px backdrop-blur`. This simulates a transparent game menu overlay.
+## 4. Elevation & Depth
+
+In this design system, shadows are light, and surfaces are soft.
+
+- **The Layering Principle:** Depth is achieved by "stacking." A `surface_container_highest` element placed on a `surface` background creates a natural, soft lift.
+
+- **Ambient Shadows:** For floating elements (like action buttons), use "Cloud Shadows": Blur values of 30px-50px with a 6% opacity, using a tinted version of `on_surface` (a deep navy tint) rather than pure black.
+
+- **The "Ghost Border" Fallback:** If a container requires definition against an identical background, use the `outline_variant` token at **15% opacity**. Never use 100% opaque lines.
+
+- **Softness:** All containers must adhere to the **Roundedness Scale**, specifically `lg` (2rem) for cards and `xl` (3rem) for hero sections, reinforcing the approachable, game-like feel.
 
 ---
 
 ## 5. Components
 
-### Buttons (The "Arcade Push")
+### Buttons (The "Power-Up" Component)
 
-- **Primary:** Background `secondary_container`, 4px hard bottom border of `secondary`, `label-md` (Space Grotesk) text in `on_secondary_container`. On hover, the button should "sink" (transform: translateY(2px)) and the shadow should shrink.
+- **Primary:** Gradient fill (`primary` to `primary_container`), `full` roundedness, and a subtle white inner-glow (top 1px) to simulate a physical button.
 
-- **Tertiary (The "Ghost" Button):** No background. Use `outline` at 20% opacity only.
+- **Secondary:** `secondary_container` background with `on_secondary_container` text. No border.
 
-### Cards (The "Quest Log")
+- **Tertiary:** `tertiary` text with an icon. Only use a background shift on hover.
 
-- **Style:** No borders. Use `surface_container_highest` for the card body.
+### Cards & Lists (The "Inventory")
 
-- **Header:** A contrasting "tab" at the top using `primary` with `on_primary` text.
+- **Forbidden:** Divider lines.
 
-- **Constraint:** Forbid divider lines. Use 24px of vertical padding (`xl` spacing) to separate content blocks.
+- **Required:** Use 2rem of vertical white space or a subtle shift to `surface_container_low` to separate items. Cards should use `surface_container_lowest` to "pop" against the background.
 
-### Input Fields (The "Character Name Entry")
+### Input Fields
 
-- **Style:** Thick 3px borders using `outline_variant`.
+- Use `surface_variant` for the text field container with `md` (1.5rem) rounded corners.
 
-- **Focus State:** Change border color to `primary` and add a "glow" using a 0px 0px 10px `primary_fixed_dim` shadow.
+- Focus states should not just change border color; they should increase the element's scale by 2% and deepen the ambient shadow.
 
-### Chips (The "Inventory Items")
+### Signature Component: The "Achievement Badge"
 
-- Roundedness: `full`.
-
-- Background: `primary_fixed`.
-
-- Effect: A tiny pixel-art icon of a bear or a coin should precede the text.
+- A floating `tertiary_container` chip with `display-sm` typography and a high-blur `tertiary` ambient shadow, used to celebrate user milestones and "mission" completions.
 
 ---
 
@@ -100,22 +98,52 @@ Forget standard soft shadows. This system uses **Hard-Edge Extrusion**.
 
 ### Do:
 
-- **Embrace Asymmetry:** Offset your hero images or "Bear" illustrations so they break the container edges.
+- **Overlap Elements:** Let images bleed out of their containers or overlap headers to break the "grid" feel.
 
-- **Use Tonal Layering:** Separate the "When/Where" from the "Story" using `surface_container_low` vs `surface_container_high`.
+- **Use "Vibrant Neutrals":** Use `surface_tint` to slightly color your greys, ensuring the "adventure" feel persists even in boring areas.
 
-- **Keep it Tactile:** If it looks like a button, it should behave like one (haptic-style transitions).
+- **Animate Transitions:** Every surface shift should feel fluid (300ms, cubic-bezier).
 
-### Don’t:
+### Don't:
 
-- **No 1px Lines:** Do not use thin lines to separate items. It kills the "Voxel" aesthetic.
+- **Don't use 1px lines:** This kills the "premium playground" aesthetic.
 
-- **No Generic Icons:** Avoid thin-line SVG icons. Use thick-stroke or "blocky" icon sets that match the `outline` weight.
+- **Don't use pure black text:** Always use `on_surface` (#121c28) to maintain a sophisticated tonal range.
 
-- **No Flat Shadows:** Avoid the default `0px 2px 4px rgba(0,0,0,0.1)`. If there is a shadow, it must have a color tint (e.g., a Brown/Tertiary tint).
+- **Don't use sharp corners:** Nothing in this world should feel "sharp" or "dangerous." Stay within the `md` to `xl` roundedness range.
 
 ---
 
-## 7. Signature Element: The "World Map" Grid
+## 7. Design Tokens Reference
 
-To elevate this from a standard invite, the background of the main `surface` should feature a subtle "dot-grid" pattern using `outline_variant` at 5% opacity. This evokes the feeling of a coordinate-based game world, providing an underlying structure that feels both technical and playful.
+### Roundedness Scale
+
+- **xl:** 3rem (Hero sections, Large containers)
+
+- **lg:** 2rem (Standard cards, Modals)
+
+- **md:** 1.5rem (Buttons, Inputs)
+
+- **sm:** 0.5rem (Small tags)
+
+- **full:** 9999px (Pills, Selection chips)
+
+### Typography Scale (Highlights)
+
+- **Display Large:** Plus Jakarta Sans, 3.5rem, Bold.
+
+- **Headline Medium:** Plus Jakarta Sans, 1.75rem, Semi-Bold.
+
+- **Body Large:** Be Vietnam Pro, 1rem, Regular.
+
+- **Label Small:** Be Vietnam Pro, 0.6875rem, Medium (All caps for achievement tags).
+
+### Core Color Tokens (Strategic Use)
+
+- **Primary Action:** `primary` (#005da7)
+
+- **Success/Growth:** `secondary` (#006d35)
+
+- **Warning/Reward:** `tertiary` (#735c00)
+
+- **Standard Background:** `surface` (#f8f9ff)
