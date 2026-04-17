@@ -19,6 +19,9 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
+        "3d-gold": "bg-[#FFD700] text-[#63340b] border-4 border-[#8B4513] shadow-[0_6px_0_#63340b] hover:-translate-y-0.5 hover:shadow-[0_8px_0_#63340b] active:translate-y-1 active:shadow-none transition-all",
+        "3d-green": "bg-[#7CFC00] text-emerald-900 border-4 border-[#3E8B00] shadow-[0_6px_0_#2D6400] hover:-translate-y-0.5 hover:shadow-[0_8px_0_#2D6400] active:translate-y-1 active:shadow-none transition-all",
+        "3d-blue": "bg-[#87CEEB] text-[#003342] border-4 border-[#0095da] shadow-[0_6px_0_#0056b3] hover:-translate-y-0.5 hover:shadow-[0_8px_0_#0056b3] active:translate-y-1 active:shadow-none transition-all",
       },
       size: {
         default:
@@ -32,6 +35,9 @@ const buttonVariants = cva(
         "icon-sm":
           "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
         "icon-lg": "size-9",
+        "game-md": "h-12 px-6 text-base rounded-xl",
+        "game-lg": "h-14 px-8 text-lg rounded-xl",
+        "game-xl": "h-16 px-10 text-xl rounded-2xl",
       },
     },
     defaultVariants: {
