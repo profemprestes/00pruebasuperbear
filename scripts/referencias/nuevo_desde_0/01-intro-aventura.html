@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GRAN FACU AVENTURA - ¡La Misión Comienza!</title>
+    <title>Gran Facu Aventura 🐻 Nivel 9</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap"
         rel="stylesheet">
     <style>
@@ -15,22 +15,18 @@
         }
 
         :root {
-            --verde: #4CAF50;
             --amarillo: #FFD600;
-            --azul: #2196F3;
-            --marron: #8D6E63;
             --marron-oscuro: #4E342E;
+            --verde-game: #4CAF50;
         }
 
         body {
             font-family: 'Nunito', sans-serif;
-            overflow-x: hidden;
+            overflow: hidden;
             background: #000;
         }
 
-        /* ============================================
-           PANTALLA DE TÍTULO PRINCIPAL
-           ============================================ */
+        /* TÍTULO PRINCIPAL */
         .title-screen {
             width: 100vw;
             height: 100vh;
@@ -43,236 +39,46 @@
             overflow: hidden;
         }
 
-        /* Nubes animadas */
-        .cloud {
-            position: absolute;
-            background: white;
-            border-radius: 50px;
-            opacity: 0.9;
-            animation: floatCloud linear infinite;
-        }
-
-        .cloud-1 {
-            width: 120px;
-            height: 50px;
-            top: 10%;
-            animation-duration: 25s;
-        }
-
-        .cloud-2 {
-            width: 80px;
-            height: 35px;
-            top: 20%;
-            animation-duration: 18s;
-            animation-delay: 5s;
-        }
-
-        .cloud-3 {
-            width: 150px;
-            height: 60px;
-            top: 5%;
-            animation-duration: 30s;
-            animation-delay: 10s;
-        }
-
-        /* Título estilo SUPER BEAR ADVENTURE */
         .game-title {
             font-family: 'Fredoka One', cursive;
             font-size: clamp(3rem, 10vw, 6rem);
             color: var(--amarillo);
-            text-shadow:
-                5px 5px 0 var(--marron-oscuro),
-                -3px -3px 0 var(--marron-oscuro),
-                3px -3px 0 var(--marron-oscuro),
-                -3px 3px 0 var(--marron-oscuro),
-                0 8px 0 rgba(0, 0, 0, 0.3);
+            text-shadow: 5px 5px 0 var(--marron-oscuro), 0 8px 0 rgba(0, 0, 0, 0.3);
             text-align: center;
             z-index: 10;
             animation: titleBounce 1.5s ease-in-out infinite alternate;
             line-height: 1.1;
-            padding: 0 20px;
         }
 
-        .game-title span {
-            display: block;
-        }
-
-        .subtitle {
-            font-family: 'Fredoka One', cursive;
-            font-size: clamp(1rem, 3vw, 1.8rem);
-            color: white;
-            text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
-            margin-top: 20px;
-            z-index: 10;
-            animation: fadeInUp 1s ease 0.5s both;
-        }
-
-        /* Oso animado */
         .hero-bear {
-            width: clamp(120px, 25vw, 200px);
-            height: clamp(120px, 25vw, 200px);
-            position: relative;
+            width: clamp(140px, 30vw, 220px);
+            height: auto;
             z-index: 10;
-            margin: 30px 0;
+            margin: 20px 0;
             animation: bearFloat 3s ease-in-out infinite;
+            filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.2));
         }
 
-        .bear-body-main {
-            width: 100%;
-            height: 65%;
-            background: var(--marron);
-            border-radius: 25px;
-            position: absolute;
-            bottom: 0;
-            border: 5px solid var(--marron-oscuro);
-        }
-
-        .bear-head-main {
-            width: 85%;
-            height: 55%;
-            background: var(--marron);
-            border-radius: 18px;
-            position: absolute;
-            top: 0;
-            left: 7.5%;
-            border: 5px solid var(--marron-oscuro);
-            z-index: 2;
-        }
-
-        .bear-ear-main {
-            width: 28%;
-            height: 28%;
-            background: var(--marron);
-            border-radius: 50%;
-            position: absolute;
-            top: -8%;
-            border: 5px solid var(--marron-oscuro);
-            z-index: 1;
-        }
-
-        .bear-ear-main.left {
-            left: 8%;
-        }
-
-        .bear-ear-main.right {
-            right: 8%;
-        }
-
-        .bear-ear-inner-main {
-            width: 50%;
-            height: 50%;
-            background: #BCAAA4;
-            border-radius: 50%;
-            position: absolute;
-            top: 25%;
-            left: 25%;
-        }
-
-        .bear-eye-main {
-            width: 16%;
-            height: 20%;
-            background: var(--marron-oscuro);
-            border-radius: 50%;
-            position: absolute;
-            top: 32%;
-            animation: bearBlink 4s infinite;
-        }
-
-        .bear-eye-main.left {
-            left: 26%;
-        }
-
-        .bear-eye-main.right {
-            right: 26%;
-        }
-
-        .bear-eye-main::after {
-            content: '';
-            width: 35%;
-            height: 35%;
-            background: white;
-            border-radius: 50%;
-            position: absolute;
-            top: 18%;
-            right: 18%;
-        }
-
-        .bear-snout-main {
-            width: 38%;
-            height: 28%;
-            background: #BCAAA4;
-            border-radius: 50%;
-            position: absolute;
-            bottom: 18%;
-            left: 31%;
-        }
-
-        .bear-nose-main {
-            width: 32%;
-            height: 28%;
-            background: var(--marron-oscuro);
-            border-radius: 50%;
-            position: absolute;
-            top: 22%;
-            left: 34%;
-        }
-
-        .bear-mouth-main {
-            width: 35%;
-            height: 12%;
-            border-bottom: 4px solid var(--marron-oscuro);
-            border-radius: 0 0 50% 50%;
-            position: absolute;
-            bottom: 18%;
-            left: 32%;
-        }
-
-        .bear-belly-main {
-            width: 48%;
-            height: 38%;
-            background: #BCAAA4;
-            border-radius: 50%;
-            position: absolute;
-            bottom: 12%;
-            left: 26%;
-        }
-
-        /* Botón START */
         .start-button {
             font-family: 'Fredoka One', cursive;
-            font-size: clamp(1.3rem, 3vw, 2rem);
-            padding: 18px 60px;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            padding: 20px 50px;
             background: var(--amarillo);
             color: var(--marron-oscuro);
             border: 5px solid var(--marron-oscuro);
-            border-radius: 18px;
+            border-radius: 20px;
             cursor: pointer;
             z-index: 10;
             box-shadow: 0 8px 0 var(--marron-oscuro);
-            transition: all 0.2s;
-            position: relative;
-            top: 0;
             animation: pulseButton 2s ease-in-out infinite;
         }
 
-        .start-button:hover {
-            top: -6px;
-            box-shadow: 0 14px 0 var(--marron-oscuro);
-        }
-
-        .start-button:active {
-            top: 4px;
-            box-shadow: 0 4px 0 var(--marron-oscuro);
-        }
-
-        /* ============================================
-           ESCENA DE DIÁLOGO (Como el Video 1)
-           ============================================ */
+        /* ESCENA DE DIÁLOGO */
         .dialogue-scene {
             display: none;
             width: 100vw;
             height: 100vh;
-            background: linear-gradient(180deg, #87CEEB 0%, #B8E6F0 35%, #4CAF50 35%, #66BB6A 100%);
+            background: linear-gradient(180deg, #87CEEB 0%, #4CAF50 100%);
             position: relative;
             overflow: hidden;
         }
@@ -282,119 +88,30 @@
             animation: fadeIn 0.5s ease;
         }
 
-        /* Escenario 3D con perspectiva */
-        .scene-3d {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 65%;
-            perspective: 800px;
-        }
-
-        /* Árboles low-poly */
-        .tree-3d {
-            position: absolute;
-            bottom: 20%;
-        }
-
-        .tree-trunk-3d {
-            width: 30px;
-            height: 80px;
-            background: #5D4037;
-            margin: 0 auto;
-            border-radius: 5px;
-        }
-
-        .tree-top-3d {
-            width: 0;
-            height: 0;
-            border-left: 60px solid transparent;
-            border-right: 60px solid transparent;
-            border-bottom: 100px solid #388E3C;
-            margin-bottom: -15px;
-            position: relative;
-        }
-
-        .tree-top-3d::before {
-            content: '';
-            position: absolute;
-            top: 30px;
-            left: -75px;
-            width: 0;
-            height: 0;
-            border-left: 75px solid transparent;
-            border-right: 75px solid transparent;
-            border-bottom: 100px solid #2E7D32;
-        }
-
-        /* Casas low-poly */
-        .house-3d {
-            position: absolute;
-            bottom: 20%;
-        }
-
-        .house-body-3d {
-            width: 100px;
-            height: 80px;
-            background: #8D6E63;
-            border: 4px solid #5D4037;
-            position: relative;
-        }
-
-        .house-roof-3d {
-            width: 0;
-            height: 0;
-            border-left: 60px solid transparent;
-            border-right: 60px solid transparent;
-            border-bottom: 50px solid #D32F2F;
-            position: absolute;
-            top: -50px;
-            left: -4px;
-        }
-
-        .house-door-3d {
-            width: 25px;
-            height: 40px;
-            background: #5D4037;
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 3px 3px 0 0;
-        }
-
         .npc-character {
             position: absolute;
             bottom: 25%;
             left: 10%;
             z-index: 5;
-            width: 180px;
-            height: auto;
+            width: clamp(150px, 40vw, 250px);
             animation: npcIdle 3s ease-in-out infinite;
             filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.3));
         }
 
-        .npc-character img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* Caja de diálogo estilo RPG */
         .dialogue-box-rpg {
             position: absolute;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
-            max-width: 700px;
+            max-width: 600px;
             background: white;
-            border-radius: 20px;
-            border: 5px solid #333;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            padding: 25px;
+            border-radius: 25px;
+            border: 6px solid var(--marron-oscuro);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            padding: 30px;
             z-index: 100;
+            cursor: pointer;
         }
 
         .dialogue-name {
@@ -402,18 +119,52 @@
             background: var(--amarillo);
             color: var(--marron-oscuro);
             font-family: 'Fredoka One', cursive;
-            padding: 8px 20px;
-            border-radius: 25px;
+            padding: 8px 18px;
+            border-radius: 20px;
             font-size: 1.1rem;
             margin-bottom: 15px;
-            border: 3px solid #F9A825;
+            border: 3px solid var(--marron-oscuro);
         }
 
         .dialogue-text-area {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: #333;
-            line-height: 1.6;
-            min-height: 80px;
+            line-height: 1.5;
+            min-height: 70px;
+            font-weight: 700;
+        }
+
+        .choice-container {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 5px;
+        }
+
+        .choice-btn {
+            font-family: 'Fredoka One', cursive;
+            background: #f0f0f0;
+            color: var(--marron-oscuro);
+            border: 4px solid var(--marron-oscuro);
+            padding: 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+            box-shadow: 0 6px 0 var(--marron-oscuro);
+            text-align: left;
+            width: 100%;
+        }
+
+        .choice-btn:hover {
+            background: var(--amarillo);
+            transform: translateY(-3px);
+            box-shadow: 0 9px 0 var(--marron-oscuro);
+        }
+
+        .choice-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 var(--marron-oscuro);
         }
 
         .dialogue-indicator {
@@ -421,332 +172,19 @@
             bottom: 15px;
             right: 25px;
             font-size: 1.5rem;
-            animation: indicatorBlink 1s infinite;
-            color: #333;
+            animation: indicatorBlink 0.8s infinite;
         }
 
-        /* ============================================
-           MAPA DEL MUNDO (Como el Video 1 - gameplay)
-           ============================================ */
-        .world-map-screen {
-            display: none;
-            width: 100vw;
-            height: 100vh;
-            background: linear-gradient(180deg, #87CEEB 0%, #4CAF50 40%, #2E7D32 100%);
-            position: relative;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
+        /* ANIMACIONES */
+        @keyframes bearFloat {
 
-        .world-map-screen.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        /* HUD superior */
-        .hud-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 12px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, transparent 100%);
-        }
-
-        .hud-coin-display {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-family: 'Fredoka One', cursive;
-            font-size: 1.6rem;
-            color: var(--amarillo);
-            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
-        }
-
-        .coin-icon-hud {
-            width: 35px;
-            height: 35px;
-            background: var(--amarillo);
-            border-radius: 50%;
-            border: 4px solid #F9A825;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: coinSpin 2s linear infinite;
-        }
-
-        .hud-lives-display {
-            display: flex;
-            gap: 8px;
-        }
-
-        .life-heart {
-            font-size: 1.8rem;
-            animation: heartPulse 1s ease-in-out infinite;
-        }
-
-        /* Contenido del mapa */
-        .map-content {
-            padding: 80px 20px 40px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .map-title-text {
-            font-family: 'Fredoka One', cursive;
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
-            color: white;
-            text-shadow: 3px 3px 0 var(--marron-oscuro);
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        /* Camino con nodos */
-        .adventure-path {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0;
-        }
-
-        .path-node {
-            width: clamp(100px, 25vw, 140px);
-            height: clamp(100px, 25vw, 140px);
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-            border: 5px solid var(--marron-oscuro);
-            box-shadow: 0 8px 0 var(--marron-oscuro);
-        }
-
-        .path-node:hover {
-            transform: scale(1.15) translateY(-8px);
-        }
-
-        .path-node:active {
-            transform: scale(0.95) translateY(4px);
-            box-shadow: 0 3px 0 var(--marron-oscuro);
-        }
-
-        .path-node.locked {
-            filter: grayscale(0.8);
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .path-node.active-node {
-            animation: nodeGlow 2s ease-in-out infinite;
-        }
-
-        .node-emoji {
-            font-size: clamp(2rem, 6vw, 3rem);
-            z-index: 2;
-        }
-
-        .node-text {
-            font-family: 'Fredoka One', cursive;
-            font-size: clamp(0.6rem, 1.8vw, 0.8rem);
-            color: white;
-            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
-            text-align: center;
-            z-index: 2;
-            margin-top: 5px;
-        }
-
-        .node-badge {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: var(--rojo);
-            color: white;
-            font-family: 'Fredoka One', cursive;
-            padding: 4px 10px;
-            border-radius: 15px;
-            font-size: 0.6rem;
-            border: 2px solid var(--marron-oscuro);
-        }
-
-        .node-1 {
-            background: #4CAF50;
-        }
-
-        .node-2 {
-            background: #2196F3;
-        }
-
-        .node-3 {
-            background: #FF9800;
-        }
-
-        .node-4 {
-            background: #9C27B0;
-        }
-
-        .node-5 {
-            background: #F44336;
-        }
-
-        .path-connector-line {
-            width: 8px;
-            height: 40px;
-            background: var(--marron);
-            border-radius: 4px;
-            position: relative;
-        }
-
-        .path-connector-line::after {
-            content: '▼';
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--marron);
-            font-size: 0.9rem;
-        }
-
-        /* Zigzag en el camino */
-        .adventure-path .path-node:nth-child(1) {
-            transform: translateX(-40px);
-        }
-
-        .adventure-path .path-node:nth-child(3) {
-            transform: translateX(-40px);
-        }
-
-        .adventure-path .path-node:nth-child(5) {
-            transform: translateX(-40px);
-        }
-
-        .adventure-path .path-node:nth-child(2) {
-            transform: translateX(40px);
-        }
-
-        .adventure-path .path-node:nth-child(4) {
-            transform: translateX(40px);
-        }
-
-        .adventure-path .path-node:nth-child(6) {
-            transform: translateX(40px);
-        }
-
-        /* ============================================
-           TARJETAS DE INFORMACIÓN
-           ============================================ */
-        .info-popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            border-radius: 25px;
-            border: 6px solid var(--marron-oscuro);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 0 5px var(--amarillo);
-            padding: 35px;
-            z-index: 200;
-            max-width: 550px;
-            width: 90%;
-            text-align: center;
-            animation: popupAppear 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        .info-popup.active {
-            display: block;
-        }
-
-        .popup-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 199;
-        }
-
-        .popup-overlay.active {
-            display: block;
-        }
-
-        .popup-icon {
-            font-size: 4.5rem;
-            margin-bottom: 15px;
-        }
-
-        .popup-title {
-            font-family: 'Fredoka One', cursive;
-            font-size: 2rem;
-            color: var(--marron-oscuro);
-            margin-bottom: 20px;
-        }
-
-        .popup-description {
-            font-size: 1.1rem;
-            color: #555;
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .popup-detail {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: #f0f0f0;
-            padding: 12px 18px;
-            border-radius: 12px;
-            margin: 10px 0;
-            font-size: 1.05rem;
-            color: #333;
-        }
-
-        .popup-detail-icon {
-            font-size: 1.8rem;
-        }
-
-        .popup-close-btn {
-            font-family: 'Fredoka One', cursive;
-            font-size: 1.1rem;
-            padding: 12px 35px;
-            background: var(--verde);
-            color: white;
-            border: 4px solid #2E7D32;
-            border-radius: 12px;
-            cursor: pointer;
-            margin-top: 20px;
-            box-shadow: 0 5px 0 #2E7D32;
-            transition: all 0.2s;
-        }
-
-        .popup-close-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 0 #2E7D32;
-        }
-
-        .popup-close-btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 #2E7D32;
-        }
-
-        /* ============================================
-           ANIMACIONES
-           ============================================ */
-        @keyframes floatCloud {
-            from {
-                transform: translateX(-200px);
+            0%,
+            100% {
+                transform: translateY(0);
             }
 
-            to {
-                transform: translateX(calc(100vw + 200px));
+            50% {
+                transform: translateY(-15px);
             }
         }
 
@@ -756,32 +194,7 @@
             }
 
             to {
-                transform: translateY(-15px);
-            }
-        }
-
-        @keyframes bearFloat {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-
-        @keyframes bearBlink {
-
-            0%,
-            95%,
-            100% {
-                transform: scaleY(1);
-            }
-
-            97% {
-                transform: scaleY(0.1);
+                transform: translateY(-10px);
             }
         }
 
@@ -793,7 +206,7 @@
             }
 
             50% {
-                transform: scale(1.08);
+                transform: scale(1.05);
             }
         }
 
@@ -807,18 +220,6 @@
             }
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         @keyframes npcIdle {
 
             0%,
@@ -827,7 +228,7 @@
             }
 
             50% {
-                transform: translateY(-8px);
+                transform: translateY(-10px);
             }
         }
 
@@ -842,509 +243,98 @@
                 opacity: 0;
             }
         }
-
-        @keyframes coinSpin {
-            0% {
-                transform: rotateY(0deg);
-            }
-
-            100% {
-                transform: rotateY(360deg);
-            }
-        }
-
-        @keyframes heartPulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.2);
-            }
-        }
-
-        @keyframes nodeGlow {
-
-            0%,
-            100% {
-                box-shadow: 0 8px 0 var(--marron-oscuro), 0 0 25px rgba(255, 214, 0, 0.6);
-            }
-
-            50% {
-                box-shadow: 0 8px 0 var(--marron-oscuro), 0 0 50px rgba(255, 214, 0, 1);
-            }
-        }
-
-        @keyframes popupAppear {
-            from {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.3);
-            }
-
-            to {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-        }
-
-        /* ============================================
-           RESPONSIVE
-           ============================================ */
-        @media (max-width: 600px) {
-            .dialogue-box-rpg {
-                padding: 18px;
-                bottom: 10px;
-            }
-
-            .dialogue-name {
-                font-size: 0.9rem;
-                padding: 6px 15px;
-            }
-
-            .dialogue-text-area {
-                font-size: 0.95rem;
-            }
-
-            .info-popup {
-                padding: 25px;
-            }
-
-            .popup-title {
-                font-size: 1.5rem;
-            }
-        }
     </style>
 </head>
 
 <body>
 
-    <!-- ============================================
-         PANTALLA DE TÍTULO
-         ============================================ -->
+    <!-- PANTALLA DE TÍTULO -->
     <div class="title-screen" id="titleScreen">
-        <!-- Nubes -->
-        <div class="cloud cloud-1"></div>
-        <div class="cloud cloud-2"></div>
-        <div class="cloud cloud-3"></div>
-
-
-        <!-- Logo Oficial -->
-        <div style="text-align: center; margin-bottom: 20px;">
-            <img src="../../../public/LOGO_FACU.png" alt="Logo" style="width: 120px;">
-        </div>
-
-        <!-- Título -->
-        <div class="game-title">
-            <span>GRAN</span>
-            <span>FACU</span>
-            <span>AVENTURA</span>
-        </div>
-
-        <div class="subtitle">¡Una misión épica de cumpleaños!</div>
-
-        <!-- Oso héroe -->
-        <div class="hero-bear">
-            <div class="bear-head-main">
-                <div class="bear-ear-main left">
-                    <div class="bear-ear-inner-main"></div>
-                </div>
-                <div class="bear-ear-main right">
-                    <div class="bear-ear-inner-main"></div>
-                </div>
-                <div class="bear-eye-main left"></div>
-                <div class="bear-eye-main right"></div>
-                <div class="bear-snout-main">
-                    <div class="bear-nose-main"></div>
-                    <div class="bear-mouth-main"></div>
-                </div>
-            </div>
-            <div class="bear-body-main">
-                <div class="bear-belly-main"></div>
-            </div>
-        </div>
-
-        <!-- Botón Start -->
-        <button class="start-button" onclick="startAdventure()">
-            ¡INICIAR AVENTURA!
-        </button>
+        <div style="margin-bottom: 20px;"><img src="../../../public/LOGO_FACU.png" style="width: 130px;"></div>
+        <div class="game-title"><span>GRAN FACU</span><span>AVENTURA</span></div>
+        <img src="../../../public/facu_bear_sin_fondo.png" class="hero-bear">
+        <button class="start-button" onclick="startAdventure()">¡TOCÁ PARA EMPEZAR!</button>
     </div>
 
-    <!-- ============================================
-         ESCENA DE DIÁLOGO (Como el Video 1 con Shicka)
-         ============================================ -->
+    <!-- ESCENA DE DIÁLOGO -->
     <div class="dialogue-scene" id="dialogueScene">
-        <!-- Escenario 3D -->
-        <div class="scene-3d">
-            <!-- Árboles -->
-            <div class="tree-3d" style="left: 5%;">
-                <div class="tree-top-3d"></div>
-                <div class="tree-trunk-3d"></div>
-            </div>
-            <div class="tree-3d" style="left: 25%;">
-                <div class="tree-top-3d"></div>
-                <div class="tree-trunk-3d"></div>
-            </div>
-            <div class="tree-3d" style="right: 10%;">
-                <div class="tree-top-3d"></div>
-                <div class="tree-trunk-3d"></div>
-            </div>
-
-            <!-- Casas -->
-            <div class="house-3d" style="left: 50%;">
-                <div class="house-roof-3d"></div>
-                <div class="house-body-3d">
-                    <div class="house-door-3d"></div>
-                </div>
-            </div>
-            <div class="house-3d" style="right: 15%;">
-                <div class="house-roof-3d"></div>
-                <div class="house-body-3d">
-                    <div class="house-door-3d"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Personaje (Facu Bear) -->
         <div class="npc-character">
-            <img src="../../../public/facu_bear_sin_fondo.png" alt="Facu Bear">
+            <img src="../../../public/facu_bear_sin_fondo.png" style="width: 100%;">
         </div>
 
-        <!-- Caja de diálogo -->
-        <div class="dialogue-box-rpg" onclick="advanceDialogue()">
-            <div class="dialogue-name" id="dialogueName"> Amigo de Facu</div>
-            <div class="dialogue-text-area" id="dialogueText">
-                ¡Hola! ¿Estabas durmiendo? ¡Evitar la siesta el día del cumpleaños de Facu es algo totalmente tuyo!
+        <div class="dialogue-box-rpg" id="dialogueBox" onclick="advanceDialogue()">
+            <div class="dialogue-name">🐻 Facundo</div>
+            <div class="dialogue-text-area" id="dialogueText"></div>
+
+            <div class="choice-container" id="choiceContainer">
+                <button class="choice-btn" onclick="selectMode('pro')">👾 JUGADOR PRO (Aventureros)</button>
+                <button class="choice-btn" onclick="selectMode('guardian')">🛡️ MODO GUARDIÁN (Info Padres)</button>
             </div>
-            <div class="dialogue-indicator">▼</div>
+
+            <div class="dialogue-indicator" id="indicator">▼</div>
         </div>
     </div>
 
-    <!-- ============================================
-         MAPA DEL MUNDO (Gameplay)
-         ============================================ -->
-    <div class="world-map-screen" id="worldMapScreen">
-        <!-- HUD -->
-        <div class="hud-bar">
-            <div class="hud-coin-display">
-                <div class="coin-icon-hud"></div>
-                <span id="coinCounter">0</span>
-            </div>
-            <div
-                style="font-family: 'Fredoka One', cursive; color: white; text-shadow: 2px 2px 0 rgba(0,0,0,0.5); font-size: 1rem;">
-                GRAN FACU AVENTURA
-            </div>
-            <div class="hud-lives-display">
-                <span class="life-heart">❤️</span>
-                <span class="life-heart">❤️</span>
-                <span class="life-heart">❤️</span>
-            </div>
-        </div>
-
-        <!-- Contenido del mapa -->
-        <div class="map-content">
-            <div class="map-title-text"> MAPA DE LA MISIÓN</div>
-
-            <div class="adventure-path">
-                <!-- Nodo 1 -->
-                <div class="path-node node-1 active-node" onclick="openNodeInfo(1)">
-                    <span class="node-emoji"></span>
-                    <span class="node-text">Inicio de<br>la Aventura</span>
-                    <span class="node-badge">¡EMPEZAR!</span>
-                </div>
-                <div class="path-connector-line"></div>
-
-                <!-- Nodo 2 -->
-                <div class="path-node node-2" onclick="openNodeInfo(2)">
-                    <span class="node-emoji">🎮</span>
-                    <span class="node-text">Zona<br>Gamer</span>
-                </div>
-                <div class="path-connector-line"></div>
-
-                <!-- Nodo 3 -->
-                <div class="path-node node-3" onclick="openNodeInfo(3)">
-                    <span class="node-emoji"></span>
-                    <span class="node-text">Banquete<br>Real</span>
-                </div>
-                <div class="path-connector-line"></div>
-
-                <!-- Nodo 4 -->
-                <div class="path-node node-4" onclick="openNodeInfo(4)">
-                    <span class="node-emoji">🎂</span>
-                    <span class="node-text">Torre del<br>Pastel</span>
-                </div>
-                <div class="path-connector-line"></div>
-
-                <!-- Nodo 5 -->
-                <div class="path-node node-5" onclick="openNodeInfo(5)">
-                    <span class="node-emoji"></span>
-                    <span class="node-text">Gran<br>Fiesta!</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================
-         POPUPS DE INFORMACIÓN
-         ============================================ -->
-    <div class="popup-overlay" id="popupOverlay" onclick="closePopup()"></div>
-
-    <!-- Popup 1: Inicio -->
-    <div class="info-popup" id="popup1">
-        <div class="popup-icon"></div>
-        <div class="popup-title">¡Bienvenido a la misión!</div>
-        <div class="popup-description">
-            Facu cumple <strong>9 años</strong> y necesita tu ayuda para completar esta aventura épica. ¡Explora cada
-            nivel para descubrir los detalles de la fiesta!
-        </div>
-        <div class="popup-detail">
-            <span class="popup-detail-icon">📅</span>
-            <span><strong>Fecha:</strong> Sábado 15 de Junio, 2024</span>
-        </div>
-        <div class="popup-detail">
-            <span class="popup-detail-icon">⏰</span>
-            <span><strong>Hora:</strong> 4:00 PM - 7:00 PM</span>
-        </div>
-        <div class="popup-detail">
-            <span class="popup-detail-icon">📍</span>
-            <span><strong>Lugar:</strong> Casa de Facu</span>
-        </div>
-        <button class="popup-close-btn" onclick="closePopup()">¡Entendido! ✅</button>
-    </div>
-
-    <!-- Popup 2: Zona Gamer -->
-    <div class="info-popup" id="popup2">
-        <div class="popup-icon">🎮</div>
-        <div class="popup-title"> Zona Gamer</div>
-        <div class="popup-description">
-            ¡Preparate para la acción! Habrá:
-        </div>
-        <div class="popup-detail">
-            <span class="popup-detail-icon">🕹️</span>
-            <span>Torneos de videojuegos</span>
-        </div>
-        <div class="popup-detail">
-            <span class="popup-detail-icon"></span>
-            <span>Competencias con premios</span>
-        </div>
-        <div class="popup-detail">
-            <span class="popup-detail-icon">🎲</span>
-            <span>Juegos de mesa épicos</span>
-        </div>
-        <button class="popup-close-btn" onclick="closePopup()">¡Estoy listo! 🎮</button>
-    </div>
-
-    <!-- Popup 3: Banquete -->
-    <div class="info-popup" id="popup3">
-        <div class="popup-icon">🍕</div>
-        <div class="popup-title">¡El Gran Banquete!</div>
-        <div class="popup-description">
-            El nivel más delicioso de la aventura incluye:
-        </div>
-        <div class="popup-detail">
-            <span class="popup-detail-icon">🍕</span>
-            <span>Pizza infinita</span>
-        </div>
-        <div class="popup-detail">
-            <span class="popup-detail-icon"></span>
-            <span>Hot dogs y snacks</span>
-        </div>
-        <div class="popup-detail">
-            <span class="popup-detail-icon">🧃</span>
-            <span>Jugos y gaseosas</span>
-        </div>
-        <div class="popup-detail">
-            <span class="popup-detail-icon">🍬</span>
-            <span>Mesa de dulces</span>
-        </div>
-        <button class="popup-close-btn" onclick="closePopup()">¡Qué rico! 😋</button>
-    </div>
-
-    <!-- Popup 4: Pastel -->
-    <div class="info-popup" id="popup4">
-        <div class="popup-icon">🎂</div>
-        <div class="popup-title"> La Torre del Pastel</div>
-        <div class="popup-description">
-            ¡El boss final de la aventura!
-        </div>
-        <div class="popup-detail">
-            <span class="popup-detail-icon">🎂</span>
-            <span>Pastel épico de cumpleaños</span>
-        </div>
-        <div class="popup-detail">
-            <span class="popup-detail-icon">️</span>
-            <span>¡9 velas para 9 años!</span>
-        </div>
-        <div class="popup-detail">
-            <span class="popup-detail-icon">🎁</span>
-            <span>Regalos y sorpresas</span>
-        </div>
-        <button class="popup-close-btn" onclick="closePopup()">¡Vamos por el boss! 👑</button>
-    </div>
-
-    <!-- Popup 5: Fiesta Final -->
-    <div class="info-popup" id="popup5">
-        <div class="popup-icon"></div>
-        <div class="popup-title"> ¡La Gran Final!</div>
-        <div class="popup-description">
-            ¡Has completado la Gran Facu Aventura! Ahora viene lo mejor:
-        </div>
-        <div class="popup-detail">
-            <span class="popup-detail-icon">🎈</span>
-            <span>Globos y decoración</span>
-        </div>
-        <div class="popup-detail">
-            <span class="popup-detail-icon">🎵</span>
-            <span>Música y baile</span>
-        </div>
-        <div class="popup-detail">
-            <span class="popup-detail-icon"></span>
-            <span>Foto épica con Facu</span>
-        </div>
-        <div class="popup-detail">
-            <span class="popup-detail-icon">🎊</span>
-            <span>¡Y mucha diversión!</span>
-        </div>
-        <button class="popup-close-btn" onclick="closePopup()">¡Feliz Cumpleaños Facu! </button>
-    </div>
-
-    <!-- ============================================
-         SCRIPTS
-         ============================================ -->
     <script>
-        // Estado del juego
-        let gameState = {
-            coins: 0,
-            currentDialogue: 0,
-            currentScene: 0
-        };
-
-        // Diálogos secuenciales
         const dialogues = [
-            {
-                name: ' Amigo de Facu',
-                text: '¡Hola! ¿Estabas durmiendo? ¡Evitar la siesta el día del cumpleaños de Facu es algo totalmente tuyo!'
-            },
-            {
-                name: ' Amigo de Facu',
-                text: 'De todos modos, ¡deberíamos unirnos para celebrar! Podría darte algunos consejos sobre la fiesta.'
-            },
-            {
-                name: ' Amigo de Facu',
-                text: 'He visto unas abejas que conducen a los osos hacia la Casa de Facu, así que deberíamos ir allí primero.'
-            },
-            {
-                name: ' Amigo de Facu',
-                text: '¡Por suerte para nosotros, la plataforma que nos lleva hasta allí sigue funcionando! ¡Vamos!'
-            },
-            {
-                name: '🐻 Facu',
-                text: '¡Hola amigo! ¡Bienvenido a mi aventura de cumpleaños! ¡Estoy cumpliendo 9 años!'
-            },
-            {
-                name: '🐻 Facu',
-                text: 'Explora el mapa para descubrir todos los detalles de la fiesta. ¡Te espero! '
-            }
+            '¡Che, despertate! Facu acaba de desbloquear el Nivel 9.',
+            'La misión es en KBOOM y precisamos armar tremendo equipo.',
+            'Identificate para entrar al servidor:'
         ];
 
-        // Iniciar aventura
+        let currentIdx = 0;
+        let isTyping = false;
+
         function startAdventure() {
             document.getElementById('titleScreen').style.display = 'none';
             document.getElementById('dialogueScene').classList.add('active');
-            showCurrentDialogue();
+            showDialogue();
         }
 
-        // Mostrar diálogo actual
-        function showCurrentDialogue() {
-            if (gameState.currentDialogue >= dialogues.length) {
-                // Ir al mapa del mundo
-                document.getElementById('dialogueScene').classList.remove('active');
-                document.getElementById('worldMapScreen').classList.add('active');
+        function showDialogue() {
+            if (currentIdx >= dialogues.length) {
+                showChoices();
                 return;
             }
 
-            const dialogue = dialogues[gameState.currentDialogue];
-            document.getElementById('dialogueName').textContent = dialogue.name;
-
-            // Efecto typing
+            isTyping = true;
             const textElement = document.getElementById('dialogueText');
+            const fullText = dialogues[currentIdx];
             textElement.textContent = '';
-            let charIndex = 0;
+            let charIdx = 0;
 
-            const typeInterval = setInterval(() => {
-                if (charIndex < dialogue.text.length) {
-                    textElement.textContent += dialogue.text[charIndex];
-                    charIndex++;
+            const interval = setInterval(() => {
+                if (charIdx < fullText.length) {
+                    textElement.textContent += fullText[charIdx];
+                    charIdx++;
                 } else {
-                    clearInterval(typeInterval);
+                    clearInterval(interval);
+                    isTyping = false;
                 }
-            }, 35);
+            }, 30);
         }
 
-        // Avanzar diálogo
         function advanceDialogue() {
-            gameState.currentDialogue++;
-            showCurrentDialogue();
+            if (isTyping) return;
+            currentIdx++;
+            showDialogue();
         }
 
-        // Abrir información de nodo
-        function openNodeInfo(nodeNum) {
-            // Ocultar todos los popups
-            document.querySelectorAll('.info-popup').forEach(p => p.classList.remove('active'));
-
-            // Mostrar popup correspondiente
-            document.getElementById('popup' + nodeNum).classList.add('active');
-            document.getElementById('popupOverlay').classList.add('active');
-
-            // Efecto de confetti simple
-            spawnMiniConfetti();
+        function showChoices() {
+            document.getElementById('dialogueText').style.display = 'none';
+            document.getElementById('indicator').style.display = 'none';
+            document.getElementById('choiceContainer').style.display = 'flex';
+            // Deshabilitar el click en la caja para que no avance más
+            document.getElementById('dialogueBox').onclick = null;
         }
 
-        // Cerrar popup
-        function closePopup() {
-            document.querySelectorAll('.info-popup').forEach(p => p.classList.remove('active'));
-            document.getElementById('popupOverlay').classList.remove('active');
-        }
-
-        // Mini confetti
-        function spawnMiniConfetti() {
-            const colors = ['#FFD600', '#F44336', '#4CAF50', '#2196F3', '#FF9800', '#9C27B0'];
-
-            for (let i = 0; i < 30; i++) {
-                const confetti = document.createElement('div');
-                confetti.style.cssText = `
-                    position: fixed;
-                    width: ${Math.random() * 10 + 5}px;
-                    height: ${Math.random() * 10 + 5}px;
-                    background: ${colors[Math.floor(Math.random() * colors.length)]};
-                    left: ${Math.random() * 100}%;
-                    top: -10px;
-                    z-index: 300;
-                    border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
-                    animation: confettiFall ${Math.random() * 2 + 1}s linear forwards;
-                    pointer-events: none;
-                `;
-                document.body.appendChild(confetti);
-
-                setTimeout(() => confetti.remove(), 3000);
+        function selectMode(mode) {
+            if (mode === 'pro') {
+                window.location.href = './facu-aventura.html';
+            } else {
+                window.location.href = './adultos.html';
             }
         }
-
-        // Agregar keyframes de confetti dinámicamente
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes confettiFall {
-                0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-                100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Prevenir scroll en title screen
-        document.addEventListener('DOMContentLoaded', () => {
-            document.body.style.overflow = 'hidden';
-        });
     </script>
 </body>
 

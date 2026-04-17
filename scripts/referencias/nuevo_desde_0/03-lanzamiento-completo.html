@@ -15,9 +15,8 @@
 
         :root {
             --verde: #4CAF50;
-            --verde-claro: #66BB6A;
             --amarillo: #FFD600;
-            --azul: #2196F3;
+            --azul: #87CEEB;
             --marron: #8D6E63;
             --marron-oscuro: #4E342E;
         }
@@ -1766,38 +1765,22 @@
          FASE 8: CUTSCENE DE HISTORIA
          ============================================ -->
     <div class="cutscene-screen" id="cutsceneScreen">
+        <button onclick="startGameplay()" style="position: absolute; top: 20px; right: 20px; z-index: 100; padding: 10px 20px; background: rgba(0,0,0,0.5); color: white; border: 2px solid white; border-radius: 10px; font-family: 'Fredoka One', cursive; cursor: pointer;">OMITIR INTRO ⏩</button>
+        
         <!-- Panel 1: Reino pacífico -->
         <div class="cutscene-panel active" data-cs-panel="1">
             <div class="cutscene-illustration cs-peaceful"></div>
             <div class="cutscene-text">
-                Por siglos, existió un reino donde las criaturas vivían en armonía. ¡Todo era diversión y felicidad!
+                El Reino Bear está de fiesta. ¡Facu desbloqueó el Nivel 9!
             </div>
             <button class="cutscene-continue" onclick="nextCutscene()">Continuar ▶️</button>
         </div>
 
-        <!-- Panel 2: La amenaza -->
+        <!-- Panel 2: La misión -->
         <div class="cutscene-panel" data-cs-panel="2">
-            <div class="cutscene-illustration cs-threat"></div>
-            <div class="cutscene-text">
-                Desafortunadamente, las abejas comenzaron a causar estragos en el reino y sus habitantes eran demasiado débiles para defenderse.
-            </div>
-            <button class="cutscene-continue" onclick="nextCutscene()">Continuar ▶️</button>
-        </div>
-
-        <!-- Panel 3: Las jaulas -->
-        <div class="cutscene-panel" data-cs-panel="3">
-            <div class="cutscene-illustration cs-cages"></div>
-            <div class="cutscene-text">
-                Los amigos de Facu fueron capturados y encerrados en jaulas. ¡Solo un héroe podía salvarlos!
-            </div>
-            <button class="cutscene-continue" onclick="nextCutscene()">Continuar ▶️</button>
-        </div>
-
-        <!-- Panel 4: El héroe -->
-        <div class="cutscene-panel" data-cs-panel="4">
             <div class="cutscene-illustration cs-hero"></div>
             <div class="cutscene-text">
-                Afortunadamente, un oso valiente logró evitar el ataque. ¡Ahora el destino del pueblo está en sus manos!
+                Prepará tu equipo y medias. La misión comienza en Av. Italia 3421.
             </div>
             <button class="cutscene-continue" onclick="startGameplay()">¡A Jugar! 🎮</button>
         </div>
@@ -1884,13 +1867,12 @@
     <script>
         // Estado del flujo
         let currentCutscene = 1;
-        const totalCutscenes = 4;
+        const totalCutscenes = 2;
 
         const tips = [
-            "Puedes conseguir muchas monedas jugando en el Mundo Aventura.",
-            "¡Vigila el medidor de oxígeno cuando te sumerjas! Los osos también necesitan respirar.",
-            "Si encuentras un error, por favor, infórmalo en el servidor de Discord.",
-            "¡Recoge todas las monedas para desbloquear sorpresas!"
+            'TIP: En el Nivel 9 de Facu, las medias son tu mejor armadura.',
+            'TIP: Shicka dice que el triple perfecto se logra con mucha práctica.',
+            'TIP: La base secreta KBOOM tiene los mejores desafíos de salto.'
         ];
 
         // Lanzar juego desde home screen
@@ -1941,12 +1923,17 @@
                 document.getElementById('startMenu').classList.remove('active');
                 document.getElementById('loadingTipScreen').classList.add('active');
 
-                // Mostrar tip aleatorio
-                const randomTip = tips[Math.floor(Math.random() * tips.length)];
-                document.getElementById('gameTip').textContent = randomTip;
+                // Mostrar tip aleatorio y rotar
+                let tipIndex = 0;
+                document.getElementById('gameTip').textContent = tips[tipIndex];
+                const tipInterval = setInterval(() => {
+                    tipIndex = (tipIndex + 1) % tips.length;
+                    document.getElementById('gameTip').textContent = tips[tipIndex];
+                }, 1000);
 
                 // Después de cargar, mostrar cutscene
                 setTimeout(() => {
+                    clearInterval(tipInterval);
                     doZigzagTransition(() => {
                         document.getElementById('loadingTipScreen').classList.remove('active');
                         document.getElementById('cutsceneScreen').classList.add('active');
@@ -1967,8 +1954,7 @@
         // Iniciar gameplay
         function startGameplay() {
             doZigzagTransition(() => {
-                document.getElementById('cutsceneScreen').classList.remove('active');
-                document.getElementById('gameplayScreen').classList.add('active');
+                window.location.href = 'facu-aventura.html';
             });
         }
 

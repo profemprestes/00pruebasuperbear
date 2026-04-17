@@ -15,7 +15,7 @@
         :root {
             --amarillo: #FFD600;
             --marron-oscuro: #4E342E;
-            --azul-fondo: #1A237E;
+            --azul-fondo: #87CEEB;
         }
 
         body {
@@ -30,7 +30,7 @@
         .credits-screen {
             width: 100vw;
             height: 100vh;
-            background: #000;
+            background: var(--azul-fondo);
             position: relative;
             overflow: hidden;
         }
@@ -615,11 +615,11 @@
         <!-- Botón Saltar -->
         <button class="skip-button" onclick="skipCredits()"> Saltar </button>
 
-        <!-- Contenido de créditos -->
+        <!-- Contenido de títulos finales -->
         <div class="credits-content">
             <div class="credit-section">
-                <div class="credit-title">GRAN FACU AVENTURA</div>
-                <div class="credit-name">Una invitación de cumpleaños épica</div>
+                <div class="credit-title" style="font-size: 3rem;">¡MISIÓN CUMPLIDA! 🏆</div>
+                <div class="credit-name">El servidor está listo para recibirte</div>
             </div>
 
             <div class="credit-bear">
@@ -631,37 +631,17 @@
             </div>
 
             <div class="credit-section">
-                <div class="credit-title">Creado por</div>
-                <div class="credit-name">Los Amigos de Facu</div>
+                <div class="credit-title">Cargando datos...</div>
+                <div class="credit-name">Preparando equipo de aventureros</div>
             </div>
 
             <div class="credit-section">
-                <div class="credit-title">Música</div>
-                <div class="credit-name">¡La fiesta de cumpleaños!</div>
+                <div class="credit-title">NIVEL 9</div>
+                <div class="credit-name">KBOOM World</div>
             </div>
 
             <div class="credit-section">
-                <div class="credit-title">Ilustraciones</div>
-                <div class="credit-name">Tu imaginación </div>
-            </div>
-
-            <div class="credit-section">
-                <div class="credit-title">Agradecimientos especiales</div>
-                <div class="credit-name">A todos los amigos que vendrán<br>a celebrar con Facu</div>
-            </div>
-
-            <div class="credit-section">
-                <div class="credit-title">Traducción al diversión</div>
-                <div class="credit-name">Facu y sus 9 años de aventuras</div>
-            </div>
-
-            <div class="credit-section">
-                <div class="credit-title">Powered by</div>
-                <div class="credit-name">Amistad y Diversión</div>
-            </div>
-
-            <div class="credit-section">
-                <div class="credit-title" style="font-size: 2.5rem; color: #FFD600;">¡FELIZ CUMPLEAÑOS FACU!</div>
+                <div class="credit-title" style="font-size: 2.5rem; color: #FFD600;">¡FELIZ CUMPLE FACU!</div>
             </div>
         </div>
     </div>
@@ -670,55 +650,15 @@
          PANTALLA DE HISTORIA (Cutscenes)
          ============================================ -->
     <div class="story-screen" id="storyScreen">
-        <!-- Panel 1: El reino feliz -->
         <div class="story-panel active" data-panel="1">
-            <div class="story-illustration scene-happy-kingdom"></div>
-            <div class="story-text">
-                Por siglos, existió un reino donde la diversión y la alegría reinaban. Todos los amigos vivían en armonía, jugando y riendo juntos.
-            </div>
-            <div class="story-nav">
-                <button class="story-nav-btn" onclick="nextPanel()">Siguiente ▶️</button>
-            </div>
-            <div class="page-indicator">Página 1/4</div>
-        </div>
-
-        <!-- Panel 2: La amenaza -->
-        <div class="story-panel" data-panel="2">
-            <div class="story-illustration scene-threat"></div>
-            <div class="story-text">
-                Pero un día, una amenaza oscura se acercó... ¡El aburrimiento! Los amigos comenzaron a estar tristes y sin ganas de jugar.
-            </div>
-            <div class="story-nav">
-                <button class="story-nav-btn" onclick="prevPanel()">◀️ Anterior</button>
-                <button class="story-nav-btn" onclick="nextPanel()">Siguiente ▶️</button>
-            </div>
-            <div class="page-indicator">Página 2/4</div>
-        </div>
-
-        <!-- Panel 3: El héroe -->
-        <div class="story-panel" data-panel="3">
-            <div class="story-illustration scene-hero"></div>
-            <div class="story-text">
-                Afortunadamente, un oso valiente llamado Facu se alzó. ¡Él cumpliría 9 años y organizaría la fiesta más épica de todas!
-            </div>
-            <div class="story-nav">
-                <button class="story-nav-btn" onclick="prevPanel()">◀️ Anterior</button>
-                <button class="story-nav-btn" onclick="nextPanel()">Siguiente ▶️</button>
-            </div>
-            <div class="page-indicator">Página 3/4</div>
-        </div>
-
-        <!-- Panel 4: La fiesta -->
-        <div class="story-panel" data-panel="4">
             <div class="story-illustration scene-party"></div>
             <div class="story-text">
-                Y así, Facu organizó una GRAN AVENTURA de cumpleaños. ¡Con juegos, comida, pastel y mucha diversión! ¿Te unes a la misión?
+                Facu ya tiene todo listo para el Nivel 9 en KBOOM. Solo falta que vos elijas tu lugar en el equipo.
             </div>
             <div class="story-nav">
-                <button class="story-nav-btn" onclick="prevPanel()">◀️ Anterior</button>
-                <button class="story-nav-btn" onclick="goToSaveSelect()">¡Sí, quiero jugar! </button>
+                <button class="story-nav-btn" onclick="goToSaveSelect()">¡Elegir mi Slot! </button>
             </div>
-            <div class="page-indicator">Página 4/4</div>
+            <div class="page-indicator">Fase Final</div>
         </div>
     </div>
 
@@ -726,30 +666,25 @@
          PANTALLA DE SELECCIÓN DE PARTIDA
          ============================================ -->
     <div class="save-select-screen" id="saveSelectScreen">
-        <div class="save-select-title"> Elige una partida para empezar a jugar</div>
+        <div class="save-select-title">¡MISIÓN CUMPLIDA! 🏆</div>
         
         <div class="save-slots">
-            <div class="save-slot" onclick="selectSave('A')">
-                <div class="save-slot-icon">🐻</div>
-                <div class="save-slot-name">Partida A</div>
-                <div class="save-slot-status">¡Confirmar asistencia!</div>
+            <div class="save-slot" onclick="selectSave('1')">
+                <div class="save-slot-icon">🎮</div>
+                <div class="save-slot-name">[SLOT 1] CONFIRMADO</div>
+                <div class="save-slot-status">Voy a la partida</div>
             </div>
-            <div class="save-slot" onclick="selectSave('B')">
-                <div class="save-slot-icon">🐻</div>
-                <div class="save-slot-name">Partida B</div>
-                <div class="save-slot-status">¡Confirmar asistencia!</div>
-            </div>
-            <div class="save-slot" onclick="selectSave('C')">
-                <div class="save-slot-icon">🐻</div>
-                <div class="save-slot-name">Partida C</div>
-                <div class="save-slot-status">¡Confirmar asistencia!</div>
+            <div class="save-slot" onclick="selectSave('2')">
+                <div class="save-slot-icon">💀</div>
+                <div class="save-slot-name">[SLOT 2] GAME OVER</div>
+                <div class="save-slot-status">No puedo ir</div>
             </div>
         </div>
     </div>
 
     <!-- Popup de confirmación -->
     <div class="confirm-popup" id="confirmPopup">
-        <div class="confirm-title" id="confirmTitle">¿Confirmar asistencia?</div>
+        <div class="confirm-title" id="confirmTitle">¿Estás seguro de guardar estos datos en la base del servidor?</div>
         <div style="font-size: 3rem; margin: 15px 0;">🎉</div>
         <div style="color: #666;">
             ¡Facu te espera el<br><strong>Sábado 15 de Junio</strong><br>a las <strong>4:00 PM</strong>!
@@ -814,8 +749,11 @@
             });
         }
 
+        let selectedSlot = '';
+
         // Seleccionar guardado
         function selectSave(slot) {
+            selectedSlot = slot;
             document.getElementById('confirmPopup').classList.add('active');
         }
 
@@ -828,10 +766,15 @@
         function confirmAttendance() {
             document.getElementById('confirmPopup').classList.remove('active');
             
-            // Mostrar mensaje de éxito
-            setTimeout(() => {
-                alert('¡Asistencia confirmada! 🎉\n\n¡Nos vemos en la fiesta de Facu!\n\n📅 Sábado 15 de Junio\n⏰ 4:00 PM\n📍 Casa de Facu');
-            }, 300);
+            if (selectedSlot === '1') {
+                setTimeout(() => {
+                    alert('¡DATOS GUARDADOS! 🎉\n\nNos vemos en KBOOM el 24 de mayo (18:30 hs).\n\n📍 Av. Italia 3421\n⚠️ ¡No te olvides las medias deportivas!');
+                }, 300);
+            } else {
+                setTimeout(() => {
+                    alert('¡Lástima! Facu te va a extrañar en el servidor. 💀');
+                }, 300);
+            }
         }
 
         // Transición zigzag
