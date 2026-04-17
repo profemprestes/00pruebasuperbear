@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcade World - Gran Facu Aventura</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --sky-blue: #87CEEB;
+            --gold: #FFD600;
+            --dark-wood: #4E342E;
+            --grass-green: #4CAF50;
+            --white: #FFFFFF;
+            --red: #F44336;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--sky-blue);
+            font-family: 'Nunito', sans-serif;
+            color: var(--dark-wood);
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Fredoka One', cursive;
+            margin-bottom: 15px;
+        }
+
+        /* Tarjeta Principal */
+        .voxel-card {
+            background: var(--white);
+            border: 4px solid var(--dark-wood);
+            border-radius: 16px;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.15);
+        }
+
+        /* Botones de Nivel (Arcade) */
+        .level-btn {
+            background: var(--gold);
+            border: 4px solid var(--dark-wood);
+            box-shadow: 0 6px 0 var(--dark-wood);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Fredoka One';
+            font-size: 1.2rem;
+            color: var(--dark-wood);
+            cursor: pointer;
+            width: 100%;
+            transition: 0.1s;
+        }
+
+        .level-btn:active:not(:disabled) {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 var(--dark-wood);
+        }
+
+        .level-btn:disabled {
+            background: #ccc;
+            color: #666;
+            border-color: #666;
+            box-shadow: 0 6px 0 #666;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        /* Modales para los Minijuegos */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border: 4px solid var(--dark-wood);
+            border-radius: 16px;
+            padding: 25px;
+            max-width: 90%;
+            width: 400px;
+            box-shadow: 0 10px 0 var(--gold);
+        }
+
+        .option-btn {
+            background: var(--sky-blue);
+            border: 3px solid var(--dark-wood);
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            width: 100%;
+            font-family: 'Nunito';
+            font-weight: 900;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 0 var(--dark-wood);
+        }
+
+        .option-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 var(--dark-wood);
+        }
+
+        /* Inventario y Save Slots */
+        .inventory-list {
+            text-align: left;
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 2px dashed var(--dark-wood);
+        }
+
+        .save-slot {
+            background: var(--dark-wood);
+            color: var(--gold);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Fredoka One';
+            cursor: pointer;
+            margin-bottom: 10px;
+            border: 3px solid var(--gold);
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div style="text-align: center; margin-top: 20px;">
+        <img src="../../../public/LOGO_FACU.png" alt="Logo" style="width: 120px; margin-bottom: 10px;">
+    </div>
+    <h1 style="color: white; text-shadow: 2px 2px var(--dark-wood); margin-top: 0;">👾 ARCADE WORLD 👾</h1>
+
+    <div class="voxel-card" id="arcade-menu">
+        <h2>Selecciona tu Misión</h2>
+        <p>¡Completá los 3 retos para desbloquear el Nivel 9 de Facu!</p>
+
+        <button class="level-btn" id="btn-lvl1" onclick="openGame(1)">🏀 Nivel 1: El Tiro de Facu</button>
+        <button class="level-btn" id="btn-lvl2" onclick="openGame(2)" disabled>🧦 Nivel 2: Rescate de Medias</button>
+        <button class="level-btn" id="btn-lvl3" onclick="openGame(3)" disabled>🏆 Nivel 3: Trivia Pro-Facu</button>
+    </div>
+
+    <div class="modal-overlay" id="game-modal">
+        <div class="modal-content" id="game-content">
+        </div>
+    </div>
+
+    <div class="voxel-card" id="victory-screen" style="display: none; margin-top: 20px; border-color: var(--gold);">
+        <h2>¡MISIÓN SUPERADA, CRACK! 🎉</h2>
+        <p style="margin-bottom: 15px;">Facu te espera en KBOOM. ¡Ganaste la <b>Insignia de Héroe</b>!</p>
+
+        <div class="inventory-list">
+            <h3 style="font-size: 1.1rem;">🎒 Inventario Sugerido (Regalos)</h3>
+            <p>Si querés potenciar a Facu en su próximo nivel, le encantan:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Cosas de Básquet 🏀</li>
+                <li>Juegos o accesorios de Super Bear Adventure 🐻</li>
+                <li>Herramientas para dibujar o crear 🎨</li>
+            </ul>
+        </div>
+
+        <h3>💾 GUARDAR PARTIDA (RSVP)</h3>
+        <div class="save-slot" onclick="saveGame()">[SLOT 1] CONFIRMAR ASISTENCIA</div>
+    </div>
+
+    <script>
+        // ESTADO DEL JUEGO
+        let currentLevelPlaying = 1;
+
+        // DATOS DE LOS MINIJUEGOS
+        const games = {
+            1: {
+                title: "El Tiro de Facu",
+                text: "¡Metele que se acaba el tiempo! ¿Qué ataque especial usa Facu en la cancha?",
+                options: [
+                    { text: "A) El Salto del Oso Pardo", correct: false },
+                    { text: "B) El Triple Perfecto 🏀", correct: true },
+                    { text: "C) Comer pizza rápido", correct: false }
+                ]
+            },
+            2: {
+                title: "Rescate de Medias",
+                text: "¿Qué 'Objeto Legendario' es OBLIGATORIO equiparse para saltar en KBOOM sin resbalar?",
+                options: [
+                    { text: "A) Una espada de diamantes", correct: false },
+                    { text: "B) Una armadura pesada", correct: false },
+                    { text: "C) Un buen par de Medias 🧦", correct: true }
+                ]
+            },
+            3: {
+                title: "Trivia Pro-Facu",
+                text: "Último reto: Si Facu estuviera en Super Bear Adventure, ¿cuál sería su misión principal?",
+                options: [
+                    { text: "A) Juntar Miel Morada venenosa", correct: false },
+                    { text: "B) Rescatar a sus amigos y hacer una fiesta 🐻", correct: true },
+                    { text: "C) Quedarse durmiendo en la aldea", correct: false }
+                ]
+            }
+        };
+
+        const modal = document.getElementById('game-modal');
+        const content = document.getElementById('game-content');
+
+        // ABRIR EL JUEGO
+        function openGame(level) {
+            currentLevelPlaying = level;
+            const g = games[level];
+
+            let html = `<h2>${g.title}</h2><p style="margin-bottom: 15px;">${g.text}</p>`;
+            g.options.forEach((opt, index) => {
+                html += `<button class="option-btn" onclick="checkAnswer(${opt.correct})">${opt.text}</button>`;
+            });
+
+            content.innerHTML = html;
+            modal.style.display = 'flex';
+        }
+
+        // REVISAR RESPUESTA
+        function checkAnswer(isCorrect) {
+            if (isCorrect) {
+                content.innerHTML = `
+                    <h2 style="color: var(--grass-green);">¡EXCELENTE!</h2>
+                    <p>¡Respuesta correcta, sos un crack!</p>
+                    <button class="level-btn" onclick="winLevel()">Continuar</button>
+                `;
+            } else {
+                content.innerHTML = `
+                    <h2 style="color: var(--red);">¡UY, CASI!</h2>
+                    <p>La pelota pegó en el palo. ¡Intentá de nuevo!</p>
+                    <button class="level-btn" onclick="openGame(currentLevelPlaying)">Reintentar</button>
+                `;
+            }
+        }
+
+        // GANAR EL NIVEL Y DESBLOQUEAR EL SIGUIENTE
+        function winLevel() {
+            modal.style.display = 'none';
+
+            if (currentLevelPlaying === 1) {
+                document.getElementById('btn-lvl1').innerHTML = "✅ Nivel 1 Completado";
+                document.getElementById('btn-lvl2').disabled = false;
+            } else if (currentLevelPlaying === 2) {
+                document.getElementById('btn-lvl2').innerHTML = "✅ Nivel 2 Completado";
+                document.getElementById('btn-lvl3').disabled = false;
+            } else if (currentLevelPlaying === 3) {
+                document.getElementById('btn-lvl3').innerHTML = "✅ Nivel 3 Completado";
+                document.getElementById('arcade-menu').style.display = 'none';
+                document.getElementById('victory-screen').style.display = 'block';
+            }
+        }
+
+        // CONFIRMAR ASISTENCIA (SAVE SLOT)
+        function saveGame() {
+            alert("¡PARTIDA GUARDADA! 💾\n\nTu asistencia está confirmada. ¡Nos vemos el 24 de Mayo en KBOOM!");
+            // Aquí en la app final de Next.js se enviaría el formulario a Firebase.
+        }
+    </script>
+</body>
+
+</html>

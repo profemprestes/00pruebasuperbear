@@ -352,68 +352,21 @@
             border-radius: 3px 3px 0 0;
         }
 
-        /* Personaje NPC (como Shicka) */
         .npc-character {
             position: absolute;
             bottom: 25%;
-            left: 15%;
+            left: 10%;
             z-index: 5;
-            animation: npcIdle 2s ease-in-out infinite;
+            width: 180px; 
+            height: auto;
+            animation: npcIdle 3s ease-in-out infinite;
+            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.3));
         }
 
-        .npc-body {
-            width: 60px;
-            height: 80px;
-            background: #FFD600;
-            border-radius: 12px;
-            position: relative;
-            border: 3px solid #F9A825;
-        }
-
-        .npc-head {
-            width: 70px;
-            height: 65px;
-            background: #FFD600;
-            border-radius: 10px;
-            position: absolute;
-            top: -60px;
-            left: -5px;
-            border: 3px solid #F9A825;
-        }
-
-        .npc-eye {
-            width: 12px;
-            height: 15px;
-            background: #333;
-            border-radius: 50%;
-            position: absolute;
-            top: 22px;
-        }
-
-        .npc-eye.left { left: 18px; }
-        .npc-eye.right { right: 18px; }
-
-        .npc-mouth {
-            width: 20px;
-            height: 8px;
-            background: #F9A825;
-            border-radius: 0 0 50% 50%;
-            position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .npc-belly {
-            width: 35px;
-            height: 45px;
-            background: #2196F3;
-            border-radius: 50%;
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 2px solid #1976D2;
+        .npc-character img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
         /* Caja de diálogo estilo RPG */
@@ -848,6 +801,12 @@
         <div class="cloud cloud-2"></div>
         <div class="cloud cloud-3"></div>
 
+
+        <!-- Logo Oficial -->
+        <div style="text-align: center; margin-bottom: 20px;">
+            <img src="../../../public/LOGO_FACU.png" alt="Logo" style="width: 120px;">
+        </div>
+
         <!-- Título -->
         <div class="game-title">
             <span>GRAN</span>
@@ -915,16 +874,9 @@
             </div>
         </div>
 
-        <!-- NPC (tipo Shicka) -->
+        <!-- Personaje (Facu Bear) -->
         <div class="npc-character">
-            <div class="npc-head">
-                <div class="npc-eye left"></div>
-                <div class="npc-eye right"></div>
-                <div class="npc-mouth"></div>
-            </div>
-            <div class="npc-body">
-                <div class="npc-belly"></div>
-            </div>
+            <img src="../../../public/facu_bear_sin_fondo.png" alt="Facu Bear">
         </div>
 
         <!-- Caja de diálogo -->

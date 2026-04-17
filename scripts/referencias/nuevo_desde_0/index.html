@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gran Facu Aventura - ¡START!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --sky-blue: #87CEEB;
+            --gold: #FFD600;
+            --dark-wood: #4E342E;
+        }
+
+        body {
+            background-color: var(--sky-blue);
+            font-family: 'Nunito', sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .voxel-card {
+            background: white;
+            border: 4px solid var(--dark-wood);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .btn-3d-gold {
+            background: var(--gold);
+            border: 4px solid var(--dark-wood);
+            box-shadow: 0 6px 0 var(--dark-wood);
+            font-family: 'Fredoka One';
+            padding: 15px;
+            border-radius: 12px;
+            display: block;
+            margin: 15px 0;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--dark-wood);
+            transition: 0.1s;
+        }
+
+        .btn-3d-gold:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 var(--dark-wood);
+        }
+
+        #loading {
+            position: fixed;
+            inset: 0;
+            background: var(--sky-blue);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .bar {
+            width: 200px;
+            height: 20px;
+            border: 3px solid var(--dark-wood);
+            border-radius: 10px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .progress {
+            width: 0%;
+            height: 100%;
+            background: var(--gold);
+            transition: width 1.5s linear;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loading">
+        <h2 style="font-family: 'Fredoka One'; color: white; margin-bottom: 10px;">CARGANDO NIVEL 9...</h2>
+        <div class="bar">
+            <div class="progress" id="progress"></div>
+        </div>
+    </div>
+    <div class="voxel-card">
+        <img src="../../../public/LOGO_FACU.png" alt="Logo" style="width: 150px; margin-bottom: 20px;">
+        <h2 style="font-family: 'Fredoka One'; margin-bottom: 20px;">¿Quién solicita acceso?</h2>
+        <a href="aventura.html" class="btn-3d-gold">👾 MODO AVENTURERO</a>
+        <a href="adultos.html" class="btn-3d-gold" style="background: #4CAF50; color: white;">🛡️ MODO GUARDIÁN</a>
+    </div>
+    <script>
+        window.onload = () => {
+            document.getElementById('progress').style.width = '100%';
+            setTimeout(() => document.getElementById('loading').classList.add('hidden'), 1600);
+        };
+    </script>
+</body>
+
+</html>
