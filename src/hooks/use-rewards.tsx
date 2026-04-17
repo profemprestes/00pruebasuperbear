@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, useCallback, type ReactNode, useMemo } from "react";
 
 export interface MissionStep {
   id: string;
@@ -32,33 +32,40 @@ const defaultSteps: MissionStep[] = [
 
 const RewardsContext = createContext<RewardsContextType | undefined>(undefined);
 
-export function RewardsProvider({ children }: { children: ReactNode }) {
-  const [coins, setCoins] = useState(0);
-  const [steps, setSteps] = useState<MissionStep[]>(defaultSteps);
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+// Storage key for localStorage
+const STORAGE_KEY = "sba-rewards";
 
-  // Load from localStorage on mount
-  useEffect(() => {
+export function RewardsProvider({ children }: { children: ReactNode }) {
+  // Initialize state directly from localStorage to avoid re-renders
+  const getInitialState = () => {
     try {
-      const saved = localStorage.getItem("sba-rewards");
+      const saved = typeof window !== 'undefined' ? localStorage.getItem(STORAGE_KEY) : null;
       if (saved) {
-        const data = JSON.parse(saved);
-        if (data.coins) setCoins(data.coins);
-        if (data.steps) setSteps(data.steps);
-        if (data.currentStepIndex !== undefined) setCurrentStepIndex(data.currentStepIndex);
+        return JSON.parse(saved);
       }
     } catch (error) {
       console.error("Failed to load rewards from localStorage", error);
     }
-  }, []);
+    return { coins: 0, steps: defaultSteps, currentStepIndex: 0 };
+  };
 
-  // Save to localStorage on change
+  const initialState = useMemo(getInitialState, []);
+  
+  const [coins, setCoins] = useState(initialState.coins ?? 0);
+  const [steps, setSteps] = useState<MissionStep[]>(initialState.steps ?? defaultSteps);
+  const [currentStepIndex, setCurrentStepIndex] = useState(initialState.currentStepIndex ?? 0);
+
+  // Debounced save to localStorage
   useEffect(() => {
-    try {
-      localStorage.setItem("sba-rewards", JSON.stringify({ coins, steps, currentStepIndex }));
-    } catch (error) {
-      console.error("Failed to save rewards to localStorage", error);
-    }
+    const timeoutId = setTimeout(() => {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ coins, steps, currentStepIndex }));
+      } catch (error) {
+        console.error("Failed to save rewards to localStorage", error);
+      }
+    }, 300); // 300ms debounce
+
+    return () => clearTimeout(timeoutId);
   }, [coins, steps, currentStepIndex]);
 
   const addCoins = useCallback((amount: number) => {
@@ -79,22 +86,30 @@ export function RewardsProvider({ children }: { children: ReactNode }) {
     }
   }, [steps.length]);
 
-  const totalSteps = steps.length;
-  const progressPercent = steps.filter((s) => s.completed).length / totalSteps;
+  // Memoize computed values
+  const totalSteps = useMemo(() => steps.length, [steps.length]);
+  const progressPercent = useMemo(
+    () => steps.filter((s) => s.completed).length / totalSteps,
+    [steps, totalSteps]
+  );
+
+  // Memoize context value to prevent unnecessary re-renders
+  const contextValue = useMemo(
+    () => ({
+      coins,
+      steps,
+      currentStepIndex,
+      addCoins,
+      completeStep,
+      goToStep,
+      totalSteps,
+      progressPercent,
+    }),
+    [coins, steps, currentStepIndex, addCoins, completeStep, goToStep, totalSteps, progressPercent]
+  );
 
   return (
-    <RewardsContext.Provider
-      value={{
-        coins,
-        steps,
-        currentStepIndex,
-        addCoins,
-        completeStep,
-        goToStep,
-        totalSteps,
-        progressPercent,
-      }}
-    >
+    <RewardsContext.Provider value={contextValue}>
       {children}
     </RewardsContext.Provider>
   );

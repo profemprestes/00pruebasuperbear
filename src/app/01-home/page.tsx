@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo, memo } from "react";
 
 import { PasswordScreen } from "@/components/01-password-screen";
 import { LoadingScreen } from "@/components/02-loading-screen";
@@ -25,13 +25,13 @@ const NAVIGABLE_SCREENS: Screen[] = ['presentation', 'register', 'arcadeWorld', 
 
 type Screen = 'password' | 'loading' | 'introVideo' | 'presentation' | 'register' | 'arcadeWorld' | 'avatarCreator' | 'missionDetails' | 'bioBook' | 'gameFlow';
 
-// LocalStorage keys
-const STORAGE_KEYS = {
+// LocalStorage keys - defined outside component to avoid recreation
+const STORAGE_KEYS = Object.freeze({
   PASSWORD_VERIFIED: 'facu_adventure_password_verified',
   LAST_SCREEN: 'facu_adventure_last_screen',
   NAVIGATION_HISTORY: 'facu_adventure_nav_history',
   GAME_STATE: 'facu_adventure_game_state',
-};
+} as const);
 
 interface PersistedGameState {
   playerName: string;
@@ -39,6 +39,34 @@ interface PersistedGameState {
   coins: number;
   avatarConfig: AvatarConfig | null;
 }
+
+// Memoized navigation button component
+const NavButton = memo(function NavButton({ 
+  onClick, 
+  icon: Icon, 
+  label, 
+  colorClass,
+  ariaLabel 
+}: { 
+  onClick: () => void; 
+  icon: React.ElementType; 
+  label: string; 
+  colorClass: string;
+  ariaLabel: string;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      aria-label={ariaLabel}
+      className={`flex items-center gap-2 bg-white/90 backdrop-blur-sm border-3 ${colorClass} rounded-xl px-3 py-2 shadow-[3px_3px_0px_#63340b] hover:shadow-[5px_5px_0px_#63340b] hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#63340b] transition-all`}
+    >
+      <Icon className={`w-4 h-4 ${colorClass.includes('golden') ? 'text-golden-coin' : 'text-teddy-brown'}`} />
+      <span className="font-amble text-xs sm:text-sm text-teddy-brown font-semibold hidden sm:inline">
+        {label}
+      </span>
+    </button>
+  );
+});
 
 export default function Home() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('password');
@@ -263,7 +291,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen overflow-hidden relative">
-      {/* Video de fondo */}
+      {/* Video de fondo - optimized with preload hints */}
       <video
         autoPlay
         loop
@@ -271,6 +299,8 @@ export default function Home() {
         playsInline
         src="/fondo_web.mp4"
         className="fixed top-0 left-0 w-screen h-screen object-cover z-[-1] motion-safe:animate-in fade-in-0 duration-1000 brightness-[.85] saturato-[1.2]"
+        preload="auto"
+        poster="/fondo_poster.jpg"
       />
 
       {/* ─── NAVIGATION CONTROLS (top-left) ─────────────────── */}
@@ -283,29 +313,23 @@ export default function Home() {
             transition={{ duration: 0.3 }}
             className="fixed top-4 left-4 z-50 flex gap-2"
           >
-            {/* Back button */}
-            <button
+            {/* Back button - memoized component */}
+            <NavButton
               onClick={goBack}
-              aria-label="Volver a la pantalla anterior"
-              className="flex items-center gap-2 bg-white/90 backdrop-blur-sm border-3 border-teddy-brown rounded-xl px-3 py-2 shadow-[3px_3px_0px_#63340b] hover:shadow-[5px_5px_0px_#63340b] hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#63340b] transition-all"
-            >
-              <ArrowLeft className="w-4 h-4 text-teddy-brown" />
-              <span className="font-amble text-xs sm:text-sm text-teddy-brown font-semibold">
-                Volver
-              </span>
-            </button>
+              icon={ArrowLeft}
+              label="Volver"
+              colorClass="border-teddy-brown"
+              ariaLabel="Volver a la pantalla anterior"
+            />
 
-            {/* Restart button */}
-            <button
+            {/* Restart button - memoized component */}
+            <NavButton
               onClick={handleRestart}
-              aria-label="Reiniciar la aventura desde el inicio"
-              className="flex items-center gap-2 bg-white/90 backdrop-blur-sm border-3 border-golden-coin rounded-xl px-3 py-2 shadow-[3px_3px_0px_#63340b] hover:shadow-[5px_5px_0px_#63340b] hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#63340b] transition-all"
-            >
-              <RotateCcw className="w-4 h-4 text-golden-coin" />
-              <span className="font-amble text-xs sm:text-sm text-teddy-brown font-semibold hidden sm:inline">
-                Reiniciar
-              </span>
-            </button>
+              icon={RotateCcw}
+              label="Reiniciar"
+              colorClass="border-golden-coin"
+              ariaLabel="Reiniciar la aventura desde el inicio"
+            />
           </motion.div>
         )}
       </AnimatePresence>
