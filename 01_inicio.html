@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facu's Level 9 Quest - Inicio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sky-blue': '#87CEEB',
+                        'teddy-brown': '#8D6E63',
+                        'golden-coin': '#FFD600',
+                        'dark-wood': '#4E342E',
+                        'grass-green': '#4CAF50',
+                        'basketball-orange': '#F26822'
+                    },
+                    fontFamily: {
+                        'title': ['"Fredoka One"', 'cursive'],
+                        'body': ['"Nunito"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Styles for Voxel/3D look */
+        body {
+            background-color: #87CEEB;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .voxel-card {
+            background: white;
+            border: 4px solid #4E342E;
+            border-radius: 16px;
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-3d {
+            border: 4px solid #4E342E;
+            box-shadow: 0 6px 0 #4E342E;
+            transition: all 0.1s;
+        }
+
+        .btn-3d:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #4E342E;
+        }
+
+        .btn-3d:disabled {
+            filter: grayscale(100%);
+            box-shadow: 0 0 0 transparent;
+            transform: translateY(6px);
+            cursor: not-allowed;
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .screen {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        .screen.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* Map Node Styles */
+        .map-node {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 2rem; cursor: pointer; position: relative;
+            z-index: 10;
+        }
+
+        .map-node::after {
+            content: attr(data-label);
+            position: absolute; bottom: -30px;
+            font-family: 'Fredoka One', cursive; font-size: 1rem; color: white;
+            text-shadow: 2px 2px 0 #4E342E; width: 140px; text-align: center;
+        }
+
+        .node-connector {
+            width: 8px; height: 50px; background: #4E342E;
+            margin: -5px 0; z-index: 1;
+        }
+
+        /* Typing Effect */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+    </style>
+</head>
+<body class="font-body text-dark-wood relative">
+
+    <!-- SCREEN 1: GATEKEEPER (Class Selection) -->
+    <div id="gatekeeper-screen" class="screen active flex-col items-center justify-center min-h-screen p-4">
+        <div class="voxel-card p-6 md:p-10 max-w-lg w-full text-center relative overflow-hidden">
+            <!-- Decorative Elements -->
+            <div class="absolute -top-4 -right-4 text-6xl opacity-20 rotate-12">🏀</div>
+            <div class="absolute -bottom-4 -left-4 text-6xl opacity-20 -rotate-12">🐻</div>
+
+            <h1 class="font-title text-3xl md:text-4xl text-sky-blue drop-shadow-[2px_2px_0_#4E342E] mb-2" style="text-shadow: 2px 2px 0px #4E342E;">GRAN FACU AVENTURA</h1>
+            <h2 class="font-title text-xl text-basketball-orange mb-8 tracking-widest">NIVEL 9</h2>
+
+            <div class="animate-float mb-6">
+                <div class="w-32 h-32 mx-auto bg-golden-coin rounded-full border-4 border-dark-wood flex items-center justify-center text-6xl shadow-inner">
+                    🐻
+                </div>
+            </div>
+
+            <h3 class="font-title text-xl mb-6">¿QUIÉN SOLICITA ACCESO?</h3>
+
+            <div class="flex flex-col gap-4">
+                <button onclick="selectMode('aventurero')" class="btn-3d bg-golden-coin text-dark-wood font-title text-xl py-4 px-6 rounded-xl relative overflow-hidden group">
+                    <span class="relative z-10 flex items-center justify-center gap-2">
+                        <span>👾</span> MODO AVENTURERO <span>🏀</span>
+                    </span>
+                    <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                </button>
+
+                <button onclick="selectMode('guardian')" class="btn-3d bg-grass-green text-white font-title text-xl py-4 px-6 rounded-xl relative overflow-hidden group">
+                    <span class="relative z-10 flex items-center justify-center gap-2">
+                        <span>🛡️</span> MODO GUARDIÁN
+                    </span>
+                    <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity"></div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCREEN 2: ADVENTURER MODE (Kids) - Vertical Map -->
+    <div id="aventurero-screen" class="screen flex-col items-center justify-start min-h-screen pb-20 pt-4">
+
+        <!-- HUD -->
+        <div class="w-full max-w-md px-4 flex justify-between items-center mb-8">
+            <div class="voxel-card px-4 py-2 flex items-center gap-2 bg-white/90">
+                <span class="text-2xl">⭐</span>
+                <span id="star-count" class="font-title text-2xl text-dark-wood">0/3</span>
+            </div>
+            <div class="voxel-card px-4 py-2 bg-basketball-orange text-white border-white">
+                <span class="font-title text-lg" style="text-shadow: 1px 1px 0px #4E342E;">LVL 9</span>
+            </div>
+        </div>
+
+        <h2 class="font-title text-3xl text-white mb-8 text-center px-4" style="text-shadow: 2px 2px 0px #4E342E;">¡DESBLOQUEA LA MISIÓN!</h2>
+
+        <!-- Vertical Map -->
+        <div class="flex flex-col items-center relative w-full max-w-md">
+
+            <!-- Node 1 -->
+            <div class="map-node btn-3d bg-golden-coin" data-label="Base KBOOM" onclick="openModal('nodo1', '🏢 Base KBOOM', '📍 Av. Italia 3421<br>¡La arena principal del Nivel 9!')">
+                🏀
+            </div>
+
+            <div class="node-connector"></div>
+
+            <!-- Node 2 -->
+            <div class="map-node btn-3d bg-sky-blue border-white border-4" data-label="Día del Partido" onclick="openModal('nodo2', '📅 Día del Partido', 'Domingo 24 de Mayo<br>⏰ 18:30 a 21:00 hs')">
+                ⏱️
+            </div>
+
+            <div class="node-connector"></div>
+
+            <!-- Node 3 -->
+            <div class="map-node btn-3d bg-basketball-orange border-white border-4" data-label="Regla de Oro" onclick="openModal('nodo3', '⚠️ Regla de Oro', '¡Traé ropa cómoda y MEDIAS! 🧦<br>Sin medias hay Game Over en los saltos.')">
+                🧦
+            </div>
+
+        </div>
+
+        <!-- Success Button (Hidden initially) -->
+        <button id="btn-success-kids" onclick="alert('¡Has completado el mapa! En la versión final, esto te lleva al Arcade.')" class="btn-3d bg-grass-green text-white font-title text-xl py-4 px-8 rounded-xl mt-16 hidden animate-bounce">
+            ¡AVANZAR AL ARCADE! 🎮
+        </button>
+
+    </div>
+
+    <!-- SCREEN 3: GUARDIAN MODE (Adults) - Direct Info Panel -->
+    <div id="guardian-screen" class="screen flex-col items-center justify-center min-h-screen p-4 bg-dark-wood">
+        <div class="voxel-card w-full max-w-md p-6 bg-white">
+            <h2 class="font-title text-2xl text-center mb-6 text-sky-blue" style="text-shadow: 1px 1px 0px #4E342E;">🛡️ PANEL DE GUARDIÁN</h2>
+
+            <div class="space-y-4 mb-6">
+                <div class="p-4 bg-sky-blue/10 rounded-lg border-2 border-sky-blue/30 border-dashed">
+                    <p class="font-bold text-sm text-gray-500 uppercase tracking-wide">Festejado</p>
+                    <p class="font-title text-xl text-dark-wood">Facu (Nivel 9)</p>
+                </div>
+
+                <div class="p-4 bg-golden-coin/10 rounded-lg border-2 border-golden-coin/30 border-dashed">
+                    <p class="font-bold text-sm text-gray-500 uppercase tracking-wide">Cuándo</p>
+                    <p class="text-lg text-dark-wood font-bold">Domingo 24 de Mayo</p>
+                    <p class="text-md text-dark-wood">18:30 a 21:00 hs</p>
+                </div>
+
+                <div class="p-4 bg-grass-green/10 rounded-lg border-2 border-grass-green/30 border-dashed">
+                    <p class="font-bold text-sm text-gray-500 uppercase tracking-wide">Dónde</p>
+                    <p class="text-lg text-dark-wood font-bold">KBOOM</p>
+                    <p class="text-md text-dark-wood mb-2">Av. Italia 3421</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=-34.88619635981311,-56.1403753656917" target="_blank" class="inline-block bg-white border-2 border-dark-wood px-3 py-1 rounded text-sm font-bold active:translate-y-1" style="box-shadow: 2px 2px 0px #4E342E;">
+                        📍 Ver Mapa
+                    </a>
+                </div>
+
+                <div class="p-4 bg-basketball-orange/10 rounded-lg border-2 border-basketball-orange/30 border-dashed">
+                    <p class="font-bold text-sm text-red-500 uppercase tracking-wide">⚠️ Obligatorio</p>
+                    <p class="text-md text-dark-wood font-bold">Traer medias y ropa cómoda.</p>
+                </div>
+            </div>
+
+            <button onclick="alert('RSVP Express: Abriendo modal de confirmación rápida.')" class="btn-3d w-full bg-grass-green text-white font-title text-xl py-4 rounded-xl">
+                CONFIRMAR ASISTENCIA ✓
+            </button>
+
+            <button onclick="switchScreen('gatekeeper-screen')" class="mt-4 w-full text-center text-sm text-gray-500 font-bold underline">
+                Volver al inicio
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL COMPONENT (For Adventurer Mode) -->
+    <div id="info-modal" class="fixed inset-0 bg-black/80 z-50 hidden items-center justify-center p-4">
+        <div class="voxel-card bg-[#fff8dc] border-teddy-brown border-8 max-w-sm w-full p-6 text-center transform scale-95 transition-transform duration-200" id="modal-content-box">
+            <h3 id="modal-title" class="font-title text-2xl text-dark-wood mb-4">Título</h3>
+            <p id="modal-desc" class="text-lg font-bold text-gray-800 mb-6">Descripción</p>
+            <button onclick="closeModal()" class="btn-3d bg-golden-coin text-dark-wood font-title px-6 py-3 rounded-lg">
+                ¡ENTENDIDO! 👍
+            </button>
+        </div>
+    </div>
+
+    <!-- DIALOGUE BOX (Shicka) -->
+    <div id="dialogue-box" class="fixed bottom-4 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:max-w-2xl z-40 hidden">
+        <div class="voxel-card bg-white p-4 flex gap-4 items-start cursor-pointer" onclick="advanceDialogue()">
+            <div class="w-16 h-16 bg-sky-blue border-2 border-dark-wood rounded-lg flex-shrink-0 flex items-center justify-center text-3xl">
+                🦊
+            </div>
+            <div class="flex-grow">
+                <p class="font-title text-golden-coin mb-1" style="text-shadow: 1px 1px 0px #4E342E;">Shicka</p>
+                <p id="dialogue-text" class="font-bold text-lg leading-tight typing-cursor"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- STATE ---
+        let currentScreen = 'gatekeeper-screen';
+        let stars = 0;
+        let unlockedNodes = new Set();
+        let dialogueIsTyping = false;
+        let dialogueTimeout;
+        let activeNodeId = null;
+
+        // --- NAVIGATION ---
+        function switchScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => {
+                s.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+            currentScreen = screenId;
+        }
+
+        function selectMode(mode) {
+            if (mode === 'guardian') {
+                switchScreen('guardian-screen');
+            } else if (mode === 'aventurero') {
+                switchScreen('aventurero-screen');
+                startIntroDialogue();
+            }
+        }
+
+        // --- ADVENTURER MODE LOGIC ---
+        function openModal(nodeId, title, desc) {
+            activeNodeId = nodeId;
+            document.getElementById('modal-title').innerHTML = title;
+            document.getElementById('modal-desc').innerHTML = desc;
+
+            const modal = document.getElementById('info-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            // Animation pop
+            setTimeout(() => {
+                document.getElementById('modal-content-box').classList.remove('scale-95');
+                document.getElementById('modal-content-box').classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('info-modal');
+            document.getElementById('modal-content-box').classList.remove('scale-100');
+            document.getElementById('modal-content-box').classList.add('scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+
+                // Update Progress
+                if (activeNodeId && !unlockedNodes.has(activeNodeId)) {
+                    unlockedNodes.add(activeNodeId);
+                    stars++;
+                    document.getElementById('star-count').innerText = `${stars}/3`;
+
+                    // Visual feedback on the node
+                    const nodeBtn = document.querySelector(`[onclick*="${activeNodeId}"]`);
+                    if(nodeBtn) {
+                        nodeBtn.classList.remove('bg-sky-blue', 'bg-basketball-orange', 'border-white', 'border-4');
+                        nodeBtn.classList.add('bg-golden-coin');
+                        nodeBtn.innerHTML = '✅';
+                    }
+
+                    if (stars >= 3) {
+                        document.getElementById('btn-success-kids').classList.remove('hidden');
+                    }
+                }
+            }, 200);
+        }
+
+        // --- DIALOGUE LOGIC ---
+        const introText = "¡Che, despertate! ¿Te vas a perder el partido de Facu? ¡Explorá el mapa para desbloquear la info secreta!";
+
+        function startIntroDialogue() {
+            document.getElementById('dialogue-box').classList.remove('hidden');
+            typeText(introText);
+        }
+
+        function typeText(text) {
+            const el = document.getElementById('dialogue-text');
+            el.innerHTML = '';
+            dialogueIsTyping = true;
+            el.classList.add('typing-cursor');
+            let i = 0;
+
+            function typeChar() {
+                if (i < text.length && dialogueIsTyping) {
+                    el.innerHTML += text.charAt(i);
+                    i++;
+                    dialogueTimeout = setTimeout(typeChar, 30);
+                } else {
+                    dialogueIsTyping = false;
+                    el.classList.remove('typing-cursor');
+                }
+            }
+            typeChar();
+        }
+
+        function advanceDialogue() {
+            if (dialogueIsTyping) {
+                // Skip to end
+                clearTimeout(dialogueTimeout);
+                dialogueIsTyping = false;
+                document.getElementById('dialogue-text').innerHTML = introText;
+                document.getElementById('dialogue-text').classList.remove('typing-cursor');
+            } else {
+                // Hide dialogue
+                document.getElementById('dialogue-box').classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
