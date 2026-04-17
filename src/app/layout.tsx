@@ -3,6 +3,7 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { RewardsProvider } from '@/hooks/use-rewards';
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -67,10 +68,11 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased" suppressHydrationWarning>
-        {children}
+        <RewardsProvider>
+          {children}
+        </RewardsProvider>
         <Toaster />
       </body>
     </html>
   );
 }
-

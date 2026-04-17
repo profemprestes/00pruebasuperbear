@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { RewardsProvider } from '@/hooks/use-rewards';
+
 import { LoadingScreen } from '@/components/02-loading-screen';
 import { IntroVideoScreen } from '@/components/03-intro-video-screen';
 import { PresentationScreen } from '@/components/04-presentation-screen';
@@ -99,11 +99,7 @@ export default function MissionPage() {
           />
         );
       case 'gameFlow':
-        return (
-          <RewardsProvider>
-            <GameFlow />
-          </RewardsProvider>
-        );
+        return <GameFlow />;
       default:
         return <LoadingScreen onStart={handleLoadingStart} />;
     }

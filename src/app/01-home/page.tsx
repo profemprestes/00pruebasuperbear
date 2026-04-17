@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { RewardsProvider } from "@/hooks/use-rewards";
+
 import { PasswordScreen } from "@/components/01-password-screen";
 import { LoadingScreen } from "@/components/02-loading-screen";
 import { IntroVideoScreen } from "@/components/03-intro-video-screen";
@@ -237,17 +237,9 @@ export default function Home() {
       case 'arcadeWorld':
         return <ArcadeWorldScreen onArcadeEnd={handleArcadeEnd} />;
       case 'avatarCreator':
-        return (
-          <RewardsProvider>
-            <ShopSection onNext={() => navigateTo('gameFlow')} />
-          </RewardsProvider>
-        );
+        return <ShopSection onNext={() => navigateTo('gameFlow')} />;
       case 'gameFlow':
-        return (
-          <RewardsProvider>
-            <GameFlow photo1={photo1} photo2={photo2} />
-          </RewardsProvider>
-        );
+        return <GameFlow photo1={photo1} photo2={photo2} />;
       case 'missionDetails':
         return <MissionDetailsScreen playerName={playerName} onNext={() => navigateTo('bioBook')} />;
       case 'bioBook':
