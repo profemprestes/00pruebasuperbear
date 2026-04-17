@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gran Facu Aventura V2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sky-blue: #87CEEB;
+            --earth-brown: #8D6E63;
+            --cream-white: #FFFDD0;
+            --gold: #FFD600;
+            --gold-shadow: #B8860B;
+            --dark-wood: #4E342E;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--sky-blue);
+            overflow: hidden; /* For particles and transitions */
+            color: #333;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Fredoka One', cursive;
+            margin: 0;
+            color: white;
+            text-shadow: 2px 2px 0 var(--dark-wood);
+        }
+
+        /* Particles container */
+        #particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background-color: var(--gold);
+            border: 2px solid var(--gold-shadow);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            from { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            to { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Layout */
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .screen.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Specific containers */
+        .voxel-container {
+            background-color: var(--earth-brown);
+            border: 4px solid var(--dark-wood);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.3);
+            max-width: 90%;
+            width: 600px;
+            text-align: center;
+            position: relative;
+        }
+
+        .voxel-container-light {
+            background-color: var(--cream-white);
+            border: 4px solid var(--dark-wood);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.3);
+            max-width: 90%;
+            width: 500px;
+            text-align: center;
+        }
+
+        .voxel-container-light h2, .voxel-container-light h3 {
+            color: var(--dark-wood);
+            text-shadow: none;
+        }
+
+        /* 3D Button */
+        .btn-3d-gold {
+            background-color: var(--gold);
+            color: var(--dark-wood);
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.2rem;
+            padding: 15px 30px;
+            border: 4px solid var(--dark-wood);
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 8px 0 var(--gold-shadow);
+            transition: all 0.1s ease;
+            text-transform: uppercase;
+            margin: 10px;
+            display: inline-block;
+            text-shadow: none;
+        }
+
+        .btn-3d-gold:active {
+            transform: translateY(4px);
+            box-shadow: 0 4px 0 var(--gold-shadow);
+        }
+
+        .btn-3d-gold.small {
+            font-size: 1rem;
+            padding: 10px 20px;
+        }
+
+        /* Animations */
+        .floating-hero {
+            width: 250px;
+            height: auto;
+            animation: levitate 3s ease-in-out infinite;
+            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.3));
+            margin-bottom: -20px;
+            z-index: 20;
+            position: relative;
+        }
+
+        @keyframes levitate {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0); }
+        }
+
+        .shicka-sprite {
+            width: 150px;
+            height: auto;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+
+        /* Dialog Box */
+        .dialog-box {
+            background-color: var(--cream-white);
+            border: 4px solid var(--dark-wood);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark-wood);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .dialog-box::after {
+            content: '▼';
+            position: absolute;
+            bottom: 5px;
+            right: 10px;
+            font-size: 1rem;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Transitions */
+        .curtain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--dark-wood);
+            z-index: 9999;
+            transform: translateY(-100%);
+            transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .curtain::before {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: linear-gradient(135deg, var(--dark-wood) 25%, transparent 25%) -20px 0,
+                        linear-gradient(225deg, var(--dark-wood) 25%, transparent 25%) -20px 0,
+                        linear-gradient(315deg, var(--dark-wood) 25%, transparent 25%),
+                        linear-gradient(45deg, var(--dark-wood) 25%, transparent 25%);
+            background-size: 40px 40px;
+        }
+
+        .curtain.active {
+            transform: translateY(0);
+        }
+
+        .curtain.active-out {
+            transform: translateY(100%);
+        }
+
+        /* Hub Cards */
+        .hub-cards {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .hub-card {
+            background-color: var(--cream-white);
+            border: 4px solid var(--dark-wood);
+            padding: 15px;
+            border-radius: 8px;
+            width: 150px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .hub-card:hover {
+            transform: scale(1.05);
+        }
+
+        .hub-card h3 {
+            color: var(--dark-wood);
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        /* Save Slots */
+        .save-slots {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .save-slot {
+            background-color: var(--cream-white);
+            border: 4px solid var(--dark-wood);
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .save-slot:hover {
+            background-color: var(--gold);
+        }
+
+        .save-slot h3 {
+            color: var(--dark-wood);
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .save-slot span {
+            font-weight: bold;
+            color: var(--dark-wood);
+        }
+
+        .info-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+
+        .info-list li {
+            margin-bottom: 10px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .info-list li::before {
+            content: '⭐';
+            position: absolute;
+            left: 0;
+            top: 2px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Particles Background -->
+    <div id="particles-container"></div>
+
+    <!-- Transition Curtain -->
+    <div class="curtain" id="curtain">
+        <h1 style="font-size: 3rem;">Sincronizando mundos...</h1>
+    </div>
+
+    <!-- Screen 1: Gatekeeper -->
+    <div class="screen active" id="screen-gatekeeper">
+        <img src="public/personajes/Shicka_render_.png" alt="Shicka" class="shicka-sprite" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%23FF9800\'/><text x=\'50\' y=\'50\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-size=\'20\'>Shicka</text></svg>'">
+
+        <div class="voxel-container">
+            <div class="dialog-box" id="dialog-box" onclick="nextDialog()">
+                <!-- Texto inyectado por JS -->
+            </div>
+
+            <div id="role-selection" style="display: none; margin-top: 20px;">
+                <button class="btn-3d-gold" onclick="transitionTo('screen-adventurer')">👾 MODO AVENTURERO (Niños)</button>
+                <button class="btn-3d-gold" onclick="transitionTo('screen-guardian')">🛡️ MODO GUARDIÁN (Padres)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Screen 2: Guardian Route -->
+    <div class="screen" id="screen-guardian">
+        <div class="voxel-container-light">
+            <h2>PANEL DE GUARDIÁN</h2>
+            <ul class="info-list">
+                <li><strong>Misión:</strong> KBOOM (Av. Italia 3421)</li>
+                <li><strong>Fecha:</strong> 24 de Mayo</li>
+                <li><strong>Condición:</strong> ⚠️ Traer medias (Obligatorio)</li>
+            </ul>
+            <div style="margin-top: 20px;">
+                <button class="btn-3d-gold small" onclick="alert('Abriendo Google Maps...')">📍 VER MAPA</button>
+                <button class="btn-3d-gold small" onclick="alert('Agendado en el calendario.')">📅 AGENDAR</button>
+            </div>
+            <button class="btn-3d-gold" style="margin-top: 30px;" onclick="transitionTo('screen-gatekeeper')">Volver</button>
+        </div>
+    </div>
+
+    <!-- Screen 3: Adventurer Route (Hub) -->
+    <div class="screen" id="screen-adventurer">
+        <img src="public/facu_bear_sin_fondo.png" alt="Facu Bear" class="floating-hero" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'250\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%23795548\'/><text x=\'50\' y=\'50\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-size=\'20\' fill=\'white\'>Oso</text></svg>'">
+
+        <div class="voxel-container" style="width: 800px;">
+            <h1>HUB DE NIVELES</h1>
+            <p style="color: white; font-weight: bold; margin: 10px 0;">¡Completá los minijuegos para desbloquear tu invitación!</p>
+
+            <div class="hub-cards">
+                <div class="hub-card" onclick="playMinigame(1, this)">
+                    <h3>🏀 El Tiro de Facu</h3>
+                    <div style="font-size: 3rem;">🌟</div>
+                </div>
+                <div class="hub-card" onclick="playMinigame(2, this)">
+                    <h3>🧦 Rescate de Medias</h3>
+                    <div style="font-size: 3rem;">🌟</div>
+                </div>
+                <div class="hub-card" onclick="playMinigame(3, this)">
+                    <h3>❓ Trivia Pro-Facu</h3>
+                    <div style="font-size: 3rem;">🌟</div>
+                </div>
+            </div>
+
+            <button id="btn-finish-mission" class="btn-3d-gold" style="display: none; margin-top: 20px; width: 100%;" onclick="transitionTo('screen-save')">¡Reclamar Invitación!</button>
+            <button class="btn-3d-gold small" style="margin-top: 10px;" onclick="transitionTo('screen-gatekeeper')">Volver al Inicio</button>
+        </div>
+    </div>
+
+    <!-- Screen 4: Save Route (Kids ending) -->
+    <div class="screen" id="screen-save">
+        <div class="voxel-container-light">
+            <h2>¡Misión completada!</h2>
+            <p>Elegí tu Slot de Guardado para confirmar tu lugar en la partida.</p>
+
+            <div class="save-slots">
+                <div class="save-slot" onclick="saveGame(this)">
+                    <h3>SLOT 1</h3>
+                    <span>Vacío</span>
+                </div>
+                <div class="save-slot" onclick="saveGame(this)">
+                    <h3>SLOT 2</h3>
+                    <span>Vacío</span>
+                </div>
+                <div class="save-slot" onclick="saveGame(this)">
+                    <h3>SLOT 3</h3>
+                    <span>Vacío</span>
+                </div>
+            </div>
+            <button class="btn-3d-gold small" style="margin-top: 20px;" onclick="transitionTo('screen-adventurer')">Volver al mapa</button>
+        </div>
+    </div>
+
+    <script>
+        // --- PARTICLES SYSTEM ---
+        function createParticle() {
+            const container = document.getElementById('particles-container');
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+
+            const size = Math.random() * 15 + 10; // 10px to 25px
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+
+            const startX = Math.random() * 100;
+            particle.style.left = `${startX}vw`;
+
+            const duration = Math.random() * 5 + 5; // 5s to 10s
+            particle.style.animationDuration = `${duration}s`;
+
+            container.appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, duration * 1000);
+        }
+
+        setInterval(createParticle, 300);
+
+        // --- RPG DIALOG SYSTEM ---
+        const dialogs = [
+            "¡Che, despertate!",
+            "¿Te vas a perder la partida?",
+            "El Nivel 9 de Facu está por empezar."
+        ];
+        let currentDialog = 0;
+        let isTyping = false;
+        let currentText = "";
+        let typeInterval;
+
+        const dialogBox = document.getElementById('dialog-box');
+        const roleSelection = document.getElementById('role-selection');
+
+        function typeDialog(text) {
+            isTyping = true;
+            dialogBox.innerHTML = "";
+            let i = 0;
+
+            if (typeInterval) clearInterval(typeInterval);
+
+            typeInterval = setInterval(() => {
+                dialogBox.innerHTML += text.charAt(i);
+                i++;
+                if (i >= text.length) {
+                    clearInterval(typeInterval);
+                    isTyping = false;
+
+                    if (currentDialog === dialogs.length - 1) {
+                        setTimeout(() => {
+                            roleSelection.style.display = "block";
+                        }, 500);
+                    }
+                }
+            }, 50); // Speed of typing
+        }
+
+        function nextDialog() {
+            if (isTyping) {
+                // Skip typing
+                clearInterval(typeInterval);
+                dialogBox.innerHTML = dialogs[currentDialog];
+                isTyping = false;
+
+                if (currentDialog === dialogs.length - 1) {
+                    roleSelection.style.display = "block";
+                }
+                return;
+            }
+
+            if (currentDialog < dialogs.length - 1) {
+                currentDialog++;
+                typeDialog(dialogs[currentDialog]);
+            }
+        }
+
+        // Initialize first dialog
+        setTimeout(() => {
+            typeDialog(dialogs[0]);
+        }, 500);
+
+
+        // --- TRANSITION SYSTEM ---
+        function transitionTo(screenId) {
+            const curtain = document.getElementById('curtain');
+            curtain.classList.add('active');
+
+            setTimeout(() => {
+                document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+                document.getElementById(screenId).classList.add('active');
+
+                curtain.classList.remove('active');
+                curtain.classList.add('active-out');
+
+                setTimeout(() => {
+                    curtain.classList.remove('active-out');
+                    curtain.style.transition = 'none';
+                    curtain.style.transform = 'translateY(-100%)';
+                    setTimeout(() => {
+                        curtain.style.transition = 'transform 0.6s cubic-bezier(0.77, 0, 0.175, 1)';
+                    }, 50);
+                }, 600);
+
+            }, 600);
+        }
+
+
+        // --- MINIGAME SYSTEM ---
+        let completedGames = 0;
+        function playMinigame(id, element) {
+            alert("¡Jugando Minijuego " + id + "!");
+            completedGames++;
+            element.style.opacity = '0.5';
+            element.style.pointerEvents = 'none';
+            element.querySelector('div').innerText = '✅';
+
+            if (completedGames >= 3) {
+                document.getElementById('btn-finish-mission').style.display = 'inline-block';
+            }
+        }
+
+        // --- SAVE SYSTEM ---
+        function saveGame(element) {
+            const playerName = prompt("¡Escribí tu nombre de jugador para guardar la partida!");
+            if (playerName) {
+                element.querySelector('span').innerText = playerName;
+                element.querySelector('span').style.color = '#4CAF50';
+                element.style.backgroundColor = '#FFF';
+                alert("¡Lugar confirmado! Te esperamos en la partida de Facu.");
+            }
+        }
+
+    </script>
+</body>
+</html>
