@@ -41,16 +41,16 @@ export function EasterEggSection({ onRestart }: EasterEggSectionProps) {
           }}
         >
           <h2 className="font-milky text-xl sm:text-2xl lg:text-3xl text-teddy-brown mb-3 sm:mb-4">
-            🥚 ¿Hay algo aquí?
+            🎂 ¿Buscando la Fiesta Secreta?
           </h2>
           <p className="font-amble text-xs sm:text-sm text-voxel-text mb-4 sm:mb-6">
-            Dicen que si tocas esta zona secreta 3 veces... puedes caer en un lugar extraño...
+            Dicen que si tocas esta zona misteriosa 3 veces... entrarás al nivel oculto de Facu...
           </p>
 
           {/* Secret trigger area */}
           <button
             onClick={handleNoclip}
-            aria-label="Zona secreta: toca 3 veces para acceder al Easter Egg"
+            aria-label="Zona secreta: toca 3 veces para entrar a la fiesta"
             className="mx-auto w-40 h-40 sm:w-48 sm:h-48 lg:w-56 lg:h-56 rounded-2xl flex items-center justify-center transition-all hover:scale-105 active:scale-95"
             style={{
               background: "rgba(255,215,0,0.1)",
@@ -59,9 +59,9 @@ export function EasterEggSection({ onRestart }: EasterEggSectionProps) {
             }}
           >
             <div className="text-center">
-              <span className="text-4xl sm:text-5xl lg:text-6xl block mb-2">❓</span>
+              <span className="text-4xl sm:text-5xl lg:text-6xl block mb-2">🎈</span>
               <span className="font-milky text-xs text-teddy-brown">
-                {noclipCount > 0 ? `${noclipCount}/3...` : "Toca aquí"}
+                {noclipCount > 0 ? `${noclipCount}/3...` : "¡Toca aquí!"}
               </span>
             </div>
           </button>
@@ -72,8 +72,8 @@ export function EasterEggSection({ onRestart }: EasterEggSectionProps) {
               animate={{ opacity: 1 }}
               className="mt-4 font-amble text-xs text-voxel-text"
             >
-              {noclipCount === 1 && "Hmm, algo pasó..."}
-              {noclipCount === 2 && "¡Casi! Una vez más..."}
+              {noclipCount === 1 && "¡Sigue así, hay una sorpresa!"}
+              {noclipCount === 2 && "¡Casi estás en la fiesta! Una vez más..."}
             </motion.p>
           )}
         </div>
@@ -86,32 +86,20 @@ export function EasterEggSection({ onRestart }: EasterEggSectionProps) {
     <div
       className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden"
       style={{
-        background: "#c4a842",
-        backgroundImage: `repeating-linear-gradient(
-          0deg,
-          #c4a842,
-          #c4a842 40px,
-          #b89c3a 40px,
-          #b89c3a 80px
-        ), repeating-linear-gradient(
-          90deg,
-          #c4a842,
-          #c4a842 40px,
-          #b89c3a 40px,
-          #b89c3a 80px
-        )`,
+        background: "#1a0a2e", // Deep festive night blue
+        backgroundImage: `radial-gradient(circle at 50% 50%, #2a1a4e 0%, #1a0a2e 100%)`,
       }}
     >
-      {/* Fluorescent light effect */}
+      {/* Sparkles effect */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at center, rgba(255,255,200,0.3) 0%, transparent 70%)",
-          animation: "blink 2s ease-in-out infinite",
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='10' cy='10' r='1' fill='white' fill-opacity='0.2'/%3E%3Ccircle cx='50' cy='50' r='1.5' fill='gold' fill-opacity='0.3'/%3E%3Ccircle cx='80' cy='20' r='1' fill='white' fill-opacity='0.2'/%3E%3C/svg%3E")`,
+          animation: "float 10s linear infinite",
         }}
       />
 
-      {/* Shadow Bear */}
+      {/* Birthday Hero Facu */}
       {showShadowBear && (
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
@@ -120,35 +108,48 @@ export function EasterEggSection({ onRestart }: EasterEggSectionProps) {
           className="relative z-10 flex flex-col items-center gap-6"
         >
           <div
-            className="w-48 h-48 sm:w-64 sm:h-64 rounded-full flex items-center justify-center"
+            className="w-48 h-48 sm:w-64 sm:h-64 rounded-2xl overflow-hidden flex items-center justify-center border-4 border-golden-coin"
             style={{
-              background: "radial-gradient(circle, #1a0a00 0%, #000000 100%)",
-              boxShadow: "0 0 100px rgba(255,0,0,0.5), 0 0 200px rgba(0,0,0,0.8)",
+              background: "white",
+              boxShadow: "0 0 50px rgba(255,215,0,0.5), 0 0 100px rgba(255,215,0,0.2)",
             }}
           >
-            <span className="text-7xl sm:text-8xl">🐻</span>
+            <img 
+              src="/easter-egg/celebration-bear.png" 
+              alt="Facu el Héroe del Cumpleaños"
+              className="w-full h-full object-cover"
+            />
           </div>
 
-          <motion.h2
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.5 }}
-            className="font-milky text-2xl sm:text-3xl text-white tracking-wider"
-            style={{
-              textShadow: "0 0 10px rgba(255,0,0,0.8), 0 0 20px rgba(255,0,0,0.5), 0 2px 4px rgba(0,0,0,1)",
-            }}
+            className="text-center"
           >
-            SHADOW BEAR
-          </motion.h2>
+            <h2 
+              className="font-milky text-2xl sm:text-3xl lg:text-4xl text-white tracking-wider mb-2"
+              style={{
+                textShadow: "0 0 10px rgba(255,215,0,0.8), 0 2px 4px rgba(0,0,0,1)",
+              }}
+            >
+              ¡FACU SUPREMO!
+            </h2>
+            <div className="flex justify-center gap-2 mb-4">
+              <span className="text-2xl animate-bounce">🎁</span>
+              <span className="text-2xl animate-bounce" style={{ animationDelay: "0.2s" }}>🎂</span>
+              <span className="text-2xl animate-bounce" style={{ animationDelay: "0.4s" }}>🎉</span>
+            </div>
+          </motion.div>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 2 }}
-            className="font-amble text-sm text-white/90 text-center max-w-xs"
+            className="font-amble text-sm sm:text-base text-white/90 text-center max-w-sm px-4"
             style={{ textShadow: "0 1px 3px rgba(0,0,0,0.8)" }}
           >
-            Has descubierto el secreto más oscuro de Super Bear Adventure...
+            ¡Has descubierto la Zona VIP de la aventura! Facu el Héroe Dorado te agradece por ser parte de su noveno aniversario.
           </motion.p>
 
           <motion.div
@@ -159,28 +160,28 @@ export function EasterEggSection({ onRestart }: EasterEggSectionProps) {
           >
             <Button
               onClick={onRestart}
-              className="font-milky text-lg h-auto py-3 px-6 text-white"
+              className="font-milky text-lg h-auto py-3 px-8 text-white transition-all hover:scale-110 active:scale-95"
               style={{
                 background: "linear-gradient(180deg, #FFD700 0%, #FFA500 100%)",
                 border: "3px solid #8B4513",
                 boxShadow: "0 6px 0 #63340b",
               }}
             >
-              🔄 Volver al Inicio
+              🔄 Volver a la Misión
             </Button>
 
-            <p className="font-arcade text-xs text-black/60 text-center">
-              ¡Felicidades! Has completado toda la misión
+            <p className="font-arcade text-[10px] text-white/60 text-center">
+              Misión Secreta: "La Fiesta Olvidada" - COMPLETADA
             </p>
           </motion.div>
         </motion.div>
       )}
 
-      {/* Wallpaper pattern */}
+      {/* Confetti decoration pattern */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-20"
+        className="absolute inset-0 pointer-events-none opacity-30"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10L15 15M50 10L45 15M10 50L15 45M50 50L45 45' stroke='gold' stroke-width='2'/%3E%3C/svg%3E")`,
         }}
       />
     </div>
