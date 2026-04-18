@@ -1,6 +1,7 @@
-# Detalle de Diseño y Textos: /app/src/components/04-presentation-screen/presentation-screen.tsx
+# Detalle de Diseño y Textos: /src/components/04-presentation-screen/presentation-screen.tsx
 
 ## Diseño del Cuerpo del Componente
+
 El componente utiliza las siguientes clases y estilos:
 
 - `relative min-h-screen w-full flex items-center justify-center overflow-hidden`
@@ -39,39 +40,41 @@ El componente utiliza las siguientes clases y estilos:
 - `text-white/80 drop-shadow-lg`
 
 ## Textos del Componente
+
 A continuación se detallan los textos encontrados en el componente y el elemento donde se encuentran:
 
-- **<div>**: {/* Overlay */} {/* Partículas decorativas (estrellas flotantes) */} {/* Contenedor principal responsive */}
-- **<div>**: {[...Array(6)].map((_, i) => ( <motion.div key={i} className="absolute w-2 h-2 bg-golden-coin rounded-full opacity-60" style={{ left: `${15 + i * 15}%`, top: `${20 + (i % 3) * 25}%`, }} animate={{ y: [0, -20, 0], opacity: [0.3, 0.8, 0.3], scale: [1, 1.3, 1], }} transition={{ duration: 2 + i * 0.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.3, }} /> ))}
-- **<Container>**: {/* Footer decorativo */}
-- **<motion.div>**: {/* Franja decorativa superior (estilo juego) */} {/* Layout: Mobile (columna), Desktop (fila) */} {/* Botón de acción - Posicionado en la parte inferior */}
-- **<div>**: {/* Sección Imagen - Izquierda en desktop, Arriba en mobile */} {/* Sección Texto - Abajo en mobile, Derecha en desktop */}
-- **<div>**: {/* Círculo decorativo detrás */} {/* Aura brillante detrás del avatar */} {/* Imagen principal */}
-- **<motion.div>**: {/* Badge "Nivel 9" */}
+- **<div>**: {/_ Overlay _/} {/_ Partículas decorativas (estrellas flotantes) _/} {/_ Contenedor principal responsive _/}
+- **<div>**: {[...Array(6)].map((\_, i) => ( <motion.div key={i} className="absolute w-2 h-2 bg-golden-coin rounded-full opacity-60" style={{ left: `${15 + i * 15}%`, top: `${20 + (i % 3) * 25}%`, }} animate={{ y: [0, -20, 0], opacity: [0.3, 0.8, 0.3], scale: [1, 1.3, 1], }} transition={{ duration: 2 + i * 0.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.3, }} /> ))}
+- **<Container>**: {/_ Footer decorativo _/}
+- **<motion.div>**: {/_ Franja decorativa superior (estilo juego) _/} {/_ Layout: Mobile (columna), Desktop (fila) _/} {/_ Botón de acción - Posicionado en la parte inferior _/}
+- **<div>**: {/_ Sección Imagen - Izquierda en desktop, Arriba en mobile _/} {/_ Sección Texto - Abajo en mobile, Derecha en desktop _/}
+- **<div>**: {/_ Círculo decorativo detrás _/} {/_ Aura brillante detrás del avatar _/} {/_ Imagen principal _/}
+- **<motion.div>**: {/_ Badge "Nivel 9" _/}
 - **<span>**: LVL 9
-- **<motion.div>**: {/* Título con efecto */} {/* Línea decorativa */} {/* Bio */} {/* Stats decorativos */}
+- **<motion.div>**: {/_ Título con efecto _/} {/_ Línea decorativa _/} {/_ Bio _/} {/_ Stats decorativos _/}
 - **<span>**: Gran Facu
 - **<span>**: Aventura ⭐
 - **<motion.p>**: {facuBio || defaultBio}
 - **<Label>**: 🏀 Básquet
 - **<Label>**: 🥋 Taekwondo
-- **<Label>**: 🎮 Gamer
-- **<div>**: {/* Indicador de progreso */} {/* Botón principal */}
-- **<span>**: Misión disponible
-- **<Button>**: {/* Efecto shimmer */}
-- **<span>**: {isPlaying ? '🎵 Cargando...' : '¡Aceptar Misión! ➔'}
-- **<Body>**: 🐻 Una aventura épica te espera...
+- **<Label>**: 🎮 Jugador Pro
+- **<div>**: {/_ Indicador de progreso _/} {/_ Botón principal _/}
+- **<span>**: ¡Misión de Nivel 9 detectada!
+- **<Button>**: {/_ Efecto shimmer _/}
+- **<span>**: {isPlaying ? '🎵 Sincronizando...' : '¡ACEPTAR MISIÓN! ➔'}
+- **<Body>**: 🐻 Prepará las medias, la partida está por empezar...
 
 ## Contenido Completo del Archivo
-```tsx
-'use client';
 
-import { useState, useCallback } from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Heading, Body, Label } from '@/components/ui/typography';
-import { Container } from '@/components/ui/container';
+```tsx
+"use client";
+
+import { useState, useCallback } from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Heading, Body, Label } from "@/components/ui/typography";
+import { Container } from "@/components/ui/container";
 
 type PresentationScreenProps = {
   onNext: () => void;
@@ -81,7 +84,8 @@ type PresentationScreenProps = {
 // Sonido de clic estilo videojuego (generado con Web Audio API)
 function playClickSound() {
   try {
-    const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+    const AudioContext =
+      window.AudioContext || (window as any).webkitAudioContext;
     if (!AudioContext) return;
 
     const ctx = new AudioContext();
@@ -89,7 +93,7 @@ function playClickSound() {
     // Tono principal (moneda/coin sound)
     const osc1 = ctx.createOscillator();
     const gain1 = ctx.createGain();
-    osc1.type = 'square';
+    osc1.type = "square";
     osc1.frequency.setValueAtTime(880, ctx.currentTime);
     osc1.frequency.exponentialRampToValueAtTime(1760, ctx.currentTime + 0.1);
     gain1.gain.setValueAtTime(0.3, ctx.currentTime);
@@ -102,7 +106,7 @@ function playClickSound() {
     // Armónico secundario
     const osc2 = ctx.createOscillator();
     const gain2 = ctx.createGain();
-    osc2.type = 'square';
+    osc2.type = "square";
     osc2.frequency.setValueAtTime(1320, ctx.currentTime + 0.05);
     osc2.frequency.exponentialRampToValueAtTime(2640, ctx.currentTime + 0.15);
     gain2.gain.setValueAtTime(0.2, ctx.currentTime + 0.05);
@@ -112,21 +116,22 @@ function playClickSound() {
     osc2.start(ctx.currentTime + 0.05);
     osc2.stop(ctx.currentTime + 0.2);
   } catch (e) {
-    console.debug('Audio no disponible:', e);
+    console.debug("Audio no disponible:", e);
   }
 }
 
 // Sonido de hover suave
 function playHoverSound() {
   try {
-    const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+    const AudioContext =
+      window.AudioContext || (window as any).webkitAudioContext;
     if (!AudioContext) return;
 
     const ctx = new AudioContext();
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
 
-    osc.type = 'sine';
+    osc.type = "sine";
     osc.frequency.setValueAtTime(600, ctx.currentTime);
     gain.gain.setValueAtTime(0.1, ctx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08);
@@ -140,7 +145,10 @@ function playHoverSound() {
   }
 }
 
-export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps) {
+export function PresentationScreen({
+  onNext,
+  facuBio,
+}: PresentationScreenProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -156,12 +164,17 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
     }, 200);
   }, [onNext, isPlaying]);
 
-  const defaultBio = '¡Hola! Soy Facu. Mi mundo acaba de subir de nivel porque... ¡ya tengo 9 años! 🏀 He preparado una misión épica llena de básquet, saltos y mucho color. ¿Estás listo para unirte a mi equipo y descubrir el código secreto de la fiesta?';
+  const defaultBio =
+    "¡Che, qué de más que llegaste! Mi mundo acaba de subir de nivel porque... ¡desbloqueé los 9 años! 🏀 Armé una misión épica en KBOOM llena de saltos, básquet y recompensas. ¿Estás listo para unirte a mi equipo y mandarnos tremenda partida?";
 
   return (
     <div
       className="relative min-h-screen w-full flex items-center justify-center overflow-hidden"
-      style={{ backgroundImage: "url('/mundos/bear_village/Hubbearvillage.webp')", backgroundSize: 'cover', backgroundPosition: 'center' }}
+      style={{
+        backgroundImage: "url('/mundos/bear_village/Hubbearvillage.webp')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60 z-0" />
@@ -184,7 +197,7 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
             transition={{
               duration: 2 + i * 0.5,
               repeat: Infinity,
-              ease: 'easeInOut',
+              ease: "easeInOut",
               delay: i * 0.3,
             }}
           />
@@ -196,7 +209,7 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
         <motion.div
           initial={{ opacity: 0, y: 40, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           className="relative bg-white/95 backdrop-blur-sm border-[6px] sm:border-8 border-[hsl(var(--foreground))] rounded-2xl sm:rounded-3xl shadow-[8px_8px_0px_hsl(var(--foreground))] overflow-hidden"
         >
           {/* Franja decorativa superior (estilo juego) */}
@@ -204,14 +217,13 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
 
           {/* Layout: Mobile (columna), Desktop (fila) */}
           <div className="flex flex-col md:flex-row items-center gap-4 sm:gap-6 md:gap-8 p-6 sm:p-8 md:p-10 pt-12 sm:pt-14 md:pt-12">
-
             {/* Sección Imagen - Izquierda en desktop, Arriba en mobile */}
             <div className="flex-shrink-0 relative w-full md:w-auto flex justify-center md:justify-start">
               {/* Círculo decorativo detrás */}
               <motion.div
                 className="absolute inset-0 flex items-center justify-center"
                 animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               >
                 <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full border-4 border-dashed border-golden-coin/30" />
               </motion.div>
@@ -226,7 +238,7 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
                 transition={{
                   duration: 2,
                   repeat: Infinity,
-                  ease: 'easeInOut',
+                  ease: "easeInOut",
                 }}
               >
                 <div className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full bg-golden-coin/20 blur-xl" />
@@ -242,7 +254,7 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
                 transition={{
                   duration: 3,
                   repeat: Infinity,
-                  ease: 'easeInOut',
+                  ease: "easeInOut",
                 }}
                 onHoverStart={() => playHoverSound()}
               >
@@ -265,7 +277,7 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
                   transition={{
                     duration: 1.5,
                     repeat: Infinity,
-                    ease: 'easeInOut',
+                    ease: "easeInOut",
                   }}
                 >
                   <span className="font-impact text-xs sm:text-sm text-[hsl(var(--foreground))]">
@@ -329,7 +341,7 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
                   <Label size="sm">🥋 Taekwondo</Label>
                 </div>
                 <div className="voxel-card px-3 py-2 bg-sky-blue/20">
-                  <Label size="sm">🎮 Gamer</Label>
+                  <Label size="sm">🎮 Jugador Pro</Label>
                 </div>
               </motion.div>
             </motion.div>
@@ -347,7 +359,7 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-grass-green animate-pulse" />
                 <span className="font-amble text-xs sm:text-sm text-[hsl(var(--foreground))]">
-                  Misión disponible
+                  ¡Misión de Nivel 9 detectada!
                 </span>
               </div>
 
@@ -355,7 +367,7 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
               <Button
                 onClick={handleClick}
                 disabled={isPlaying}
-                aria-label="Aceptar misión de cumpleaños"
+                aria-label="Aceptar misión de Nivel 9"
                 variant="3d-green"
                 size="game-lg"
                 className="relative overflow-hidden group font-milky"
@@ -365,17 +377,17 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
                   animate={{
-                    x: ['-100%', '100%'],
+                    x: ["-100%", "100%"],
                   }}
                   transition={{
                     duration: 2,
                     repeat: Infinity,
-                    ease: 'linear',
+                    ease: "linear",
                   }}
                 />
 
                 <span className="relative z-10">
-                  {isPlaying ? '🎵 Cargando...' : '¡Aceptar Misión! ➔'}
+                  {isPlaying ? "🎵 Sincronizando..." : "¡ACEPTAR MISIÓN! ➔"}
                 </span>
               </Button>
             </div>
@@ -390,13 +402,11 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
           transition={{ duration: 0.5, delay: 1.2 }}
         >
           <Body size="sm" className="text-white/80 drop-shadow-lg">
-            🐻 Una aventura épica te espera...
+            🐻 Prepará las medias, la partida está por empezar...
           </Body>
         </motion.div>
       </Container>
     </div>
   );
 }
-
-
 ```

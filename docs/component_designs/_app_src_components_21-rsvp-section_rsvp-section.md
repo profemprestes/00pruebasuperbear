@@ -1,11 +1,12 @@
-# Detalle de Diseño y Textos: /app/src/components/21-rsvp-section/rsvp-section.tsx
+# Detalle de Diseño y Textos: /src/components/21-rsvp-section/rsvp-section.tsx
 
 ## Diseño del Cuerpo del Componente
+
 El componente utiliza las siguientes clases y estilos:
 
 - `{`rounded-2xl p-6 sm:p-8 text-center ${
-          isDesktop ? "max-w-3xl mx-auto" : "w-full"
-        }`}`
+  isDesktop ? "max-w-3xl mx-auto" : "w-full"
+  }`}`
 - `font-milky text-2xl sm:text-3xl text-teddy-brown mb-2`
 - `font-amble text-sm text-voxel-text mb-6`
 - `space-y-4 text-left`
@@ -32,12 +33,13 @@ El componente utiliza las siguientes clases y estilos:
 - `font-arcade text-golden-coin text-sm mt-3`
 
 ## Textos del Componente
+
 A continuación se detallan los textos encontrados en el componente y el elemento donde se encuentran:
 
-- **<div>**: {/* RSVP Form */} {!confirmed ? ( <div className="space-y-4 text-left"> {/* Name input */} <div> <label className="font-amble font-bold text-xs text-teddy-brown uppercase tracking-wider block mb-1"> Tu Nombre </label> <input type="text" value={guestName} onChange={(e) => setGuestName(e.target.value)} placeholder="Nombre del jugador..." className="w-full px-4 py-3 rounded-xl font-calibri text-base" style={{ background: "rgba(255,255,255,0.8)", border: "2px solid #87CEEB", boxShadow: "inset 0 2px 4px rgba(0,0,0,0.1)", }} /> </div> {/* Guest count */} <div> <label className="font-amble font-bold text-xs text-teddy-brown uppercase tracking-wider block mb-1"> Cantidad de Invitados </label> <div className="flex items-center gap-3"> <button onClick={() => setGuestCount(Math.max(1, guestCount - 1))} aria-label="Reducir cantidad de invitados" className="w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold text-white active:translate-y-1 active:shadow-[0_0_0_transparent]" style={{ background: "#FFD700", border: "2px solid #8B4513", boxShadow: "0 3px 0 #63340b", }} > − </button> <span className="flex-1 text-center py-3 rounded-xl font-arcade text-2xl text-teddy-brown" style={{ background: "rgba(255,255,255,0.8)", border: "2px solid #FFD700", }} > {guestCount} </span> <button onClick={() => setGuestCount(Math.min(10, guestCount + 1))} aria-label="Aumentar cantidad de invitados" className="w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold text-white active:translate-y-1 active:shadow-[0_0_0_transparent]" style={{ background: "#FFD700", border: "2px solid #8B4513", boxShadow: "0 3px 0 #63340b", }} > + </button> </div> </div> {/* Divider */} <div className="h-px" style={{ background: "linear-gradient(90deg, transparent, #FFD700, transparent)" }} /> {/* Contact info */} <div className="space-y-2"> <p className="font-amble font-bold text-xs text-teddy-brown uppercase tracking-wider"> Contacto del Evento </p> <div className="flex items-center gap-2 text-sm text-voxel-text"> <Mail className="w-4 h-4 text-sky-blue flex-shrink-0" /> <span className="font-calibri">eventos@kboom.uy</span> </div> <div className="flex items-center gap-2 text-sm text-voxel-text"> <Instagram className="w-4 h-4 text-pink-500 flex-shrink-0" /> <span className="font-calibri">@kboom.uy</span> </div> <div className="flex items-center gap-2 text-sm text-voxel-text"> <MapPin className="w-4 h-4 text-grass-green flex-shrink-0" /> <span className="font-calibri">Av. Italia 3421, KBOOM</span> </div> </div> {/* Confirm button */} <div className="pb-[max(2rem,var(--safe-bottom))]"> <button onClick={handleConfirm} aria-label="Confirmar asistencia al evento" className="w-full font-milky text-base sm:text-lg h-auto py-3 sm:py-4 px-4 sm:px-6 text-white transition-all duration-150 active:translate-y-1 active:shadow-[0_0_0_transparent] whitespace-normal leading-tight" style={{ background: "linear-gradient(180deg, #7CFC00 0%, #5DBB00 100%)", border: "3px solid #2E8B57", boxShadow: "0 6px 0 #2E8B57", }} > <span className="text-sm sm:text-base">✓ ¡Confirmar Asistencia!</span> </button> </div> </div> ) : ( /* Confirmed state */ <div className="py-8 rounded-xl" style={{ background: "rgba(124,252,0,0.15)", border: "3px solid #7CFC00", }} > <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="text-6xl mb-4" > 🎉 </motion.div> <p className="font-milky text-xl text-teddy-brown"> ¡Asistencia Confirmada! </p> {guestName && ( <p className="font-calibri text-sm text-voxel-text mt-2"> Jugador: {guestName} ({guestCount} {guestCount === 1 ? "invitado" : "invitados"}) </p> )} <p className="font-arcade text-golden-coin text-sm mt-3"> 🪙 +50 monedas ganadas </p> </div> )}
+- **<div>**: {/_ RSVP Form _/} {!confirmed ? ( <div className="space-y-4 text-left"> {/_ Name input _/} <div> <label className="font-amble font-bold text-xs text-teddy-brown uppercase tracking-wider block mb-1"> Tu Nombre </label> <input type="text" value={guestName} onChange={(e) => setGuestName(e.target.value)} placeholder="Nombre del jugador..." className="w-full px-4 py-3 rounded-xl font-calibri text-base" style={{ background: "rgba(255,255,255,0.8)", border: "2px solid #87CEEB", boxShadow: "inset 0 2px 4px rgba(0,0,0,0.1)", }} /> </div> {/_ Guest count _/} <div> <label className="font-amble font-bold text-xs text-teddy-brown uppercase tracking-wider block mb-1"> Cantidad de Invitados </label> <div className="flex items-center gap-3"> <button onClick={() => setGuestCount(Math.max(1, guestCount - 1))} aria-label="Reducir cantidad de invitados" className="w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold text-white active:translate-y-1 active:shadow-[0_0_0_transparent]" style={{ background: "#FFD700", border: "2px solid #8B4513", boxShadow: "0 3px 0 #63340b", }} > − </button> <span className="flex-1 text-center py-3 rounded-xl font-arcade text-2xl text-teddy-brown" style={{ background: "rgba(255,255,255,0.8)", border: "2px solid #FFD700", }} > {guestCount} </span> <button onClick={() => setGuestCount(Math.min(10, guestCount + 1))} aria-label="Aumentar cantidad de invitados" className="w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold text-white active:translate-y-1 active:shadow-[0_0_0_transparent]" style={{ background: "#FFD700", border: "2px solid #8B4513", boxShadow: "0 3px 0 #63340b", }} > + </button> </div> </div> {/_ Divider _/} <div className="h-px" style={{ background: "linear-gradient(90deg, transparent, #FFD700, transparent)" }} /> {/_ Contact info _/} <div className="space-y-2"> <p className="font-amble font-bold text-xs text-teddy-brown uppercase tracking-wider"> Contacto del Evento </p> <div className="flex items-center gap-2 text-sm text-voxel-text"> <Mail className="w-4 h-4 text-sky-blue flex-shrink-0" /> <span className="font-calibri">eventos@kboom.uy</span> </div> <div className="flex items-center gap-2 text-sm text-voxel-text"> <Instagram className="w-4 h-4 text-pink-500 flex-shrink-0" /> <span className="font-calibri">@kboom.uy</span> </div> <div className="flex items-center gap-2 text-sm text-voxel-text"> <MapPin className="w-4 h-4 text-grass-green flex-shrink-0" /> <span className="font-calibri">Av. Italia 3421, KBOOM</span> </div> </div> {/_ Confirm button _/} <div className="pb-[max(2rem,var(--safe-bottom))]"> <button onClick={handleConfirm} aria-label="Confirmar asistencia al evento" className="w-full font-milky text-base sm:text-lg h-auto py-3 sm:py-4 px-4 sm:px-6 text-white transition-all duration-150 active:translate-y-1 active:shadow-[0_0_0_transparent] whitespace-normal leading-tight" style={{ background: "linear-gradient(180deg, #7CFC00 0%, #5DBB00 100%)", border: "3px solid #2E8B57", boxShadow: "0 6px 0 #2E8B57", }} > <span className="text-sm sm:text-base">✓ ¡Confirmar Asistencia!</span> </button> </div> </div> ) : ( /_ Confirmed state _/ <div className="py-8 rounded-xl" style={{ background: "rgba(124,252,0,0.15)", border: "3px solid #7CFC00", }} > <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="text-6xl mb-4" > 🎉 </motion.div> <p className="font-milky text-xl text-teddy-brown"> ¡Asistencia Confirmada! </p> {guestName && ( <p className="font-calibri text-sm text-voxel-text mt-2"> Jugador: {guestName} ({guestCount} {guestCount === 1 ? "invitado" : "invitados"}) </p> )} <p className="font-arcade text-golden-coin text-sm mt-3"> 🪙 +50 monedas ganadas </p> </div> )}
 - **<h2>**: ✉️ RSVP - Confirmar Asistencia
 - **<p>**: ¡Confirmá tu presencia en la misión para ganar 50 monedas!
-- **<div>**: {/* Name input */} {/* Guest count */} {/* Divider */} {/* Contact info */} {/* Confirm button */}
+- **<div>**: {/_ Name input _/} {/_ Guest count _/} {/_ Divider _/} {/_ Contact info _/} {/_ Confirm button _/}
 - **<label>**: Tu Nombre
 - **<label>**: Cantidad de Invitados
 - **<button>**: −
@@ -55,6 +57,7 @@ A continuación se detallan los textos encontrados en el componente y el element
 - **<p>**: 🪙 +50 monedas ganadas
 
 ## Contenido Completo del Archivo
+
 ```tsx
 "use client";
 
@@ -82,7 +85,10 @@ export function RSVPSection({ onNext, onComplete }: RSVPSectionProps) {
   };
 
   return (
-    <MissionSection stepId="rsvp" bgImage="/mundos/bear_village/Spawnpoint.webp">
+    <MissionSection
+      stepId="rsvp"
+      bgImage="/mundos/bear_village/Spawnpoint.webp"
+    >
       <div
         className={`rounded-2xl p-6 sm:p-8 text-center ${
           isDesktop ? "max-w-3xl mx-auto" : "w-full"
@@ -167,7 +173,10 @@ export function RSVPSection({ onNext, onComplete }: RSVPSectionProps) {
             {/* Divider */}
             <div
               className="h-px"
-              style={{ background: "linear-gradient(90deg, transparent, #FFD700, transparent)" }}
+              style={{
+                background:
+                  "linear-gradient(90deg, transparent, #FFD700, transparent)",
+              }}
             />
 
             {/* Contact info */}
@@ -199,15 +208,15 @@ export function RSVPSection({ onNext, onComplete }: RSVPSectionProps) {
                 aria-label="Confirmar asistencia al evento"
                 className="w-full font-milky text-base sm:text-lg h-auto py-3 sm:py-4 px-4 sm:px-6 text-white transition-all duration-150 active:translate-y-1 active:shadow-[0_0_0_transparent] whitespace-normal leading-tight"
                 style={{
-                  background: "linear-gradient(180deg, #7CFC00 0%, #5DBB00 100%)",
+                  background:
+                    "linear-gradient(180deg, #7CFC00 0%, #5DBB00 100%)",
                   border: "3px solid #2E8B57",
                   boxShadow: "0 6px 0 #2E8B57",
                 }}
-
-
-
               >
-                <span className="text-sm sm:text-base">✓ ¡Confirmar Asistencia!</span>
+                <span className="text-sm sm:text-base">
+                  ✓ ¡Confirmar Asistencia!
+                </span>
               </button>
             </div>
           </div>
@@ -232,7 +241,8 @@ export function RSVPSection({ onNext, onComplete }: RSVPSectionProps) {
             </p>
             {guestName && (
               <p className="font-calibri text-sm text-voxel-text mt-2">
-                Jugador: {guestName} ({guestCount} {guestCount === 1 ? "invitado" : "invitados"})
+                Jugador: {guestName} ({guestCount}{" "}
+                {guestCount === 1 ? "invitado" : "invitados"})
               </p>
             )}
             <p className="font-arcade text-golden-coin text-sm mt-3">
@@ -244,6 +254,4 @@ export function RSVPSection({ onNext, onComplete }: RSVPSectionProps) {
     </MissionSection>
   );
 }
-
-
 ```

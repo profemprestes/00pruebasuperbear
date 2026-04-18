@@ -1,6 +1,7 @@
-# Detalle de Diseño y Textos: /app/src/components/08-mission-details-screen/mission-details-screen.tsx
+# Detalle de Diseño y Textos: /src/components/08-mission-details-screen/mission-details-screen.tsx
 
 ## Diseño del Cuerpo del Componente
+
 El componente utiliza las siguientes clases y estilos:
 
 - `relative min-h-screen w-full flex flex-col items-center overflow-hidden`
@@ -35,8 +36,8 @@ El componente utiliza las siguientes clases y estilos:
 - `font-arcade text-golden-coin text-[10px] sm:text-xs mb-2 tracking-widest`
 - `mt-4 sm:mt-6 flex flex-col gap-3`
 - `{`w-full font-milky overflow-hidden relative ${
-                  isConfirmed ? 'bg-green-500' : ''
-                }`}`
+  isConfirmed ? 'bg-green-500' : ''
+  }`}`
 - `absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent`
 - `relative z-10`
 - `flex items-center justify-center gap-2`
@@ -64,28 +65,29 @@ El componente utiliza las siguientes clases y estilos:
 - `font-arcade text-golden-coin text-xs mb-3 tracking-widest`
 - `mt-8 flex flex-col sm:flex-row gap-4`
 - `{`flex-1 font-milky overflow-hidden relative ${
-                  isConfirmed ? 'bg-green-500' : ''
-                }`}`
+  isConfirmed ? 'bg-green-500' : ''
+  }`}`
 - `w-6 h-6`
 - `font-amble text-base font-semibold text-white bg-gradient-to-r from-sky-blue to-blue-500 hover:from-sky-400 hover:to-blue-400 border-3 border-white/50 rounded-xl px-5 py-4 transition-all shadow-[0_4px_0_#0056b3] hover:shadow-[0_6px_0_#0056b3] hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_2px_0_#0056b3] flex items-center justify-center gap-2 whitespace-nowrap`
 - `mt-4 text-center`
 - `font-amble text-sm font-semibold text-sky-blue hover:text-blue-600 hover:underline transition-all`
 
 ## Textos del Componente
+
 A continuación se detallan los textos encontrados en el componente y el elemento donde se encuentran:
 
-- **<div>**: {/* Overlay */} {/* Confeti digital de colores (solo cuando celebra) */} {/* Header estilo Quest */} {/* Contenedor principal responsive */}
-- **<AnimatePresence>**: {isCelebrating && ( <div className="absolute inset-0 pointer-events-none overflow-hidden z-50"> {Array.from({ length: 30 }).map((_, i) => ( <motion.div key={i} className="absolute w-3 h-3 rounded-sm" style={{ backgroundColor: confettiColors[i % confettiColors.length], left: `${Math.random() * 100}%`, top: '-10px', }} initial={{ y: 0, opacity: 1, rotate: 0 }} animate={{ y: ['0vh', '100vh'], opacity: [1, 1, 0], rotate: [0, 360 * (Math.random() > 0.5 ? 1 : -1)], x: [0, Math.sin(i) * 100], }} transition={{ duration: 2 + Math.random() * 2, ease: 'easeOut', delay: Math.random() * 0.5, }} /> ))} </div> )}
-- **<div>**: {Array.from({ length: 30 }).map((_, i) => ( <motion.div key={i} className="absolute w-3 h-3 rounded-sm" style={{ backgroundColor: confettiColors[i % confettiColors.length], left: `${Math.random() * 100}%`, top: '-10px', }} initial={{ y: 0, opacity: 1, rotate: 0 }} animate={{ y: ['0vh', '100vh'], opacity: [1, 1, 0], rotate: [0, 360 * (Math.random() > 0.5 ? 1 : -1)], x: [0, Math.sin(i) * 100], }} transition={{ duration: 2 + Math.random() * 2, ease: 'easeOut', delay: Math.random() * 0.5, }} /> ))}
+- **<div>**: {/_ Overlay _/} {/_ Confeti digital de colores (solo cuando celebra) _/} {/_ Header estilo Quest _/} {/_ Contenedor principal responsive _/}
+- **<AnimatePresence>**: {isCelebrating && ( <div className="absolute inset-0 pointer-events-none overflow-hidden z-50"> {Array.from({ length: 30 }).map((\_, i) => ( <motion.div key={i} className="absolute w-3 h-3 rounded-sm" style={{ backgroundColor: confettiColors[i % confettiColors.length], left: `${Math.random() * 100}%`, top: '-10px', }} initial={{ y: 0, opacity: 1, rotate: 0 }} animate={{ y: ['0vh', '100vh'], opacity: [1, 1, 0], rotate: [0, 360 * (Math.random() > 0.5 ? 1 : -1)], x: [0, Math.sin(i) * 100], }} transition={{ duration: 2 + Math.random() * 2, ease: 'easeOut', delay: Math.random() * 0.5, }} /> ))} </div> )}
+- **<div>**: {Array.from({ length: 30 }).map((\_, i) => ( <motion.div key={i} className="absolute w-3 h-3 rounded-sm" style={{ backgroundColor: confettiColors[i % confettiColors.length], left: `${Math.random() * 100}%`, top: '-10px', }} initial={{ y: 0, opacity: 1, rotate: 0 }} animate={{ y: ['0vh', '100vh'], opacity: [1, 1, 0], rotate: [0, 360 * (Math.random() > 0.5 ? 1 : -1)], x: [0, Math.sin(i) * 100], }} transition={{ duration: 2 + Math.random() * 2, ease: 'easeOut', delay: Math.random() * 0.5, }} /> ))}
 - **<span>**: ✦ MISIÓN: GRAN SLAM ✦
-- **<Container>**: {/* MOBILE: Facu arriba saludando, luego bloques de info */} {/* DESKTOP: Facu izquierda con globo JRPG, Tablero derecha */}
-- **<div>**: {/* Facu Bear con animación de saludo */} {/* Tablero de Misión (estilo pizarra de entrenador) */}
-- **<motion.div>**: {/* Globo JRPG */} {/* Facu Avatar */}
+- **<Container>**: {/_ MOBILE: Facu arriba saludando, luego bloques de info _/} {/_ DESKTOP: Facu izquierda con globo JRPG, Tablero derecha _/}
+- **<div>**: {/_ Facu Bear con animación de saludo _/} {/_ Tablero de Misión (estilo pizarra de entrenador) _/}
+- **<motion.div>**: {/_ Globo JRPG _/} {/_ Facu Avatar _/}
 - **<p>**: ¡Misión aceptada, equipo! 🏀 Ya tenemos el tablero táctico listo. No olvides guardar las coordenadas en tu calendario o la miel púrpura borrará el mapa. ¡Nos vemos en la cancha! 🎨
-- **<motion.div>**: {/* Aura dorada */}
-- **<motion.div>**: {/* Franja decorativa */} {/* Grid de info */} {/* Countdown */} {/* Botones de acción */}
+- **<motion.div>**: {/_ Aura dorada _/}
+- **<motion.div>**: {/_ Franja decorativa _/} {/_ Grid de info _/} {/_ Countdown _/} {/_ Botones de acción _/}
 - **<h2>**: COORDENADAS DE LA ARENA 🏟️
-- **<div>**: {/* Lugar */} {/* Fecha */} {/* Horario */} {/* Equipamiento */}
+- **<div>**: {/_ Lugar _/} {/_ Fecha _/} {/_ Horario _/} {/_ Equipamiento _/}
 - **<p>**: 🗺️ Lugar
 - **<p>**: {missionData.lugar}
 - **<p>**: {missionData.direccion}
@@ -96,20 +98,20 @@ A continuación se detallan los textos encontrados en el componente y el element
 - **<p>**: 🎒 Equipamiento
 - **<p>**: {missionData.nota}
 - **<p>**: ⏱ TIEMPO PARA EL SAQUE INICIAL
-- **<div>**: {/* Botón Confirmar */} {/* Botón Google Calendar */} {/* Link Bio */}
+- **<div>**: {/_ Botón Confirmar _/} {/_ Botón Google Calendar _/} {/_ Link Bio _/}
 - **<span>**: {isConfirmed ? ( <span className="flex items-center justify-center gap-2"> <Check className="w-5 h-5" /> ¡FICHADO! ✅ </span> ) : ( '¡CONFIRMAR ASISTENCIA! 🏀' )}
 - **<span>**: ¡FICHADO! ✅
 - **<span>**: Sincronizar Reloj de Misión 📅
 - **<button>**: ¿Quieres ver mis gustos y biografía? ➔
-- **<div>**: {/* IZQUIERDA: Facu + Globo JRPG */} {/* DERECHA: Tablero de Misión (estilo pizarra) */}
-- **<motion.div>**: {/* Globo de texto JRPG */} {/* Facu Bear Avatar */}
-- **<motion.div>**: {/* Puntero del globo (abajo derecha) */}
+- **<div>**: {/_ IZQUIERDA: Facu + Globo JRPG _/} {/_ DERECHA: Tablero de Misión (estilo pizarra) _/}
+- **<motion.div>**: {/_ Globo de texto JRPG _/} {/_ Facu Bear Avatar _/}
+- **<motion.div>**: {/_ Puntero del globo (abajo derecha) _/}
 - **<p>**: ¡Misión aceptada, equipo! 🏀 Ya tenemos el tablero táctico listo. No olvides guardar las coordenadas en tu calendario o la miel púrpura borrará el mapa. ¡Nos vemos en la cancha! 🎨
-- **<motion.div>**: {/* Aura dorada */} {/* Badge MVP */}
+- **<motion.div>**: {/_ Aura dorada _/} {/_ Badge MVP _/}
 - **<motion.div>**: 🏆 MVP FACU 🏆
-- **<motion.div>**: {/* Franja decorativa superior */} {/* Grid de info - 2 columnas */} {/* Countdown */} {/* Botones de acción */} {/* Link Bio */}
+- **<motion.div>**: {/_ Franja decorativa superior _/} {/_ Grid de info - 2 columnas _/} {/_ Countdown _/} {/_ Botones de acción _/} {/_ Link Bio _/}
 - **<h2>**: COORDENADAS DE LA ARENA 🏟️
-- **<div>**: {/* Lugar */} {/* Fecha */} {/* Horario */} {/* Equipamiento */}
+- **<div>**: {/_ Lugar _/} {/_ Fecha _/} {/_ Horario _/} {/_ Equipamiento _/}
 - **<p>**: 🗺️ Lugar
 - **<p>**: {missionData.lugar}
 - **<p>**: {missionData.direccion}
@@ -120,25 +122,33 @@ A continuación se detallan los textos encontrados en el componente y el element
 - **<p>**: 🎒 Equipamiento
 - **<p>**: {missionData.nota}
 - **<p>**: ⏱ TIEMPO PARA EL SAQUE INICIAL
-- **<div>**: {/* Botón Confirmar */} {/* Botón Google Calendar */}
+- **<div>**: {/_ Botón Confirmar _/} {/_ Botón Google Calendar _/}
 - **<span>**: {isConfirmed ? ( <span className="flex items-center justify-center gap-2"> <Check className="w-6 h-6" /> ¡FICHADO! ✅ </span> ) : ( '¡CONFIRMAR ASISTENCIA! 🏀' )}
 - **<span>**: ¡FICHADO! ✅
 - **<span>**: Sincronizar Reloj de Misión 📅
 - **<button>**: ¿Quieres ver mis gustos y biografía? ➔
 
 ## Contenido Completo del Archivo
-```tsx
-'use client';
 
-import { useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
-import { missionData } from '@/lib/eventData';
-import { CalendarDays, MapPin, Clock, Backpack, CalendarPlus, Check } from 'lucide-react';
-import { CountdownTimer } from '@/components/13-countdown-timer';
-import { Button } from '@/components/ui/button';
-import { Container } from '@/components/ui/container';
-import { useBreakpoint } from '@/hooks/use-mobile';
+```tsx
+"use client";
+
+import { useState, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import { missionData } from "@/lib/eventData";
+import {
+  CalendarDays,
+  MapPin,
+  Clock,
+  Backpack,
+  CalendarPlus,
+  Check,
+} from "lucide-react";
+import { CountdownTimer } from "@/components/13-countdown-timer";
+import { Button } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
+import { useBreakpoint } from "@/hooks/use-mobile";
 
 type MissionDetailsScreenProps = {
   playerName: string;
@@ -148,7 +158,8 @@ type MissionDetailsScreenProps = {
 // Sonido de celebración
 function playCelebrationSound() {
   try {
-    const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+    const AudioContext =
+      window.AudioContext || (window as any).webkitAudioContext;
     if (!AudioContext) return;
 
     const ctx = new AudioContext();
@@ -157,28 +168,32 @@ function playCelebrationSound() {
     [523.25, 659.25, 783.99].forEach((freq, i) => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-      osc.type = 'square';
+      osc.type = "square";
       osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.15);
       gain.gain.setValueAtTime(0.15, ctx.currentTime + i * 0.15);
-      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + i * 0.15 + 0.2);
+      gain.gain.exponentialRampToValueAtTime(
+        0.01,
+        ctx.currentTime + i * 0.15 + 0.2,
+      );
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start(ctx.currentTime + i * 0.15);
       osc.stop(ctx.currentTime + i * 0.15 + 0.2);
     });
   } catch (e) {
-    console.debug('Audio no disponible:', e);
+    console.debug("Audio no disponible:", e);
   }
 }
 
 function playClickSound() {
   try {
-    const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+    const AudioContext =
+      window.AudioContext || (window as any).webkitAudioContext;
     if (!AudioContext) return;
     const ctx = new AudioContext();
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
-    osc.type = 'square';
+    osc.type = "square";
     osc.frequency.setValueAtTime(880, ctx.currentTime);
     osc.frequency.exponentialRampToValueAtTime(1760, ctx.currentTime + 0.1);
     gain.gain.setValueAtTime(0.2, ctx.currentTime);
@@ -188,23 +203,30 @@ function playClickSound() {
     osc.start(ctx.currentTime);
     osc.stop(ctx.currentTime + 0.15);
   } catch (e) {
-    console.debug('Audio no disponible:', e);
+    console.debug("Audio no disponible:", e);
   }
 }
 
-export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScreenProps) {
+export function MissionDetailsScreen({
+  playerName,
+  onNext,
+}: MissionDetailsScreenProps) {
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isCelebrating, setIsCelebrating] = useState(false);
   const breakpoint = useBreakpoint();
-  const isMobile = breakpoint === 'mobile';
+  const isMobile = breakpoint === "mobile";
 
   // Generador de URL para Google Calendar
   const googleCalendarUrl = () => {
     const baseUrl = "https://www.google.com/calendar/render?action=TEMPLATE";
     const title = encodeURIComponent("Gran Facu Aventura - Nivel 9 🏀");
     const dates = "20260524T213000Z/20260525T000000Z";
-    const location = encodeURIComponent(`${missionData.lugar}, ${missionData.direccion}`);
-    const details = encodeURIComponent(`¡Misión de Cumpleaños de Facu! \n\n${missionData.nota}`);
+    const location = encodeURIComponent(
+      `${missionData.lugar}, ${missionData.direccion}`,
+    );
+    const details = encodeURIComponent(
+      `¡Misión de Cumpleaños de Facu! \n\n${missionData.nota}`,
+    );
     return `${baseUrl}&text=${title}&dates=${dates}&details=${details}&location=${location}`;
   };
 
@@ -223,12 +245,23 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
   };
 
   // Colores de confeti
-  const confettiColors = ['#FFD700', '#7CFC00', '#87CEEB', '#FF69B4', '#FF6347', '#9370DB'];
+  const confettiColors = [
+    "#FFD700",
+    "#7CFC00",
+    "#87CEEB",
+    "#FF69B4",
+    "#FF6347",
+    "#9370DB",
+  ];
 
   return (
     <div
       className="relative min-h-screen w-full flex flex-col items-center overflow-hidden"
-      style={{ backgroundImage: "url('/mundos/bear_village/Hubbearvillage.webp')", backgroundSize: 'cover', backgroundPosition: 'center' }}
+      style={{
+        backgroundImage: "url('/mundos/bear_village/Hubbearvillage.webp')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50 z-0" />
@@ -244,18 +277,18 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
                 style={{
                   backgroundColor: confettiColors[i % confettiColors.length],
                   left: `${Math.random() * 100}%`,
-                  top: '-10px',
+                  top: "-10px",
                 }}
                 initial={{ y: 0, opacity: 1, rotate: 0 }}
                 animate={{
-                  y: ['0vh', '100vh'],
+                  y: ["0vh", "100vh"],
                   opacity: [1, 1, 0],
                   rotate: [0, 360 * (Math.random() > 0.5 ? 1 : -1)],
                   x: [0, Math.sin(i) * 100],
                 }}
                 transition={{
                   duration: 2 + Math.random() * 2,
-                  ease: 'easeOut',
+                  ease: "easeOut",
                   delay: Math.random() * 0.5,
                 }}
               />
@@ -268,7 +301,7 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
       <motion.div
         initial={{ y: -60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
         className="relative z-10 mb-4 sm:mb-6 md:mb-8 pt-4 sm:pt-6"
       >
         <div className="bg-gradient-to-r from-golden-coin via-yellow-300 to-golden-coin border-4 border-teddy-brown px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-[0_4px_0_#63340b]">
@@ -280,7 +313,6 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
 
       {/* Contenedor principal responsive */}
       <Container size="lg" spacing="md">
-
         {/* MOBILE: Facu arriba saludando, luego bloques de info */}
         <div className="md:hidden flex flex-col items-center gap-4">
           {/* Facu Bear con animación de saludo */}
@@ -294,38 +326,52 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
             <motion.div
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.6, type: 'spring', stiffness: 200 }}
+              transition={{ delay: 0.6, type: "spring", stiffness: 200 }}
               className="bg-white border-4 border-sky-blue px-4 py-3 rounded-2xl shadow-xl mb-4 relative w-64"
             >
               <p className="font-body text-xs text-teddy-brown font-semibold text-center leading-tight">
-                ¡Misión aceptada, equipo! 🏀 Ya tenemos el tablero táctico listo. No olvides guardar las coordenadas en tu calendario o la miel púrpura borrará el mapa. ¡Nos vemos en la cancha! 🎨
+                ¡Misión aceptada, equipo! 🏀 Ya tenemos el tablero táctico
+                listo. No olvides guardar las coordenadas en tu calendario o la
+                miel púrpura borrará el mapa. ¡Nos vemos en la cancha! 🎨
               </p>
               <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[10px] border-l-transparent border-t-[12px] border-t-sky-blue border-r-[10px] border-r-transparent" />
             </motion.div>
 
             {/* Facu Avatar */}
             <motion.div
-              animate={isCelebrating ? {
-                y: [0, -30, 0, -20, 0],
-                rotate: [0, 15, -15, 10, 0],
-              } : {
-                y: [0, -12, 0],
-              }}
-              transition={isCelebrating ? {
-                duration: 1,
-                ease: 'easeOut',
-              } : {
-                duration: 3,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
+              animate={
+                isCelebrating
+                  ? {
+                      y: [0, -30, 0, -20, 0],
+                      rotate: [0, 15, -15, 10, 0],
+                    }
+                  : {
+                      y: [0, -12, 0],
+                    }
+              }
+              transition={
+                isCelebrating
+                  ? {
+                      duration: 1,
+                      ease: "easeOut",
+                    }
+                  : {
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }
+              }
               className="relative"
             >
               {/* Aura dorada */}
               <motion.div
                 className="absolute inset-0 flex items-center justify-center"
                 animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               >
                 <div className="w-40 h-40 rounded-full bg-golden-coin/30 blur-2xl" />
               </motion.div>
@@ -345,7 +391,7 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
           <motion.div
             initial={{ y: 60, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
+            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
             className="w-full bg-gradient-to-br from-amber-50 via-yellow-50 to-amber-100 border-6 sm:border-8 border-teddy-brown rounded-3xl p-4 sm:p-6 shadow-[10px_10px_0px_#63340b] relative"
           >
             {/* Franja decorativa */}
@@ -363,9 +409,15 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
                   <MapPin className="text-sky-blue w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-[10px] sm:text-xs uppercase text-gray-500 font-semibold">🗺️ Lugar</p>
-                  <p className="font-bold text-sm sm:text-base text-teddy-brown">{missionData.lugar}</p>
-                  <p className="text-xs text-gray-600">{missionData.direccion}</p>
+                  <p className="text-[10px] sm:text-xs uppercase text-gray-500 font-semibold">
+                    🗺️ Lugar
+                  </p>
+                  <p className="font-bold text-sm sm:text-base text-teddy-brown">
+                    {missionData.lugar}
+                  </p>
+                  <p className="text-xs text-gray-600">
+                    {missionData.direccion}
+                  </p>
                 </div>
               </div>
 
@@ -375,8 +427,12 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
                   <CalendarDays className="text-sky-blue w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-[10px] sm:text-xs uppercase text-gray-500 font-semibold">📅 Fecha</p>
-                  <p className="font-bold text-sm sm:text-base text-teddy-brown">{missionData.fecha}</p>
+                  <p className="text-[10px] sm:text-xs uppercase text-gray-500 font-semibold">
+                    📅 Fecha
+                  </p>
+                  <p className="font-bold text-sm sm:text-base text-teddy-brown">
+                    {missionData.fecha}
+                  </p>
                 </div>
               </div>
 
@@ -386,8 +442,12 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
                   <Clock className="text-sky-blue w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-[10px] sm:text-xs uppercase text-gray-500 font-semibold">⏰ Horario</p>
-                  <p className="font-bold text-sm sm:text-base text-teddy-brown">{missionData.horario}</p>
+                  <p className="text-[10px] sm:text-xs uppercase text-gray-500 font-semibold">
+                    ⏰ Horario
+                  </p>
+                  <p className="font-bold text-sm sm:text-base text-teddy-brown">
+                    {missionData.horario}
+                  </p>
                 </div>
               </div>
 
@@ -397,8 +457,12 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
                   <Backpack className="text-sky-blue w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-[10px] sm:text-xs uppercase text-gray-500 font-semibold">🎒 Equipamiento</p>
-                  <p className="font-bold text-xs sm:text-sm text-teddy-brown leading-tight">{missionData.nota}</p>
+                  <p className="text-[10px] sm:text-xs uppercase text-gray-500 font-semibold">
+                    🎒 Equipamiento
+                  </p>
+                  <p className="font-bold text-xs sm:text-sm text-teddy-brown leading-tight">
+                    {missionData.nota}
+                  </p>
                 </div>
               </div>
             </div>
@@ -425,13 +489,13 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
                 variant={isConfirmed ? "3d-green" : "3d-gold"}
                 size="game-lg"
                 className={`w-full font-milky overflow-hidden relative ${
-                  isConfirmed ? 'bg-green-500' : ''
+                  isConfirmed ? "bg-green-500" : ""
                 }`}
               >
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                  animate={{ x: ['-100%', '100%'] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                  animate={{ x: ["-100%", "100%"] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                 />
                 <span className="relative z-10">
                   {isConfirmed ? (
@@ -440,7 +504,7 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
                       ¡FICHADO! ✅
                     </span>
                   ) : (
-                    '¡CONFIRMAR ASISTENCIA! 🏀'
+                    "¡CONFIRMAR ASISTENCIA! 🏀"
                   )}
                 </span>
               </Button>
@@ -474,18 +538,20 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
           <motion.div
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="w-1/3 flex flex-col items-center"
           >
             {/* Globo de texto JRPG */}
             <motion.div
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.5, type: 'spring', stiffness: 200 }}
+              transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
               className="bg-white border-4 border-sky-blue p-5 rounded-2xl shadow-xl mb-6 relative max-w-xs"
             >
               <p className="font-body text-sm text-teddy-brown font-semibold text-center leading-relaxed">
-                ¡Misión aceptada, equipo! 🏀 Ya tenemos el tablero táctico listo. No olvides guardar las coordenadas en tu calendario o la miel púrpura borrará el mapa. ¡Nos vemos en la cancha! 🎨
+                ¡Misión aceptada, equipo! 🏀 Ya tenemos el tablero táctico
+                listo. No olvides guardar las coordenadas en tu calendario o la
+                miel púrpura borrará el mapa. ¡Nos vemos en la cancha! 🎨
               </p>
               {/* Puntero del globo (abajo derecha) */}
               <div className="absolute -bottom-4 right-12 w-0 h-0 border-l-[12px] border-l-transparent border-t-[16px] border-t-sky-blue border-r-[12px] border-r-transparent" />
@@ -493,28 +559,40 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
 
             {/* Facu Bear Avatar */}
             <motion.div
-              animate={isCelebrating ? {
-                y: [0, -40, 0, -25, 0],
-                rotate: [0, 20, -20, 15, 0],
-                scale: [1, 1.1, 1],
-              } : {
-                y: [0, -15, 0],
-              }}
-              transition={isCelebrating ? {
-                duration: 1.2,
-                ease: 'easeOut',
-              } : {
-                duration: 3,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
+              animate={
+                isCelebrating
+                  ? {
+                      y: [0, -40, 0, -25, 0],
+                      rotate: [0, 20, -20, 15, 0],
+                      scale: [1, 1.1, 1],
+                    }
+                  : {
+                      y: [0, -15, 0],
+                    }
+              }
+              transition={
+                isCelebrating
+                  ? {
+                      duration: 1.2,
+                      ease: "easeOut",
+                    }
+                  : {
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }
+              }
               className="relative"
             >
               {/* Aura dorada */}
               <motion.div
                 className="absolute inset-0 flex items-center justify-center"
                 animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               >
                 <div className="w-64 h-64 rounded-full bg-golden-coin/30 blur-2xl" />
               </motion.div>
@@ -532,7 +610,11 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
               <motion.div
                 className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-golden-coin to-yellow-500 text-teddy-brown font-arcade text-xs px-4 py-2 rounded-full border-3 border-white shadow-lg whitespace-nowrap"
                 animate={{ scale: [1, 1.05, 1] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               >
                 🏆 MVP FACU 🏆
               </motion.div>
@@ -543,7 +625,7 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
           <motion.div
             initial={{ x: 100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
             className="flex-1 bg-gradient-to-br from-amber-50 via-yellow-50 to-amber-100 border-8 border-teddy-brown rounded-3xl p-8 lg:p-10 shadow-[12px_12px_0px_#63340b] relative"
           >
             {/* Franja decorativa superior */}
@@ -561,9 +643,15 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
                   <MapPin className="text-sky-blue w-6 h-6" />
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase text-gray-500 font-semibold tracking-wider">🗺️ Lugar</p>
-                  <p className="font-bold text-base text-teddy-brown">{missionData.lugar}</p>
-                  <p className="text-xs text-gray-600">{missionData.direccion}</p>
+                  <p className="text-[10px] uppercase text-gray-500 font-semibold tracking-wider">
+                    🗺️ Lugar
+                  </p>
+                  <p className="font-bold text-base text-teddy-brown">
+                    {missionData.lugar}
+                  </p>
+                  <p className="text-xs text-gray-600">
+                    {missionData.direccion}
+                  </p>
                 </div>
               </div>
 
@@ -573,8 +661,12 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
                   <CalendarDays className="text-sky-blue w-6 h-6" />
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase text-gray-500 font-semibold tracking-wider">📅 Fecha</p>
-                  <p className="font-bold text-base text-teddy-brown">{missionData.fecha}</p>
+                  <p className="text-[10px] uppercase text-gray-500 font-semibold tracking-wider">
+                    📅 Fecha
+                  </p>
+                  <p className="font-bold text-base text-teddy-brown">
+                    {missionData.fecha}
+                  </p>
                 </div>
               </div>
 
@@ -584,8 +676,12 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
                   <Clock className="text-sky-blue w-6 h-6" />
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase text-gray-500 font-semibold tracking-wider">⏰ Horario</p>
-                  <p className="font-bold text-base text-teddy-brown">{missionData.horario}</p>
+                  <p className="text-[10px] uppercase text-gray-500 font-semibold tracking-wider">
+                    ⏰ Horario
+                  </p>
+                  <p className="font-bold text-base text-teddy-brown">
+                    {missionData.horario}
+                  </p>
                 </div>
               </div>
 
@@ -595,8 +691,12 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
                   <Backpack className="text-sky-blue w-6 h-6" />
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase text-gray-500 font-semibold tracking-wider">🎒 Equipamiento</p>
-                  <p className="font-bold text-sm text-teddy-brown leading-tight">{missionData.nota}</p>
+                  <p className="text-[10px] uppercase text-gray-500 font-semibold tracking-wider">
+                    🎒 Equipamiento
+                  </p>
+                  <p className="font-bold text-sm text-teddy-brown leading-tight">
+                    {missionData.nota}
+                  </p>
                 </div>
               </div>
             </div>
@@ -623,13 +723,13 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
                 variant={isConfirmed ? "3d-green" : "3d-gold"}
                 size="game-xl"
                 className={`flex-1 font-milky overflow-hidden relative ${
-                  isConfirmed ? 'bg-green-500' : ''
+                  isConfirmed ? "bg-green-500" : ""
                 }`}
               >
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                  animate={{ x: ['-100%', '100%'] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                  animate={{ x: ["-100%", "100%"] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                 />
                 <span className="relative z-10">
                   {isConfirmed ? (
@@ -638,7 +738,7 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
                       ¡FICHADO! ✅
                     </span>
                   ) : (
-                    '¡CONFIRMAR ASISTENCIA! 🏀'
+                    "¡CONFIRMAR ASISTENCIA! 🏀"
                   )}
                 </span>
               </Button>
@@ -671,6 +771,4 @@ export function MissionDetailsScreen({ playerName, onNext }: MissionDetailsScree
     </div>
   );
 }
-
-
 ```

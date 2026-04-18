@@ -1,6 +1,7 @@
-# Detalle de Diseño y Textos: /app/src/components/03-intro-video-screen/intro-video-screen.tsx
+# Detalle de Diseño y Textos: /src/components/03-intro-video-screen/intro-video-screen.tsx
 
 ## Diseño del Cuerpo del Componente
+
 El componente utiliza las siguientes clases y estilos:
 
 - `fixed inset-0 bg-black z-50 flex items-center justify-center animate-in fade-in-0`
@@ -8,53 +9,58 @@ El componente utiliza las siguientes clases y estilos:
 - `absolute bottom-4 right-4 sm:bottom-8 sm:right-8 text-white bg-black/30 hover:bg-black/50 z-10 font-body text-sm sm:text-base`
 
 ## Textos del Componente
+
 A continuación se detallan los textos encontrados en el componente y el elemento donde se encuentran:
 
 - **<div>**: {videoSrc && ( <video key={videoSrc} // Ensures the correct video loads if isMobile state changes autoPlay playsInline onEnded={onVideoEnd} className="w-screen h-screen object-contain" muted // Autoplay on many browsers requires the video to be muted > <source src={videoSrc} type="video/mp4" /> </video> )}
 - **<Button>**: Saltar Cinemática ➔
 
 ## Contenido Completo del Archivo
-```tsx
-'use client';
 
-import { useIsMobile } from '@/hooks/use-mobile';
-import { Button } from '@/components/ui/button';
+```tsx
+"use client";
+
+import { useIsMobile } from "@/hooks/use-mobile";
+import { Button } from "@/components/ui/button";
 
 type IntroVideoScreenProps = {
-    onVideoEnd: () => void;
+  onVideoEnd: () => void;
 };
 
 export function IntroVideoScreen({ onVideoEnd }: IntroVideoScreenProps) {
-    const isMobile = useIsMobile();
-    // The video source will be determined client-side.
-    // To prevent a flash of content or hydration errors, we only render the video when `isMobile` is determined.
-    const videoSrc = isMobile === undefined ? '' : (isMobile ? '/intro_inicio_movil.mp4' : '/intro_inicio_pc.mp4');
+  const isMobile = useIsMobile();
+  // The video source will be determined client-side.
+  // To prevent a flash of content or hydration errors, we only render the video when `isMobile` is determined.
+  const videoSrc =
+    isMobile === undefined
+      ? ""
+      : isMobile
+        ? "/intro_inicio_movil.mp4"
+        : "/intro_inicio_pc.mp4";
 
-    return (
-        <div className="fixed inset-0 bg-black z-50 flex items-center justify-center animate-in fade-in-0">
-            {videoSrc && (
-                <video
-                    key={videoSrc} // Ensures the correct video loads if isMobile state changes
-                    autoPlay
-                    playsInline
-                    onEnded={onVideoEnd}
-                    className="w-screen h-screen object-contain"
-                    muted // Autoplay on many browsers requires the video to be muted
-                >
-                    <source src={videoSrc} type="video/mp4" />
-                </video>
-            )}
-            <Button
-                onClick={onVideoEnd}
-                aria-label="Saltar la cinemática de introducción"
-                variant="ghost"
-                className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 text-white bg-black/30 hover:bg-black/50 z-10 font-body text-sm sm:text-base"
-            >
-                Saltar Cinemática ➔
-            </Button>
-        </div>
-    );
+  return (
+    <div className="fixed inset-0 bg-black z-50 flex items-center justify-center animate-in fade-in-0">
+      {videoSrc && (
+        <video
+          key={videoSrc} // Ensures the correct video loads if isMobile state changes
+          autoPlay
+          playsInline
+          onEnded={onVideoEnd}
+          className="w-screen h-screen object-contain"
+          muted // Autoplay on many browsers requires the video to be muted
+        >
+          <source src={videoSrc} type="video/mp4" />
+        </video>
+      )}
+      <Button
+        onClick={onVideoEnd}
+        aria-label="Saltar la cinemática de introducción"
+        variant="ghost"
+        className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 text-white bg-black/30 hover:bg-black/50 z-10 font-body text-sm sm:text-base"
+      >
+        Saltar Cinemática ➔
+      </Button>
+    </div>
+  );
 }
-
-
 ```

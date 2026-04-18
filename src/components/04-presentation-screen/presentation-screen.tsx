@@ -90,7 +90,7 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
     }, 200);
   }, [onNext, isPlaying]);
 
-  const defaultBio = '¡Hola! Soy Facu. Mi mundo acaba de subir de nivel porque... ¡ya tengo 9 años! 🏀 He preparado una misión épica llena de básquet, saltos y mucho color. ¿Estás listo para unirte a mi equipo y descubrir el código secreto de la fiesta?';
+  const defaultBio = '¡Che, qué de más que llegaste! Mi mundo acaba de subir de nivel porque... ¡desbloqueé los 9 años! 🏀 Armé una misión épica en KBOOM llena de saltos, básquet y recompensas. ¿Estás listo para unirte a mi equipo y mandarnos tremenda partida?';
 
   return (
     <div
@@ -263,7 +263,7 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
                   <Label size="sm">🥋 Taekwondo</Label>
                 </div>
                 <div className="voxel-card px-3 py-2 bg-sky-blue/20">
-                  <Label size="sm">🎮 Gamer</Label>
+                  <Label size="sm">🎮 Jugador Pro</Label>
                 </div>
               </motion.div>
             </motion.div>
@@ -281,7 +281,7 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-grass-green animate-pulse" />
                 <span className="font-amble text-xs sm:text-sm text-[hsl(var(--foreground))]">
-                  Misión disponible
+                  ¡Misión de Nivel 9 detectada!
                 </span>
               </div>
 
@@ -309,7 +309,7 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
                 />
 
                 <span className="relative z-10">
-                  {isPlaying ? '🎵 Cargando...' : '¡Aceptar Misión! ➔'}
+                  {isPlaying ? '🎵 Sincronizando...' : '¡ACEPTAR MISIÓN! ➔'}
                 </span>
               </Button>
             </div>
@@ -324,7 +324,7 @@ export function PresentationScreen({ onNext, facuBio }: PresentationScreenProps)
           transition={{ duration: 0.5, delay: 1.2 }}
         >
           <Body size="sm" className="text-white/80 drop-shadow-lg">
-            🐻 Una aventura épica te espera...
+            🐻 Prepará las medias, la partida está por empezar...
           </Body>
         </motion.div>
       </Container>

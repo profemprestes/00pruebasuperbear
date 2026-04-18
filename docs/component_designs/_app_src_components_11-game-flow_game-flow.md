@@ -1,16 +1,19 @@
-# Detalle de Diseño y Textos: /app/src/components/11-game-flow/game-flow.tsx
+# Detalle de Diseño y Textos: /src/components/11-game-flow/game-flow.tsx
 
 ## Diseño del Cuerpo del Componente
+
 El componente utiliza las siguientes clases y estilos:
 
 - `relative`
 
 ## Textos del Componente
+
 A continuación se detallan los textos encontrados en el componente y el elemento donde se encuentran:
 
 - **<div>**: {renderCurrentSection()}
 
 ## Contenido Completo del Archivo
+
 ```tsx
 "use client";
 
@@ -50,7 +53,13 @@ export function GameFlow({ photo1, photo2 }: GameFlowProps) {
       case 1: // Map
         return <MapSection onNext={() => handleNext(2)} />;
       case 2: // Chest
-        return <ChestSection onNext={() => handleNext(3)} photo1={photo1} photo2={photo2} />;
+        return (
+          <ChestSection
+            onNext={() => handleNext(3)}
+            photo1={photo1}
+            photo2={photo2}
+          />
+        );
       case 3: // RSVP
         return <RSVPSection onNext={() => handleNext(4)} />;
       case 4: // Shop
@@ -72,6 +81,4 @@ export function GameFlow({ photo1, photo2 }: GameFlowProps) {
     </div>
   );
 }
-
-
 ```

@@ -1,6 +1,7 @@
-# Detalle de Diseño y Textos: /app/src/components/02-loading-screen/loading-screen.tsx
+# Detalle de Diseño y Textos: /src/components/02-loading-screen/loading-screen.tsx
 
 ## Diseño del Cuerpo del Componente
+
 El componente utiliza las siguientes clases y estilos:
 
 - `fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden`
@@ -24,21 +25,23 @@ El componente utiliza las siguientes clases y estilos:
 - `absolute bottom-0 left-0 right-0 h-12 sm:h-16 md:h-20 pixel-grass z-10`
 
 ## Textos del Componente
+
 A continuación se detallan los textos encontrados en el componente y el elemento donde se encuentran:
 
-- **<div>**: {/* Background: gradient on mobile, video on md+ */} {/* Overlay for desktop video */} {/* Floating stars — mobile only */} {/* Main content */} {/* Pixel grass — bottom */}
+- **<div>**: {/_ Background: gradient on mobile, video on md+ _/} {/_ Overlay for desktop video _/} {/_ Floating stars — mobile only _/} {/_ Main content _/} {/_ Pixel grass — bottom _/}
 - **<div>**: {["top-6 left-4", "top-10 right-6", "top-16 left-1/4", "top-4 right-1/4"].map((pos, i) => ( <span key={i} className={`absolute text-xl sm:text-2xl motion-safe:animate-subtle-float ${pos}`} style={{ animationDelay: `${i * 0.5}s` }} > {["⭐", "🌟", "✨", "⭐"][i]} </span> ))}
 - **<span>**: {["⭐", "🌟", "✨", "⭐"][i]}
 - **<span>**: 🍯
-- **<div>**: {/* Bear */} {/* Title + progress */}
-- **<div>**: {/* Progress bar */} {/* Decorative stars — desktop only */}
+- **<div>**: {/_ Bear _/} {/_ Title + progress _/}
+- **<div>**: {/_ Progress bar _/} {/_ Decorative stars — desktop only _/}
 - **<p>**: CARGANDO{progress > 0 ? `... ${progress}%` : "..."}
 - **<div>**: {["⭐", "🍯", "🌟", "🍯", "⭐"].map((e, i) => ( <span key={i} className="motion-safe:animate-bounce-light" style={{ animationDelay: `${i * 0.2}s` }}>{e}</span> ))}
 - **<span>**: {e}
 
 ## Contenido Completo del Archivo
+
 ```tsx
-"use client"
+"use client";
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
@@ -70,21 +73,42 @@ export function LoadingScreen({ onStart }: LoadingScreenProps) {
       {/* Background: gradient on mobile, video on md+ */}
       <div
         className="absolute inset-0 z-0 md:hidden"
-        style={{ background: "linear-gradient(180deg, #AAE5FF 0%, #ECF8FF 60%, #D4F0FF 100%)" }}
+        style={{
+          background:
+            "linear-gradient(180deg, #AAE5FF 0%, #ECF8FF 60%, #D4F0FF 100%)",
+        }}
         aria-hidden="true"
       />
       <video
-        autoPlay loop muted playsInline
+        autoPlay
+        loop
+        muted
+        playsInline
         src="/intro_inicio_pc.mp4"
         className="absolute inset-0 w-full h-full object-cover z-0 hidden md:block"
         aria-hidden="true"
       />
       {/* Overlay for desktop video */}
-      <div className="absolute inset-0 z-0 hidden md:block" style={{ background: "linear-gradient(180deg, rgba(170,229,255,0.6) 0%, rgba(236,248,255,0.55) 50%, rgba(0,51,66,0.55) 100%)" }} aria-hidden="true" />
+      <div
+        className="absolute inset-0 z-0 hidden md:block"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(170,229,255,0.6) 0%, rgba(236,248,255,0.55) 50%, rgba(0,51,66,0.55) 100%)",
+        }}
+        aria-hidden="true"
+      />
 
       {/* Floating stars — mobile only */}
-      <div className="absolute inset-0 pointer-events-none md:hidden" aria-hidden="true">
-        {["top-6 left-4", "top-10 right-6", "top-16 left-1/4", "top-4 right-1/4"].map((pos, i) => (
+      <div
+        className="absolute inset-0 pointer-events-none md:hidden"
+        aria-hidden="true"
+      >
+        {[
+          "top-6 left-4",
+          "top-10 right-6",
+          "top-16 left-1/4",
+          "top-4 right-1/4",
+        ].map((pos, i) => (
           <span
             key={i}
             className={`absolute text-xl sm:text-2xl motion-safe:animate-subtle-float ${pos}`}
@@ -93,7 +117,12 @@ export function LoadingScreen({ onStart }: LoadingScreenProps) {
             {["⭐", "🌟", "✨", "⭐"][i]}
           </span>
         ))}
-        <span className="absolute top-20 right-4 sm:right-6 text-2xl sm:text-3xl motion-safe:animate-subtle-float" style={{ animationDelay: "1.2s" }}>🍯</span>
+        <span
+          className="absolute top-20 right-4 sm:right-6 text-2xl sm:text-3xl motion-safe:animate-subtle-float"
+          style={{ animationDelay: "1.2s" }}
+        >
+          🍯
+        </span>
       </div>
 
       {/* Main content */}
@@ -139,7 +168,8 @@ export function LoadingScreen({ onStart }: LoadingScreenProps) {
                 className="h-full rounded-full transition-all duration-75"
                 style={{
                   width: `${progress}%`,
-                  background: "linear-gradient(90deg, #FFD700, #FFA500, #FFD700)",
+                  background:
+                    "linear-gradient(90deg, #FFD700, #FFA500, #FFD700)",
                   backgroundSize: "200% auto",
                   animation: "shimmer 1.5s linear infinite",
                 }}
@@ -151,19 +181,29 @@ export function LoadingScreen({ onStart }: LoadingScreenProps) {
           </div>
 
           {/* Decorative stars — desktop only */}
-          <div className="hidden md:flex gap-4 text-2xl lg:text-3xl" aria-hidden="true">
+          <div
+            className="hidden md:flex gap-4 text-2xl lg:text-3xl"
+            aria-hidden="true"
+          >
             {["⭐", "🍯", "🌟", "🍯", "⭐"].map((e, i) => (
-              <span key={i} className="motion-safe:animate-bounce-light" style={{ animationDelay: `${i * 0.2}s` }}>{e}</span>
+              <span
+                key={i}
+                className="motion-safe:animate-bounce-light"
+                style={{ animationDelay: `${i * 0.2}s` }}
+              >
+                {e}
+              </span>
             ))}
           </div>
         </div>
       </div>
 
       {/* Pixel grass — bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-12 sm:h-16 md:h-20 pixel-grass z-10" aria-hidden="true" />
+      <div
+        className="absolute bottom-0 left-0 right-0 h-12 sm:h-16 md:h-20 pixel-grass z-10"
+        aria-hidden="true"
+      />
     </div>
   );
 }
-
-
 ```

@@ -1,6 +1,7 @@
-# Detalle de Diseño y Textos: /app/src/components/12-game-hud/game-hud.tsx
+# Detalle de Diseño y Textos: /src/components/12-game-hud/game-hud.tsx
 
 ## Diseño del Cuerpo del Componente
+
 El componente utiliza las siguientes clases y estilos:
 
 - `{cn("fixed top-0 left-0 right-0 z-50 pointer-events-none", className)}`
@@ -18,33 +19,34 @@ El componente utiliza las siguientes clases y estilos:
 - `font-milky text-xs text-golden-coin tracking-wide`
 - `sm:hidden flex items-center justify-center gap-1.5 mt-2`
 - `{cn(
-                  "w-6 h-6 rounded-full flex items-center justify-center text-[10px] transition-all",
-                  isActive && "scale-125",
-                  isReachable && "pointer-events-auto active:scale-90",
-                  !isReachable && "opacity-40 pointer-events-none"
-                )}`
+                "w-6 h-6 rounded-full flex items-center justify-center text-[10px] transition-all",
+                isActive && "scale-125",
+                isReachable && "pointer-events-auto active:scale-90",
+                !isReachable && "opacity-40 pointer-events-none"
+              )}`
 - `hidden sm:block pointer-events-auto max-w-5xl mx-auto px-4 mt-2`
 - `flex items-center gap-2 flex-wrap justify-center`
 - `{cn(
-                  "flex items-center gap-1.5 px-3 py-1.5 rounded-full font-amble text-xs transition-all",
-                  isReachable && "hover:scale-105 active:scale-95",
-                  !isReachable && "opacity-40 cursor-not-allowed"
-                )}`
+                "flex items-center gap-1.5 px-3 py-1.5 rounded-full font-amble text-xs transition-all",
+                isReachable && "hover:scale-105 active:scale-95",
+                !isReachable && "opacity-40 cursor-not-allowed"
+              )}`
 - `font-semibold`
 - `text-[8px]`
 
 ## Textos del Componente
+
 A continuación se detallan los textos encontrados en el componente y el elemento donde se encuentran:
 
-- **<div>**: {/* Top HUD Bar */} {/* Step Navigation Pills (desktop) */}
-- **<div>**: {/* Step Navigation Dots (mobile) */}
-- **<div>**: {/* Coin Counter */} {/* Mission Progress */} {/* Current mission label */}
-- **<button>**: {/* Coin popup animation */}
+- **<div>**: {/_ Top HUD Bar _/} {/_ Step Navigation Pills (desktop) _/}
+- **<div>**: {/_ Step Navigation Dots (mobile) _/}
+- **<div>**: {/_ Coin Counter _/} {/_ Mission Progress _/} {/_ Current mission label _/}
+- **<button>**: {/_ Coin popup animation _/}
 - **<span>**: 🪙
 - **<span>**: {coins}
 - **<AnimatePresence>**: {showCoinPopup && ( <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 0, y: -30 }} exit={{ opacity: 0 }} className="absolute -top-8 left-1/2 -translate-x-1/2 font-milky text-xs text-golden-coin whitespace-nowrap" > ¡Monedas! </motion.div> )}
 - **<motion.div>**: ¡Monedas!
-- **<div>**: {/* Progress bar */}
+- **<div>**: {/_ Progress bar _/}
 - **<span>**: {steps[currentStepIndex]?.icon}
 - **<span>**: {steps[currentStepIndex]?.label}
 - **<div>**: {steps.map((step, index) => { const isActive = index === currentStepIndex; const isCompleted = step.completed; const isReachable = index <= currentStepIndex; return ( <button key={step.id} onClick={() => handleStepClick(index)} disabled={!isReachable} className={cn( "w-6 h-6 rounded-full flex items-center justify-center text-[10px] transition-all", isActive && "scale-125", isReachable && "pointer-events-auto active:scale-90", !isReachable && "opacity-40 pointer-events-none" )} style={{ background: isCompleted ? "#7CFC00" : isActive ? "#FFD700" : "rgba(255,255,255,0.3)", border: "1px solid #8B4513", boxShadow: isActive ? "0 2px 4px rgba(255,215,0,0.5)" : "none", }} aria-label={`Ir a ${step.label}`} aria-current={isActive ? "step" : undefined} > {isCompleted ? "✓" : step.icon} </button> ); })}
@@ -56,6 +58,7 @@ A continuación se detallan los textos encontrados en el componente y el element
 - **<span>**: ✓
 
 ## Contenido Completo del Archivo
+
 ```tsx
 "use client";
 
@@ -70,7 +73,8 @@ interface GameHUDProps {
 }
 
 export function GameHUD({ onStepClick, className }: GameHUDProps) {
-  const { coins, steps, currentStepIndex, progressPercent, goToStep } = useRewards();
+  const { coins, steps, currentStepIndex, progressPercent, goToStep } =
+    useRewards();
   const [showCoinPopup, setShowCoinPopup] = useState(false);
 
   const handleStepClick = (index: number) => {
@@ -87,7 +91,12 @@ export function GameHUD({ onStepClick, className }: GameHUDProps) {
   };
 
   return (
-    <div className={cn("fixed top-0 left-0 right-0 z-50 pointer-events-none", className)}>
+    <div
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 pointer-events-none",
+        className,
+      )}
+    >
       {/* Top HUD Bar */}
       <div className="pointer-events-auto bg-gradient-to-b from-black/80 to-transparent pb-2 pt-2 px-3 sm:px-4">
         <div className="max-w-5xl mx-auto flex items-center gap-2 sm:gap-4">
@@ -102,7 +111,9 @@ export function GameHUD({ onStepClick, className }: GameHUDProps) {
               boxShadow: "0 3px 0 #63340b",
             }}
           >
-            <span className="text-lg sm:text-xl" role="img" aria-label="coin">🪙</span>
+            <span className="text-lg sm:text-xl" role="img" aria-label="coin">
+              🪙
+            </span>
             <span className="font-arcade text-sm sm:text-base text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
               {coins}
             </span>
@@ -136,7 +147,8 @@ export function GameHUD({ onStepClick, className }: GameHUDProps) {
               <motion.div
                 className="h-full rounded-full"
                 style={{
-                  background: "linear-gradient(90deg, #7CFC00, #FFD700, #FFA500)",
+                  background:
+                    "linear-gradient(90deg, #7CFC00, #FFD700, #FFA500)",
                   backgroundSize: "200% auto",
                 }}
                 animate={{ width: `${progressPercent * 100}%` }}
@@ -176,16 +188,18 @@ export function GameHUD({ onStepClick, className }: GameHUDProps) {
                   "w-6 h-6 rounded-full flex items-center justify-center text-[10px] transition-all",
                   isActive && "scale-125",
                   isReachable && "pointer-events-auto active:scale-90",
-                  !isReachable && "opacity-40 pointer-events-none"
+                  !isReachable && "opacity-40 pointer-events-none",
                 )}
                 style={{
                   background: isCompleted
                     ? "#7CFC00"
                     : isActive
-                    ? "#FFD700"
-                    : "rgba(255,255,255,0.3)",
+                      ? "#FFD700"
+                      : "rgba(255,255,255,0.3)",
                   border: "1px solid #8B4513",
-                  boxShadow: isActive ? "0 2px 4px rgba(255,215,0,0.5)" : "none",
+                  boxShadow: isActive
+                    ? "0 2px 4px rgba(255,215,0,0.5)"
+                    : "none",
                 }}
                 aria-label={`Ir a ${step.label}`}
                 aria-current={isActive ? "step" : undefined}
@@ -214,14 +228,14 @@ export function GameHUD({ onStepClick, className }: GameHUDProps) {
                 className={cn(
                   "flex items-center gap-1.5 px-3 py-1.5 rounded-full font-amble text-xs transition-all",
                   isReachable && "hover:scale-105 active:scale-95",
-                  !isReachable && "opacity-40 cursor-not-allowed"
+                  !isReachable && "opacity-40 cursor-not-allowed",
                 )}
                 style={{
                   background: isCompleted
                     ? "linear-gradient(135deg, #7CFC00, #5DBB00)"
                     : isActive
-                    ? "linear-gradient(135deg, #FFD700, #FFA500)"
-                    : "rgba(255,255,255,0.2)",
+                      ? "linear-gradient(135deg, #FFD700, #FFA500)"
+                      : "rgba(255,255,255,0.2)",
                   border: "2px solid #8B4513",
                   boxShadow: isActive ? "0 3px 0 #63340b" : "0 2px 0 #63340b",
                   color: isActive || isCompleted ? "white" : "#003342",
@@ -239,6 +253,4 @@ export function GameHUD({ onStepClick, className }: GameHUDProps) {
     </div>
   );
 }
-
-
 ```

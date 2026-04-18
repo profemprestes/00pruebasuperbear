@@ -1,11 +1,12 @@
-# Detalle de Diseño y Textos: /app/src/components/19-chest-section/chest-section.tsx
+# Detalle de Diseño y Textos: /src/components/19-chest-section/chest-section.tsx
 
 ## Diseño del Cuerpo del Componente
+
 El componente utiliza las siguientes clases y estilos:
 
 - `{`rounded-2xl p-4 sm:p-6 lg:p-8 text-center ${
-          isDesktop ? "max-w-3xl mx-auto" : "w-full"
-        }`}`
+  isDesktop ? "max-w-3xl mx-auto" : "w-full"
+  }`}`
 - `font-milky text-xl sm:text-2xl lg:text-3xl text-teddy-brown mb-3 sm:mb-4`
 - `font-amble text-xs sm:text-sm text-voxel-text mb-4 sm:mb-6`
 - `mx-auto flex flex-col items-center gap-4 transition-transform active:scale-95 hover:scale-105`
@@ -21,20 +22,22 @@ El componente utiliza las siguientes clases y estilos:
 - `w-full mt-6 font-milky text-lg sm:text-xl h-auto py-3 px-6 text-white transition-all duration-150 active:translate-y-1 active:shadow-[0_0_0_transparent]`
 
 ## Textos del Componente
+
 A continuación se detallan los textos encontrados en el componente y el elemento donde se encuentran:
 
-- **<div>**: {/* Chest */} {!isOpen ? ( <button onClick={() => setIsOpen(true)} aria-label="Abrir el cofre de recuerdos" className="mx-auto flex flex-col items-center gap-4 transition-transform active:scale-95 hover:scale-105" style={{ background: "none", border: "none", cursor: "pointer" }} > <div className="w-40 h-40 sm:w-48 sm:h-48 rounded-2xl flex items-center justify-center text-6xl sm:text-7xl" style={{ background: "linear-gradient(135deg, #8B4513, #A0522D)", border: "4px solid #63340b", boxShadow: "0 8px 0 #4a280a, inset 0 2px 4px rgba(255,255,255,0.2)", }} > 🎁 </div> <span className="font-milky text-lg text-teddy-brown"> ¡Toca para abrir! </span> </button> ) : ( <div className="space-y-4"> {/* Memory carousel */} <div className="flex gap-3 sm:gap-4 overflow-x-auto snap-x snap-mandatory pb-4"> {photo1 && ( <div className="flex-shrink-0 w-[calc(100vw-4rem)] sm:w-64 h-56 sm:h-64 rounded-xl overflow-hidden snap-center" style={{ border: "4px solid #8B4513" }} > <Image src={photo1} alt="Recuerdo 1" width={256} height={256} className="w-full h-full object-cover" /> </div> )} {photo2 && ( <div className="flex-shrink-0 w-[calc(100vw-4rem)] sm:w-64 h-56 sm:h-64 rounded-xl overflow-hidden snap-center" style={{ border: "4px solid #8B4513" }} > <Image src={photo2} alt="Recuerdo 2" width={256} height={256} className="w-full h-full object-cover" /> </div> )} {!photo1 && !photo2 && ( <div className="flex-shrink-0 w-64 h-64 rounded-xl flex items-center justify-center bg-sky-light"> <span className="text-6xl">📸</span> </div> )} </div> <p className="font-amble text-sm text-voxel-text"> ¡Desliza para ver más recuerdos! </p> </div> )} {/* CTA Button */}
+- **<div>**: {/_ Chest _/} {!isOpen ? ( <button onClick={() => setIsOpen(true)} aria-label="Abrir el cofre de recuerdos" className="mx-auto flex flex-col items-center gap-4 transition-transform active:scale-95 hover:scale-105" style={{ background: "none", border: "none", cursor: "pointer" }} > <div className="w-40 h-40 sm:w-48 sm:h-48 rounded-2xl flex items-center justify-center text-6xl sm:text-7xl" style={{ background: "linear-gradient(135deg, #8B4513, #A0522D)", border: "4px solid #63340b", boxShadow: "0 8px 0 #4a280a, inset 0 2px 4px rgba(255,255,255,0.2)", }} > 🎁 </div> <span className="font-milky text-lg text-teddy-brown"> ¡Toca para abrir! </span> </button> ) : ( <div className="space-y-4"> {/_ Memory carousel _/} <div className="flex gap-3 sm:gap-4 overflow-x-auto snap-x snap-mandatory pb-4"> {photo1 && ( <div className="flex-shrink-0 w-[calc(100vw-4rem)] sm:w-64 h-56 sm:h-64 rounded-xl overflow-hidden snap-center" style={{ border: "4px solid #8B4513" }} > <Image src={photo1} alt="Recuerdo 1" width={256} height={256} className="w-full h-full object-cover" /> </div> )} {photo2 && ( <div className="flex-shrink-0 w-[calc(100vw-4rem)] sm:w-64 h-56 sm:h-64 rounded-xl overflow-hidden snap-center" style={{ border: "4px solid #8B4513" }} > <Image src={photo2} alt="Recuerdo 2" width={256} height={256} className="w-full h-full object-cover" /> </div> )} {!photo1 && !photo2 && ( <div className="flex-shrink-0 w-64 h-64 rounded-xl flex items-center justify-center bg-sky-light"> <span className="text-6xl">📸</span> </div> )} </div> <p className="font-amble text-sm text-voxel-text"> ¡Desliza para ver más recuerdos! </p> </div> )} {/_ CTA Button _/}
 - **<h2>**: 📦 Cofre de Recuerdos
 - **<p>**: ¡Abre el cofre para descubrir los recuerdos de Facu!
 - **<div>**: 🎁
 - **<span>**: ¡Toca para abrir!
-- **<div>**: {/* Memory carousel */}
+- **<div>**: {/_ Memory carousel _/}
 - **<div>**: {photo1 && ( <div className="flex-shrink-0 w-[calc(100vw-4rem)] sm:w-64 h-56 sm:h-64 rounded-xl overflow-hidden snap-center" style={{ border: "4px solid #8B4513" }} > <Image src={photo1} alt="Recuerdo 1" width={256} height={256} className="w-full h-full object-cover" /> </div> )} {photo2 && ( <div className="flex-shrink-0 w-[calc(100vw-4rem)] sm:w-64 h-56 sm:h-64 rounded-xl overflow-hidden snap-center" style={{ border: "4px solid #8B4513" }} > <Image src={photo2} alt="Recuerdo 2" width={256} height={256} className="w-full h-full object-cover" /> </div> )} {!photo1 && !photo2 && ( <div className="flex-shrink-0 w-64 h-64 rounded-xl flex items-center justify-center bg-sky-light"> <span className="text-6xl">📸</span> </div> )}
 - **<span>**: 📸
 - **<p>**: ¡Desliza para ver más recuerdos!
 - **<Button>**: Continuar al RSVP ✉️ →
 
 ## Contenido Completo del Archivo
+
 ```tsx
 "use client";
 
@@ -55,7 +58,10 @@ export function ChestSection({ onNext, photo1, photo2 }: ChestSectionProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <MissionSection stepId="chest" bgImage="/mundos/bear_village/Hubbearvillage.webp">
+    <MissionSection
+      stepId="chest"
+      bgImage="/mundos/bear_village/Hubbearvillage.webp"
+    >
       <div
         className={`rounded-2xl p-4 sm:p-6 lg:p-8 text-center ${
           isDesktop ? "max-w-3xl mx-auto" : "w-full"
@@ -86,7 +92,8 @@ export function ChestSection({ onNext, photo1, photo2 }: ChestSectionProps) {
               style={{
                 background: "linear-gradient(135deg, #8B4513, #A0522D)",
                 border: "4px solid #63340b",
-                boxShadow: "0 8px 0 #4a280a, inset 0 2px 4px rgba(255,255,255,0.2)",
+                boxShadow:
+                  "0 8px 0 #4a280a, inset 0 2px 4px rgba(255,255,255,0.2)",
               }}
             >
               🎁
@@ -149,9 +156,6 @@ export function ChestSection({ onNext, photo1, photo2 }: ChestSectionProps) {
             border: "3px solid #8B4513",
             boxShadow: "0 6px 0 #63340b",
           }}
-
-
-
         >
           Continuar al RSVP ✉️ →
         </Button>
@@ -159,6 +163,4 @@ export function ChestSection({ onNext, photo1, photo2 }: ChestSectionProps) {
     </MissionSection>
   );
 }
-
-
 ```

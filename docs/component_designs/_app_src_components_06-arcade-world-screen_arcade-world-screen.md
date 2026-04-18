@@ -1,6 +1,7 @@
-# Detalle de Diseño y Textos: /app/src/components/06-arcade-world-screen/arcade-world-screen.tsx
+# Detalle de Diseño y Textos: /src/components/06-arcade-world-screen/arcade-world-screen.tsx
 
 ## Diseño del Cuerpo del Componente
+
 El componente utiliza las siguientes clases y estilos:
 
 - `min-h-screen w-full stars flex flex-col items-center justify-center p-2 sm:p-4`
@@ -15,10 +16,10 @@ El componente utiliza las siguientes clases y estilos:
 - `text-red-500 font-bold motion-safe:animate-pulse text-sm sm:text-base`
 - `grid grid-cols-3 gap-1.5 sm:gap-2 w-full max-w-[16rem] sm:max-w-[20rem] aspect-square mx-auto mt-2 sm:mt-4`
 - `{cn(
-                            "w-full h-full rounded-md flex items-center justify-center",
-                            safePlatforms.has(i) ? 'bg-green-500 hover:bg-green-600' : 'bg-red-600 hover:bg-red-700',
-                            clickedSafe.has(i) && 'opacity-50'
-                        )}`
+                          "w-full h-full rounded-md flex items-center justify-center",
+                          safePlatforms.has(i) ? 'bg-green-500 hover:bg-green-600' : 'bg-red-600 hover:bg-red-700',
+                          clickedSafe.has(i) && 'opacity-50'
+                      )}`
 - `p-3 sm:p-4 h-full flex flex-col items-center justify-center`
 - `font-body font-bold text-xs sm:text-sm md:text-lg mb-3 sm:mb-4 text-center leading-tight`
 - `relative w-full h-4/5`
@@ -33,6 +34,7 @@ El componente utiliza las siguientes clases y estilos:
 - `w-[calc(100%-8px)] h-[calc(100%-8px)] rounded-full bg-white flex items-center justify-center font-milky text-teddy-brown text-xs sm:text-sm md:text-lg text-center p-2`
 
 ## Textos del Componente
+
 A continuación se detallan los textos encontrados en el componente y el elemento donde se encuentran:
 
 - **<h2>**: {showSuccess ? "¡NIVEL COMPLETADO!" : `Misión ${minigameLevel} / 5`}
@@ -43,7 +45,7 @@ A continuación se detallan los textos encontrados en el componente y el element
 - **<div>**: {warning && <p className="text-red-500 font-bold motion-safe:animate-pulse text-sm sm:text-base">¡Cuidado!</p>}
 - **<p>**: ¡Misión de Tristopio! El suelo es lava. Pisa solo las plataformas seguras.
 - **<p>**: ¡Cuidado!
-- **<div>**: {Array.from({ length: 9 }).map((_, i) => ( <Button key={i} onClick={() => handleClick(i)} aria-label={`Plataforma ${i + 1}`} variant="ghost" size="icon" className={cn( "w-full h-full rounded-md flex items-center justify-center", safePlatforms.has(i) ? 'bg-green-500 hover:bg-green-600' : 'bg-red-600 hover:bg-red-700', clickedSafe.has(i) && 'opacity-50' )} > {clickedSafe.has(i) && '✅'} </Button> ))}
+- **<div>**: {Array.from({ length: 9 }).map((\_, i) => ( <Button key={i} onClick={() => handleClick(i)} aria-label={`Plataforma ${i + 1}`} variant="ghost" size="icon" className={cn( "w-full h-full rounded-md flex items-center justify-center", safePlatforms.has(i) ? 'bg-green-500 hover:bg-green-600' : 'bg-red-600 hover:bg-red-700', clickedSafe.has(i) && 'opacity-50' )} > {clickedSafe.has(i) && '✅'} </Button> ))}
 - **<Button>**: {clickedSafe.has(i) && '✅'}
 - **<p>**: ¡La fábrica de The Hive! Atrapa la llave, pero NO toques la miel morada.
 - **<Button>**: 🔑
@@ -59,12 +61,13 @@ A continuación se detallan los textos encontrados en el componente y el element
 - **<div>**: ¡Premio Legendario!
 
 ## Contenido Completo del Archivo
-```tsx
-'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+```tsx
+"use client";
+
+import { useState, useEffect, useCallback } from "react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type ArcadeWorldScreenProps = {
   onArcadeEnd: (coins: number) => void;
@@ -130,12 +133,17 @@ export function ArcadeWorldScreen({ onArcadeEnd }: ArcadeWorldScreenProps) {
 
 const CoinCollectGame = ({ onComplete }: { onComplete: () => void }) => {
   const [coins, setCoins] = useState(
-    Array.from({ length: 5 }, (_, i) => ({ id: i, collected: false, top: `${10 + Math.random() * 70}%`, left: `${5 + Math.random() * 80}%` }))
+    Array.from({ length: 5 }, (_, i) => ({
+      id: i,
+      collected: false,
+      top: `${10 + Math.random() * 70}%`,
+      left: `${5 + Math.random() * 80}%`,
+    })),
   );
-  const collectedCount = coins.filter(c => c.collected).length;
+  const collectedCount = coins.filter((c) => c.collected).length;
 
   const handleCollect = (id: number) => {
-    setCoins(coins.map(c => c.id === id ? { ...c, collected: true } : c));
+    setCoins(coins.map((c) => (c.id === id ? { ...c, collected: true } : c)));
   };
 
   useEffect(() => {
@@ -146,69 +154,93 @@ const CoinCollectGame = ({ onComplete }: { onComplete: () => void }) => {
 
   return (
     <div className="p-3 sm:p-4 h-full flex flex-col items-center">
-      <p className="font-body font-bold text-sm sm:text-lg mb-1 sm:mb-2 text-center">¡Recoge 5 monedas del Arcade!</p>
+      <p className="font-body font-bold text-sm sm:text-lg mb-1 sm:mb-2 text-center">
+        ¡Recoge 5 monedas del Arcade!
+      </p>
       <div className="relative w-full h-full">
-        {coins.map(coin => !coin.collected && (
-          <button key={coin.id} onClick={() => handleCollect(coin.id)} aria-label={`Recoger moneda ${coin.id + 1} del Arcade`} className="absolute text-3xl sm:text-4xl motion-safe:animate-float" style={{ top: coin.top, left: coin.left }}>
-            🪙
-          </button>
-        ))}
+        {coins.map(
+          (coin) =>
+            !coin.collected && (
+              <button
+                key={coin.id}
+                onClick={() => handleCollect(coin.id)}
+                aria-label={`Recoger moneda ${coin.id + 1} del Arcade`}
+                className="absolute text-3xl sm:text-4xl motion-safe:animate-float"
+                style={{ top: coin.top, left: coin.left }}
+              >
+                🪙
+              </button>
+            ),
+        )}
       </div>
     </div>
   );
 };
 
 const LavaFloorGame = ({ onComplete }: { onComplete: () => void }) => {
-    const [safePlatforms, setSafePlatforms] = useState(() => new Set(Array.from({length: 3}, () => Math.floor(Math.random() * 9))));
-    const [clickedSafe, setClickedSafe] = useState<Set<number>>(new Set());
-    const [warning, setWarning] = useState(false);
+  const [safePlatforms, setSafePlatforms] = useState(
+    () =>
+      new Set(Array.from({ length: 3 }, () => Math.floor(Math.random() * 9))),
+  );
+  const [clickedSafe, setClickedSafe] = useState<Set<number>>(new Set());
+  const [warning, setWarning] = useState(false);
 
-    const handleClick = (index: number) => {
-        if (safePlatforms.has(index)) {
-            setClickedSafe(prev => new Set(prev).add(index));
-        } else {
-            setWarning(true);
-            setTimeout(() => setWarning(false), 1000);
-        }
-    };
+  const handleClick = (index: number) => {
+    if (safePlatforms.has(index)) {
+      setClickedSafe((prev) => new Set(prev).add(index));
+    } else {
+      setWarning(true);
+      setTimeout(() => setWarning(false), 1000);
+    }
+  };
 
-    useEffect(() => {
-        if(safePlatforms.size > 0 && clickedSafe.size === safePlatforms.size) {
-            onComplete();
-        }
-    }, [clickedSafe, onComplete, safePlatforms]);
+  useEffect(() => {
+    if (safePlatforms.size > 0 && clickedSafe.size === safePlatforms.size) {
+      onComplete();
+    }
+  }, [clickedSafe, onComplete, safePlatforms]);
 
-    return (
-        <div className="p-3 sm:p-4 h-full flex flex-col items-center">
-            <p className="font-body font-bold text-xs sm:text-sm md:text-lg mb-2 text-center leading-tight">¡Misión de Tristopio! El suelo es lava. Pisa solo las plataformas seguras.</p>
-            {warning && <p className="text-red-500 font-bold motion-safe:animate-pulse text-sm sm:text-base">¡Cuidado!</p>}
-            <div className="grid grid-cols-3 gap-1.5 sm:gap-2 w-full max-w-[16rem] sm:max-w-[20rem] aspect-square mx-auto mt-2 sm:mt-4">
-                {Array.from({ length: 9 }).map((_, i) => (
-                    <Button
-                        key={i}
-                        onClick={() => handleClick(i)}
-                        aria-label={`Plataforma ${i + 1}`}
-                        variant="ghost"
-                        size="icon"
-                        className={cn(
-                            "w-full h-full rounded-md flex items-center justify-center",
-                            safePlatforms.has(i) ? 'bg-green-500 hover:bg-green-600' : 'bg-red-600 hover:bg-red-700',
-                            clickedSafe.has(i) && 'opacity-50'
-                        )}
-                    >
-                       {clickedSafe.has(i) && '✅'}
-                    </Button>
-                ))}
-            </div>
-        </div>
-    );
+  return (
+    <div className="p-3 sm:p-4 h-full flex flex-col items-center">
+      <p className="font-body font-bold text-xs sm:text-sm md:text-lg mb-2 text-center leading-tight">
+        ¡Misión de Tristopio! El suelo es lava. Pisa solo las plataformas
+        seguras.
+      </p>
+      {warning && (
+        <p className="text-red-500 font-bold motion-safe:animate-pulse text-sm sm:text-base">
+          ¡Cuidado!
+        </p>
+      )}
+      <div className="grid grid-cols-3 gap-1.5 sm:gap-2 w-full max-w-[16rem] sm:max-w-[20rem] aspect-square mx-auto mt-2 sm:mt-4">
+        {Array.from({ length: 9 }).map((_, i) => (
+          <Button
+            key={i}
+            onClick={() => handleClick(i)}
+            aria-label={`Plataforma ${i + 1}`}
+            variant="ghost"
+            size="icon"
+            className={cn(
+              "w-full h-full rounded-md flex items-center justify-center",
+              safePlatforms.has(i)
+                ? "bg-green-500 hover:bg-green-600"
+                : "bg-red-600 hover:bg-red-700",
+              clickedSafe.has(i) && "opacity-50",
+            )}
+          >
+            {clickedSafe.has(i) && "✅"}
+          </Button>
+        ))}
+      </div>
+    </div>
+  );
 };
-
 
 const HoneyDodgeGame = ({ onComplete }: { onComplete: () => void }) => {
   return (
     <div className="p-3 sm:p-4 h-full flex flex-col items-center justify-center">
-      <p className="font-body font-bold text-xs sm:text-sm md:text-lg mb-3 sm:mb-4 text-center leading-tight">¡La fábrica de The Hive! Atrapa la llave, pero NO toques la miel morada.</p>
+      <p className="font-body font-bold text-xs sm:text-sm md:text-lg mb-3 sm:mb-4 text-center leading-tight">
+        ¡La fábrica de The Hive! Atrapa la llave, pero NO toques la miel morada.
+      </p>
       <div className="relative w-full h-4/5">
         <Button
           onClick={onComplete}
@@ -216,94 +248,122 @@ const HoneyDodgeGame = ({ onComplete }: { onComplete: () => void }) => {
           variant="ghost"
           size="icon"
           className="absolute text-4xl sm:text-5xl motion-safe:animate-float hover:bg-transparent"
-          style={{ top: '40%', left: '20%' }}
+          style={{ top: "40%", left: "20%" }}
         >
           🔑
         </Button>
-        <div className="absolute text-4xl sm:text-5xl motion-safe:animate-sway" style={{ top: '20%', left: '60%' }}>🟣</div>
-        <div className="absolute text-4xl sm:text-5xl motion-safe:animate-sway" style={{ top: '60%', left: '80%', animationDelay: '-2s' }}>🟣</div>
+        <div
+          className="absolute text-4xl sm:text-5xl motion-safe:animate-sway"
+          style={{ top: "20%", left: "60%" }}
+        >
+          🟣
+        </div>
+        <div
+          className="absolute text-4xl sm:text-5xl motion-safe:animate-sway"
+          style={{ top: "60%", left: "80%", animationDelay: "-2s" }}
+        >
+          🟣
+        </div>
       </div>
     </div>
   );
 };
 
 const MoleWhackGame = ({ onComplete }: { onComplete: () => void }) => {
-    const [moles, setMoles] = useState([ {id: 0, active: false}, {id: 1, active: false}, {id: 2, active: false} ]);
-    const [whacked, setWhacked] = useState(0);
+  const [moles, setMoles] = useState([
+    { id: 0, active: false },
+    { id: 1, active: false },
+    { id: 2, active: false },
+  ]);
+  const [whacked, setWhacked] = useState(0);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            const randomIndex = Math.floor(Math.random() * moles.length);
-            setMoles(moles.map((mole, i) => i === randomIndex ? {...mole, active: true} : {...mole, active: false}));
-            setTimeout(() => setMoles(moles.map(m => ({...m, active: false}))), 1000);
-        }, 1500);
-        return () => clearInterval(interval);
-    }, [moles]);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const randomIndex = Math.floor(Math.random() * moles.length);
+      setMoles(
+        moles.map((mole, i) =>
+          i === randomIndex
+            ? { ...mole, active: true }
+            : { ...mole, active: false },
+        ),
+      );
+      setTimeout(
+        () => setMoles(moles.map((m) => ({ ...m, active: false }))),
+        1000,
+      );
+    }, 1500);
+    return () => clearInterval(interval);
+  }, [moles]);
 
-    const handleWhack = () => {
-        const newCount = whacked + 1;
-        setWhacked(newCount);
-        if (newCount >= 3) {
-            onComplete();
-        }
+  const handleWhack = () => {
+    const newCount = whacked + 1;
+    setWhacked(newCount);
+    if (newCount >= 3) {
+      onComplete();
     }
+  };
 
-    return (
-        <div className="p-3 sm:p-4 h-full flex flex-col items-center">
-            <p className="font-body font-bold text-sm sm:text-lg mb-2 text-center">¡Despierta a los 3 topos dormidos! ({whacked}/3)</p>
-            <div className="flex justify-around w-full mt-4 sm:mt-8">
-                {moles.map(mole => (
-                    <div key={mole.id} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-stone-700 rounded-full flex items-center justify-center">
-                        {mole.active && (
-                            <Button
-                                onClick={handleWhack}
-                                aria-label="Golpear topo"
-                                variant="ghost"
-                                size="icon"
-                                className="text-3xl sm:text-4xl md:text-5xl motion-safe:animate-in fade-in-0 zoom-in-75 hover:bg-transparent"
-                            >
-                                🔥
-                            </Button>
-                        )}
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
+  return (
+    <div className="p-3 sm:p-4 h-full flex flex-col items-center">
+      <p className="font-body font-bold text-sm sm:text-lg mb-2 text-center">
+        ¡Despierta a los 3 topos dormidos! ({whacked}/3)
+      </p>
+      <div className="flex justify-around w-full mt-4 sm:mt-8">
+        {moles.map((mole) => (
+          <div
+            key={mole.id}
+            className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-stone-700 rounded-full flex items-center justify-center"
+          >
+            {mole.active && (
+              <Button
+                onClick={handleWhack}
+                aria-label="Golpear topo"
+                variant="ghost"
+                size="icon"
+                className="text-3xl sm:text-4xl md:text-5xl motion-safe:animate-in fade-in-0 zoom-in-75 hover:bg-transparent"
+              >
+                🔥
+              </Button>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 const RouletteGame = ({ onComplete }: { onComplete: () => void }) => {
-    const [spinning, setSpinning] = useState(false);
+  const [spinning, setSpinning] = useState(false);
 
-    const handleSpin = () => {
-        setSpinning(true);
-        setTimeout(() => {
-            onComplete();
-        }, 2000);
-    }
-    return (
-        <div className="p-3 sm:p-4 h-full flex flex-col items-center justify-center">
-             <p className="font-body font-bold text-xs sm:text-sm md:text-lg mb-3 sm:mb-4 text-center leading-tight">¡Gira la ruleta de Capitalos para tu recompensa final!</p>
-            {!spinning ? (
-                <Button
-                    onClick={handleSpin}
-                    aria-label="Girar la ruleta de Capitalos para obtener recompensa"
-                    variant="3d-gold"
-                    size="game-lg"
-                    className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-tr from-red-500 via-yellow-500 to-blue-500 font-milky text-base sm:text-lg md:text-2xl shadow-lg motion-safe:animate-float"
-                >
-                    GIRAR
-                </Button>
-            ) : (
-                <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-tr from-red-500 via-yellow-500 to-blue-500 motion-safe:animate-roulette flex items-center justify-center">
-                     <div className="w-[calc(100%-8px)] h-[calc(100%-8px)] rounded-full bg-white flex items-center justify-center font-milky text-teddy-brown text-xs sm:text-sm md:text-lg text-center p-2">
-                        ¡Premio Legendario!
-                    </div>
-                </div>
-            )}
+  const handleSpin = () => {
+    setSpinning(true);
+    setTimeout(() => {
+      onComplete();
+    }, 2000);
+  };
+  return (
+    <div className="p-3 sm:p-4 h-full flex flex-col items-center justify-center">
+      <p className="font-body font-bold text-xs sm:text-sm md:text-lg mb-3 sm:mb-4 text-center leading-tight">
+        ¡Gira la ruleta de Capitalos para tu recompensa final!
+      </p>
+      {!spinning ? (
+        <Button
+          onClick={handleSpin}
+          aria-label="Girar la ruleta de Capitalos para obtener recompensa"
+          variant="3d-gold"
+          size="game-lg"
+          className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-tr from-red-500 via-yellow-500 to-blue-500 font-milky text-base sm:text-lg md:text-2xl shadow-lg motion-safe:animate-float"
+        >
+          GIRAR
+        </Button>
+      ) : (
+        <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-tr from-red-500 via-yellow-500 to-blue-500 motion-safe:animate-roulette flex items-center justify-center">
+          <div className="w-[calc(100%-8px)] h-[calc(100%-8px)] rounded-full bg-white flex items-center justify-center font-milky text-teddy-brown text-xs sm:text-sm md:text-lg text-center p-2">
+            ¡Premio Legendario!
+          </div>
         </div>
-    );
+      )}
+    </div>
+  );
 };
-
-
 ```

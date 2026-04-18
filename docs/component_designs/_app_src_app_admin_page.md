@@ -1,4 +1,4 @@
-# Detalle de Diseño y Textos: /app/src/app/admin/page.tsx
+# Detalle de Diseño y Textos: /src/app/admin/page.tsx
 
 ## Diseño del Cuerpo del Componente
 El componente utiliza las siguientes clases y estilos:

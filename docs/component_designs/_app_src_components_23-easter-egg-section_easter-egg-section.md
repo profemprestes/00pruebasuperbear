@@ -1,11 +1,12 @@
-# Detalle de Diseño y Textos: /app/src/components/23-easter-egg-section/easter-egg-section.tsx
+# Detalle de Diseño y Textos: /src/components/23-easter-egg-section/easter-egg-section.tsx
 
 ## Diseño del Cuerpo del Componente
+
 El componente utiliza las siguientes clases y estilos:
 
 - `{`rounded-2xl p-4 sm:p-6 lg:p-8 text-center ${
-            isDesktop ? "max-w-3xl mx-auto" : "w-full"
-          }`}`
+  isDesktop ? "max-w-3xl mx-auto" : "w-full"
+  }`}`
 - `font-milky text-xl sm:text-2xl lg:text-3xl text-teddy-brown mb-3 sm:mb-4`
 - `font-amble text-xs sm:text-sm text-voxel-text mb-4 sm:mb-6`
 - `mx-auto w-40 h-40 sm:w-48 sm:h-48 lg:w-56 lg:h-56 rounded-2xl flex items-center justify-center transition-all hover:scale-105 active:scale-95`
@@ -26,15 +27,16 @@ El componente utiliza las siguientes clases y estilos:
 - `absolute inset-0 pointer-events-none opacity-20`
 
 ## Textos del Componente
+
 A continuación se detallan los textos encontrados en el componente y el elemento donde se encuentran:
 
-- **<div>**: {/* Secret trigger area */} {noclipCount > 0 && noclipCount < 3 && ( <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-4 font-amble text-xs text-voxel-text" > {noclipCount === 1 && "Hmm, algo pasó..."} {noclipCount === 2 && "¡Casi! Una vez más..."} </motion.p> )}
+- **<div>**: {/_ Secret trigger area _/} {noclipCount > 0 && noclipCount < 3 && ( <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-4 font-amble text-xs text-voxel-text" > {noclipCount === 1 && "Hmm, algo pasó..."} {noclipCount === 2 && "¡Casi! Una vez más..."} </motion.p> )}
 - **<h2>**: 🥚 ¿Hay algo aquí?
 - **<p>**: Dicen que si tocas esta zona secreta 3 veces... puedes caer en un lugar extraño...
 - **<span>**: ❓
 - **<span>**: {noclipCount > 0 ? `${noclipCount}/3...` : "Toca aquí"}
 - **<motion.p>**: {noclipCount === 1 && "Hmm, algo pasó..."} {noclipCount === 2 && "¡Casi! Una vez más..."}
-- **<div>**: {/* Fluorescent light effect */} {/* Shadow Bear */} {showShadowBear && ( <motion.div initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, ease: "easeOut" }} className="relative z-10 flex flex-col items-center gap-6" > <div className="w-48 h-48 sm:w-64 sm:h-64 rounded-full flex items-center justify-center" style={{ background: "radial-gradient(circle, #1a0a00 0%, #000000 100%)", boxShadow: "0 0 100px rgba(255,0,0,0.5), 0 0 200px rgba(0,0,0,0.8)", }} > <span className="text-7xl sm:text-8xl">🐻</span> </div> <motion.h2 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }} className="font-milky text-2xl sm:text-3xl text-white tracking-wider" style={{ textShadow: "0 0 10px rgba(255,0,0,0.8), 0 0 20px rgba(255,0,0,0.5), 0 2px 4px rgba(0,0,0,1)", }} > SHADOW BEAR </motion.h2> <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }} className="font-amble text-sm text-white/90 text-center max-w-xs" style={{ textShadow: "0 1px 3px rgba(0,0,0,0.8)" }} > Has descubierto el secreto más oscuro de Super Bear Adventure... </motion.p> <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.5 }} className="flex flex-col gap-3" > <Button onClick={onRestart} className="font-milky text-lg h-auto py-3 px-6 text-white" style={{ background: "linear-gradient(180deg, #FFD700 0%, #FFA500 100%)", border: "3px solid #8B4513", boxShadow: "0 6px 0 #63340b", }} > 🔄 Volver al Inicio </Button> <p className="font-arcade text-xs text-black/60 text-center"> ¡Felicidades! Has completado toda la misión </p> </motion.div> </motion.div> )} {/* Wallpaper pattern */}
+- **<div>**: {/_ Fluorescent light effect _/} {/_ Shadow Bear _/} {showShadowBear && ( <motion.div initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, ease: "easeOut" }} className="relative z-10 flex flex-col items-center gap-6" > <div className="w-48 h-48 sm:w-64 sm:h-64 rounded-full flex items-center justify-center" style={{ background: "radial-gradient(circle, #1a0a00 0%, #000000 100%)", boxShadow: "0 0 100px rgba(255,0,0,0.5), 0 0 200px rgba(0,0,0,0.8)", }} > <span className="text-7xl sm:text-8xl">🐻</span> </div> <motion.h2 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }} className="font-milky text-2xl sm:text-3xl text-white tracking-wider" style={{ textShadow: "0 0 10px rgba(255,0,0,0.8), 0 0 20px rgba(255,0,0,0.5), 0 2px 4px rgba(0,0,0,1)", }} > SHADOW BEAR </motion.h2> <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }} className="font-amble text-sm text-white/90 text-center max-w-xs" style={{ textShadow: "0 1px 3px rgba(0,0,0,0.8)" }} > Has descubierto el secreto más oscuro de Super Bear Adventure... </motion.p> <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.5 }} className="flex flex-col gap-3" > <Button onClick={onRestart} className="font-milky text-lg h-auto py-3 px-6 text-white" style={{ background: "linear-gradient(180deg, #FFD700 0%, #FFA500 100%)", border: "3px solid #8B4513", boxShadow: "0 6px 0 #63340b", }} > 🔄 Volver al Inicio </Button> <p className="font-arcade text-xs text-black/60 text-center"> ¡Felicidades! Has completado toda la misión </p> </motion.div> </motion.div> )} {/_ Wallpaper pattern _/}
 - **<span>**: 🐻
 - **<motion.h2>**: SHADOW BEAR
 - **<motion.p>**: Has descubierto el secreto más oscuro de Super Bear Adventure...
@@ -42,6 +44,7 @@ A continuación se detallan los textos encontrados en el componente y el element
 - **<p>**: ¡Felicidades! Has completado toda la misión
 
 ## Contenido Completo del Archivo
+
 ```tsx
 "use client";
 
@@ -74,7 +77,10 @@ export function EasterEggSection({ onRestart }: EasterEggSectionProps) {
 
   if (!isInBackrooms) {
     return (
-      <MissionSection stepId="easter-egg" bgImage="/mundos/bear_village/Tutorialzone.webp">
+      <MissionSection
+        stepId="easter-egg"
+        bgImage="/mundos/bear_village/Tutorialzone.webp"
+      >
         <div
           className={`rounded-2xl p-4 sm:p-6 lg:p-8 text-center ${
             isDesktop ? "max-w-3xl mx-auto" : "w-full"
@@ -89,7 +95,8 @@ export function EasterEggSection({ onRestart }: EasterEggSectionProps) {
             🥚 ¿Hay algo aquí?
           </h2>
           <p className="font-amble text-xs sm:text-sm text-voxel-text mb-4 sm:mb-6">
-            Dicen que si tocas esta zona secreta 3 veces... puedes caer en un lugar extraño...
+            Dicen que si tocas esta zona secreta 3 veces... puedes caer en un
+            lugar extraño...
           </p>
 
           {/* Secret trigger area */}
@@ -104,7 +111,9 @@ export function EasterEggSection({ onRestart }: EasterEggSectionProps) {
             }}
           >
             <div className="text-center">
-              <span className="text-4xl sm:text-5xl lg:text-6xl block mb-2">❓</span>
+              <span className="text-4xl sm:text-5xl lg:text-6xl block mb-2">
+                ❓
+              </span>
               <span className="font-milky text-xs text-teddy-brown">
                 {noclipCount > 0 ? `${noclipCount}/3...` : "Toca aquí"}
               </span>
@@ -151,7 +160,8 @@ export function EasterEggSection({ onRestart }: EasterEggSectionProps) {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at center, rgba(255,255,200,0.3) 0%, transparent 70%)",
+          background:
+            "radial-gradient(ellipse at center, rgba(255,255,200,0.3) 0%, transparent 70%)",
           animation: "blink 2s ease-in-out infinite",
         }}
       />
@@ -168,7 +178,8 @@ export function EasterEggSection({ onRestart }: EasterEggSectionProps) {
             className="w-48 h-48 sm:w-64 sm:h-64 rounded-full flex items-center justify-center"
             style={{
               background: "radial-gradient(circle, #1a0a00 0%, #000000 100%)",
-              boxShadow: "0 0 100px rgba(255,0,0,0.5), 0 0 200px rgba(0,0,0,0.8)",
+              boxShadow:
+                "0 0 100px rgba(255,0,0,0.5), 0 0 200px rgba(0,0,0,0.8)",
             }}
           >
             <span className="text-7xl sm:text-8xl">🐻</span>
@@ -180,7 +191,8 @@ export function EasterEggSection({ onRestart }: EasterEggSectionProps) {
             transition={{ delay: 1.5 }}
             className="font-milky text-2xl sm:text-3xl text-white tracking-wider"
             style={{
-              textShadow: "0 0 10px rgba(255,0,0,0.8), 0 0 20px rgba(255,0,0,0.5), 0 2px 4px rgba(0,0,0,1)",
+              textShadow:
+                "0 0 10px rgba(255,0,0,0.8), 0 0 20px rgba(255,0,0,0.5), 0 2px 4px rgba(0,0,0,1)",
             }}
           >
             SHADOW BEAR
@@ -231,6 +243,4 @@ export function EasterEggSection({ onRestart }: EasterEggSectionProps) {
     </div>
   );
 }
-
-
 ```

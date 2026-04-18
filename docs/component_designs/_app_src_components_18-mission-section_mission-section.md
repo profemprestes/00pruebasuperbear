@@ -1,6 +1,7 @@
-# Detalle de Diseño y Textos: /app/src/components/18-mission-section/mission-section.tsx
+# Detalle de Diseño y Textos: /src/components/18-mission-section/mission-section.tsx
 
 ## Diseño del Cuerpo del Componente
+
 El componente utiliza las siguientes clases y estilos:
 
 - `{`min-h-screen w-full relative ${className}`}`
@@ -17,11 +18,12 @@ El componente utiliza las siguientes clases y estilos:
 - `absolute bottom-0 left-0 right-0 h-16 pixel-grass`
 
 ## Textos del Componente
+
 A continuación se detallan los textos encontrados en el componente y el elemento donde se encuentran:
 
-- **<motion.div>**: {/* Background overlay */} {showBgOverlay && ( <div className="absolute inset-0" style={{ background: bgImage ? "linear-gradient(180deg, rgba(0,51,66,0.5) 0%, rgba(0,51,66,0.7) 100%)" : "linear-gradient(180deg, #AAE5FF 0%, #ECF8FF 60%, #D4F8FF 100%)", }} /> )} {/* Content container — consistent spacing with safe area support */} {/* Pixel grass decoration */}
-- **<div>**: {/* Section header with coin reward */} {step && ( <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.4 }} className="mb-6 flex flex-col items-center gap-2" > {/* Step icon and label */} <div className="flex items-center gap-2 px-4 py-2 rounded-full" style={{ background: "rgba(0,51,66,0.85)", border: "2px solid #FFD700", boxShadow: "0 4px 0 #63340b", }} > <span className="text-2xl">{step.icon}</span> <span className="font-milky text-lg text-golden-coin tracking-wide"> {step.label} </span> </div> {/* Coin reward badge */} <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.4, type: "spring", stiffness: 200 }} className="flex items-center gap-1.5 px-3 py-1 rounded-full" style={{ background: "linear-gradient(135deg, #FFD700, #FFA500)", border: "2px solid #8B4513", boxShadow: "0 3px 0 #63340b", }} > <span className="text-sm">🪙</span> <span className="font-arcade text-xs text-white">+{step.coinReward} monedas</span> </motion.div> </motion.div> )} {/* Main content */}
-- **<motion.div>**: {/* Step icon and label */} {/* Coin reward badge */}
+- **<motion.div>**: {/_ Background overlay _/} {showBgOverlay && ( <div className="absolute inset-0" style={{ background: bgImage ? "linear-gradient(180deg, rgba(0,51,66,0.5) 0%, rgba(0,51,66,0.7) 100%)" : "linear-gradient(180deg, #AAE5FF 0%, #ECF8FF 60%, #D4F8FF 100%)", }} /> )} {/_ Content container — consistent spacing with safe area support _/} {/_ Pixel grass decoration _/}
+- **<div>**: {/_ Section header with coin reward _/} {step && ( <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.4 }} className="mb-6 flex flex-col items-center gap-2" > {/_ Step icon and label _/} <div className="flex items-center gap-2 px-4 py-2 rounded-full" style={{ background: "rgba(0,51,66,0.85)", border: "2px solid #FFD700", boxShadow: "0 4px 0 #63340b", }} > <span className="text-2xl">{step.icon}</span> <span className="font-milky text-lg text-golden-coin tracking-wide"> {step.label} </span> </div> {/_ Coin reward badge _/} <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.4, type: "spring", stiffness: 200 }} className="flex items-center gap-1.5 px-3 py-1 rounded-full" style={{ background: "linear-gradient(135deg, #FFD700, #FFA500)", border: "2px solid #8B4513", boxShadow: "0 3px 0 #63340b", }} > <span className="text-sm">🪙</span> <span className="font-arcade text-xs text-white">+{step.coinReward} monedas</span> </motion.div> </motion.div> )} {/_ Main content _/}
+- **<motion.div>**: {/_ Step icon and label _/} {/_ Coin reward badge _/}
 - **<span>**: {step.icon}
 - **<span>**: {step.label}
 - **<span>**: 🪙
@@ -29,6 +31,7 @@ A continuación se detallan los textos encontrados en el componente y el element
 - **<div>**: {children}
 
 ## Contenido Completo del Archivo
+
 ```tsx
 "use client";
 
@@ -159,7 +162,9 @@ export function MissionSection({
               }}
             >
               <span className="text-sm">🪙</span>
-              <span className="font-arcade text-xs text-white">+{step.coinReward} monedas</span>
+              <span className="font-arcade text-xs text-white">
+                +{step.coinReward} monedas
+              </span>
             </motion.div>
           </motion.div>
         )}
@@ -169,10 +174,11 @@ export function MissionSection({
       </div>
 
       {/* Pixel grass decoration */}
-      <div className="absolute bottom-0 left-0 right-0 h-16 pixel-grass" aria-hidden="true" />
+      <div
+        className="absolute bottom-0 left-0 right-0 h-16 pixel-grass"
+        aria-hidden="true"
+      />
     </motion.div>
   );
 }
-
-
 ```

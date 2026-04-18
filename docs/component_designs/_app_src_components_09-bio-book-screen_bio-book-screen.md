@@ -1,6 +1,7 @@
-# Detalle de Diseño y Textos: /app/src/components/09-bio-book-screen/bio-book-screen.tsx
+# Detalle de Diseño y Textos: /src/components/09-bio-book-screen/bio-book-screen.tsx
 
 ## Diseño del Cuerpo del Componente
+
 El componente utiliza las siguientes clases y estilos:
 
 - `min-h-screen w-full bg-cover bg-center flex flex-col items-center justify-center p-[max(0.75rem,var(--safe-left))] sm:p-[max(1rem,var(--safe-left))] lg:p-8 pt-[max(2rem,var(--safe-top))] pb-[max(2rem,var(--safe-bottom))] relative overflow-y-auto`
@@ -23,14 +24,15 @@ El componente utiliza las siguientes clases y estilos:
 - `font-milky`
 
 ## Textos del Componente
+
 A continuación se detallan los textos encontrados en el componente y el elemento donde se encuentran:
 
-- **<Container>**: {/* ── Title ── */} {/* ── Inventory Grid: 2-col mobile → 4-col desktop ── */} {/* ── Photos: stacked mobile → side-by-side desktop ── */} {/* ── Thank you message ── */} {/* ── Restart button ── */}
+- **<Container>**: {/_ ── Title ── _/} {/_ ── Inventory Grid: 2-col mobile → 4-col desktop ── _/} {/_ ── Photos: stacked mobile → side-by-side desktop ── _/} {/_ ── Thank you message ── _/} {/_ ── Restart button ── _/}
 - **<h2>**: 📦 Inventario de Facu
 - **<div>**: {inventoryItems.map((item, index) => ( <div key={index} className="bg-white/10 border-2 border-golden-coin rounded-lg sm:rounded-xl shadow-lg flex flex-col items-center justify-center p-2 sm:p-3 lg:p-4 aspect-square transition-transform hover:scale-105 active:scale-95" > <span className="text-2xl sm:text-3xl lg:text-5xl">{item.icon}</span> <p className="font-body text-white font-bold text-[10px] sm:text-xs lg:text-sm mt-1 sm:mt-2 text-center leading-tight"> {item.text} </p> </div> ))}
 - **<span>**: {item.icon}
 - **<p>**: {item.text}
-- **<div>**: {/* Photo 1 */} {/* Photo 2 */}
+- **<div>**: {/_ Photo 1 _/} {/_ Photo 2 _/}
 - **<p>**: RECUERDO 1
 - **<p>**: RECUERDO 2
 - **<p>**: ¡Gracias por llegar hasta aquí! Nos vemos en la partida. 🐻
@@ -38,13 +40,14 @@ A continuación se detallan los textos encontrados en el componente y el element
 - **<Button>**: Volver al Inicio
 
 ## Contenido Completo del Archivo
-```tsx
-'use client';
 
-import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { Container } from '@/components/ui/container';
-import { ArrowDown } from 'lucide-react';
+```tsx
+"use client";
+
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
+import { ArrowDown } from "lucide-react";
 
 type BioBookScreenProps = {
   onRestart: () => void;
@@ -53,22 +56,31 @@ type BioBookScreenProps = {
   photo2: string | null;
 };
 
-export function BioBookScreen({ onRestart, facuLikes, photo1, photo2 }: BioBookScreenProps) {
+export function BioBookScreen({
+  onRestart,
+  facuLikes,
+  photo1,
+  photo2,
+}: BioBookScreenProps) {
   const defaultInventory = [
-    { icon: '🥋', text: 'Taekwondo' },
-    { icon: '🎮', text: 'Videojuegos' },
-    { icon: '🐻', text: 'Super Bear Adventure' },
-    { icon: '🏀', text: 'Baloncesto' },
+    { icon: "🥋", text: "Taekwondo" },
+    { icon: "🎮", text: "Videojuegos" },
+    { icon: "🐻", text: "Super Bear Adventure" },
+    { icon: "🏀", text: "Baloncesto" },
   ];
 
-  const inventoryItems = facuLikes.length > 0
-    ? facuLikes.map(like => ({ text: like, icon: '⭐' }))
-    : defaultInventory;
+  const inventoryItems =
+    facuLikes.length > 0
+      ? facuLikes.map((like) => ({ text: like, icon: "⭐" }))
+      : defaultInventory;
 
   return (
     <div
       className="min-h-screen w-full bg-cover bg-center flex flex-col items-center justify-center p-[max(0.75rem,var(--safe-left))] sm:p-[max(1rem,var(--safe-left))] lg:p-8 pt-[max(2rem,var(--safe-top))] pb-[max(2rem,var(--safe-bottom))] relative overflow-y-auto"
-      style={{ backgroundImage: "url('/mundos/bear_village/Gianthouseentrancearea.webp')" }}
+      style={{
+        backgroundImage:
+          "url('/mundos/bear_village/Gianthouseentrancearea.webp')",
+      }}
     >
       <div className="absolute inset-0 bg-black/70 backdrop-blur-lg z-0" />
 
@@ -76,7 +88,7 @@ export function BioBookScreen({ onRestart, facuLikes, photo1, photo2 }: BioBookS
         {/* ── Title ── */}
         <h2
           className="font-milky text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mb-6 sm:mb-8"
-          style={{ textShadow: '3px 3px 0px hsl(var(--teddy-brown))' }}
+          style={{ textShadow: "3px 3px 0px hsl(var(--teddy-brown))" }}
         >
           📦 Inventario de Facu
         </h2>
@@ -88,7 +100,9 @@ export function BioBookScreen({ onRestart, facuLikes, photo1, photo2 }: BioBookS
               key={index}
               className="bg-white/10 border-2 border-golden-coin rounded-lg sm:rounded-xl shadow-lg flex flex-col items-center justify-center p-2 sm:p-3 lg:p-4 aspect-square transition-transform hover:scale-105 active:scale-95"
             >
-              <span className="text-2xl sm:text-3xl lg:text-5xl">{item.icon}</span>
+              <span className="text-2xl sm:text-3xl lg:text-5xl">
+                {item.icon}
+              </span>
               <p className="font-body text-white font-bold text-[10px] sm:text-xs lg:text-sm mt-1 sm:mt-2 text-center leading-tight">
                 {item.text}
               </p>
@@ -99,9 +113,7 @@ export function BioBookScreen({ onRestart, facuLikes, photo1, photo2 }: BioBookS
         {/* ── Photos: stacked mobile → side-by-side desktop ── */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-8 lg:gap-12 mb-8 sm:mb-12">
           {/* Photo 1 */}
-          <div
-            className="group bg-white p-3 sm:p-4 pb-8 sm:pb-10 shadow-lg border-4 border-gray-300 relative sm:-rotate-3 transition-all duration-300 ease-in-out hover:scale-105 sm:hover:rotate-0 hover:z-10 w-full max-w-[220px] sm:max-w-[260px] lg:max-w-[300px]"
-          >
+          <div className="group bg-white p-3 sm:p-4 pb-8 sm:pb-10 shadow-lg border-4 border-gray-300 relative sm:-rotate-3 transition-all duration-300 ease-in-out hover:scale-105 sm:hover:rotate-0 hover:z-10 w-full max-w-[220px] sm:max-w-[260px] lg:max-w-[300px]">
             <Image
               src={photo1 || "/facu.jpg"}
               alt="Foto 1 de Facu"
@@ -115,9 +127,7 @@ export function BioBookScreen({ onRestart, facuLikes, photo1, photo2 }: BioBookS
           </div>
 
           {/* Photo 2 */}
-          <div
-            className="group bg-white p-3 sm:p-4 pb-8 sm:pb-10 shadow-lg border-4 border-gray-300 relative sm:rotate-3 transition-all duration-300 ease-in-out hover:scale-105 sm:hover:rotate-0 hover:z-10 w-full max-w-[220px] sm:max-w-[260px] lg:max-w-[300px]"
-          >
+          <div className="group bg-white p-3 sm:p-4 pb-8 sm:pb-10 shadow-lg border-4 border-gray-300 relative sm:rotate-3 transition-all duration-300 ease-in-out hover:scale-105 sm:hover:rotate-0 hover:z-10 w-full max-w-[220px] sm:max-w-[260px] lg:max-w-[300px]">
             <Image
               src={photo2 || "/facu2.jpeg"}
               alt="Foto 2 de Facu"
@@ -157,6 +167,4 @@ export function BioBookScreen({ onRestart, facuLikes, photo1, photo2 }: BioBookS
     </div>
   );
 }
-
-
 ```

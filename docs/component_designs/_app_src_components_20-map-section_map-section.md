@@ -1,11 +1,12 @@
-# Detalle de Diseño y Textos: /app/src/components/20-map-section/map-section.tsx
+# Detalle de Diseño y Textos: /src/components/20-map-section/map-section.tsx
 
 ## Diseño del Cuerpo del Componente
+
 El componente utiliza las siguientes clases y estilos:
 
 - `{`rounded-2xl p-4 sm:p-6 lg:p-8 text-center ${
-          isDesktop ? "max-w-3xl mx-auto" : "w-full"
-        }`}`
+  isDesktop ? "max-w-3xl mx-auto" : "w-full"
+  }`}`
 - `font-milky text-xl sm:text-2xl lg:text-3xl text-teddy-brown mb-4 sm:mb-6`
 - `space-y-4`
 - `flex items-start gap-4 p-4 rounded-xl text-left`
@@ -23,11 +24,12 @@ El componente utiliza las siguientes clases y estilos:
 - `text-sm sm:text-base`
 
 ## Textos del Componente
+
 A continuación se detallan los textos encontrados en el componente y el elemento donde se encuentran:
 
-- **<div>**: {/* Map placeholder with event info */} {/* CTA Button */}
+- **<div>**: {/_ Map placeholder with event info _/} {/_ CTA Button _/}
 - **<h2>**: 🗺️ Coordenadas de la Misión
-- **<div>**: {/* Location card */} {/* Date card */} {/* Time card */} {/* Equipment note */}
+- **<div>**: {/_ Location card _/} {/_ Date card _/} {/_ Time card _/} {/_ Equipment note _/}
 - **<p>**: Lugar
 - **<p>**: {missionData.lugar}
 - **<p>**: {missionData.direccion}
@@ -40,6 +42,7 @@ A continuación se detallan los textos encontrados en el componente y el element
 - **<span>**: Continuar al Cofre 📦 →
 
 ## Contenido Completo del Archivo
+
 ```tsx
 "use client";
 
@@ -163,17 +166,14 @@ export function MapSection({ onNext }: MapSectionProps) {
               border: "3px solid #8B4513",
               boxShadow: "0 6px 0 #63340b",
             }}
-
-
-
           >
-            <span className="text-sm sm:text-base">Continuar al Cofre 📦 →</span>
+            <span className="text-sm sm:text-base">
+              Continuar al Cofre 📦 →
+            </span>
           </Button>
         </div>
       </div>
     </MissionSection>
   );
 }
-
-
 ```

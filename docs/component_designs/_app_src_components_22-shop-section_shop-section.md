@@ -1,19 +1,20 @@
-# Detalle de Diseño y Textos: /app/src/components/22-shop-section/shop-section.tsx
+# Detalle de Diseño y Textos: /src/components/22-shop-section/shop-section.tsx
 
 ## Diseño del Cuerpo del Componente
+
 El componente utiliza las siguientes clases y estilos:
 
 - `{`rounded-2xl p-4 sm:p-6 lg:p-8 text-center ${
-          isDesktop ? "max-w-4xl mx-auto" : "w-full"
-        }`}`
+  isDesktop ? "max-w-4xl mx-auto" : "w-full"
+  }`}`
 - `font-milky text-xl sm:text-2xl lg:text-3xl text-teddy-brown mb-1 sm:mb-2`
 - `font-amble text-xs sm:text-sm text-voxel-text mb-4 sm:mb-6`
 - `{`grid gap-2 sm:gap-3 lg:gap-4 ${
-            isDesktop ? "grid-cols-3" : "grid-cols-2"
-          }`}`
+  isDesktop ? "grid-cols-3" : "grid-cols-2"
+  }`}`
 - `{`p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl transition-all ${
-                  isSelected ? "scale-105" : "hover:scale-102"
-                }`}`
+  isSelected ? "scale-105" : "hover:scale-102"
+  }`}`
 - `text-4xl sm:text-5xl mb-2`
 - `font-amble font-bold text-xs sm:text-sm`
 - `flex items-center justify-center gap-1 mt-2`
@@ -30,13 +31,14 @@ El componente utiliza las siguientes clases y estilos:
 - `text-sm sm:text-base`
 
 ## Textos del Componente
+
 A continuación se detallan los textos encontrados en el componente y el elemento donde se encuentran:
 
-- **<div>**: {/* Shop grid */} {/* Selected item info */} {selectedItem && ( <div className="mt-4 p-3 rounded-xl" style={{ background: "rgba(0,51,66,0.85)", border: "2px solid #FFD700", }} > <p className="font-milky text-sm text-golden-coin"> ¡{shopItems.find((i) => i.id === selectedItem)?.name} seleccionado! </p> </div> )} {/* CTA Button */}
+- **<div>**: {/_ Shop grid _/} {/_ Selected item info _/} {selectedItem && ( <div className="mt-4 p-3 rounded-xl" style={{ background: "rgba(0,51,66,0.85)", border: "2px solid #FFD700", }} > <p className="font-milky text-sm text-golden-coin"> ¡{shopItems.find((i) => i.id === selectedItem)?.name} seleccionado! </p> </div> )} {/_ CTA Button _/}
 - **<h2>**: 🛍️ Outfit Shop
 - **<p>**: ¡Personaliza tu look con artículos del juego!
-- **<div>**: {shopItems.map((item) => { const colors = rarityColors[item.rarity]; const isSelected = selectedItem === item.id; return ( <button key={item.id} onClick={() => setSelectedItem(item.id)} aria-label={`Ver detalle de ${item.name}, precio ${item.price} monedas, rareza ${item.rarity}`} className={`p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl transition-all ${ isSelected ? "scale-105" : "hover:scale-102" }`} style={{ background: colors.bg, border: isSelected ? `3px solid ${colors.border}` : `2px solid ${colors.border}`, boxShadow: isSelected ? `0 4px 0 ${colors.border}, 0 0 20px rgba(255,215,0,0.3)` : "0 3px 0 rgba(0,0,0,0.2)", }} > {/* Item icon */} <div className="text-4xl sm:text-5xl mb-2">{item.icon}</div> {/* Item name */} <p className="font-amble font-bold text-xs sm:text-sm" style={{ color: colors.text }} > {item.name} </p> {/* Rarity badge */} <div className="flex items-center justify-center gap-1 mt-2"> {item.rarity === "legendary" && <Crown className="w-3 h-3 text-golden-coin" />} {item.rarity === "epic" && <Star className="w-3 h-3 text-purple-600" />} {item.rarity === "common" && <Shirt className="w-3 h-3 text-sky-blue" />} <span className="font-arcade text-[10px] text-voxel-text uppercase"> {item.rarity} </span> </div> {/* Price */} <div className="flex items-center justify-center gap-1 mt-2"> <span className="text-xs">🪙</span> <span className="font-arcade text-xs text-voxel-text">{item.price}</span> </div> </button> ); })}
-- **<button>**: {/* Item icon */} {/* Item name */} {/* Rarity badge */} {/* Price */}
+- **<div>**: {shopItems.map((item) => { const colors = rarityColors[item.rarity]; const isSelected = selectedItem === item.id; return ( <button key={item.id} onClick={() => setSelectedItem(item.id)} aria-label={`Ver detalle de ${item.name}, precio ${item.price} monedas, rareza ${item.rarity}`} className={`p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl transition-all ${ isSelected ? "scale-105" : "hover:scale-102" }`} style={{ background: colors.bg, border: isSelected ? `3px solid ${colors.border}` : `2px solid ${colors.border}`, boxShadow: isSelected ? `0 4px 0 ${colors.border}, 0 0 20px rgba(255,215,0,0.3)` : "0 3px 0 rgba(0,0,0,0.2)", }} > {/_ Item icon _/} <div className="text-4xl sm:text-5xl mb-2">{item.icon}</div> {/_ Item name _/} <p className="font-amble font-bold text-xs sm:text-sm" style={{ color: colors.text }} > {item.name} </p> {/_ Rarity badge _/} <div className="flex items-center justify-center gap-1 mt-2"> {item.rarity === "legendary" && <Crown className="w-3 h-3 text-golden-coin" />} {item.rarity === "epic" && <Star className="w-3 h-3 text-purple-600" />} {item.rarity === "common" && <Shirt className="w-3 h-3 text-sky-blue" />} <span className="font-arcade text-[10px] text-voxel-text uppercase"> {item.rarity} </span> </div> {/_ Price _/} <div className="flex items-center justify-center gap-1 mt-2"> <span className="text-xs">🪙</span> <span className="font-arcade text-xs text-voxel-text">{item.price}</span> </div> </button> ); })}
+- **<button>**: {/_ Item icon _/} {/_ Item name _/} {/_ Rarity badge _/} {/_ Price _/}
 - **<div>**: {item.icon}
 - **<p>**: {item.name}
 - **<div>**: {item.rarity === "legendary" && <Crown className="w-3 h-3 text-golden-coin" />} {item.rarity === "epic" && <Star className="w-3 h-3 text-purple-600" />} {item.rarity === "common" && <Shirt className="w-3 h-3 text-sky-blue" />}
@@ -47,6 +49,7 @@ A continuación se detallan los textos encontrados en el componente y el element
 - **<span>**: Continuar al Secreto 🥚 →
 
 ## Contenido Completo del Archivo
+
 ```tsx
 "use client";
 
@@ -61,7 +64,13 @@ type ShopSectionProps = {
 };
 
 const shopItems = [
-  { id: 1, name: "Sombrero de Pastel", icon: "🎂", rarity: "legendary", price: 100 },
+  {
+    id: 1,
+    name: "Sombrero de Pastel",
+    icon: "🎂",
+    rarity: "legendary",
+    price: 100,
+  },
   { id: 2, name: "Gafas de Sol", icon: "🕶️", rarity: "epic", price: 75 },
   { id: 3, name: "Corona VIP", icon: "👑", rarity: "legendary", price: 150 },
   { id: 4, name: "Camiseta Bear", icon: "👕", rarity: "common", price: 50 },
@@ -69,7 +78,10 @@ const shopItems = [
   { id: 6, name: "Zapaturas Voxel", icon: "👟", rarity: "common", price: 60 },
 ];
 
-const rarityColors: Record<string, { bg: string; border: string; text: string }> = {
+const rarityColors: Record<
+  string,
+  { bg: string; border: string; text: string }
+> = {
   common: { bg: "rgba(255,255,255,0.6)", border: "#87CEEB", text: "#003342" },
   epic: { bg: "rgba(138,43,226,0.2)", border: "#8A2BE2", text: "#8A2BE2" },
   legendary: { bg: "rgba(255,215,0,0.2)", border: "#FFD700", text: "#FFD700" },
@@ -80,7 +92,10 @@ export function ShopSection({ onNext }: ShopSectionProps) {
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
 
   return (
-    <MissionSection stepId="shop" bgImage="/mundos/bear_village/Outfitshopplatform.webp">
+    <MissionSection
+      stepId="shop"
+      bgImage="/mundos/bear_village/Outfitshopplatform.webp"
+    >
       <div
         className={`rounded-2xl p-4 sm:p-6 lg:p-8 text-center ${
           isDesktop ? "max-w-4xl mx-auto" : "w-full"
@@ -118,7 +133,9 @@ export function ShopSection({ onNext }: ShopSectionProps) {
                 }`}
                 style={{
                   background: colors.bg,
-                  border: isSelected ? `3px solid ${colors.border}` : `2px solid ${colors.border}`,
+                  border: isSelected
+                    ? `3px solid ${colors.border}`
+                    : `2px solid ${colors.border}`,
                   boxShadow: isSelected
                     ? `0 4px 0 ${colors.border}, 0 0 20px rgba(255,215,0,0.3)`
                     : "0 3px 0 rgba(0,0,0,0.2)",
@@ -137,9 +154,15 @@ export function ShopSection({ onNext }: ShopSectionProps) {
 
                 {/* Rarity badge */}
                 <div className="flex items-center justify-center gap-1 mt-2">
-                  {item.rarity === "legendary" && <Crown className="w-3 h-3 text-golden-coin" />}
-                  {item.rarity === "epic" && <Star className="w-3 h-3 text-purple-600" />}
-                  {item.rarity === "common" && <Shirt className="w-3 h-3 text-sky-blue" />}
+                  {item.rarity === "legendary" && (
+                    <Crown className="w-3 h-3 text-golden-coin" />
+                  )}
+                  {item.rarity === "epic" && (
+                    <Star className="w-3 h-3 text-purple-600" />
+                  )}
+                  {item.rarity === "common" && (
+                    <Shirt className="w-3 h-3 text-sky-blue" />
+                  )}
                   <span className="font-arcade text-[10px] text-voxel-text uppercase">
                     {item.rarity}
                   </span>
@@ -148,7 +171,9 @@ export function ShopSection({ onNext }: ShopSectionProps) {
                 {/* Price */}
                 <div className="flex items-center justify-center gap-1 mt-2">
                   <span className="text-xs">🪙</span>
-                  <span className="font-arcade text-xs text-voxel-text">{item.price}</span>
+                  <span className="font-arcade text-xs text-voxel-text">
+                    {item.price}
+                  </span>
                 </div>
               </button>
             );
@@ -165,7 +190,8 @@ export function ShopSection({ onNext }: ShopSectionProps) {
             }}
           >
             <p className="font-milky text-sm text-golden-coin">
-              ¡{shopItems.find((i) => i.id === selectedItem)?.name} seleccionado!
+              ¡{shopItems.find((i) => i.id === selectedItem)?.name}{" "}
+              seleccionado!
             </p>
           </div>
         )}
@@ -180,17 +206,14 @@ export function ShopSection({ onNext }: ShopSectionProps) {
               border: "3px solid #8B4513",
               boxShadow: "0 6px 0 #63340b",
             }}
-
-
-
           >
-            <span className="text-sm sm:text-base">Continuar al Secreto 🥚 →</span>
+            <span className="text-sm sm:text-base">
+              Continuar al Secreto 🥚 →
+            </span>
           </Button>
         </div>
       </div>
     </MissionSection>
   );
 }
-
-
 ```
