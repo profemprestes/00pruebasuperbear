@@ -1,245 +1,102 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
+import { ResponsiveContainer } from '@/components/16-responsive-container';
 
 type ArcadeWorldScreenProps = {
   onArcadeEnd: (coins: number) => void;
 };
 
 export function ArcadeWorldScreen({ onArcadeEnd }: ArcadeWorldScreenProps) {
-  const [minigameLevel, setMinigameLevel] = useState(1);
-  const [levelComplete, setLevelComplete] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [completedLevels, setCompletedLevels] = useState<number[]>([]);
 
-  const handleNextLevel = useCallback(() => {
-    setShowSuccess(true);
-    setTimeout(() => {
-      if (minigameLevel < 5) {
-        setMinigameLevel(minigameLevel + 1);
-        setShowSuccess(false);
-        setLevelComplete(false);
-      } else {
-        // End of arcade, award coins
-        onArcadeEnd(150);
-      }
-    }, 2000);
-  }, [minigameLevel, onArcadeEnd]);
-
-  useEffect(() => {
-    if (levelComplete) {
-      handleNextLevel();
-    }
-  }, [levelComplete, handleNextLevel]);
-
-  const renderMinigame = () => {
-    switch (minigameLevel) {
-      case 1:
-        return <CoinCollectGame onComplete={() => setLevelComplete(true)} />;
-      case 2:
-        return <LavaFloorGame onComplete={() => setLevelComplete(true)} />;
-      case 3:
-        return <HoneyDodgeGame onComplete={() => setLevelComplete(true)} />;
-      case 4:
-        return <MoleWhackGame onComplete={() => setLevelComplete(true)} />;
-      case 5:
-        return <RouletteGame onComplete={() => setLevelComplete(true)} />;
-      default:
-        return null;
+  const handleLevelClick = (levelId: number) => {
+    if (!completedLevels.includes(levelId)) {
+      setCompletedLevels([...completedLevels, levelId]);
     }
   };
 
+  const allCompleted = completedLevels.length === 3;
+
   return (
-    <div className="min-h-screen w-full stars flex flex-col items-center justify-center p-2 sm:p-4">
-      <div className="relative bg-white border-6 sm:border-8 border-teddy-brown rounded-2xl p-3 sm:p-6 shadow-3d w-full max-w-3xl text-center motion-safe:animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-8 duration-500">
-        <h2 className="font-milky text-2xl sm:text-3xl md:text-4xl text-teddy-brown mb-3 sm:mb-4">
-          {showSuccess ? "¡NIVEL COMPLETADO!" : `Misión ${minigameLevel} / 5`}
-        </h2>
-        <div className="relative bg-gray-200 h-72 sm:h-80 md:h-96 w-full rounded-lg border-4 border-gray-400 overflow-hidden">
-          {renderMinigame()}
+    <ResponsiveContainer>
+      <div className="min-h-screen w-full flex flex-col items-center justify-start bg-sky-blue py-10 px-4">
+
+        <h1 className="font-milky text-4xl md:text-6xl text-teddy-brown mb-8 text-center drop-shadow-[0_4px_0_rgba(255,255,255,0.5)]">
+          Arcade World 🐻
+        </h1>
+
+        {/* Dialog Baaren */}
+        <motion.div
+          className="flex items-start gap-4 bg-white/90 border-4 border-teddy-brown rounded-2xl p-4 max-w-2xl w-full mb-8 shadow-[0_6px_0_#4E342E]"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <div className="w-16 h-16 shrink-0 bg-amber-100 rounded-full border-4 border-teddy-brown overflow-hidden flex items-center justify-center">
+            <Image src="/personajes/Baarenrender_.png" alt="Baaren" width={60} height={60} />
+          </div>
+          <div>
+            <h3 className="font-milky text-teddy-brown text-xl mb-1">Baaren</h3>
+            <p className="font-body text-[#4E342E] font-bold">
+              "¡Metele que sos un crack! Para entrar al banquete en KBOOM tenés que superar estos 3 minijuegos."
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Level Buttons (Minigames) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl mb-12">
+          {[
+            { id: 1, title: "🏀 El Tiro de Facu" },
+            { id: 2, title: "🧦 Rescate de Medias" },
+            { id: 3, title: "❓ Trivia Pro-Facu" }
+          ].map((level) => {
+            const isCompleted = completedLevels.includes(level.id);
+            return (
+              <Button
+                key={level.id}
+                onClick={() => handleLevelClick(level.id)}
+                className={`h-24 font-milky text-xl border-4 border-[#4E342E] rounded-xl transition-all shadow-[0_8px_0_#4E342E] hover:translate-y-1 hover:shadow-[0_4px_0_#4E342E] active:translate-y-2 active:shadow-none ${isCompleted ? 'bg-grass-green text-green-900 opacity-80' : 'bg-golden-coin text-amber-900'}`}
+              >
+                {isCompleted ? '✅ Completado' : level.title}
+              </Button>
+            )
+          })}
         </div>
+
+        {/* Dialog Tristopio & Continue */}
+        <AnimatePresence>
+          {allCompleted && (
+            <motion.div
+              className="flex flex-col items-center gap-6 w-full max-w-2xl"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+            >
+              <div className="flex items-start gap-4 bg-white/90 border-4 border-teddy-brown rounded-2xl p-4 w-full shadow-[0_6px_0_#4E342E]">
+                <div className="w-16 h-16 shrink-0 bg-pink-100 rounded-full border-4 border-teddy-brown overflow-hidden flex items-center justify-center text-4xl">
+                  🐰
+                </div>
+                <div>
+                  <h3 className="font-milky text-teddy-brown text-xl mb-1">Tristopio</h3>
+                  <p className="font-body text-[#4E342E] font-bold">
+                    "¡Re bien! Ya tenés todo el equipamiento y las reglas claras. Ahora pasá a guardar tu progreso."
+                  </p>
+                </div>
+              </div>
+
+              <Button
+                onClick={() => onArcadeEnd(150)}
+                className="btn-3d-green h-16 px-8 font-milky text-2xl animate-pulse hover:animate-none shadow-[0_8px_0_#2D6400]"
+              >
+                Ir al Punto de Guardado 💾
+              </Button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
       </div>
-    </div>
+    </ResponsiveContainer>
   );
 }
-
-// --- Minigame Components ---
-
-const CoinCollectGame = ({ onComplete }: { onComplete: () => void }) => {
-  const [coins, setCoins] = useState(
-    Array.from({ length: 5 }, (_, i) => ({ id: i, collected: false, top: `${10 + Math.random() * 70}%`, left: `${5 + Math.random() * 80}%` }))
-  );
-  const collectedCount = coins.filter(c => c.collected).length;
-
-  const handleCollect = (id: number) => {
-    setCoins(coins.map(c => c.id === id ? { ...c, collected: true } : c));
-  };
-
-  useEffect(() => {
-    if (collectedCount === 5) {
-      onComplete();
-    }
-  }, [collectedCount, onComplete]);
-
-  return (
-    <div className="p-3 sm:p-4 h-full flex flex-col items-center">
-      <p className="font-body font-bold text-sm sm:text-lg mb-1 sm:mb-2 text-center">¡Recoge 5 monedas del Arcade!</p>
-      <div className="relative w-full h-full">
-        {coins.map(coin => !coin.collected && (
-          <button key={coin.id} onClick={() => handleCollect(coin.id)} aria-label={`Recoger moneda ${coin.id + 1} del Arcade`} className="absolute text-3xl sm:text-4xl motion-safe:animate-float" style={{ top: coin.top, left: coin.left }}>
-            🪙
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const LavaFloorGame = ({ onComplete }: { onComplete: () => void }) => {
-    const [safePlatforms, setSafePlatforms] = useState(() => new Set(Array.from({length: 3}, () => Math.floor(Math.random() * 9))));
-    const [clickedSafe, setClickedSafe] = useState<Set<number>>(new Set());
-    const [warning, setWarning] = useState(false);
-
-    const handleClick = (index: number) => {
-        if (safePlatforms.has(index)) {
-            setClickedSafe(prev => new Set(prev).add(index));
-        } else {
-            setWarning(true);
-            setTimeout(() => setWarning(false), 1000);
-        }
-    };
-
-    useEffect(() => {
-        if(safePlatforms.size > 0 && clickedSafe.size === safePlatforms.size) {
-            onComplete();
-        }
-    }, [clickedSafe, onComplete, safePlatforms]);
-
-    return (
-        <div className="p-3 sm:p-4 h-full flex flex-col items-center">
-            <p className="font-body font-bold text-xs sm:text-sm md:text-lg mb-2 text-center leading-tight">¡Misión de Tristopio! El suelo es lava. Pisa solo las plataformas seguras.</p>
-            {warning && <p className="text-red-500 font-bold motion-safe:animate-pulse text-sm sm:text-base">¡Cuidado!</p>}
-            <div className="grid grid-cols-3 gap-1.5 sm:gap-2 w-full max-w-[16rem] sm:max-w-[20rem] aspect-square mx-auto mt-2 sm:mt-4">
-                {Array.from({ length: 9 }).map((_, i) => (
-                    <Button
-                        key={i}
-                        onClick={() => handleClick(i)}
-                        aria-label={`Plataforma ${i + 1}`}
-                        variant="ghost"
-                        size="icon"
-                        className={cn(
-                            "w-full h-full rounded-md flex items-center justify-center",
-                            safePlatforms.has(i) ? 'bg-green-500 hover:bg-green-600' : 'bg-red-600 hover:bg-red-700',
-                            clickedSafe.has(i) && 'opacity-50'
-                        )}
-                    >
-                       {clickedSafe.has(i) && '✅'}
-                    </Button>
-                ))}
-            </div>
-        </div>
-    );
-};
-
-
-const HoneyDodgeGame = ({ onComplete }: { onComplete: () => void }) => {
-  return (
-    <div className="p-3 sm:p-4 h-full flex flex-col items-center justify-center">
-      <p className="font-body font-bold text-xs sm:text-sm md:text-lg mb-3 sm:mb-4 text-center leading-tight">¡La fábrica de The Hive! Atrapa la llave, pero NO toques la miel morada.</p>
-      <div className="relative w-full h-4/5">
-        <Button
-          onClick={onComplete}
-          aria-label="Atrapar la llave"
-          variant="ghost"
-          size="icon"
-          className="absolute text-4xl sm:text-5xl motion-safe:animate-float hover:bg-transparent"
-          style={{ top: '40%', left: '20%' }}
-        >
-          🔑
-        </Button>
-        <div className="absolute text-4xl sm:text-5xl motion-safe:animate-sway" style={{ top: '20%', left: '60%' }}>🟣</div>
-        <div className="absolute text-4xl sm:text-5xl motion-safe:animate-sway" style={{ top: '60%', left: '80%', animationDelay: '-2s' }}>🟣</div>
-      </div>
-    </div>
-  );
-};
-
-const MoleWhackGame = ({ onComplete }: { onComplete: () => void }) => {
-    const [moles, setMoles] = useState([ {id: 0, active: false}, {id: 1, active: false}, {id: 2, active: false} ]);
-    const [whacked, setWhacked] = useState(0);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            const randomIndex = Math.floor(Math.random() * moles.length);
-            setMoles(moles.map((mole, i) => i === randomIndex ? {...mole, active: true} : {...mole, active: false}));
-            setTimeout(() => setMoles(moles.map(m => ({...m, active: false}))), 1000);
-        }, 1500);
-        return () => clearInterval(interval);
-    }, [moles]);
-
-    const handleWhack = () => {
-        const newCount = whacked + 1;
-        setWhacked(newCount);
-        if (newCount >= 3) {
-            onComplete();
-        }
-    }
-
-    return (
-        <div className="p-3 sm:p-4 h-full flex flex-col items-center">
-            <p className="font-body font-bold text-sm sm:text-lg mb-2 text-center">¡Despierta a los 3 topos dormidos! ({whacked}/3)</p>
-            <div className="flex justify-around w-full mt-4 sm:mt-8">
-                {moles.map(mole => (
-                    <div key={mole.id} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-stone-700 rounded-full flex items-center justify-center">
-                        {mole.active && (
-                            <Button
-                                onClick={handleWhack}
-                                aria-label="Golpear topo"
-                                variant="ghost"
-                                size="icon"
-                                className="text-3xl sm:text-4xl md:text-5xl motion-safe:animate-in fade-in-0 zoom-in-75 hover:bg-transparent"
-                            >
-                                🔥
-                            </Button>
-                        )}
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-};
-
-const RouletteGame = ({ onComplete }: { onComplete: () => void }) => {
-    const [spinning, setSpinning] = useState(false);
-
-    const handleSpin = () => {
-        setSpinning(true);
-        setTimeout(() => {
-            onComplete();
-        }, 2000);
-    }
-    return (
-        <div className="p-3 sm:p-4 h-full flex flex-col items-center justify-center">
-             <p className="font-body font-bold text-xs sm:text-sm md:text-lg mb-3 sm:mb-4 text-center leading-tight">¡Gira la ruleta de Capitalos para tu recompensa final!</p>
-            {!spinning ? (
-                <Button
-                    onClick={handleSpin}
-                    aria-label="Girar la ruleta de Capitalos para obtener recompensa"
-                    variant="3d-gold"
-                    size="game-lg"
-                    className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-tr from-red-500 via-yellow-500 to-blue-500 font-milky text-base sm:text-lg md:text-2xl shadow-lg motion-safe:animate-float"
-                >
-                    GIRAR
-                </Button>
-            ) : (
-                <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-tr from-red-500 via-yellow-500 to-blue-500 motion-safe:animate-roulette flex items-center justify-center">
-                     <div className="w-[calc(100%-8px)] h-[calc(100%-8px)] rounded-full bg-white flex items-center justify-center font-milky text-teddy-brown text-xs sm:text-sm md:text-lg text-center p-2">
-                        ¡Premio Legendario!
-                    </div>
-                </div>
-            )}
-        </div>
-    );
-};
-
